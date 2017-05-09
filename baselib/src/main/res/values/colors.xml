@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF4081</color>
+    <color name="colorPrimaryDark">#FF4081</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="red_point">#FF3030</color>
+
+    <color name="pic_color_white">#F3F3F3</color>
+    <color name="greylight">#DDDDDD</color>
+    <color name="grey">#8C8C8C</color>
+
+    <color name="pic_theme_color">#09BB07</color>
+    <color name="pic_complete_press">#B6E4BB</color>
+</resources>

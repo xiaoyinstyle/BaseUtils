@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_centerHorizontal="true"
+        tools:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:singleLine="true"
+        tools:text="测试测试测试测试" />
+
+    <View
+        android:id="@+id/v_red_point"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_alignEnd="@+id/iv_img"
+        android:layout_alignRight="@+id/iv_img"
+        android:layout_alignTop="@+id/iv_img"
+        android:layout_marginRight="-5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/base_red_point"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_red_point"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignEnd="@+id/iv_img"
+        android:layout_alignRight="@+id/iv_img"
+        android:layout_alignTop="@+id/iv_img"
+        android:layout_marginRight="-10dp"
+        android:background="@drawable/base_red_point"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        android:visibility="invisible" />
+</RelativeLayout>

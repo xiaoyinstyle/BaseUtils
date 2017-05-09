@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jskingen.baseutils.MainActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3">
+
+        <Button
+            android:id="@+id/bt_main_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TabActivity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RecyclerActivity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_loadrefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoadRefreshActivity"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/bt_main_webwiew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WebviewActivity"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/bt_main_permisson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6.0权限管理"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片加载"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_http"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网络请求"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文件下载"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文件上传"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="软件更新"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="各种dialog"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取图片"
+            android:textAllCaps="false" />
+    </GridLayout>
+
+
+</ScrollView>
