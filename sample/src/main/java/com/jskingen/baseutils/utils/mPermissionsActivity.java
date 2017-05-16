@@ -20,7 +20,7 @@ public class mPermissionsActivity extends TitleActivity {
     @BindView(R.id.text)
     TextView textView;
 
-    private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void setTitle() {

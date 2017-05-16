@@ -2,11 +2,14 @@ package com.jskingen.baselib.activity.base;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jskingen.baselib.R;
 
 import yin.style.recyclerlib.decoration.BaseDividerItem;
@@ -17,16 +20,9 @@ import yin.style.recyclerlib.decoration.BaseDividerItem;
  * RecyclerViewActivity,可进行 列表或者表格
  */
 
-public abstract class RecyclerViewActivity extends TitleActivity implements SwipeRefreshLayout.OnRefreshListener {
-    public static final int LINEARLAYOUT = 0;
-    public static final int GRIDLAYOUT = 1;
+public abstract class RecyclerViewActivity extends TitleActivity {
 
-    protected int type = LINEARLAYOUT;
-    private int spanCount = 2;
-
-    protected RecyclerView recyclerView;
-    protected SwipeRefreshLayout swipeRefreshLayout;
-    private boolean isCanRefresh = true;
+    protected XRecyclerView mRecyclerView;
 
     @Override
     protected int getViewByXml() {
@@ -35,74 +31,118 @@ public abstract class RecyclerViewActivity extends TitleActivity implements Swip
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mRecyclerView = (XRecyclerView) findViewById(R.id.recyclerView);
 
-        initType();
-        if (type == LINEARLAYOUT) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.addItemDecoration(getItemDecoration());
-        } else {
-            GridLayoutManager mGridLayoutManager = new GridLayoutManager(this, spanCount);
-            recyclerView.setLayoutManager(mGridLayoutManager);
-            recyclerView.addItemDecoration(getItemDecoration());
-        }
+        setLayoutManager();
+        setItemDecoration();
+        setCanRefresh(false);
+        setCanLoading(false);
+
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
 
         if (null == setAdapter())
-            throw new NullPointerException("RecyclerView.Adapter is not null");
+            throw new NullPointerException("RecyclerView adapter is not null");
         else
-            recyclerView.setAdapter(setAdapter());
-
-        //刷新功能
-        isCanRefresh = setCanRefresh(swipeRefreshLayout);
-        swipeRefreshLayout.setEnabled(isCanRefresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
+            mRecyclerView.setAdapter(setAdapter());
     }
 
-    @Override
-    protected void initData() {
-        if (isCanRefresh)
-            swipeRefreshLayout.setRefreshing(true);
-        onRefresh();
-    }
-
-    /**
-     * 重写这个方法 来控制 是否可以 刷新数据
-     */
-    protected abstract boolean setCanRefresh(SwipeRefreshLayout swipeRefreshLayout);
-
-    protected void setRefreshing(boolean refreshing) {
-        if (null != swipeRefreshLayout)
-            swipeRefreshLayout.setRefreshing(refreshing);
-    }
-
-    /**
-     * 设置类型 LinearLayout还是GridLayout
-     */
-    protected void initType() {
-        setType(LINEARLAYOUT, spanCount);
-    }
-
-    protected void setType(int type, int spanCount) {
-        if (type != LINEARLAYOUT && type != GRIDLAYOUT) {
-            throw new IllegalArgumentException("type must be one of LINEARLAYOUT and GRIDLAYOUT");
+    protected void setLayoutManager() {
+        if (setGridNumb() <= 1) {
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(layoutManager);
+        } else {
+            GridLayoutManager layoutManager = new GridLayoutManager(this, setGridNumb());
+            mRecyclerView.setLayoutManager(layoutManager);
         }
-
-        this.type = type;
-        this.spanCount = spanCount;
     }
 
-    protected RecyclerView.ItemDecoration getItemDecoration() {
-        return new BaseDividerItem(setItemWidth(), setItemColor());
+    /**
+     * 设置刷新 或者加载的监听
+     *
+     * @param listener
+     */
+    protected void setListener(XRecyclerView.LoadingListener listener) {
+        mRecyclerView.setLoadingListener(listener);
+    }
+
+    /**
+     * 重写这个 可以对 RecyclerView 进行设置 setLayoutManager
+     * <p>
+     * 小于等于 1 ，为LinearLayoutManager，其他为 GridLayoutManager
+     */
+    protected int setGridNumb() {
+        return 0;
+    }
+
+    /**
+     * 重写这个 设置间隔线
+     */
+    protected void setItemDecoration() {
+        RecyclerView.ItemDecoration itemDecoration = new BaseDividerItem(1, setItemColor());
+        mRecyclerView.addItemDecoration(itemDecoration);
+    }
+
+    /**
+     * 重新这个 可以改变 间隔线的颜色
+     */
+    protected int setItemColor() {
+        return Color.parseColor("#DCDCDC");
     }
 
     protected abstract RecyclerView.Adapter setAdapter();
 
-    protected int setItemWidth() {
-        return 2;
+    /**
+     * 添加 HeadView  (也可以直接在 baseAdapter里加)
+     *
+     * @param view
+     */
+    protected void addHeadView(View view) {
+        mRecyclerView.addHeaderView(view);
     }
 
-    protected int setItemColor() {
-        return Color.parseColor("#DCDCDC");
+    /**
+     * 可以刷新
+     *
+     * @param canRefresh
+     */
+    public void setCanRefresh(boolean canRefresh) {
+        mRecyclerView.setPullRefreshEnabled(canRefresh);
+    }
+
+    /**
+     * 可以加载
+     *
+     * @param canLoading
+     */
+    public void setCanLoading(boolean canLoading) {
+        mRecyclerView.setLoadingMoreEnabled(canLoading);
+    }
+
+    /**
+     * 刷新完成
+     */
+    public void setRefreshComplete() {
+        mRecyclerView.refreshComplete();
+    }
+
+    /**
+     * 加载完成
+     */
+    public void setLoadMoreComplete() {
+        mRecyclerView.loadMoreComplete();
+    }
+
+    /**
+     * 开始刷新
+     */
+    public void refresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRecyclerView.refresh();
+            }
+        }, 100);
     }
 }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jskingen.baselib.R;
 import com.jskingen.baselib.activity.base.NormalAcitivity;
-import com.jskingen.baselib.imageload.GildeUtil;
+import com.jskingen.baselib.imageload.GlideUtil;
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baselib.view.imagezoom.ImageViewTouch;
 import com.jskingen.baselib.view.imagezoom.ImageViewTouchBase;
@@ -110,7 +110,7 @@ public class PicturePreviewActivity extends NormalAcitivity {
      */
     protected View getView(Object file) {
         ImageViewTouch view = new ImageViewTouch(this);
-        GildeUtil.getInstance(this).setView(view, file);
+        GlideUtil.getInstance(this).setView(view, file);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

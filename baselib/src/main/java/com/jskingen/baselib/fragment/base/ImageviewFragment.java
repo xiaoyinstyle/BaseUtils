@@ -18,12 +18,15 @@ import com.jskingen.baselib.R;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ImageviewFragment extends Fragment {
-    public static final String PATH = "path";
+    public static final String TAG_PATH = "TAG_PATH";
+    public static final String TAG_CLICK = "TAG_CLICK";
+    private boolean touchFinish = true;
 
-    public static ImageviewFragment getInstance(String path) {
+    public static ImageviewFragment getInstance(String path, boolean touchFinish) {
         ImageviewFragment fragment = new ImageviewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(PATH, path);
+        bundle.putString(TAG_PATH, path);
+        bundle.putBoolean(TAG_CLICK, touchFinish);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -35,7 +38,8 @@ public class ImageviewFragment extends Fragment {
         final ImageView imageView = (ImageView) contentView.findViewById(R.id.preview_image);
         final PhotoViewAttacher mAttacher = new PhotoViewAttacher(imageView);
 
-        String path = getArguments().getString(PATH);
+        String path = getArguments().getString(TAG_PATH);
+        touchFinish = getArguments().getBoolean(TAG_CLICK);
         Glide.with(container.getContext())
                 .load(path)
                 .asBitmap()
@@ -50,7 +54,8 @@ public class ImageviewFragment extends Fragment {
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {
-                getActivity().finish();
+                if (touchFinish)
+                    getActivity().finish();
             }
         });
         return contentView;

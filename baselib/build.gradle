@@ -28,7 +28,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["cardview-v7"]
 
     //retrofit2
     compile rootProject.ext.dependencies["retrofit"]
@@ -41,7 +41,7 @@ dependencies {
     //注解
     compile rootProject.ext.dependencies["glide"]
     compile rootProject.ext.dependencies["butterknife"]
-    compile rootProject.ext.dependencies["xrecyclerview"]
+//    compile rootProject.ext.dependencies["xrecyclerview"]
 
     compile 'com.commit451:PhotoView:1.2.4'
     //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

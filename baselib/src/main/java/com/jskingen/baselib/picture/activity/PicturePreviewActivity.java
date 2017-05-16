@@ -70,6 +70,12 @@ public class PicturePreviewActivity extends NormalAcitivity {
         cbRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //超过最多选择
+                if (cbRight.isChecked() && !PictureManage.getInstance().canAdd()) {
+                    cbRight.setChecked(false);
+                    return;
+                }
+
                 if (cbRight.isChecked()) {
                     AnimationUtils.start(cbRight);
                     PictureManage.getInstance().addFile(list.get(currentPos));

@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.imageload.GildeUtil;
+import com.jskingen.baselib.imageload.GlideUtil;
 import com.jskingen.baseutils.R;
 
 import butterknife.BindView;
@@ -40,11 +40,11 @@ public class mImageActivity extends TitleActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        GildeUtil.getInstance().setView(imageView, "http://attach.bbs.miui.com/forum/201209/11/222515j3sgvvjv36gg5n29.jpg");
-        GildeUtil.getInstance().setRoundView(imageRound, "http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg", 10);
-        GildeUtil.getInstance().setCircleView(imageCircle, "http://img2.imgtn.bdimg.com/it/u=1818233543,736611189&fm=23&gp=0.jpg");
-        GildeUtil.getInstance().setCircleView2(imageCircle2, "http://img5.imgtn.bdimg.com/it/u=1858405955,2052924480&fm=23&gp=0.jpg", 3, Color.BLUE);
-        GildeUtil.getInstance().setGif(imageGif, "http://img1.imgtn.bdimg.com/it/u=3789472357,190916494&fm=214&gp=0.jpg");
+        GlideUtil.getInstance().setView(imageView, "http://attach.bbs.miui.com/forum/201209/11/222515j3sgvvjv36gg5n29.jpg");
+        GlideUtil.getInstance().setRoundView(imageRound, "http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg", 10);
+        GlideUtil.getInstance().setCircleView(imageCircle, "http://img2.imgtn.bdimg.com/it/u=1818233543,736611189&fm=23&gp=0.jpg");
+        GlideUtil.getInstance().setCircleView2(imageCircle2, "http://img5.imgtn.bdimg.com/it/u=1858405955,2052924480&fm=23&gp=0.jpg", 3, Color.BLUE);
+        GlideUtil.getInstance().setGif(imageGif, "http://img1.imgtn.bdimg.com/it/u=3789472357,190916494&fm=214&gp=0.jpg");
 
 
     }
@@ -65,10 +65,10 @@ public class mImageActivity extends TitleActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_clear:
-                GildeUtil.Cache.clearImageAllCache(this);
+                GlideUtil.Cache.clearImageAllCache(this);
                 break;
             case R.id.bt_read:
-                String size =    GildeUtil.Cache.getCacheSize(this);
+                String size =    GlideUtil.Cache.getCacheSize(this);
                 tvSize.setText("" + size);
                 break;
         }

@@ -8,7 +8,7 @@ import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.picture.fragment.PictureAlbumFragment;
 
 public class PictureAlbumActivity extends TitleActivity {
-    PictureAlbumFragment fragment;
+    private PictureAlbumFragment fragment;
 
     @Override
     protected int getViewByXml() {

@@ -11,6 +11,10 @@ import android.support.v4.content.FileProvider;
 import com.jskingen.baselib.BaseHelp;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * android 7.0 文件管理 utils
@@ -114,6 +118,31 @@ public class FileUtils {
         if (!nomedia.exists())
             nomedia.mkdirs();
         return file;
+    }
+
+//    //图片文件路径
+//    public static File getImageFileTemp(Context context) {
+//        try {
+//            return File.createTempFile("temp_", ".png", getImageFile(context));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new File(getImageFile(context), "temp_" + UUID.randomUUID() + ".png");
+//        }
+//    }
+
+    /**
+     * 保存图片到 系统图片路劲
+     *
+     * @return 保存的图片
+     */
+    public static File getSystemImageFileTemp() {
+        String cameraPath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera" + File.separator;
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        long t = System.currentTimeMillis();
+        Date date = new Date(t);
+        String temp = (t + "").substring((t + "").length() - 6, (t + "").length());
+        return new File(new File(cameraPath), "IMG_" + format.format(date) + "_" + temp + ".jpg");
     }
 
     //图片文件路径

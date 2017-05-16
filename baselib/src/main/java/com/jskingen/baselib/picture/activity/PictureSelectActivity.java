@@ -1,5 +1,6 @@
 package com.jskingen.baselib.picture.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -101,5 +102,11 @@ public class PictureSelectActivity extends TitleActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        fragment.activityResult(requestCode,resultCode,data);
     }
 }

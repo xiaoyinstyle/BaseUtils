@@ -40,10 +40,8 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
     private BaseQuickAdapter adapter;
     private List<MediaFolder> list = new ArrayList<>();
 
-    @Override
-    protected boolean setCanRefresh(SwipeRefreshLayout swipeRefreshLayout) {
-        return false;
-    }
+    private int selectNumb;
+
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
@@ -85,30 +83,37 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
     }
 
     @Override
-    public void onRefresh() {
+    protected void initData() {
         if (null == jumpActivity)
             throw new NullPointerException("JumpActivity must be set");
+        PictureManage.getInstance().position = 0;
         startActivity(new Intent(getActivity(), jumpActivity));
         new MediaLoader(getActivity(), false).loadAllImage(null);
 
         Subscription subscription = RxBus.getInstance().doSubscribe(MediaFile.class, new Action1<MediaFile>() {
             @Override
             public void call(MediaFile imageFile) {
-                for (int i = 0; i < list.size(); i++) {
-                    if (i == 0 || TextUtils.equals(imageFile.getParentPath(), list.get(i).getPath())) {
-                        for (MediaFile file : list.get(i).getImageFiles()) {
-                            if (TextUtils.equals(file.getPath(), imageFile.getPath())) {
-                                file.setChecked(imageFile.isChecked());
-                                if (imageFile.isChecked()) {
-                                    list.get(i).setSelectNum(list.get(i).getSelectNum() + 1);
-                                } else {
-                                    list.get(i).setSelectNum(list.get(i).getSelectNum() - 1);
+                //单选
+                if (PictureManage.getInstance().isSelectOne()||PictureManage.getInstance().isTakePhoto()) {
+                    RxBus.getInstance().post(PICTURE_TAG_COMPLETE);
+                } else {
+                    //多选
+                    for (int i = 0; i < list.size(); i++) {
+                        if (i == 0 || TextUtils.equals(imageFile.getParentPath(), list.get(i).getPath())) {
+                            for (MediaFile file : list.get(i).getImageFiles()) {
+                                if (TextUtils.equals(file.getPath(), imageFile.getPath())) {
+                                    file.setChecked(imageFile.isChecked());
+                                    if (imageFile.isChecked()) {
+                                        list.get(i).setSelectNum(list.get(i).getSelectNum() + 1);
+                                    } else {
+                                        list.get(i).setSelectNum(list.get(i).getSelectNum() - 1);
+                                    }
                                 }
                             }
-                        }
 
-                        if (i != 0)
-                            break;
+                            if (i != 0)
+                                break;
+                        }
                     }
                 }
             }
@@ -118,7 +123,7 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
             @Override
             public void call(Integer integer) {
                 if (integer == PICTURE_TAG_COMPLETE) {
-                    PictureManage.getInstance().setListener();
+                    PictureManage.getInstance().setComplete();
                     getActivity().finish();
                 } else if (integer == PICTURE_TAG_CENCEL) {
                     getActivity().finish();
@@ -131,7 +136,10 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
 
         RxBus.getInstance().addSubscription(this, subscription);
         RxBus.getInstance().addSubscription(this, subscription1);
+
+        selectNumb = PictureManage.getInstance().getSelectNumb();
     }
+
 
     @Override
     public void onResume() {
@@ -144,7 +152,6 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
     public void onDestroy() {
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
-        PictureManage.getInstance().clear();
     }
 
     /**
@@ -155,4 +162,5 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
     public void setSelectActivity(Class selectActivity) {
         this.jumpActivity = selectActivity;
     }
+
 }

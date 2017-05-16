@@ -25,12 +25,12 @@ import java.math.BigDecimal;
  * <p>
  * Glide工具 二次封装 v1.0.2
  */
-public class GildeUtil {
+public class GlideUtil {
     private static final int error = R.mipmap.glide_error_loading;//error图片
     private static final int error_circle = R.mipmap.glide_error_loading_round;//error圆形图片
 
     private static final int defaultImage = R.mipmap.glide_loading;//默认显示 加载成功之前的图片
-    private static final int defaultcircleImage = R.mipmap.glide_error_loading_round;//默认显示 加载成功之前的圆形图片
+    private static final int defaultCircleImage = R.mipmap.glide_error_loading_round;//默认显示 加载成功之前的圆形图片
 
     private static final int borderWidth = 2;//边框宽度
     private static final int borderColor = Color.BLUE;//边框颜色
@@ -38,17 +38,17 @@ public class GildeUtil {
     private Context context;
     private boolean hasCache = true;//是否缓存
 
-    private static GildeUtil instance;
+    private static GlideUtil instance;
 
     //有缓存
-    public static GildeUtil getInstance() {
+    public static GlideUtil getInstance() {
         return getInstance(null);
     }
 
     //无缓存
-    public static GildeUtil getInstance(Context context) {
+    public static GlideUtil getInstance(Context context) {
         if (instance == null) {
-            instance = new GildeUtil();
+            instance = new GlideUtil();
         }
         if (null == instance.context)
             instance.context = AppManager.getInstance().currentActivity().getApplicationContext();
@@ -105,7 +105,7 @@ public class GildeUtil {
     public void setCircleView(ImageView imageView, Object res, int error) {
         setGlide(res)
                 .error(error)
-                .placeholder(defaultcircleImage)
+                .placeholder(defaultCircleImage)
                 .transform(new GlideCircleTransform(context))
                 .into(imageView);
     }
@@ -126,7 +126,7 @@ public class GildeUtil {
     public void setCircleView2(ImageView imageView, Object res, int mborderWidth, @ColorInt int mborderColor, int error) {
         setGlide(res)
                 .error(error)
-                .placeholder(defaultcircleImage)
+                .placeholder(defaultCircleImage)
                 .transform(new GlideCircleTransform(context, mborderWidth, mborderColor))
                 .into(imageView);
     }

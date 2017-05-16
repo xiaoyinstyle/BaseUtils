@@ -138,8 +138,8 @@ public class MediaLoader {
             imageFolder.add(mediaFolder);
         }
 
-        //添加最近照片 最多100张
-        if (imageFiles.size() < 100)
+        //添加最近照片 最多99张
+        if (imageFiles.size() < 99)
             imageFiles.add(tempImageFile);
     }
 

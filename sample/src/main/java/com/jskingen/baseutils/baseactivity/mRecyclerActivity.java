@@ -1,9 +1,10 @@
 package com.jskingen.baseutils.baseactivity;
 
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jskingen.baselib.activity.base.RecyclerViewActivity;
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baseutils.R;
@@ -53,34 +54,29 @@ public class mRecyclerActivity extends RecyclerViewActivity {
     }
 
     @Override
-    public void onRefresh() {
-//        recyclerView.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                for (int i = 0; i < 5; i++) {
-//                    list.add("" + i);
-//                }
-//                adapter.notifyDataSetChanged();
-//                setRefreshing(false);
-//            }
-//        }, 1000);
-    }
+    protected void initData() {
+        setCanRefresh(true);
+        refresh();
 
-    @Override
-    protected boolean setCanRefresh(SwipeRefreshLayout swipeRefreshLayout) {
-        return true;
-    }
+        setListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        list.clear();
+                        for (int i = 0; i < 100; i++) {
+                            list.add("" + i);
+                        }
+                        adapter.notifyDataSetChanged();
+                        setRefreshComplete();
+                    }
+                }, 3000);
+            }
 
-    protected void initType() {
-        if (GRIDLAYOUT != type)
-            setType(GRIDLAYOUT, 3);
-        else
-            setType(LINEARLAYOUT, 0);
-    }
+            @Override
+            public void onLoadMore() {
 
-    protected int setItemWidth() {
-        return 0;
+            }
+        });
     }
-
 }

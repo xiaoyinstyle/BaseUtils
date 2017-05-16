@@ -35,18 +35,13 @@ public class UpdateSoftUtils {
     private Context context;
     private boolean isShowToast = false;//是否显示Toast
     private String downloadUrl = ""; //下载地址
-    private String updataUrl = ""; //下载地址
+    private String updataUrl = BaseHelp.getInstance().getConfiguration().baseUrl + "down/meters_android_version.txt";//下载地址
+    private boolean isWifiUpdata = false;
 
     private String apkName = "apk";
 
-    private UpdateSoftUtils(Builder builder) {
-        this.context = builder.context;
-        this.promptDialog = builder.promptDialog;
-        this.isShowToast = builder.showToast;
-        this.updataUrl = builder.updataUrl;
-        this.downloadUrl = builder.downloadUrl;
-
-        compareVersion();
+    private UpdateSoftUtils(Context context) {
+        this.context = context;
     }
 
     /**
@@ -59,8 +54,8 @@ public class UpdateSoftUtils {
         service.update(updataUrl).enqueue(new OnResponseCallback<UpdateBean>() {
             @Override
             public void onSuccess(UpdateBean updateBean) {
-//                if (!TextUtils.equals(BuildConfig.VERSION_NAME, updateBean.getCODE())) {
-                if (!TextUtils.equals(AppUtil.getVersionName(context), updateBean.getCODE())) {
+                if (checkUpdata(updateBean.getCODE())) {
+//                if (!TextUtils.equals(AppUtil.getVersionName(context), updateBean.getCODE())) {
                     //有更新
                     apkName = context.getString(R.string.app_name) + "_v" + updateBean.getCODE();
                     showPromptDialog(updateBean.getMSG());
@@ -143,6 +138,8 @@ public class UpdateSoftUtils {
      * 更新提示弹出框
      */
     private void showPromptDialog(String message) {
+//        if (isWifiUpdata)
+//            return;
         if (promptDialog == null) {
             promptDialog = new AlertDialog.Builder(context)
                     .setTitle("更新提示")
@@ -167,49 +164,59 @@ public class UpdateSoftUtils {
         });
     }
 
+    /**
+     * 检测 网络版本 对比
+     *
+     * @param NetCode
+     * @return
+     */
+    private boolean checkUpdata(String NetCode) {
+        String AppCode = AppUtil.getVersionName(context);
+        try {
+            return Float.parseFloat(NetCode) > Float.parseFloat(AppCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static class Builder {
-        private String downloadUrl;
-        private String updataUrl = BaseHelp.getInstance().getConfiguration().baseUrl + "down/meters_android_version.txt";
-        private boolean isWifiUpdata = false;
-        private AlertDialog promptDialog;
-        private boolean showToast;
-        private Context context;
+        private UpdateSoftUtils updateSoftUtils;
 
         public Builder(@NonNull Context context) {
-            this.context = context;
+            updateSoftUtils = new UpdateSoftUtils(context);
         }
 
         public Builder promptDialog(AlertDialog promptDialog) {
             if (promptDialog != null)
-                this.promptDialog = promptDialog;
+                updateSoftUtils.promptDialog = promptDialog;
             return this;
         }
 
         public Builder isWifiUpdata(boolean isWifiUpdata) {
-            this.isWifiUpdata = isWifiUpdata;
+            updateSoftUtils.isWifiUpdata = isWifiUpdata;
             return this;
         }
 
         public Builder showToast(boolean showToast) {
-            this.showToast = showToast;
+            updateSoftUtils.isShowToast = showToast;
             return this;
         }
 
         public Builder downloadUrl(String downloadUrl) {
-            this.downloadUrl = downloadUrl;
+            updateSoftUtils.downloadUrl = downloadUrl;
             return this;
         }
 
         public Builder updataUrl(String updataUrl) {
-            this.updataUrl = updataUrl;
+            updateSoftUtils.updataUrl = updataUrl;
             return this;
         }
 
-        public UpdateSoftUtils build() {
-            if (TextUtils.isEmpty(downloadUrl))
-                new Exception("下载地址错误,无法更新");
-            return new UpdateSoftUtils(this);//  compareVersion();
+        public void build() {
+            if (TextUtils.isEmpty(updateSoftUtils.downloadUrl))
+                throw new NullPointerException("The download url is empty and cannot be updated");
+            updateSoftUtils.compareVersion();
         }
 
     }

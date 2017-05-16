@@ -13,6 +13,7 @@ import yin.style.recyclerlib.R;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.recyclerlib.inter.OnItemClickLongListener;
+import yin.style.recyclerlib.view.EmptyView;
 
 public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     private View emptyView;
@@ -30,7 +31,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     protected Context mContext;
     private int headerViewCount = 0;
     private int footerViewCount = 0;
-    private boolean showEmptyView = true;
+    private boolean showEmptyView = false;
 
     public BaseQuickAdapter(@LayoutRes int layoutResId, List mData) {
         this.layoutResId = layoutResId;
@@ -95,18 +96,14 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         if (viewType == TYPE_EMPTY) {//空布局
-            if (emptyView == null)
-                emptyView = LayoutInflater.from(mContext).inflate(R.layout.item_empty, parent, false);
             setOnclickEmpty();
-            return new BaseViewHolder(emptyView);
+            return new BaseViewHolder(getEmptyView(parent));
         } else if (viewType == TYPE_HEADER) {//Header布局
             return new BaseViewHolder(headerView);
         } else if (viewType == TYPE_ITEM) {//正常布局
             View view = LayoutInflater.from(mContext).inflate(layoutResId, parent, false);
             return new ItemViewHolder(view);
         } else if (viewType == TYPE_FOOTER) {//Footer布局
-            if (footerView == null)
-                footerView = LayoutInflater.from(mContext).inflate(R.layout.item_foot, parent, false);
             return new BaseViewHolder(footerView);
 
         }
@@ -155,8 +152,20 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public void setEmptyView(View emptyView) {
         if (emptyView == null)
             showEmptyView = false;
-        else
+        else {
+            showEmptyView = true;
             this.emptyView = emptyView;
+        }
+    }
+
+    public View getEmptyView(ViewGroup view) {
+        EmptyView eV = new EmptyView(mContext);
+        eV.removeAllViews();
+        if (emptyView == null) {
+            emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
+            eV.addView(emptyView);
+        }
+        return emptyView;
     }
 
     /**
@@ -201,7 +210,6 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public void addFooterView(View view) {
         if (view != null) {
             footerView = view;
-//            showFooterView();
         } else
             footerViewCount = 0;
     }
@@ -283,4 +291,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         notifyItemChanged(position + headerViewCount);
     }
 
+    public void notifyChanged() {
+        if (showEmptyView)
+            notifyDataSetChanged();
+    }
 }

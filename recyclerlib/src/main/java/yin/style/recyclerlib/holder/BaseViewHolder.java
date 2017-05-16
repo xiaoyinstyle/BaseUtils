@@ -84,7 +84,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder setText(int viewId, @StringRes int strId) {
         TextView view = getView(viewId);
-        view.setText(strId);
+        try {
+            view.setText(strId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.setText("" + strId);
+        }
         return this;
     }
 

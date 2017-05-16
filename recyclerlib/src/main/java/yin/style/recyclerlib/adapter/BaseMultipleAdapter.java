@@ -34,12 +34,11 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
     protected Context mContext;
     private int headerViewCount = 0;
     private int footerViewCount = 0;
-    private boolean showEmptyView = true;
+    private boolean showEmptyView = false;
 
     public BaseMultipleAdapter(@LayoutRes int layoutResId, List mData) {
         this.layoutResId = layoutResId;
         this.mData = mData;
-
     }
 
     //正常Adapter的 监听
@@ -101,7 +100,7 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
         mContext = parent.getContext();
         if (viewType == TYPE_EMPTY) {//空布局
             if (emptyView == null)
-                emptyView = LayoutInflater.from(mContext).inflate(R.layout.item_empty, parent, false);
+                emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, parent, false);
             setOnclickEmpty();
             return new BaseViewHolder(emptyView);
         } else if (viewType == TYPE_HEADER) {//Header布局
@@ -111,9 +110,8 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
             return new ItemViewHolder(view);
         } else if (viewType == TYPE_FOOTER) {//Footer布局
             if (footerView == null)
-                footerView = LayoutInflater.from(mContext).inflate(R.layout.item_foot, parent, false);
+                throw new NullPointerException("footerView is not empty");
             return new BaseViewHolder(footerView);
-
         }
         return null;
     }

@@ -2,6 +2,7 @@ package com.jskingen.baseutils.photo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -13,9 +14,11 @@ import com.jskingen.baselib.picture.activity.PictureAlbumActivity;
 import com.jskingen.baselib.picture.inter.OnSelectListener;
 import com.jskingen.baselib.picture.model.MediaFile;
 import com.jskingen.baselib.picture.utils.PictureManage;
+import com.jskingen.baselib.picture.utils.PictureUtils;
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baseutils.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,8 +28,6 @@ public class TakePhotoActivity extends TitleActivity {
 
     @BindView(R.id.checkbox)
     CheckBox checkbox;
-    @BindView(R.id.imageView)
-    ImageView imageView;
     @BindView(R.id.et_pic_nub)
     EditText etPicNub;
     @BindView(R.id.checkbox_take)
@@ -34,9 +35,12 @@ public class TakePhotoActivity extends TitleActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    private PhotoAdapter adapter;
+    private List<MediaFile> list = new ArrayList<>();
+
     @Override
     protected void setTitle() {
-
+        title.setText("图片选择");
     }
 
     @Override
@@ -46,22 +50,21 @@ public class TakePhotoActivity extends TitleActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
+        adapter = new PhotoAdapter(R.layout.item_takephoto, list);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void initData() {
-
     }
-
-    private final int TAKE_PHOTO_START = 10;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (TAKE_PHOTO_START == requestCode) {
-
-        }
     }
 
 
@@ -70,15 +73,24 @@ public class TakePhotoActivity extends TitleActivity {
         switch (view.getId()) {
             case R.id.bt_takephoto:
                 // 只拍照
-
+                //相册选择
+                PictureUtils.getInstance().openCamera(this, checkbox.isChecked(), new OnSelectListener() {
+                    @Override
+                    public void onComplete(List<MediaFile> selectListt) {
+                        list.clear();
+                        list.addAll(selectListt);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 break;
             case R.id.bt_album:
                 //相册选择
-
-                PictureManage.getInstance().openAlbum(this, new OnSelectListener() {
+                PictureUtils.getInstance().openAlbum(this, checkboxTake.isChecked(), checkbox.isChecked(), new OnSelectListener() {
                     @Override
                     public void onComplete(List<MediaFile> selectListt) {
-                        ToastUtils.show(selectListt.size() + "");
+                        list.clear();
+                        list.addAll(selectListt);
+                        adapter.notifyDataSetChanged();
                     }
                 });
                 break;
@@ -93,12 +105,14 @@ public class TakePhotoActivity extends TitleActivity {
                     nub = 3;
                 }
 
-//                MediaLoader.get(this).openAlbumMore(nub, checkboxTake.isChecked(), new MediaLoader.OnPictureCallback() {
-//                    @Override
-//                    public void onSuccess(List<String> paths, Bitmap bitmap) {
-//
-//                    }
-//                });
+                PictureUtils.getInstance().openAlbum(this, nub, checkboxTake.isChecked(), new OnSelectListener() {
+                    @Override
+                    public void onComplete(List<MediaFile> selectListt) {
+                        list.clear();
+                        list.addAll(selectListt);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
                 break;
         }
     }

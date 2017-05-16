@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import yin.style.recyclerlib.view.EmptyView;
+
 /**
  * Created by chenY on 2017/1/16.
  */
@@ -98,15 +100,16 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     }
 
     private boolean isEmptyView(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getChildCount() == 1) {
-            View view = parent.getChildAt(0);
-            if (/*gridLayoutManager.getSpanCount() * (view.getRight() + space) == parent.getRight()
-                    && */(view.getBottom() + space) == parent.getBottom()) {
-                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
-                layoutParams.height = parent.getBottom() - space * 2;
-                layoutParams.width = parent.getRight() - space * 2;
-                view.setLayoutParams(layoutParams);
-                return true;
+        if (parent.getChildCount() != 0) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View view = parent.getChildAt(i);
+                if (view instanceof EmptyView) {
+                    RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
+                    layoutParams.height = parent.getBottom() - space * 2;
+                    layoutParams.width = parent.getRight() - space * 2;
+                    view.setLayoutParams(layoutParams);
+                    return true;
+                }
             }
         }
         return false;
@@ -263,6 +266,7 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         GridLayoutManager linearLayoutManager = (GridLayoutManager) parent.getLayoutManager();
         int childSize = parent.getChildCount();
 
+
         if (childSize < 1)
             return;
         if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
@@ -282,7 +286,6 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
                     i = j;
                     child = parent.getChildAt(i);
                 }
-
                 //跳过 Footer 的边框
                 if (i > 1 && child.getHeight() != parent.getChildAt(i - 1).getHeight()) {
                     continue;

@@ -90,7 +90,7 @@ public class BaseImageFragment extends NormalFragment {
         @Override
         public Fragment getItem(int position) {
             String path = lists.get(position);
-            ImageviewFragment fragment = ImageviewFragment.getInstance(path);
+            ImageviewFragment fragment = ImageviewFragment.getInstance(path, touchFinish);
             return fragment;
         }
 

@@ -11,5 +11,6 @@
     <string name="pic_choice_null">请选择</string>
     <string name="pic_choice_has">已完成</string>
     <string name="pic_choice_picture">选择图片</string>
+    <string name="pic_select_more">最多选择%d张</string>
 
 </resources>
