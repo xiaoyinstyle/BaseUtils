@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:src="@drawable/dj_back_selector" />
+            android:src="@drawable/base_back_selector" />
 
         <CheckBox
             android:id="@+id/cb_right"
@@ -28,8 +28,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:button="@drawable/pic_cb_select"
             android:layout_marginRight="5dp"
+            android:button="@drawable/pic_cb_select"
             android:paddingLeft="10dp" />
 
         <TextView
@@ -48,16 +48,27 @@
             tools:text="标题" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey" />
+
     <FrameLayout
         android:id="@+id/fm_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:background="@color/greylight"
+        android:gravity="center"
         android:padding="5dp">
 
         <View
@@ -72,7 +83,7 @@
             android:background="@drawable/pic_message_oval"
             android:gravity="center"
             android:text="0"
-            android:textColor="@color/pic_color_white"
+            android:textColor="@color/color_white"
             android:textSize="12sp"
             android:visibility="invisible" />
 
@@ -80,8 +91,8 @@
             android:id="@+id/pic_sel_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@drawable/pic_tv_complete"
             android:padding="10dp"
-            android:text="@string/pic_choice_null" />
+            android:text="@string/pic_choice_null"
+            android:textColor="@drawable/pic_tv_complete" />
     </LinearLayout>
 </LinearLayout>

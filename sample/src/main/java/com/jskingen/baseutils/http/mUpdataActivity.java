@@ -47,6 +47,6 @@ public class mUpdataActivity extends TitleActivity {
                 .downloadUrl(url)//下载的链接
                 .showToast(checkbox.isChecked())//是否显示Toast
                 .promptDialog(null)//自定义下载dialog
-                .build();
+                .start();
     }
 }

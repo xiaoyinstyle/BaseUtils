@@ -48,7 +48,10 @@ public class GlideUtil {
     //无缓存
     public static GlideUtil getInstance(Context context) {
         if (instance == null) {
-            instance = new GlideUtil();
+            synchronized (GlideUtil.class) {
+                if (instance == null)
+                    instance = new GlideUtil();
+            }
         }
         if (null == instance.context)
             instance.context = AppManager.getInstance().currentActivity().getApplicationContext();
@@ -58,7 +61,6 @@ public class GlideUtil {
     }
 
     /**
-     *
      * @param res
      * @return
      */

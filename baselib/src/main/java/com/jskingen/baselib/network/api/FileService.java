@@ -1,8 +1,5 @@
 package com.jskingen.baselib.network.api;
 
-import com.jskingen.baselib.network.utils.FileRequestBody;
-
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,6 +17,6 @@ public interface FileService {
     @GET
     Call<ResponseBody> download(@Url String fileUrl);
 
-    @POST
-    Call upload(@Url String fileUrl, @Body FileRequestBody body);
+//    @POST
+//    Call upload(@Url String fileUrl, @Body FileRequestBody body);
 }

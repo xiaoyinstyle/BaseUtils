@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ChneY on 2017/4/22.
  * <p>
- * 无标题的最底层的 activity
+ * 无标题的基础底层的 activity
  */
 
 public abstract class NormalAcitivity extends AppCompatActivity {
@@ -27,7 +27,8 @@ public abstract class NormalAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_activity);
-        AppManager.getInstance().addActivity(this);//Activity 管理器
+        if (!removeAppManager())
+            AppManager.getInstance().addActivity(this);//Activity 管理器
 
         //动态加载content
         LinearLayout ll_root = (LinearLayout) super.findViewById(R.id.base_root);
@@ -38,6 +39,13 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView(savedInstanceState);   //初始化布局
         initData(); //设置数据
+    }
+
+    /**
+     * @return 不进入 Appmanager 管理
+     */
+    protected boolean removeAppManager() {
+        return false;
     }
 
     protected void addTitleLayout(LinearLayout root) {
@@ -60,6 +68,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppManager.getInstance().finishActivity(this);//Activity 管理器
+        if (!removeAppManager())
+            AppManager.getInstance().finishActivity(this);//Activity 管理器
     }
 }

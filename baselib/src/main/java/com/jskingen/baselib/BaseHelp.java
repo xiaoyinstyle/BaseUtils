@@ -7,6 +7,8 @@ import com.jskingen.baselib.log.LogLevel;
 import com.jskingen.baselib.log.Logger;
 import com.jskingen.baselib.utils.AppManager;
 import com.jskingen.baselib.utils.LogUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.log.LoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,14 +50,11 @@ public class BaseHelp extends Application {
             configuration.okhttpBuilder = new OkHttpClient.Builder();
 
             configuration.okhttpBuilder
-//                    .addInterceptor(new TxInterceptor(configuration))
-//                    .addInterceptor(new TxLoggerInterceptor(configuration.context.getString(R.string.tx_app_name), configuration.mode))
                     .connectTimeout(configuration.timeout, TimeUnit.SECONDS)
                     .readTimeout(configuration.timeout, TimeUnit.SECONDS);
         }
 
         this.mOkHttpClient = configuration.okhttpBuilder.build();
-
 
         //Log工具
         LogUtils.Debug = isDebug();
@@ -63,6 +62,14 @@ public class BaseHelp extends Application {
                 .setMethodCount(0)            // default 2
                 .hideThreadInfo()             // default shown
                 .setLogLevel(isDebug() ? LogLevel.FULL : LogLevel.NONE); // default LogLevel.FULL
+
+        //OkHttpUtils
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(configuration.timeout, TimeUnit.MILLISECONDS)
+                .readTimeout(configuration.timeout, TimeUnit.MILLISECONDS)
+                .addInterceptor(new LoggerInterceptor("TAG"))
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
     }
 
     public OkHttpClient getOkHttpClient() {

@@ -4,14 +4,11 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.jskingen.baselib.BaseHelp;
-import com.jskingen.baselib.Configuration;
-import com.jskingen.baselib.R;
 import com.jskingen.baselib.network.Interceptor.LoggingInterceptor;
 import com.jskingen.baselib.network.adapter.DjCallAdapterFactory;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

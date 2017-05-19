@@ -67,6 +67,7 @@ public abstract class WebViewActivity extends TitleActivity {
                 if (newProgress == 100) {
                     // 网页加载完成
                     progressBar.setVisibility(View.GONE);
+                    setWebViewComplete();
                 } else {
                     // 加载中
                     progressBar.setProgress(newProgress);
@@ -86,6 +87,13 @@ public abstract class WebViewActivity extends TitleActivity {
 
     protected abstract void setWebView(WebView webView);
 
+
+    /**
+     * 加载完成
+     */
+    private void setWebViewComplete() {
+    }
+
     //改写物理按键——返回的逻辑
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -104,7 +112,7 @@ public abstract class WebViewActivity extends TitleActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(webView!=null) {
+        if (webView != null) {
             webView.loadUrl("about:blank");
             webView.stopLoading();
             webView.setWebChromeClient(null);

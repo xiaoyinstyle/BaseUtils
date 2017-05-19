@@ -153,4 +153,9 @@ public class PicturePreviewActivity extends NormalAcitivity {
             picSelComplete.setText(R.string.pic_choice_has);
         }
     }
+
+    @Override
+    protected boolean removeAppManager() {
+        return true;
+    }
 }

@@ -3,9 +3,11 @@ package yin.style.recyclerlib.adapter;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     protected Context mContext;
     private int headerViewCount = 0;
     private int footerViewCount = 0;
-    private boolean showEmptyView = false;
+    private boolean showEmptyView = true;
 
     public BaseQuickAdapter(@LayoutRes int layoutResId, List mData) {
         this.layoutResId = layoutResId;
@@ -137,7 +139,21 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         }
     }
 
-    public boolean isFullView(int position) {
+    private View getEmptyView(ViewGroup view) {
+        EmptyView eV = new EmptyView(mContext);
+        eV.removeAllViews();
+        eV.setGravity(Gravity.CENTER);
+        eV.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        if (emptyView == null)
+            emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
+        eV.addView(emptyView);
+        return emptyView;
+    }
+
+    /**
+     * @param position 是否 是headview或者FooterView
+     */
+    public boolean isOtherView(int position) {
         if (position < headerViewCount || position > headerViewCount + mData.size() - 1)
             return true;
         else
@@ -145,44 +161,42 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     }
 
     /**
-     * 设置空布局
-     *
-     * @param emptyView
+     * @param showEmptyView 是否显示默认的空布局，默认 true:显示
+     */
+    public void setShowEmptyView(boolean showEmptyView) {
+        this.showEmptyView = showEmptyView;
+    }
+
+    /**
+     * @param emptyView 设置空布局
      */
     public void setEmptyView(View emptyView) {
         if (emptyView == null)
-            showEmptyView = false;
+            setShowEmptyView(false);
         else {
-            showEmptyView = true;
+            setShowEmptyView(true);
             this.emptyView = emptyView;
         }
     }
 
-    public View getEmptyView(ViewGroup view) {
-        EmptyView eV = new EmptyView(mContext);
-        eV.removeAllViews();
-        if (emptyView == null) {
-            emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
-            eV.addView(emptyView);
-        }
-        return emptyView;
-    }
-
     /**
-     * 设置底部Footer View
-     *
-     * @param footerView
+     * 隐藏 HeaderView
      */
-    public void setFooterView(View footerView) {
-        if (headerView != null) {
-            this.footerView = footerView;
-        }
+    public void removeHeaderView() {
+        headerViewCount = 0;
+        notifyDataSetChanged();
     }
 
     /**
-     * 设置头部headerView View
-     *
-     * @param headerView
+     * 显示 HeaderView
+     */
+    public void showHeaderView() {
+        headerViewCount = 1;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * @param headerView 设置头部headerView View
      */
     public void addHeaderView(View headerView) {
         if (headerView != null) {
@@ -209,6 +223,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     public void addFooterView(View view) {
         if (view != null) {
+            footerViewCount = 1;
             footerView = view;
         } else
             footerViewCount = 0;
@@ -252,6 +267,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T t, int position);
 
+    /**
+     *
+     */
     public void addAll(List<T> data) {
         mData.addAll(data);
         notifyItemRangeInserted(mData.size() - data.size() + headerViewCount, data.size());

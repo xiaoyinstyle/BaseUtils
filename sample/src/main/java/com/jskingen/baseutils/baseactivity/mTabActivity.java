@@ -13,7 +13,6 @@ public class mTabActivity extends TabActivity {
 
     @Override
     protected void addFragment(List<Fragment> mFragments) {
-        setCanScroll(false);
 
         for (int i = 0; i < 3; i++) {
             mFragments.add(TabFragment.newInstance(i));
@@ -48,7 +47,7 @@ public class mTabActivity extends TabActivity {
     @Override
     protected void initData() {
         super.initData();
-
+        setCanScroll(false);
         showPoint(1, true);//显示小红点
         showPoint(2, 3, true);//显示带数字的小红点
     }

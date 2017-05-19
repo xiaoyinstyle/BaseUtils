@@ -43,4 +43,10 @@ public class PictureAlbumActivity extends TitleActivity {
 
         iv_left.setVisibility(View.GONE);
     }
+
+    @Override
+    protected boolean removeAppManager() {
+        return true;
+    }
+
 }

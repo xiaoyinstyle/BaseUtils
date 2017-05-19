@@ -213,7 +213,7 @@ public class UpdateSoftUtils {
             return this;
         }
 
-        public void build() {
+        public void start() {
             if (TextUtils.isEmpty(updateSoftUtils.downloadUrl))
                 throw new NullPointerException("The download url is empty and cannot be updated");
             updateSoftUtils.compareVersion();

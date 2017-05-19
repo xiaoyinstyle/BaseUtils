@@ -1,13 +1,9 @@
 package com.jskingen.baselib.picture.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -26,7 +22,6 @@ import com.jskingen.baselib.picture.utils.PictureManage;
 import com.jskingen.baselib.picture.utils.TakePhoto;
 import com.jskingen.baselib.utils.FileUtils;
 import com.jskingen.baselib.utils.RxBus;
-import com.jskingen.baselib.utils.ToastUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -64,7 +59,8 @@ public class PictureSelectFragment extends RecyclerViewFragment {
             protected void setViewHolder(final BaseViewHolder baseViewHolder, MediaFile imageFile, final int position) {
                 Object path = imageFile.getPath();
                 if (showCamera && position == 0) {
-                    path = R.drawable.ic_launcher;
+                    baseViewHolder.setVisible(R.id.ll_take, true);
+                    return;
                 }
 
                 DiskCacheStrategy result;
@@ -75,7 +71,7 @@ public class PictureSelectFragment extends RecyclerViewFragment {
                 }
                 Glide.with(getContext())
                         .load(path)
-                        .placeholder(R.drawable.pic_ic_placeholder)
+                        .placeholder(R.drawable.pic_default_place)
                         .diskCacheStrategy(result)
 //                        .crossFade()
                         .centerCrop()
@@ -97,7 +93,7 @@ public class PictureSelectFragment extends RecyclerViewFragment {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             //不可以添加 的情况
-                            if (!PictureManage.getInstance().canAdd()) {
+                            if (isChecked && !PictureManage.getInstance().canAdd()) {
                                 buttonView.setChecked(false);
                                 return;
                             }

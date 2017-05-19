@@ -54,7 +54,7 @@ group = "yin.style.utils" // Maven Group ID for the artifact，一般填你唯�
 def libName = "RecyclerViewLib"
 
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.0.2"
+version = "0.0.5"
 //上面配置后上传至JCenter后的编译路径是这样的： compile 'me.songning.CircleView:library:1.0.0'
 
 //生成源文件

@@ -25,13 +25,18 @@
         <activity android:name=".baseactivity.mTabActivity" />
         <activity android:name=".baseactivity.mRecyclerActivity" />
         <activity android:name=".utils.mPermissionsActivity" />
-        <activity android:name=".baseactivity.mLoadRefreshActivity" />
+        <activity android:name=".baseactivity.mExpandViewActivity" />
         <activity android:name=".image.mImageActivity" />
         <activity android:name=".http.mNetworkActivity" />
         <activity android:name=".http.mDownloadActivity" />
         <activity android:name=".photo.TakePhotoActivity" />
         <activity android:name=".baseactivity.mWebviewActivity" />
-        <activity android:name=".http.mUpdataActivity"></activity>
+        <activity android:name=".http.mUpdataActivity" />
+        <activity android:name=".utils.mDialogActivity" />
+        <activity
+            android:name=".flowLayout.FlowLayoutActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

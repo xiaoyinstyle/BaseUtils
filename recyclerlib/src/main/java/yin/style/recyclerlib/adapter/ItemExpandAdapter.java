@@ -15,12 +15,12 @@ import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
  * @author chenyin
  * @date 2017/3/28
  */
-public abstract class ExplandeItemAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<T> list;
     private int groupPosition;
 
-    public ExplandeItemAdapter(List<T> list, int groupPosition) {
+    public ItemExpandAdapter(List<T> list, int groupPosition) {
         this.list = list;
         this.groupPosition = groupPosition;
     }
@@ -66,13 +66,13 @@ public abstract class ExplandeItemAdapter<T> extends RecyclerView.Adapter<BaseVi
     private OnExplandItemClickLongListener onItemClickLongListener;
 
     // Item 点击
-    public ExplandeItemAdapter setOnItemClickListener(OnExplandItemClickListener onItemClickListener) {
+    public ItemExpandAdapter setOnItemClickListener(OnExplandItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
         return this;
     }
 
     //Item 长按
-    public ExplandeItemAdapter setOnItemClickLongListener(OnExplandItemClickLongListener onItemClickLongListener) {
+    public ItemExpandAdapter setOnItemClickLongListener(OnExplandItemClickLongListener onItemClickLongListener) {
         this.onItemClickLongListener = onItemClickLongListener;
         return this;
     }

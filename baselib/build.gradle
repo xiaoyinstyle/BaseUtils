@@ -10,7 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-
+//        resourcePrefix "dj_"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -37,15 +37,20 @@ dependencies {
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["okhttp3"]
-    compile rootProject.ext.dependencies["logging"]
-    //注解
+//    compile rootProject.ext.dependencies["logging"]
+    //图片加载glide
     compile rootProject.ext.dependencies["glide"]
+    //注解
     compile rootProject.ext.dependencies["butterknife"]
-//    compile rootProject.ext.dependencies["xrecyclerview"]
 
+    compile 'com.zhy:okhttputils:2.6.2'
+
+    //MaterialDialog
+    compile rootProject.ext.dependencies["commons"]
+    compile rootProject.ext.dependencies["core"]
+    //可放大缩小的 IamgeView
     compile 'com.commit451:PhotoView:1.2.4'
-    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    //    compile 'yin.style.utils:recycleview:0.0.1'
+
     compile project(':recyclerlib')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

@@ -109,4 +109,9 @@ public class PictureSelectActivity extends TitleActivity {
         super.onActivityResult(requestCode, resultCode, data);
         fragment.activityResult(requestCode,resultCode,data);
     }
+
+    @Override
+    protected boolean removeAppManager() {
+        return true;
+    }
 }

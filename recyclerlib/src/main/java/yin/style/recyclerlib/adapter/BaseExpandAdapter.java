@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
  * @author chenyin
  * @date 2017/3/28
  */
-public abstract class BaseExplandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     protected List<T> list;
     private Context mContext;
@@ -27,15 +28,18 @@ public abstract class BaseExplandAdapter<T> extends RecyclerView.Adapter<BaseVie
     private boolean isShowGroupItem[] = new boolean[0];
 
 
-    public BaseExplandAdapter(Context context, List list) {
+    public BaseExpandAdapter(Context context, List list) {
         this.list = list;
         mContext = context;
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(getGroudLayout(), parent, false);
-        return new ItemViewHolder(view);
+        LinearLayout linearLayout = new LinearLayout(parent.getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        linearLayout.addView(LayoutInflater.from(parent.getContext()).inflate(getGroupLayout(), parent, false));
+        return new ItemViewHolder(linearLayout);
     }
 
     @Override
@@ -80,15 +84,15 @@ public abstract class BaseExplandAdapter<T> extends RecyclerView.Adapter<BaseVie
             if (itemDecoration != null)
                 ((ItemViewHolder) holder).mGroup.addItemDecoration(itemDecoration);
 
-            ((ItemViewHolder) holder).mGroup.setAdapter(new ExplandeItemAdapter(getChild(position), position) {
+            ((ItemViewHolder) holder).mGroup.setAdapter(new ItemExpandAdapter(getChild(position), position) {
                 @Override
                 protected int getChildLayout() {
-                    return BaseExplandAdapter.this.getChildLayout();
+                    return BaseExpandAdapter.this.getChildLayout();
                 }
 
                 @Override
                 protected void setViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
-                    BaseExplandAdapter.this.setChildViewHolder(holder, groupPosition, childPosition);
+                    BaseExpandAdapter.this.setChildViewHolder(holder, groupPosition, childPosition);
                 }
             }.setOnItemClickListener(new OnExplandItemClickListener() {
                 @Override
@@ -151,13 +155,13 @@ public abstract class BaseExplandAdapter<T> extends RecyclerView.Adapter<BaseVie
     //---------
     protected abstract List getChild(int position);
 
-    protected abstract int getGroudLayout();
+    protected abstract int getGroupLayout();
 
     protected abstract int getChildLayout();
 
-    protected abstract void setChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition);
-
     protected abstract void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition);
+
+    protected abstract void setChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition);
 
     /*-------------------**/
     //某个Group是否展开

@@ -95,7 +95,7 @@ public class LoadSwipeRefreshLayout extends SwipeRefreshLayout {
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return mAdapter.isFullView(position) ? layoutManager.getSpanCount() : 1;
+                return mAdapter.isOtherView(position) ? layoutManager.getSpanCount() : 1;
             }
         });
     }

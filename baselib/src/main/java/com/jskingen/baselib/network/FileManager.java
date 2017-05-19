@@ -4,13 +4,13 @@ import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.network.api.FileService;
 import com.jskingen.baselib.network.callBack.OnDownLoadCallback;
 import com.jskingen.baselib.network.callBack.OnUploadCallback;
-import com.jskingen.baselib.network.utils.FileRequestBody;
-import com.jskingen.baselib.network.utils.RequestMultipart;
+import com.jskingen.baselib.utils.ToastUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import java.io.File;
 
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -46,18 +46,42 @@ public class FileManager {
         call.enqueue(downLoadCallback);
     }
 
+//    /**
+//     * 上传大文件
+//     */
+//    public static void upload(String url, File file, OnUploadCallback callback) {
+//        RequestBody body1 = new RequestMultipart()
+//                .add("file", file)
+//                .build();
+//
+//        FileRequestBody body = new FileRequestBody(body1, callback);
+//
+//        call = service().upload(url, body);
+//        call.enqueue(callback);
+//    }
+
+    //    public static void download(final String url, final OnDownLoadCallback downLoadCallback) {
+//    }
+    private static RequestCall uploadCall;
+
     /**
      * 上传大文件
      */
-    public static void upload(String url, File file, OnUploadCallback callback) {
-        RequestBody body1 = new RequestMultipart()
-                .add("file", file)
-                .build();
+    public static void upload(String url, String key, File file, OnUploadCallback callback) {
+        if (!file.exists()) {
+            ToastUtils.show("文件不存在，请修改文件路径");
+            return;
+        }
 
-        FileRequestBody body = new FileRequestBody(body1, callback);
-
-        call = service().upload(url, body);
-        call.enqueue(callback);
+        uploadCall = OkHttpUtils.post()//
+                .addFile(key, file.getName(), file)//
+                .url(url)//
+//                .params(params)//
+//                .headers(headers)//
+                .build();//
+        if (callback != null)
+            callback.setCall(uploadCall);
+        uploadCall.execute(callback);
     }
 
     /**
@@ -66,5 +90,8 @@ public class FileManager {
     public static void onCancel() {
         if (call != null)
             call.cancel();
+
+        if (uploadCall != null)
+            uploadCall.cancel();
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baseutils.baseactivity.mLoadRefreshActivity;
+import com.jskingen.baseutils.baseactivity.mExpandViewActivity;
 import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
 import com.jskingen.baseutils.baseactivity.mWebviewActivity;
@@ -14,6 +14,8 @@ import com.jskingen.baseutils.http.mNetworkActivity;
 import com.jskingen.baseutils.http.mUpdataActivity;
 import com.jskingen.baseutils.image.mImageActivity;
 import com.jskingen.baseutils.photo.TakePhotoActivity;
+import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
+import com.jskingen.baseutils.utils.mDialogActivity;
 import com.jskingen.baseutils.utils.mPermissionsActivity;
 
 import butterknife.OnClick;
@@ -44,7 +46,7 @@ public class MainActivity extends TitleActivity {
     @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
             , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image, R.id.bt_main_http
             , R.id.bt_main_download, R.id.bt_main_upload, R.id.bt_main_update
-            , R.id.bt_main_dialog, R.id.bt_main_photo})
+            , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_main_tab:
@@ -54,7 +56,7 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mRecyclerActivity.class));
                 break;
             case R.id.bt_main_loadrefresh:
-                startActivity(new Intent(this, mLoadRefreshActivity.class));
+                startActivity(new Intent(this, mExpandViewActivity.class));
                 break;
             case R.id.bt_main_webwiew:
                 startActivity(new Intent(this, mWebviewActivity.class));
@@ -78,9 +80,13 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mUpdataActivity.class));
                 break;
             case R.id.bt_main_dialog:
+                startActivity(new Intent(this, mDialogActivity.class));
                 break;
             case R.id.bt_main_photo:
                 startActivity(new Intent(this, TakePhotoActivity.class));
+                break;
+            case R.id.bt_main_flowlayout:
+                startActivity(new Intent(this, FlowLayoutActivity.class));
                 break;
 
         }

@@ -8,7 +8,7 @@
         android:id="@+id/pic_iv_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/pic_ic_placeholder" />
+        android:src="@drawable/pic_default_place" />
 
     <CheckBox
         android:padding="5dp"

@@ -1,7 +1,6 @@
 package com.jskingen.baselib.picture.fragment;
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -62,7 +61,7 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
 
                 Glide.with(getContext())
                         .load(imageFiles.get(0).getPath())
-                        .placeholder(R.drawable.pic_ic_placeholder)
+                        .placeholder(R.drawable.pic_default_place)
                         .diskCacheStrategy(DiskCacheStrategy.RESULT)
                         .centerCrop()
                         .crossFade()

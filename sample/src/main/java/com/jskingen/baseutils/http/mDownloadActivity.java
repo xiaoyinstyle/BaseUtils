@@ -16,6 +16,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Response;
 
 public class mDownloadActivity extends TitleActivity {
 
@@ -86,12 +87,11 @@ public class mDownloadActivity extends TitleActivity {
     //上传
     private void upload() {
         //localhost:8080/upload.do
-        String url = " http://172.20.118.1/upload.do";
+        String url = "http://192.168.0.23:8080/upload.do";
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/a.apk");
-//        FileRequestBody
-        FileManager.upload(url, file, new OnUploadCallback() {
+        FileManager.upload(url, "file",file, new OnUploadCallback<String>(checkbox.isChecked()) {
             @Override
-            public void onSuccess(Object o) {
+            public void onSuccess(String s) {
 
             }
 

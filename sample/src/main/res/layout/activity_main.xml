@@ -29,14 +29,16 @@
             android:id="@+id/bt_main_loadrefresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LoadRefreshActivity"
+            android:text="ExpandView"
             android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_main_webwiew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="WebviewActivity"
             android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_main_permisson"
             android:layout_width="wrap_content"
@@ -83,7 +85,7 @@
             android:id="@+id/bt_main_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="各种dialog"
+            android:text="Dialog"
             android:textAllCaps="false" />
 
         <Button
@@ -91,6 +93,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="获取图片"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/bt_main_flowlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="流式布局"
             android:textAllCaps="false" />
     </GridLayout>
 
