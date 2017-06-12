@@ -16,7 +16,7 @@ import com.jskingen.baselib.network.FileManager;
 import com.jskingen.baselib.network.ServiceManager;
 import com.jskingen.baselib.network.callBack.OnDownLoadCallback;
 import com.jskingen.baselib.network.callBack.OnResponseCallback;
-import com.jskingen.baselib.network.exception.DjException;
+import com.jskingen.baselib.network.exception.MyException;
 import com.jskingen.baselib.update.model.UpdateBean;
 import com.jskingen.baselib.utils.AppUtil;
 import com.jskingen.baselib.utils.FileUtils;
@@ -65,7 +65,7 @@ public class UpdateSoftUtils {
             }
 
             @Override
-            public void onError(DjException e) {
+            public void onError(MyException e) {
 
             }
         });

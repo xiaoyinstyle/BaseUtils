@@ -15,11 +15,11 @@ import retrofit2.Response;
  * Created by ChneY on 2017/4/6.
  */
 
-public class DjCall<T> {
+public class MyCall<T> {
     private Handler mHandler =  new Handler(Looper.getMainLooper());
     private Call<T> call;
 
-    public DjCall(Call<T> call) {
+    public MyCall(Call<T> call) {
         this.call = call;
     }
 

@@ -6,18 +6,18 @@ import com.jskingen.baselib.network.model.HttpResult;
  * Created by ChneY on 2017/4/7.
  * 通用异常
  */
-public class DjException extends Exception {
+public class MyException extends Exception {
 
     private int resultCode;
     private String detailMessage = "";
 
-    public DjException(HttpResult httpResult) {
+    public MyException(HttpResult httpResult) {
         super(httpResult.getMsg());
         this.detailMessage = httpResult.getMsg();
         this.resultCode = httpResult.getCode();
     }
 
-    public DjException(String detailMessage) {
+    public MyException(String detailMessage) {
         super(detailMessage);
         this.detailMessage = detailMessage;
     }

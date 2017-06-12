@@ -1,6 +1,6 @@
 package com.jskingen.baselib.network.adapter;
 
-import com.jskingen.baselib.network.DjCall;
+import com.jskingen.baselib.network.MyCall;
 
 import java.lang.reflect.Type;
 
@@ -11,7 +11,7 @@ import retrofit2.CallAdapter;
  * Created by ChneY on 2017/4/7.
  */
 
-public class DjCallAdapter<R> implements CallAdapter<R, DjCall<?>> {
+public class DjCallAdapter<R> implements CallAdapter<R, MyCall<?>> {
 
     private final Type responseType;
 
@@ -26,9 +26,9 @@ public class DjCallAdapter<R> implements CallAdapter<R, DjCall<?>> {
     }
 
     @Override
-    public DjCall<R> adapt(Call<R> call) {
+    public MyCall<R> adapt(Call<R> call) {
         // 由 CustomCall 决定如何使用
-        return new DjCall<>(call);
+        return new MyCall<>(call);
     }
 
 

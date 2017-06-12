@@ -25,6 +25,11 @@
         <attr name="numberProgressBarStyle" format="reference" />
     </declare-styleable>
 
+    <!--带清除的输入框-->
+    <declare-styleable name="CleanableEditText">
+        <attr name="clear_size" format="dimension"></attr>
+    </declare-styleable>
+
     <!--自动调整字体-->
     <declare-styleable name="AutofitTextView">
         <!-- Minimum size of the text. -->

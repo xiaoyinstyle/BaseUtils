@@ -1,6 +1,6 @@
 package com.jskingen.baselib.network.inter;
 
-import com.jskingen.baselib.network.exception.DjException;
+import com.jskingen.baselib.network.exception.MyException;
 
 import retrofit2.Call;
 
@@ -15,7 +15,7 @@ public interface IDjCallback<T> {
 
     void onSuccess(T t);
 
-    void onError(DjException e);
+    void onError(MyException e);
 
     void onRequestFailure(Throwable t);
 }

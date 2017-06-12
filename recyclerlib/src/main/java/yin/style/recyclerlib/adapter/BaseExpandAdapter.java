@@ -1,8 +1,11 @@
 package yin.style.recyclerlib.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.LinearLayout;
 
 import java.util.List;
 
+import yin.style.recyclerlib.flowlayoutmanager.FlowLayoutManager;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnExplandItemClickListener;
 import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
@@ -20,12 +24,19 @@ import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
  * @date 2017/3/28
  */
 public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+    public static final int LAYOUT_GRID = 1;//网格
+    public static final int LAYOUT_FLOW = 2;//流式
+    public static final int LAYOUT_LINER = 3;//线性
+    public static final int LAYOUT_STRAGGER_VERTICAL = 4;//瀑布流 VERTICAL
+    public static final int LAYOUT_STRAGGER_HORIZONTAL = 4;//瀑布流 HORIZONTAL
 
     protected List<T> list;
     private Context mContext;
     private boolean groupCanClick = false;//group是否有点击监听
     private RecyclerView.ItemDecoration itemDecoration;//间隔线
     private boolean isShowGroupItem[] = new boolean[0];
+
+    private boolean isDefaultExpand = false;//初始化 是否展开 默认：false
 
 
     public BaseExpandAdapter(Context context, List list) {
@@ -80,7 +91,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
             else
                 ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
 
-            ((ItemViewHolder) holder).mGroup.setLayoutManager(new LinearLayoutManager(mContext));
+            ((ItemViewHolder) holder).mGroup.setLayoutManager(getLayoutManager(position));
             if (itemDecoration != null)
                 ((ItemViewHolder) holder).mGroup.addItemDecoration(itemDecoration);
 
@@ -113,8 +124,14 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
     @Override
     public int getItemCount() {
         int i = list.isEmpty() ? 0 : list.size();
-        if (isShowGroupItem == null || isShowGroupItem.length != i)
+        //初始化 Expand 默认是否 展开状态
+        if (isShowGroupItem == null || isShowGroupItem.length != i) {
             isShowGroupItem = new boolean[i];
+            for (int j = 0; j < isShowGroupItem.length; j++) {
+                isShowGroupItem[j] = isDefaultExpand(i);
+            }
+        }
+
         return i;
     }
 
@@ -152,7 +169,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
         }
     }
 
-    //---------
+    //---------************************************************---------------
     protected abstract List getChild(int position);
 
     protected abstract int getGroupLayout();
@@ -163,9 +180,54 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
 
     protected abstract void setChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition);
 
-    /*-------------------**/
+    /**
+     * 自定义   RecyclerView.LayoutManager
+     *
+     * @param position
+     * @return
+     */
+    protected RecyclerView.LayoutManager getLayoutManager(int position) {
+        if (getLayoutType(position) == LAYOUT_GRID)
+            return new GridLayoutManager(mContext, getGridCount(position));
+        else if (getLayoutType(position) == LAYOUT_FLOW)
+            return new FlowLayoutManager();
+        else if (getLayoutType(position) == LAYOUT_STRAGGER_VERTICAL)
+            return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.VERTICAL);
+        else if (getLayoutType(position) == LAYOUT_STRAGGER_HORIZONTAL)
+            return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.HORIZONTAL);
+        else // (getLayoutType(position) == LAYOUT_LINER)
+            return new LinearLayoutManager(mContext);
+    }
+
+    /**
+     * 自定义   RecyclerView.LayoutManager 类型
+     *
+     * @param position
+     * @return
+     */
+    protected int getLayoutType(int position) {
+        return LAYOUT_GRID;
+    }
+
+    /**
+     * 设置展开的 RecyclerView 的Grid的列数
+     */
+    protected int getGridCount(int position) {
+        return 1;
+    }
+
+    /*-------------------------------------*/
+    /*-------------------------------------*/
+    public void setDefaultExpand(boolean defaultExpand) {
+        isDefaultExpand = defaultExpand;
+    }
+
+    protected boolean isDefaultExpand(int position) {
+        return isDefaultExpand;
+    }
+
     //某个Group是否展开
-    public boolean hasGroupExpland(int groupPosition) {
+    public boolean hasGroupExpand(int groupPosition) {
         if (isShowGroupItem == null || isShowGroupItem.length == 0)
             return false;
         return isShowGroupItem[groupPosition];

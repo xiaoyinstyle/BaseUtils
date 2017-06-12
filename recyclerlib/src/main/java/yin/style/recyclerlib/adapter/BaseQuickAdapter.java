@@ -98,8 +98,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         if (viewType == TYPE_EMPTY) {//空布局
-            setOnclickEmpty();
-            return new BaseViewHolder(getEmptyView(parent));
+            View empty = getEmptyView(parent);
+            setOnclickEmpty(empty);
+            return new BaseViewHolder(empty);
         } else if (viewType == TYPE_HEADER) {//Header布局
             return new BaseViewHolder(headerView);
         } else if (viewType == TYPE_ITEM) {//正常布局
@@ -147,7 +148,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         if (emptyView == null)
             emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
         eV.addView(emptyView);
-        return emptyView;
+        return eV;
     }
 
     /**
@@ -232,16 +233,15 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     /**
      * 空布局 点击事件
      */
-    private void setOnclickEmpty() {
-        emptyView.setOnClickListener(new View.OnClickListener() {
+    private void setOnclickEmpty(View ev) {
+        ev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onEmptyClickListener != null)
                     onEmptyClickListener.onItemClick(emptyView, 0);
             }
         });
-
-        emptyView.setOnLongClickListener(new View.OnLongClickListener() {
+        ev.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (onEmptyClickLongListener != null)

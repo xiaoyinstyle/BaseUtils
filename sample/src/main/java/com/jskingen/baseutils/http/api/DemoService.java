@@ -1,6 +1,6 @@
 package com.jskingen.baseutils.http.api;
 
-import com.jskingen.baselib.network.DjCall;
+import com.jskingen.baselib.network.MyCall;
 import com.jskingen.baselib.network.model.HttpResult;
 import com.jskingen.baseutils.http.model.User;
 
@@ -21,13 +21,13 @@ public interface DemoService {
     //http://192.168.0.234:8081/meters/gpsdata/login?username=admin&password=123456
     //@POST("gpsdata/login")
     @POST("gpsdata/login")
-    DjCall<HttpResult<User>> login(@QueryMap Map<String, String> map);
+    MyCall<HttpResult<User>> login(@QueryMap Map<String, String> map);
 
     //    @POST("gpsdata/login")
     @GET("gpsdata/login")
-    DjCall<HttpResult<User>> login2(@Query("username") String name, @Query("password") String password);
+    MyCall<HttpResult<User>> login2(@Query("username") String name, @Query("password") String password);
 
     //图片上传 http://192.168.0.234:8081/meters/gpsdata/uploadphoto?userid=3&project=1&photo=
     @POST("gpsdata/uploadphoto")
-    DjCall<HttpResult> upload(@Body RequestBody body);
+    MyCall<HttpResult> upload(@Body RequestBody body);
 }

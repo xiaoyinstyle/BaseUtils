@@ -29,6 +29,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColor="@android:color/white"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:visibility="gone" />
@@ -60,7 +61,6 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tv_left"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp"

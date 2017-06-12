@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 
-import com.jskingen.baselib.network.exception.DjException;
+import com.jskingen.baselib.network.exception.MyException;
 import com.jskingen.baselib.network.inter.IDjCallback;
 import com.jskingen.baselib.network.model.HttpResult;
 import com.jskingen.baselib.utils.AppManager;
@@ -48,19 +48,19 @@ public abstract class OnResponseCallback<T> implements Callback<T>, IDjCallback<
                     if (((HttpResult) result).isSuccess())
                         onSuccess(result);
                     else
-                        onError(new DjException((HttpResult) result));
+                        onError(new MyException((HttpResult) result));
                 } catch (Exception e) {
-                    onError(new DjException(e.getMessage()));
+                    onError(new MyException(e.getMessage()));
                 }
             } else {
                 try {
                     onSuccess(t.body());
                 } catch (Exception e) {
-                    onError(new DjException(e.getMessage()));
+                    onError(new MyException(e.getMessage()));
                 }
             }
         } else {
-            onError(new DjException(t.message()));
+            onError(new MyException(t.message()));
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class OnResponseCallback<T> implements Callback<T>, IDjCallback<
         } else if (t instanceof SocketTimeoutException) {
             ToastUtils.show("连接超时");
         } else
-            onError(new DjException(t.getMessage()));
+            onError(new MyException(t.getMessage()));
         t.printStackTrace();
     }
 

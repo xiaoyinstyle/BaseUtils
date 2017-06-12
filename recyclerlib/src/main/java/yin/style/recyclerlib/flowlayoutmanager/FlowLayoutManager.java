@@ -20,8 +20,6 @@ import yin.style.recyclerlib.flowlayoutmanager.cache.Line;
  * support align to left/right edge. support scroll/smooth scroll.
  */
 public class FlowLayoutManager extends RecyclerView.LayoutManager {
-
-	private static final String LOG_TAG = "FlowLayoutManager";
 	RecyclerView recyclerView;
 	int firstChildAdapterPosition = 0;
 	RecyclerView.Recycler recyclerRef;

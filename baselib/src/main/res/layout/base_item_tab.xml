@@ -34,7 +34,7 @@
         android:layout_marginTop="3dp"
         android:background="@drawable/base_red_point"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:visibility="invisible" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:background="@drawable/base_red_point"
         android:gravity="center"
         android:text="0"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="8sp"
         android:visibility="invisible" />
 </RelativeLayout>

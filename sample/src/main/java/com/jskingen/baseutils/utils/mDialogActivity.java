@@ -1,11 +1,13 @@
 package com.jskingen.baseutils.utils;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.view.LoadingDialog;
+import com.jskingen.baselib.utils.DialogUtils;
 import com.jskingen.baseutils.R;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class mDialogActivity extends TitleActivity {
@@ -31,15 +33,31 @@ public class mDialogActivity extends TitleActivity {
     }
 
 
-    @OnClick(R.id.LoadingDialog)
-    public void onViewClicked() {
-        LoadingDialog progress = new LoadingDialog(this);
-        progress.setMessage("6666");
-        progress.show();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 
-        new LoadingDialog.Builder(this)
-                .setMessage("6666")
-                .create()
-                .show();
+    @OnClick({R.id.loadingDialog, R.id.loading_ok, R.id.loading_error, R.id.loading_waring, R.id.loading_other})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.loadingDialog:
+                DialogUtils.showBlackLoading(this, "loadingDialog");
+                break;
+            case R.id.loading_ok:
+                DialogUtils.showCompleDialog(this, "加载成功");
+                break;
+            case R.id.loading_error:
+                DialogUtils.showErrorDialog(this, "加载失败");
+                break;
+            case R.id.loading_waring:
+                DialogUtils.showWaringDialog(this, "提示信息");
+                break;
+            case R.id.loading_other:
+                DialogUtils.showAutoCancelDialog(this, "提示信息", R.drawable.ic_launcher, 5 * 1000);
+                break;
+        }
     }
 }

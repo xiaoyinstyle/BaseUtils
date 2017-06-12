@@ -50,12 +50,12 @@ public class ServiceManager {
             client = BaseHelp.getInstance().getOkHttpClient();
 
         if (TextUtils.isEmpty(baseUrl))
-            baseUrl = TextUtils.isEmpty(baseUrl) ? BaseHelp.getInstance().getConfiguration().baseUrl : baseUrl;
+            baseUrl = BaseHelp.getInstance().getConfiguration().baseUrl;
 
         OkHttpClient okHttpClient = client.newBuilder()
 //                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 //                 自定义请求 通用打印日志
-                .addInterceptor(new LoggingInterceptor( BaseHelp.getInstance().isDebug()))
+                .addInterceptor(new LoggingInterceptor(BaseHelp.getInstance().isDebug()))
                 .build();
 
         Retrofit retrofit = getRetrofit(okHttpClient, baseUrl);

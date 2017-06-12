@@ -1,11 +1,13 @@
 package com.jskingen.baselib.activity.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.jskingen.baselib.R;
@@ -70,5 +72,11 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         super.onDestroy();
         if (!removeAppManager())
             AppManager.getInstance().finishActivity(this);//Activity 管理器
+    }
+
+    //关闭键盘
+    protected void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 }

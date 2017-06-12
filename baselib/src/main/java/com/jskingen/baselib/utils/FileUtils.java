@@ -26,7 +26,7 @@ public class FileUtils {
     private static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
     private static final String xml_name = "root";                    //xml文件的nam值
     //    private static final String fileName = BaseHelp.getInstance().getContext().getString(R.string.app_name);                    //根目录下文件名
-    private static final String fileName = "Demo";               //根目录下文件名
+    private static final String fileName = BaseHelp.getInstance().getFileName();               //根目录下文件名
 
     public static File getFile2Uri(Context context, Uri uri) {
         return new File(getPath(context, uri));

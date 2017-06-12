@@ -3,11 +3,14 @@ package com.jskingen.baselib.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -49,6 +52,7 @@ public class LoadingDialog extends Dialog {
 
     private View getDialogContentView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.progress_loading, null);
+
         tvMsg = (TextView) view.findViewById(R.id.message);
         tvMsg.setText("加载中...");
         AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) view.findViewById(R.id.spinnerImageView);
@@ -57,22 +61,44 @@ public class LoadingDialog extends Dialog {
         return view;
     }
 
-    public void setIndicatorType(@AVLoadingIndicatorView.Indicator int indicatorId) {
+    public void setIndicator(@AVLoadingIndicatorView.Indicator int indicatorId, int indicatorColor) {
         AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
         progressView.setIndicatorId(indicatorId);
-    }
 
-    public void setIndicatorColor(int indicatorColor) {
         if (indicatorColor > 0) {
-            AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
             progressView.setIndicatorColor(indicatorColor);
         }
     }
+
+    public void setBackground(@DrawableRes int backgroundRes) {
+        if (backgroundRes != 0) {
+            View rootView = findViewById(R.id.ll_dialog_root);
+            rootView.setBackgroundResource(backgroundRes);
+        }
+    }
+
 
     public void setMessage(CharSequence message) {
         if (!TextUtils.isEmpty(message)) {
             TextView txt = (TextView) findViewById(R.id.message);
             txt.setText(message);
+        }
+    }
+
+    public void setTextColor(int textColor) {
+        if (textColor != 0) {
+            TextView txt = (TextView) findViewById(R.id.message);
+            txt.setTextColor(textColor);
+        }
+    }
+
+    public void setIcon(int icon) {
+        if (icon != 0) {
+            AVLoadingIndicatorView txt = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
+            txt.setVisibility(View.GONE);
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            imageView.setVisibility(View.VISIBLE);
+            imageView.setImageResource(icon);
         }
     }
 
@@ -98,18 +124,28 @@ public class LoadingDialog extends Dialog {
             loadingDialog = new LoadingDialog(context, theme);
         }
 
-        public Builder setIndicatorType(@AVLoadingIndicatorView.Indicator int indicatorId) {
-            loadingDialog.setIndicatorColor(indicatorId);
+        public Builder setIndicator(@AVLoadingIndicatorView.Indicator int indicatorId, int indicatorColor) {
+            loadingDialog.setIndicator(indicatorId, indicatorColor);
             return this;
         }
 
-        public Builder setIndicatorColor(int indicatorColor) {
-            loadingDialog.setIndicatorColor(indicatorColor);
+        public Builder setBackground(@DrawableRes int backgroundRes) {
+            loadingDialog.setBackground(backgroundRes);
             return this;
         }
 
         public Builder setMessage(CharSequence message) {
             loadingDialog.setMessage(message);
+            return this;
+        }
+
+        public Builder setIcon(int icon) {
+            loadingDialog.setIcon(icon);
+            return this;
+        }
+
+        public Builder setTextColor(int textColor) {
+            loadingDialog.setTextColor(textColor);
             return this;
         }
 

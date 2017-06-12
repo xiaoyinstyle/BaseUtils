@@ -12,52 +12,55 @@ import okhttp3.OkHttpClient;
 public class Configuration {
     public String baseUrl = "";
     public boolean debug = false;
+    public String fileName = "";
     public Context context;
     public long timeout = 20L;
     public OkHttpClient.Builder okhttpBuilder;
 
-    public Configuration(Builder builder) {
-        this.baseUrl = builder.baseUrl;
-        this.debug = builder.debug;
-        this.context = builder.context;
-        this.okhttpBuilder = builder.okhttpBuilder;
+    private Configuration() {
     }
 
     public static class Builder {
-        private String baseUrl;
-        private Context context;
-        private long timeout;
-        private boolean debug;
-        private OkHttpClient.Builder okhttpBuilder;
+        Configuration configuration;
 
         public Builder(Context context) {
-            this.context = context;
+            configuration = new Configuration();
+            configuration.context = context;
         }
 
         public Builder baseUrl(String baseUrl) {
-            this.baseUrl = baseUrl;
+            configuration.baseUrl = baseUrl;
+            return this;
+        }
+
+        public Builder fileName(String fileName) {
+            configuration.fileName = fileName;
             return this;
         }
 
         public Builder debug(boolean debug) {
-            this.debug = debug;
+            configuration.debug = debug;
             return this;
         }
 
         public Builder timeout(long timeout) {
-            this.timeout = timeout;
+            configuration.timeout = timeout;
             return this;
         }
 
         public Builder okhttpBuilder(OkHttpClient.Builder okhttpBuilder) {
-            this.okhttpBuilder = okhttpBuilder;
+            configuration.okhttpBuilder = okhttpBuilder;
             return this;
         }
 
         public Configuration build() {
-            if (TextUtils.isEmpty(baseUrl))
-                throw new NullPointerException("baseUrl cannot be null, plase set baseUrl in Configuration ");
-            return new Configuration(this);
+            //OkHttp的 BaseUrl
+            if (TextUtils.isEmpty(configuration.baseUrl))
+                throw new NullPointerException("baseUrl cannot be null, please set baseUrl in Configuration ");
+            //缓存的文件夹 目录
+            if (TextUtils.isEmpty(configuration.fileName))
+                throw new NullPointerException("Cache fileName cannot be null, please set fileName in Configuration ");
+            return configuration;
         }
 
     }

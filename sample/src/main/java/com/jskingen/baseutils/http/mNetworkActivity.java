@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.network.ServiceManager;
 import com.jskingen.baselib.network.callBack.OnResponseCallback;
-import com.jskingen.baselib.network.exception.DjException;
+import com.jskingen.baselib.network.exception.MyException;
 import com.jskingen.baselib.network.model.HttpResult;
 import com.jskingen.baselib.network.utils.RequestMultipart;
 import com.jskingen.baselib.utils.ToastUtils;
@@ -93,7 +93,7 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(DjException e) {
+            public void onError(MyException e) {
                 ToastUtils.show(e.getDetailMessage());
             }
         });
@@ -109,7 +109,7 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(DjException e) {
+            public void onError(MyException e) {
                 ToastUtils.show(e.getDetailMessage());
             }
         });
@@ -130,7 +130,7 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(DjException e) {
+            public void onError(MyException e) {
                 ToastUtils.show(e.getDetailMessage() + "");
             }
         });
