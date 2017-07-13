@@ -41,15 +41,15 @@ apply plugin: 'com.jfrog.bintray'
 //gradlew install
 //gradlew bintrayUpload
 
-def siteUrl = 'https://github.com/xiaoyinstyle/WordApp'      // 项目的主页
-def gitUrl = 'https://github.com/xiaoyinstyle/WordApp.git'   // Git仓库的url
+def siteUrl = 'https://github.com/xiaoyinstyle/BaseUtils'      // 项目的主页
+def gitUrl = 'https://github.com/xiaoyinstyle/BaseUtils.git'   // Git仓库的url
 group = "yin.style.utils" // Maven Group ID for the artifact，一般填你唯一的包名
 //发布到JCenter上的项目名字
 def libName = "RecyclerViewLib"
 
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.0.6"
-//上面配置后上传至JCenter后的编译路径是这样的： compile 'me.songning.CircleView:library:1.0.0'
+version = "0.0.7"
+//上面配置后上传至JCenter后的编译路径是这样的：compile 'yin.style.utils:recyclerLib:0.0.6'
 
 //生成源文件
 task sourcesJar(type: Jar) {

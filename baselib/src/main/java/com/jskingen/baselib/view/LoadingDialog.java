@@ -149,6 +149,11 @@ public class LoadingDialog extends Dialog {
             return this;
         }
 
+        public Builder setCancelable(boolean flag) {
+            loadingDialog.setCancelable(flag);
+            return this;
+        }
+
         public Builder setCancelListener(OnCancelListener listener) {
             loadingDialog.setOnCancelListener(listener);
             return this;

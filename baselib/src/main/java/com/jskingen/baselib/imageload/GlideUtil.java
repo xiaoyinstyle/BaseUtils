@@ -71,7 +71,7 @@ public class GlideUtil {
             return drawableTypeRequest;
         else
             return drawableTypeRequest
-                    .placeholder(defaultImage).diskCacheStrategy(DiskCacheStrategy.NONE)//禁用磁盘缓存
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//禁用磁盘缓存
                     .skipMemoryCache(true);//跳过内存缓存
     }
 

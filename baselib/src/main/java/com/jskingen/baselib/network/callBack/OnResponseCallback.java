@@ -31,10 +31,19 @@ public abstract class OnResponseCallback<T> implements Callback<T>, IDjCallback<
 
     }
 
+
+    public OnResponseCallback(Context context, boolean showDialog) {
+        this.showDialog = showDialog;
+        if (showDialog) {
+            mContext = context;
+            mDialog = new ProgressDialog(mContext);
+        }
+    }
+
     public OnResponseCallback(boolean showDialog) {
-        if (mContext != null) {
-            mContext = AppManager.getInstance().currentActivity().getApplicationContext();
-            this.showDialog = showDialog;
+        this.showDialog = showDialog;
+        if (showDialog) {
+            mContext = AppManager.getInstance().currentActivity();
             mDialog = new ProgressDialog(mContext);
         }
     }

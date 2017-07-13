@@ -1,7 +1,7 @@
 package yin.style.recyclerlib.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.support.annotation.IntDef;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +27,12 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
     public static final int LAYOUT_GRID = 1;//网格
     public static final int LAYOUT_FLOW = 2;//流式
     public static final int LAYOUT_LINER = 3;//线性
-    public static final int LAYOUT_STRAGGER_VERTICAL = 4;//瀑布流 VERTICAL
-    public static final int LAYOUT_STRAGGER_HORIZONTAL = 4;//瀑布流 HORIZONTAL
+    public static final int LAYOUT_STAGGER_VERTICAL = 4;//瀑布流 VERTICAL
+    public static final int LAYOUT_STAGGER_HORIZONTAL = 5;//瀑布流 HORIZONTAL
+
+    @IntDef({LAYOUT_GRID, LAYOUT_FLOW, LAYOUT_LINER, LAYOUT_STAGGER_VERTICAL, LAYOUT_STAGGER_HORIZONTAL})
+    public @interface LAYOUT_TYPE {
+    }
 
     protected List<T> list;
     private Context mContext;
@@ -160,12 +164,13 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
         this.itemDecoration = itemDecoration;
     }
 
-    class ItemViewHolder<T> extends BaseViewHolder {
+    protected class ItemViewHolder<T> extends BaseViewHolder {
         public RecyclerView mGroup;
 
         public ItemViewHolder(View view) {
             super(view);
             mGroup = new RecyclerView(mContext);
+            mGroup.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);//beforeDescendants
         }
     }
 
@@ -191,9 +196,9 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
             return new GridLayoutManager(mContext, getGridCount(position));
         else if (getLayoutType(position) == LAYOUT_FLOW)
             return new FlowLayoutManager();
-        else if (getLayoutType(position) == LAYOUT_STRAGGER_VERTICAL)
+        else if (getLayoutType(position) == LAYOUT_STAGGER_VERTICAL)
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.VERTICAL);
-        else if (getLayoutType(position) == LAYOUT_STRAGGER_HORIZONTAL)
+        else if (getLayoutType(position) == LAYOUT_STAGGER_HORIZONTAL)
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.HORIZONTAL);
         else // (getLayoutType(position) == LAYOUT_LINER)
             return new LinearLayoutManager(mContext);
@@ -205,6 +210,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
      * @param position
      * @return
      */
+    @LAYOUT_TYPE
     protected int getLayoutType(int position) {
         return LAYOUT_GRID;
     }

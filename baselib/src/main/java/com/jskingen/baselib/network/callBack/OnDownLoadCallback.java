@@ -51,9 +51,18 @@ public abstract class OnDownLoadCallback implements Callback<ResponseBody>, IFil
 
     public OnDownLoadCallback(String filePath, boolean showDialog) {
         this.filePath = filePath;
-        if (mContext == null) {
+        this.showDialog = showDialog;
+        if (showDialog) {
             mContext = AppManager.getInstance().currentActivity();
-            this.showDialog = showDialog;
+        }
+    }
+
+
+    public OnDownLoadCallback(Context context, String filePath, boolean showDialog) {
+        this.filePath = filePath;
+        this.showDialog = showDialog;
+        if (showDialog) {
+            mContext = context;
         }
     }
 

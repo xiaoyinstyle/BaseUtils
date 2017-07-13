@@ -37,6 +37,7 @@ public class UpdateSoftUtils {
     private String downloadUrl = ""; //下载地址
     private String updataUrl = BaseHelp.getInstance().getConfiguration().baseUrl + "down/meters_android_version.txt";//下载地址
     private boolean isWifiUpdata = false;
+    private boolean forceUpdata = false;//强制升级
 
     private String apkName = "apk";
 
@@ -171,9 +172,13 @@ public class UpdateSoftUtils {
      * @return
      */
     private boolean checkUpdata(String NetCode) {
+
         String AppCode = AppUtil.getVersionName(context);
         try {
-            return Float.parseFloat(NetCode) > Float.parseFloat(AppCode);
+            if (forceUpdata) {
+                return !TextUtils.equals(NetCode, AppCode);
+            } else
+                return Float.parseFloat(NetCode) > Float.parseFloat(AppCode);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -210,6 +215,11 @@ public class UpdateSoftUtils {
 
         public Builder updataUrl(String updataUrl) {
             updateSoftUtils.updataUrl = updataUrl;
+            return this;
+        }
+
+        public Builder forceUpdata(boolean forceUpdata) {
+            updateSoftUtils.forceUpdata = forceUpdata;
             return this;
         }
 

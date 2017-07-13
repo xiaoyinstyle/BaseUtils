@@ -13,10 +13,10 @@ import retrofit2.Retrofit;
  * Created by ChneY on 2017/4/7.
  */
 
-public class DjCallAdapterFactory extends CallAdapter.Factory {
+public class MyCallAdapterFactory extends CallAdapter.Factory {
 
-    public static DjCallAdapterFactory create() {
-        return new DjCallAdapterFactory();
+    public static MyCallAdapterFactory create() {
+        return new MyCallAdapterFactory();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DjCallAdapterFactory extends CallAdapter.Factory {
         // 返回值必须是CustomCall并且带有泛型
         if (rawType == MyCall.class && returnType instanceof ParameterizedType) {
             Type callReturnType = getParameterUpperBound(0, (ParameterizedType) returnType);
-            return new DjCallAdapter(callReturnType);
+            return new MyCallAdapter(callReturnType);
         }
         return null;
     }

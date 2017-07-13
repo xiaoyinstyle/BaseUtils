@@ -5,50 +5,42 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 
 import com.jskingen.baselib.activity.base.TabActivity;
+import com.jskingen.baselib.activity.model.TabEntity;
 import com.jskingen.baseutils.R;
 
 import java.util.List;
 
 public class mTabActivity extends TabActivity {
+    private String[] titles = new String[]{"测试一", "测试二", "测试三"};
+    private int[] iconUnSelectIds = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+    private int[] iconSelectIds = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
 
     @Override
-    protected void addFragment(List<Fragment> mFragments) {
+    protected void addFragment(List<TabEntity> tabEntities) {
 
         for (int i = 0; i < 3; i++) {
-            mFragments.add(TabFragment.newInstance(i));
+            TabEntity tabEntity = new TabEntity();
+            tabEntity.setFragment(TabFragment.newInstance(i));
+            tabEntity.setTitle(titles[i]);
+
+            tabEntity.setSelectedIcon(iconSelectIds[i]);
+            tabEntity.setUnSelectedIcon(iconUnSelectIds[i]);
+
+            tabEntity.setSelectedColor(Color.parseColor("#01B200"));
+            tabEntity.setUnSelectedColor(Color.parseColor("#A9B7B7"));
+
+            tabEntities.add(tabEntity);
         }
     }
 
     @Override
-    protected String[] getTitles() {
-        return new String[]{"测试一", "测试二", "测试三"};
-    }
-
-    @Override
-    protected int[] getIconUnselectIds() {
-        return new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
-    }
-
-    @Override
-    protected int[] getIconSelectIds() {
-        return new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
-    }
-
-    @Override
-    protected int getTabTextColorSelect() {
-        return Color.parseColor("#01B200");
-    }
-
-    @Override
-    protected int getTabTextColorUnSelect() {
-        return Color.parseColor("#A9B7B7");
-    }
-
-    @Override
     protected void initData() {
-        super.initData();
+        setCurrentItem(1);
+
         setCanScroll(false);
         showPoint(1, true);//显示小红点
         showPoint(2, 3, true);//显示带数字的小红点
     }
+
+
 }

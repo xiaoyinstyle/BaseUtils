@@ -32,5 +32,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上传测试" />
+
+        <Button
+            android:id="@+id/bt2_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下载2" />
+        <Button
+            android:id="@+id/bt2_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传2" />
     </LinearLayout>
 </LinearLayout>

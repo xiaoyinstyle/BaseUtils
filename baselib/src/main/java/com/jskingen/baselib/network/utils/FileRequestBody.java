@@ -33,7 +33,7 @@ public class FileRequestBody<T>  extends RequestBody {
     private BufferedSink bufferedSink;
 
     public FileRequestBody(RequestBody requestBody, OnUploadCallback<T> callback) {
-        super();
+            super();
         this.requestBody = requestBody;
         this.callback = callback;
     }

@@ -17,6 +17,7 @@ import com.jskingen.baseutils.photo.TakePhotoActivity;
 import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
 import com.jskingen.baseutils.utils.mDialogActivity;
 import com.jskingen.baseutils.utils.mPermissionsActivity;
+import com.jskingen.baseutils.utils.mPopWindowActivity;
 
 import butterknife.OnClick;
 
@@ -46,7 +47,8 @@ public class MainActivity extends TitleActivity {
     @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
             , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image, R.id.bt_main_http
             , R.id.bt_main_download, R.id.bt_main_upload, R.id.bt_main_update
-            , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout})
+            , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
+            , R.id.bt_main_popWindow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_main_tab:
@@ -87,6 +89,9 @@ public class MainActivity extends TitleActivity {
                 break;
             case R.id.bt_main_flowlayout:
                 startActivity(new Intent(this, FlowLayoutActivity.class));
+                break;
+            case R.id.bt_main_popWindow:
+                startActivity(new Intent(this, mPopWindowActivity.class));
                 break;
 
         }

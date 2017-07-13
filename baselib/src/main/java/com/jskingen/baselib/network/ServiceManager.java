@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.network.Interceptor.LoggingInterceptor;
-import com.jskingen.baselib.network.adapter.DjCallAdapterFactory;
+import com.jskingen.baselib.network.adapter.MyCallAdapterFactory;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -69,7 +69,7 @@ public class ServiceManager {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addCallAdapterFactory(DjCallAdapterFactory.create())
+                .addCallAdapterFactory(MyCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

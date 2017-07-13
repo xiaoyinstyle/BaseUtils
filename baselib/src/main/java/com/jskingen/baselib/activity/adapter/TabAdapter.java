@@ -14,16 +14,14 @@ import java.util.List;
  * TabActivity 适配器
  */
 public class TabAdapter extends FragmentStatePagerAdapter {
-    public List<Fragment> list;
-    private List<TabEntity> titles;
+    private List<TabEntity> tabEntities;
 
     /**
      * 构造方法
      */
-    public TabAdapter(FragmentManager fm, List<Fragment> list, List<TabEntity> titles) {
+    public TabAdapter(FragmentManager fm,  List<TabEntity> titles) {
         super(fm);
-        this.list = list;
-        this.titles = titles;
+        this.tabEntities = titles;
     }
 
     /**
@@ -31,7 +29,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public int getCount() {
-        return list.size();
+        return tabEntities.size();
     }
 
     /**
@@ -39,7 +37,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public Fragment getItem(int position) {
-        return list.get(position);
+        return tabEntities.get(position).getFragment();
     }
 
     /**
@@ -47,6 +45,6 @@ public class TabAdapter extends FragmentStatePagerAdapter {
      */
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position).getTitle();
+        return tabEntities.get(position).getTitle();
     }
 }

@@ -11,12 +11,12 @@ import retrofit2.CallAdapter;
  * Created by ChneY on 2017/4/7.
  */
 
-public class DjCallAdapter<R> implements CallAdapter<R, MyCall<?>> {
+public class MyCallAdapter<R> implements CallAdapter<R, MyCall<?>> {
 
     private final Type responseType;
 
     // 下面的 responseType 方法需要数据的类型
-    DjCallAdapter(Type responseType) {
+    MyCallAdapter(Type responseType) {
         this.responseType = responseType;
     }
 

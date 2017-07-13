@@ -1,7 +1,6 @@
 package com.jskingen.baselib.activity.base;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -23,11 +22,10 @@ import java.util.List;
  */
 
 public abstract class TabActivity extends NormalAcitivity {
-    private TabLayout mTabLayout;
-    private TabAdapter adapter;
-    private List<Fragment> mFragments = new ArrayList<>();
+    protected TabLayout mTabLayout;
+    protected TabAdapter adapter;
     //Tab标题集合
-    private List<TabEntity> tabEntities = new ArrayList<>();
+    protected List<TabEntity> tabEntities = new ArrayList<>();
     protected MyViewPage mViewPager;
 
     @Override
@@ -40,11 +38,12 @@ public abstract class TabActivity extends NormalAcitivity {
         mViewPager = (MyViewPage) findViewById(R.id.viewPage);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
 
-        addData();
+        addFragment(tabEntities);
 
-        adapter = new TabAdapter(getSupportFragmentManager(), mFragments, tabEntities);
+        adapter = new TabAdapter(getSupportFragmentManager(), tabEntities);
         mViewPager.setAdapter(adapter);//给ViewPager设置适配器
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         mTabLayout.setSelectedTabIndicatorHeight(0);
         for (int i = 0; i < tabEntities.size(); i++) {
@@ -70,34 +69,15 @@ public abstract class TabActivity extends NormalAcitivity {
             }
         });
 
-        if (mFragments.size() > 0) {
+        if (tabEntities.size() > 0) {
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
             setTabItem(mTabLayout.getTabAt(0), true);
         }
     }
 
-    @Override
-    protected void initData() {
-
+    public void setCurrentItem(int position){
+        mViewPager.setCurrentItem(position);
     }
-
-    private void addData() {
-        addFragment(mFragments);
-
-        String[] titles = getTitles();
-        int[] iconUnselectIds = getIconUnselectIds();
-        int[] iconSelectIds = getIconSelectIds();
-
-        for (int i = 0; i < titles.length; i++) {
-            TabEntity tabEntity = new TabEntity();
-            tabEntity.setTitle(titles[i]);
-            tabEntity.setSelectedIcon(iconSelectIds[i]);
-            tabEntity.setUnSelectedIcon(iconUnselectIds[i]);
-
-            tabEntities.add(tabEntity);
-        }
-    }
-
     /**
      * 设置 itemTab
      */
@@ -119,10 +99,10 @@ public abstract class TabActivity extends NormalAcitivity {
         holder.text.setText(tabEntities.get(position).getTitle());
 
         if (isSelected) {
-            holder.text.setTextColor(getTabTextColorSelect());
+            holder.text.setTextColor(tabEntities.get(position).getSelectedColor());
             holder.icon.setImageResource(tabEntities.get(position).getSelectedIcon());
         } else {
-            holder.text.setTextColor(getTabTextColorUnSelect());
+            holder.text.setTextColor(tabEntities.get(position).getUnSelectedColor());
             holder.icon.setImageResource(tabEntities.get(position).getUnSelectedIcon());
         }
     }
@@ -181,20 +161,19 @@ public abstract class TabActivity extends NormalAcitivity {
         return mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.v_red_point);
     }
 
+    protected abstract void addFragment(List<TabEntity> tabEntities);
 
-    protected abstract void addFragment(List<Fragment> mFragments);
-
-    protected abstract String[] getTitles();
-
-    protected abstract int[] getIconUnselectIds();
-
-    protected abstract int[] getIconSelectIds();
-
-    @ColorInt
-    protected abstract int getTabTextColorSelect();
-
-    @ColorInt
-    protected abstract int getTabTextColorUnSelect();
+//    protected abstract String[] getTitles();
+//
+//    protected abstract int[] getIconUnselectIds();
+//
+//    protected abstract int[] getIconSelectIds();
+//
+//    @ColorInt
+//    protected abstract int getTabTextColorSelect();
+//
+//    @ColorInt
+//    protected abstract int getTabTextColorUnSelect();
 
     /**
      * @param canScroll 是否可以左右滑动

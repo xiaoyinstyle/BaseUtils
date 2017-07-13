@@ -41,10 +41,17 @@ public abstract class OnUploadCallback<T> extends Callback<String> {
         }
     }
 
+    public OnUploadCallback(Context context, boolean showDialog) {
+        this.showDialog = showDialog;
+        if (showDialog) {
+            mContext = context;
+        }
+    }
+
     public OnUploadCallback(boolean showDialog) {
-        if (mContext == null) {
+        this.showDialog = showDialog;
+        if (showDialog) {
             mContext = AppManager.getInstance().currentActivity();
-            this.showDialog = showDialog;
         }
     }
 

@@ -36,7 +36,8 @@
         <activity
             android:name=".flowLayout.FlowLayoutActivity"
             android:configChanges="screenSize|orientation"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".utils.mPopWindowActivity"></activity>
     </application>
 
 </manifest>

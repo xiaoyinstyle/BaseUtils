@@ -1,20 +1,22 @@
 package com.jskingen.baselib.activity.model;
 
+import android.support.annotation.ColorInt;
+import android.support.v4.app.Fragment;
+
 /**
  * TabActivity 的导航条
  */
 public class TabEntity {
-    public String title;
-    public int selectedIcon;
-    public int unSelectedIcon;
+    private String title;
+    private int selectedIcon;
+    private int unSelectedIcon;
+    @ColorInt
+    private int selectedColor;
+    @ColorInt
+    private int unSelectedColor;
+    private Fragment fragment;
 
     public TabEntity() {
-    }
-
-    public TabEntity(String title, int selectedIcon, int unSelectedIcon) {
-        this.title = title;
-        this.selectedIcon = selectedIcon;
-        this.unSelectedIcon = unSelectedIcon;
     }
 
     public String getTitle() {
@@ -39,5 +41,29 @@ public class TabEntity {
 
     public void setUnSelectedIcon(int unSelectedIcon) {
         this.unSelectedIcon = unSelectedIcon;
+    }
+
+    public int getSelectedColor() {
+        return selectedColor;
+    }
+
+    public void setSelectedColor(@ColorInt int selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+
+    public int getUnSelectedColor() {
+        return unSelectedColor;
+    }
+
+    public void setUnSelectedColor(@ColorInt int unSelectedColor) {
+        this.unSelectedColor = unSelectedColor;
+    }
+
+    public Fragment getFragment() {
+        return fragment;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
     }
 }
