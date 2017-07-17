@@ -41,7 +41,7 @@ apply plugin: 'com.jfrog.bintray'
 //gradlew install
 //gradlew bintrayUpload
 
-def siteUrl = 'https://github.com/xiaoyinstyle/BaseUtils'      // 项目的主页
+def siteUrl = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'      // 项目的主页
 def gitUrl = 'https://github.com/xiaoyinstyle/BaseUtils.git'   // Git仓库的url
 group = "yin.style.utils" // Maven Group ID for the artifact，一般填你唯一的包名
 //发布到JCenter上的项目名字
