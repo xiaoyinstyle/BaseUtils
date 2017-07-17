@@ -5,11 +5,11 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.net.HttpHelper;
 import com.jskingen.baselib.net.callback.HttpProcessor;
-import com.jskingen.baselib.net.inter.IHttpProcessor;
 import com.jskingen.baselib.network.FileManager;
 import com.jskingen.baselib.network.callBack.OnDownLoadCallback;
 import com.jskingen.baselib.network.callBack.OnUploadCallback;
@@ -19,15 +19,18 @@ import com.jskingen.baseutils.R;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Response;
 
 public class mDownloadActivity extends TitleActivity {
 
     @BindView(R.id.checkbox)
     CheckBox checkbox;
+    @BindView(R.id.text)
+    TextView text;
 
     @Override
     protected void setTitle() {
@@ -56,7 +59,7 @@ public class mDownloadActivity extends TitleActivity {
         FileManager.onCancel();
     }
 
-    @OnClick({R.id.bt2_download, R.id.bt_download, R.id.bt_upload})
+    @OnClick({R.id.bt2_download, R.id.bt_download, R.id.bt_upload, R.id.bt2_upload})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_download:
@@ -78,19 +81,28 @@ public class mDownloadActivity extends TitleActivity {
     //下载
     private void download2() {
         String url = "http://976370887.kinqin.com/php/api/1.apk";
-        String file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/a.apk").getAbsolutePath();
+        String file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/" + UUID.randomUUID().toString() + ".apk").getAbsolutePath();
 
-        HttpHelper.getInstance().downloadFile(url, new HashMap<String, String>(), file, new HttpProcessor() {
+        HttpHelper.getInstance().downloadFile(url, new HashMap<String, String>(), file, new HttpProcessor(checkbox.isChecked()) {
 
             @Override
             public void onProgress(double per, long current, long total) {
                 Log.e("AAA", "per------>" + per);
+                text.setText(per + "");
             }
 
             @Override
             public void onFinish(boolean success) {
-
+                Log.e("AAA", "onFinish------>" + success);
             }
+
+
+            @Override
+            public void onError(String e) {
+                Log.e("AAA", "onError------>" + e);
+            }
+
+
         });
     }
 
@@ -100,16 +112,34 @@ public class mDownloadActivity extends TitleActivity {
         String url = "http://976370887.kinqin.com/php/api/mult.php";
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/a.apk");
         Map<String, Object> maps = new HashMap();
-        maps.put("file", file);
+        maps.put("fname", "admin");
+        maps.put("age", "18");
+//        if (file.exists())
+//            maps.put("file", file);
+//        else
+//            ToastUtils.show("文件不存在");
+
         HttpHelper.getInstance().uploadFile(url, maps, new HttpProcessor() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("AAA", "result------>" + result);
+
+            }
+
             @Override
             public void onProgress(double per, long current, long total) {
                 Log.e("AAA", "per------>" + per);
+                text.setText(per + "");
             }
 
             @Override
             public void onFinish(boolean success) {
+                Log.e("AAA", "onFinish------>" + success);
+            }
 
+            @Override
+            public void onError(String e) {
+                Log.e("AAA", "onError------>" + e);
             }
         });
     }
@@ -151,5 +181,12 @@ public class mDownloadActivity extends TitleActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

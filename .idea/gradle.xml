@@ -8,7 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/baselib" />
+            <option value="$PROJECT_DIR$/baseUtils" />
             <option value="$PROJECT_DIR$/recyclerlib" />
             <option value="$PROJECT_DIR$/sample" />
           </set>

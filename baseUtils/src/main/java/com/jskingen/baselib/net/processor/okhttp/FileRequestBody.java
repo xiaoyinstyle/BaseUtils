@@ -1,4 +1,4 @@
-package com.jskingen.baselib.net.fileLoad;
+package com.jskingen.baselib.net.processor.okhttp;
 
 import com.jskingen.baselib.net.inter.IFileCallBack;
 
@@ -18,7 +18,7 @@ import okio.Source;
  * Created by ChneY on 2017/6/27.
  */
 
-public class FileRequestBody<T> extends RequestBody {
+public class FileRequestBody extends RequestBody {
     /**
      * 实际请求体
      */

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.net.HttpHelper;
 import com.jskingen.baselib.net.callback.OnHttpCallBack;
+import com.jskingen.baselib.net.exception.NetException;
 import com.jskingen.baselib.net.processor.OkHttpProcessor;
 import com.jskingen.baselib.network.ServiceManager;
 import com.jskingen.baselib.network.callBack.OnResponseCallback;
@@ -112,7 +113,7 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(String result) {
+            public void onError(NetException exception) {
                 ToastUtils.show("网络请求失败");
             }
         });
@@ -133,8 +134,8 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(String result) {
-                ToastUtils.show("网络请求失败");
+            public void onError(NetException exception) {
+                ToastUtils.show("网络请求失败-->" + exception.getMessage());
             }
         });
     }
@@ -159,9 +160,10 @@ public class mNetworkActivity extends TitleActivity {
             }
 
             @Override
-            public void onError(String result) {
-                ToastUtils.show("网络请求失败-->" + result);
+            public void onError(NetException exception) {
+                ToastUtils.show("网络请求失败-->" + exception.getMessage());
             }
+
         });
     }
 

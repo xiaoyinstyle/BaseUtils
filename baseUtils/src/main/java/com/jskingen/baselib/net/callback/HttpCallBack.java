@@ -1,6 +1,7 @@
 package com.jskingen.baselib.net.callback;
 
 import com.google.gson.Gson;
+import com.jskingen.baselib.net.exception.NetException;
 import com.jskingen.baselib.net.inter.ICallBack;
 
 import java.lang.reflect.ParameterizedType;
@@ -33,7 +34,14 @@ public abstract class HttpCallBack<T> implements ICallBack {
         }
     }
 
+    @Override
+    public void onError(String result) {
+        onError(new NetException(result));
+    }
+
     public abstract void onSuccess(T t);
+
+    public abstract void onError(NetException exception);
 
     private Class<T> analysisClassInfo(Object object) {
         Type genType = object.getClass().getGenericSuperclass();
