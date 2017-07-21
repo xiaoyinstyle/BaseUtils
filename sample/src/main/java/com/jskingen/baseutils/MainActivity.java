@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
+import com.jskingen.baselib.log.Logger;
 import com.jskingen.baseutils.baseactivity.mExpandViewActivity;
 import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
 import com.jskingen.baseutils.baseactivity.mWebviewActivity;
+import com.jskingen.baseutils.common.PhoneInfo;
 import com.jskingen.baseutils.http.mDownloadActivity;
 import com.jskingen.baseutils.http.mNetworkActivity;
 import com.jskingen.baseutils.http.mUpdataActivity;
@@ -36,7 +38,14 @@ public class MainActivity extends TitleActivity {
 
     @Override
     protected void initData() {
-
+        try {
+            PhoneInfo info = new PhoneInfo(this);
+            Logger.e(info.getProvidersName());
+            Logger.e(info.getNativePhoneNumber());
+            Logger.e(info.getPhoneInfo());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
