@@ -1,6 +1,6 @@
 package com.jskingen.baseutils;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.Configuration;
@@ -10,7 +10,7 @@ import com.squareup.leakcanary.LeakCanary;
  * Created by ChneY on 2017/5/2.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     @Override
     public void onCreate() {

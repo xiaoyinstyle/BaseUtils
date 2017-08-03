@@ -108,6 +108,18 @@
             android:layout_height="wrap_content"
             android:text="通用PopWindow"
             android:textAllCaps="false" />
+        <Button
+            android:id="@+id/bt_main_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="refreshView"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/bt_main_rec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击放大特效"
+            android:textAllCaps="false" />
     </GridLayout>
 
 

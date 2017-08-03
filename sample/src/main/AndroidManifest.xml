@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -38,7 +38,9 @@
             android:name=".flowLayout.FlowLayoutActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="landscape" />
-        <activity android:name=".utils.mPopWindowActivity"></activity>
+        <activity android:name=".utils.mPopWindowActivity" />
+        <activity android:name=".utils.mRefreshviewActivity" />
+        <activity android:name=".utils.mRecyclerVActivity"></activity>
     </application>
 
 </manifest>

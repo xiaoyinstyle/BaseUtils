@@ -20,6 +20,8 @@ import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
 import com.jskingen.baseutils.utils.mDialogActivity;
 import com.jskingen.baseutils.utils.mPermissionsActivity;
 import com.jskingen.baseutils.utils.mPopWindowActivity;
+import com.jskingen.baseutils.utils.mRecyclerVActivity;
+import com.jskingen.baseutils.utils.mRefreshviewActivity;
 
 import butterknife.OnClick;
 
@@ -57,7 +59,7 @@ public class MainActivity extends TitleActivity {
             , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image, R.id.bt_main_http
             , R.id.bt_main_download, R.id.bt_main_upload, R.id.bt_main_update
             , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
-            , R.id.bt_main_popWindow})
+            , R.id.bt_main_popWindow , R.id.bt_main_refresh, R.id.bt_main_rec})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_main_tab:
@@ -101,6 +103,12 @@ public class MainActivity extends TitleActivity {
                 break;
             case R.id.bt_main_popWindow:
                 startActivity(new Intent(this, mPopWindowActivity.class));
+                break;
+            case R.id.bt_main_refresh:
+                startActivity(new Intent(this, mRefreshviewActivity.class));
+                break;
+            case R.id.bt_main_rec:
+                startActivity(new Intent(this, mRecyclerVActivity.class));
                 break;
 
         }
