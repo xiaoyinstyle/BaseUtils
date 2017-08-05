@@ -84,7 +84,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
                 public boolean onLongClick(View v) {
                     if (onItemClickLongListener != null && groupCanClick)
                         onItemClickLongListener.onItemLongClick(holder.itemView, position, -1);
-                    return false;
+                    return true;
                 }
             });
             if (((ViewGroup) holder.itemView).getChildCount() == 1)

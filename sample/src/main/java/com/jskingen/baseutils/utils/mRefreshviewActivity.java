@@ -1,11 +1,22 @@
 package com.jskingen.baseutils.utils;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baselib.view.refreshView.RefreshLayout;
@@ -43,12 +54,44 @@ public class mRefreshviewActivity extends AppCompatActivity {
         refreshLayout.setRefreshHeader(headerView);
 
 //        addListView();
-        addRecyclerView();
+//        addRecyclerView();
+        addWebView();
+    }
+
+    private void addWebView() {
+//        ScrollView linearLayout = new ScrollView(this);
+
+        WebView webview = new WebView(this);
+//        webview.setScrollContainer(false);
+        webview.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.e("AA", "url" + url);
+                return true;
+            }
+        });
+        webview.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+                Log.e("AA", "isDialog" + isDialog);
+                return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+            }
+        });
+        webview.setVerticalScrollBarEnabled(false);
+        webview.setHorizontalScrollBarEnabled(false);
+//        linearLayout.addView(webview);
+        refreshLayout.addView(webview);
+        webview.setWebViewClient(new WebViewClient());
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.loadUrl("http://222.189.162.38:12138/jszd/android/pad/alarmCdll?alarm_no=JSXFXNJQ2692&t_id=12&userid=yztqzd&c_id=&id=&org_id=b20f6fd6480d4dd49d929d9206a67842&type=26&phone=true");
     }
 
     private void addRecyclerView() {
+        LinearLayout linearLayout = new LinearLayout(this);
+
         RecyclerView recyclerView = new RecyclerView(this);
-        refreshLayout.addView(recyclerView);
+        linearLayout.addView(recyclerView);
+        refreshLayout.addView(linearLayout);
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             list.add("No." + i);

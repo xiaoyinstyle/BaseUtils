@@ -40,7 +40,9 @@
             android:screenOrientation="landscape" />
         <activity android:name=".utils.mPopWindowActivity" />
         <activity android:name=".utils.mRefreshviewActivity" />
-        <activity android:name=".utils.mRecyclerVActivity"></activity>
+        <activity
+            android:name=".utils.mRecyclerVActivity"
+         ></activity>
     </application>
 
 </manifest>

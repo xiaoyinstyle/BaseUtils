@@ -133,7 +133,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
                     public boolean onLongClick(View v) {
                         if (onItemClickLongListener != null)
                             onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
-                        return false;
+                        return true;
                     }
                 });
             }
@@ -246,7 +246,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
             public boolean onLongClick(View v) {
                 if (onEmptyClickLongListener != null)
                     onEmptyClickLongListener.onItemLongClick(emptyView, 0);
-                return false;
+                return true;
             }
         });
     }

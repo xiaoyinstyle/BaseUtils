@@ -49,7 +49,7 @@ public abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseView
             public boolean onLongClick(View v) {
                 if (onItemClickLongListener != null)
                     onItemClickLongListener.onItemLongClick(holder.itemView, groupPosition, position);
-                return false;
+                return true;
             }
         });
     }
