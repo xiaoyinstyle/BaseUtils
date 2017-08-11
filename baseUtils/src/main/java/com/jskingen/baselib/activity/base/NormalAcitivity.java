@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 
 public abstract class NormalAcitivity extends AppCompatActivity {
     private View view;
+    protected Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         setContentView(R.layout.base_activity);
         if (!removeAppManager())
             AppManager.getInstance().addActivity(this);//Activity 管理器
-
+        mContext = this;
         //动态加载content
         LinearLayout ll_root = (LinearLayout) super.findViewById(R.id.base_root);
         addTitleLayout(ll_root);//加载Title布局

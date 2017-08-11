@@ -1,13 +1,74 @@
-package yin.style.notes;
+package yin.style.notes.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.jskingen.baselib.activity.base.RecyclerViewActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import yin.style.notes.R;
+import yin.style.recyclerlib.adapter.BaseQuickAdapter;
+import yin.style.recyclerlib.holder.BaseViewHolder;
+import yin.style.recyclerlib.inter.OnItemClickListener;
+import yin.style.recyclerlib.inter.OnItemClickLongListener;
+
+public class MainActivity extends RecyclerViewActivity {
+
+    private MainAdapter adapter;
+    private List<String> list = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void setTitle() {
+        title.setText("Notes");
+        hiddenBackButton();
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void setItemDecoration() {
+//        super.setItemDecoration();
+    }
+
+    @Override
+    protected RecyclerView.Adapter setAdapter() {
+        list.clear();
+        for (int i = 0; i < 10; i++) {
+            list.add("" + i);
+        }
+        adapter = new MainAdapter(R.layout.item_main, list);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startActivity(new Intent(MainActivity.this, DetailsActivity.class));
+            }
+        });
+        adapter.setOnItemClickLongListener(new OnItemClickLongListener() {
+            @Override
+            public void onItemLongClick(View view, int position) {
+                startActivity(new Intent(MainActivity.this, AddMainActivity.class));
+            }
+        });
+        return adapter;
+    }
+
+    class MainAdapter extends BaseQuickAdapter<String> {
+
+        public MainAdapter(@LayoutRes int layoutResId, List mData) {
+            super(layoutResId, mData);
+        }
+
+        @Override
+        protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
+
+        }
     }
 }
