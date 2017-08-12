@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".activity.AddMainActivity" />
         <activity android:name=".activity.DetailsActivity" />
-        <activity android:name=".activity.AddDetailsActivity"></activity>
+        <activity android:name=".activity.AddDetailsActivity" />
+        <activity android:name=".fragment.SettingActivity"></activity>
     </application>
 
 </manifest>

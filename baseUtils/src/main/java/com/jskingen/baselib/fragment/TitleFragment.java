@@ -1,6 +1,5 @@
-package com.jskingen.baselib.activity.base;
+package com.jskingen.baselib.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,12 +9,10 @@ import android.widget.TextView;
 import com.jskingen.baselib.R;
 
 /**
- * Created by ChneY on 2017/4/22.
- * <p>
- * 正常使用的带有标题的 Activity
+ * Created by Chne on 2017/8/12.
  */
 
-public abstract class TitleActivity extends NormalAcitivity {
+public abstract class TitleFragment extends NormalFragment {
     protected ImageView iv_left;
     protected TextView tv_left;
     protected ImageView iv_right;
@@ -39,7 +36,7 @@ public abstract class TitleActivity extends NormalAcitivity {
             @Override
             public void onClick(View v) {
 //                InputUtils.close(getApplicationContext(), getCurrentFocus());
-                finish();
+                mContext.finish();
             }
         });
 

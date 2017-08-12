@@ -1,5 +1,6 @@
 package com.jskingen.baselib.activity.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 
 public abstract class NormalAcitivity extends AppCompatActivity {
     private View view;
-    protected Context mContext;
+    protected Activity mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
 
     @Nullable
     public View findViewById(@IdRes int id) {
-        if (id < 0) {
+        if (id <= 0) {
             return null;
         }
         return view.findViewById(id);

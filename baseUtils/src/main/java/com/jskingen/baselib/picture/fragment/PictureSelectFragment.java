@@ -265,4 +265,9 @@ public class PictureSelectFragment extends RecyclerViewFragment {
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
     }
+
+    @Override
+    protected void setTitle() {
+        hiddenTitle();
+    }
 }

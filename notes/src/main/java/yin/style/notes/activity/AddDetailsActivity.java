@@ -9,9 +9,15 @@ import yin.style.notes.R;
 
 public class AddDetailsActivity extends TitleActivity {
 
+    private int detailsId;
+
     @Override
     protected void setTitle() {
-        title.setText("创建或修改明细");
+        detailsId = getIntent().getIntExtra("detailsId", 0);
+        if (detailsId == 0)
+            title.setText("创建明细");
+        else
+            title.setText("修改明细");
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText("保存");
     }

@@ -14,6 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:maxLines="2"
             android:padding="3dp"
             android:text="这是一个项目内容明细"
@@ -23,46 +24,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="金额："
-                android:textColor="@color/textBlack"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="100"
-                android:textColor="@color/textBlack"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="3dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="类别："
-                android:textColor="@color/textBlack"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="收款"
-                android:textColor="@color/textBlack"
-                android:textSize="16sp" />
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="金额："
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="100"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="类别："
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="收款"
+                    android:textColor="@color/textBlack"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -73,6 +83,14 @@
             android:text="备注： 这是备注内容"
             android:textColor="@color/textBlack"
             android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:padding="3dp"
+            android:text="2017-08-10"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <!--<ImageView

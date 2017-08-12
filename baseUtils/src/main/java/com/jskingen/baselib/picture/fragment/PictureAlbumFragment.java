@@ -162,4 +162,8 @@ public class PictureAlbumFragment extends RecyclerViewFragment {
         this.jumpActivity = selectActivity;
     }
 
+    @Override
+    protected void setTitle() {
+        hiddenTitle();
+    }
 }

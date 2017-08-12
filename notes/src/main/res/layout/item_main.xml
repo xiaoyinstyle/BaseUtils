@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -14,6 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:maxLines="2"
             android:padding="3dp"
             android:text="这是一个项目名称"
@@ -83,23 +85,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:text="当前状态：预定、进行中、结束" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:maxLines="1"
             android:padding="3dp"
             android:text="2017-08-10"
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!--<ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:maxLines="1"
-        android:src="@drawable/ic_launcher"
-        android:textSize="12sp" />-->
+    <yin.style.notes.view.LabelTextView
+        android:id="@+id/ltv_item_main_statue"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="right|bottom"
+        android:gravity="top"
+        app:label_backgroundColor="#C2185B"
+        app:label_distance="25dp"
+        app:label_height="28dp"
+        app:label_orientation="RIGHT_BOTTOM"
+        app:label_text="结束"
+        app:label_textSize="15sp" />
 </android.support.v7.widget.CardView>

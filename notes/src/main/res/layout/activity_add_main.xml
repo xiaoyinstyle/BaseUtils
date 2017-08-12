@@ -26,6 +26,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/et_addMain_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -59,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:text="预定" />
 
                 <RadioButton
@@ -91,6 +91,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/et_addMain_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -117,6 +118,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_addMain_data_contract"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -141,6 +143,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_addMain_data_start"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -164,6 +167,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_addMain_data_end"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -186,6 +190,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/et_addMain_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"

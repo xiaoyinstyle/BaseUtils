@@ -1,32 +1,19 @@
 package yin.style.notes.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.jskingen.baselib.activity.base.RecyclerViewActivity;
+import android.graphics.Color;
 
-import java.util.ArrayList;
+import com.jskingen.baselib.activity.base.TabActivity;
+import com.jskingen.baselib.activity.model.TabEntity;
+
 import java.util.List;
 
 import yin.style.notes.R;
-import yin.style.recyclerlib.adapter.BaseQuickAdapter;
-import yin.style.recyclerlib.holder.BaseViewHolder;
-import yin.style.recyclerlib.inter.OnItemClickListener;
-import yin.style.recyclerlib.inter.OnItemClickLongListener;
+import yin.style.notes.fragment.ProjectsFragment;
+import yin.style.notes.fragment.SettingFragment;
+import yin.style.notes.fragment.StaffFragment;
 
-public class MainActivity extends RecyclerViewActivity {
-
-    private MainAdapter adapter;
-    private List<String> list = new ArrayList<>();
-
-    @Override
-    protected void setTitle() {
-        title.setText("Notes");
-        hiddenBackButton();
-    }
+public class MainActivity extends TabActivity {
 
     @Override
     protected void initData() {
@@ -34,41 +21,35 @@ public class MainActivity extends RecyclerViewActivity {
     }
 
     @Override
-    protected void setItemDecoration() {
-//        super.setItemDecoration();
-    }
+    protected void addFragment(List<TabEntity> tabEntities) {
+        ProjectsFragment projectsFragment = new ProjectsFragment();
+        TabEntity tab1 = new TabEntity();
+        tab1.setSelectedIcon(R.drawable.ic_launcher);
+        tab1.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab1.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+        tab1.setUnSelectedColor(getResources().getColor(R.color.colorPrimaryDark));
+        tab1.setFragment(projectsFragment);
+        tab1.setTitle("项目");
+        tabEntities.add(tab1);
 
-    @Override
-    protected RecyclerView.Adapter setAdapter() {
-        list.clear();
-        for (int i = 0; i < 10; i++) {
-            list.add("" + i);
-        }
-        adapter = new MainAdapter(R.layout.item_main, list);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                startActivity(new Intent(MainActivity.this, DetailsActivity.class));
-            }
-        });
-        adapter.setOnItemClickLongListener(new OnItemClickLongListener() {
-            @Override
-            public void onItemLongClick(View view, int position) {
-                startActivity(new Intent(MainActivity.this, AddMainActivity.class));
-            }
-        });
-        return adapter;
-    }
+        StaffFragment staffFragment = new StaffFragment();
+        TabEntity tab2 = new TabEntity();
+        tab2.setSelectedIcon(R.drawable.ic_launcher);
+        tab2.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab2.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+        tab2.setUnSelectedColor(getResources().getColor(R.color.colorPrimaryDark));
+        tab2.setFragment(staffFragment);
+        tab2.setTitle("员工");
+        tabEntities.add(tab2);
 
-    class MainAdapter extends BaseQuickAdapter<String> {
-
-        public MainAdapter(@LayoutRes int layoutResId, List mData) {
-            super(layoutResId, mData);
-        }
-
-        @Override
-        protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
-
-        }
+        SettingFragment settingFragment = new SettingFragment();
+        TabEntity tab3 = new TabEntity();
+        tab3.setSelectedIcon(R.drawable.ic_launcher);
+        tab3.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab3.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+        tab3.setUnSelectedColor(getResources().getColor(R.color.colorPrimaryDark));
+        tab3.setFragment(settingFragment);
+        tab3.setTitle("设置");
+        tabEntities.add(tab3);
     }
 }

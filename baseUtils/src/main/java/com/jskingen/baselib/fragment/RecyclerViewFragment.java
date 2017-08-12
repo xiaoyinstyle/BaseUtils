@@ -18,7 +18,7 @@ import yin.style.recyclerlib.decoration.BaseDividerItem;
  * Created by ChneY on 2017/5/6.
  */
 
-public abstract class RecyclerViewFragment extends NormalFragment {
+public abstract class RecyclerViewFragment extends TitleFragment {
     protected XRecyclerView mRecyclerView;
 
     @Override

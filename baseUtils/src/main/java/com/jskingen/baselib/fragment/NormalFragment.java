@@ -1,5 +1,7 @@
 package com.jskingen.baselib.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -22,9 +24,12 @@ import butterknife.Unbinder;
 public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
     private View view;
+    protected Activity mContext;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mContext = getActivity();
         //动态加载content
         LinearLayout ll_root = (LinearLayout) inflater.inflate(R.layout.base_activity, container, false);
         addTitleLayout(ll_root);//加载Title布局
@@ -37,14 +42,15 @@ public abstract class NormalFragment extends Fragment {
         return ll_root;
     }
 
+    protected  void addTitleLayout(LinearLayout ll_root){
+
+    };
+
     protected abstract int getViewByXml();
 
     protected abstract void initView(Bundle savedInstanceState);
 
     protected abstract void initData();
-
-    private void addTitleLayout(View ll_root) {
-    }
 
     @Nullable
     public View findViewById(@IdRes int id) {
