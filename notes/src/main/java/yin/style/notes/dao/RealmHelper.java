@@ -1,7 +1,12 @@
 package yin.style.notes.dao;
 
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
+import yin.style.notes.model.DetailsBean;
+import yin.style.notes.model.ProjectBean;
 
 /**
  * Created by ChneY on 2017/4/10.
@@ -9,7 +14,10 @@ import io.realm.Realm;
 
 public class RealmHelper {
     public static final String DB_NAME = "notes.realm";
+    public static final int pageSize = 15;//分页
+
     public static RealmHelper realmHelper;
+
     private Realm mRealm;
 
     public static RealmHelper getInstance() {
@@ -18,7 +26,11 @@ public class RealmHelper {
                 if (realmHelper == null)
                     realmHelper = new RealmHelper();
                 if (realmHelper.mRealm == null) {
-                    realmHelper.mRealm = Realm.getDefaultInstance();
+                    try {
+                        realmHelper.mRealm = Realm.getDefaultInstance();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -26,193 +38,189 @@ public class RealmHelper {
         return realmHelper;
     }
 
-//    /**
-//     * 查询所有
-//     */
-//
-//    public void findProjectsAll(final RequestDaoListener listener) {
-//        final RealmResults<UserProject> userProjects;
-//        try {
-//            User user = SPCache.getInstance().getUser();
-//            userProjects = mRealm.where(UserProject.class)
+    /**
+     * 查询所有 ProjectBean
+     */
+    public List<ProjectBean> findProjectsList(int page) {
+        RealmResults<ProjectBean> projectBeen = mRealm.where(ProjectBean.class)
 //                    .equalTo("userid", "" + user.getUserid())
-//                    .findAllSortedAsync("id", Sort.DESCENDING);
-//            userProjects.addChangeListener(new RealmChangeListener<RealmResults<UserProject>>() {
-//                @Override
-//                public void onChange(final RealmResults<UserProject> element) {
-////                    List<UserProject> users = mRealm.copyFromRealm(element);
-//
-//                    List<UserProject> users = element.subList(0, element.size() > 10 ? 10 : element.size());
-//                    listener.onChange(users);
-//                    userProjects.removeAllChangeListeners();
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            mRealm.removeAllChangeListeners();
-//            listener.onChange(new ArrayList<UserProject>());
-//        }
-//    }
-//
-//    /**
-//     * 通过 project  值，查询一个
-//     */
-//    public UserProject findProject(String projectName) {
-//        if (TextUtils.isEmpty(projectName))
-//            return null;
-//        try {
-//            UserProject temp = mRealm.where(UserProject.class)
-//                    .equalTo("project", projectName)
-//                    .findFirst();
-//            return mRealm.copyFromRealm(temp);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new UserProject();
-//        }
-//    }
-//
-//    /**
-//     * 保存 临时 定位
-//     */
-//    public void savaTempLocation(UserProject userProject) {
-//        try {
-//            mRealm.beginTransaction();
-//            userProject.setId(PrimaryKeyUserProject());
-//            mRealm.copyToRealm(userProject);
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 更新 一整套数据
-//     *
-//     * @param userProject
-//     */
-//    public void updateTempLocation(UserProject userProject) {
-//        try {
-//            mRealm.beginTransaction();
-//            mRealm.copyToRealmOrUpdate(userProject);
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    //UserProject 获取最大的PrimaryKey并加一
-//    private long PrimaryKeyUserProject() {
-//        long primaryKey = 0;
-//        RealmResults<UserProject> results = mRealm.where(UserProject.class).findAll();
-//        for (int i = 0; i < results.size(); i++) {
-//            primaryKey = primaryKey > results.get(i).getId() + 1 ? primaryKey : results.get(i).getId() + 1;
-//        }
-////        if (results != null && results.size() > 0) {
-////            UserProject last = results.last();
-////            primaryKey = last.getId() + 1;
-////        }
-//        return primaryKey;
-//    }
-//
-//    /**
-//     * 删除一条记录
-//     *
-//     * @param userProject
-//     */
-//    public void delete(UserProject userProject) {
-//        try {
-////            Dog dog = mRealm.where(Dog.class).equalTo("id", id).findFirst();
-////            mRealm.beginTransaction();
-////            dog.deleteFromRealm();
-////            mRealm.commitTransaction();
-//
-//            mRealm.beginTransaction();
-//            userProject.deleteFromRealm();
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 去除 记录的 每个定位，减少数据量
-//     * 先删除，在添加
-//     */
-//    public void relase(String projectName) {
-//        //先查找到数据 删除
-//        if (TextUtils.isEmpty(projectName))
-//            return;
-//
-//        UserProject userProject = null;
-//        try {
-//            UserProject temp = mRealm.where(UserProject.class)
-//                    .equalTo("project", projectName)
-//                    .findFirst();
-//            userProject = mRealm.copyFromRealm(temp);
-//
-//            mRealm.beginTransaction();
-//            temp.deleteFromRealm();
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        if (userProject == null)
-//            return;
-//        userProject.setLngLatBeen(null);
-//        //再添加
-//        try {
-//            mRealm.beginTransaction();
-//            mRealm.copyToRealm(userProject);
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    /**
-//     * 改变 Flag
-//     *
-//     * @param u
-//     */
-//    public void chageUploadFlag(UserProject u) {
-//        try {
-//            mRealm.beginTransaction();
-//            //如果操作的对象没有PrimaryKey, 会报错: java.lang.IllegalArgumentException: A RealmObject with no @PrimaryKey cannot be updated: class com.stone.hostproject.db.model.Movie
-//            mRealm.copyToRealmOrUpdate(u);
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 关闭 mRealm
-//     */
-//    public static void close() {
-//        // Close the Realm instance.
-//        if (realmHelper != null && realmHelper.mRealm != null) {
-//            realmHelper.mRealm.close();
-//            realmHelper.mRealm = null;
-//            realmHelper = null;
-//        }
-//    }
-//
-//    /**
-//     * 更新 一条数据的 项目里程数
-//     */
-//    public void updataMileage(UserProject userProject, String projectMileage) {
-//        if (userProject == null || TextUtils.isEmpty(projectMileage))
-//            return;
-//
-//        try {
-//            userProject.setProjectMileage(projectMileage);
-//            mRealm.beginTransaction();
-//            mRealm.copyToRealmOrUpdate(userProject);
-//            mRealm.commitTransaction();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//}
+                .findAllSorted("id", Sort.DESCENDING);
 
+        int start = page * pageSize;
+        int end = projectBeen.size() > start + pageSize ? start + pageSize : projectBeen.size();
+        List<ProjectBean> beanList = projectBeen.subList(start, end);
+        return beanList;
+    }
+
+    /**
+     * 通过 id 值，查询一个 项目详情
+     */
+    public ProjectBean findProject(long id) {
+        ProjectBean temp = mRealm.where(ProjectBean.class)
+                .equalTo("id", id)
+                .findFirst();
+        return mRealm.copyFromRealm(temp);
+    }
+
+    /**
+     * 添加 项目记录
+     */
+    public void addProjects(ProjectBean projectBean) {
+        try {
+            mRealm.beginTransaction();
+            projectBean.setId(PrimaryKeyProjectBean());
+            mRealm.copyToRealm(projectBean);
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 更新 ProjectBean 数据
+     *
+     * @param projectBean
+     */
+    public void updateProjects(ProjectBean projectBean) {
+        try {
+            mRealm.beginTransaction();
+            mRealm.copyToRealmOrUpdate(projectBean);
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //ProjectBean 获取最大的PrimaryKey并加一
+    private long PrimaryKeyProjectBean() {
+        long primaryKey = 0;
+        RealmResults<ProjectBean> results = mRealm.where(ProjectBean.class).findAllSorted("id", Sort.DESCENDING);
+        if (results != null && results.size() > 0) {
+            ProjectBean last = results.first();
+            primaryKey = last.getId() + 1;
+        }
+        return primaryKey;
+    }
+
+    /**
+     * 删除一条记录
+     *
+     * @param projectBean
+     */
+    public void deleteProject(ProjectBean projectBean) {
+        try {
+            mRealm.beginTransaction();
+            projectBean.deleteFromRealm();
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 根据 projects 的 id 查询所有 DetailsBean
+     */
+    public List<DetailsBean> findDetailsList(int page, long projectId) {
+        RealmResults<DetailsBean> projectBeen = mRealm.where(DetailsBean.class)
+                .equalTo("projectId", projectId)
+                .findAllSorted("id", Sort.DESCENDING);
+
+        int start = page * pageSize;
+        int end = projectBeen.size() > start + pageSize ? start + pageSize : projectBeen.size();
+        List<DetailsBean> beanList = projectBeen.subList(start, end);
+        return beanList;
+    }
+
+    /**
+     * 查询所有 DetailsBean
+     */
+    public List<DetailsBean> findDetailsList(int page) {
+        RealmResults<DetailsBean> projectBeen = mRealm.where(DetailsBean.class)
+                .findAllSorted("id", Sort.DESCENDING);
+
+        int start = page * pageSize;
+        int end = projectBeen.size() > start + pageSize ? start + pageSize : projectBeen.size();
+        List<DetailsBean> beanList = projectBeen.subList(start, end);
+        return beanList;
+    }
+
+    /**
+     * 通过 id 值，查询一个 项目明细详情
+     */
+    public DetailsBean finddDetails(long id) {
+        try {
+            DetailsBean temp = mRealm.where(DetailsBean.class)
+                    .equalTo("id", id)
+                    .findFirst();
+            return mRealm.copyFromRealm(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 添加 项目明细记录
+     */
+    public void addDetails(DetailsBean detailsBean) {
+        try {
+            mRealm.beginTransaction();
+            detailsBean.setId(PrimaryKeyDetailsBean());
+            mRealm.copyToRealm(detailsBean);
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 更新 DetailsBean 数据
+     *
+     * @param detailsBean
+     */
+    public void updateDetails(DetailsBean detailsBean) {
+        try {
+            mRealm.beginTransaction();
+            mRealm.copyToRealmOrUpdate(detailsBean);
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //ProjectBean 获取最大的PrimaryKey并加一
+    private long PrimaryKeyDetailsBean() {
+        long primaryKey = 0;
+        RealmResults<DetailsBean> results = mRealm.where(DetailsBean.class).findAllSorted("id", Sort.DESCENDING);
+        if (results != null && results.size() > 0) {
+            DetailsBean last = results.first();
+            primaryKey = last.getId() + 1;
+        }
+        return primaryKey;
+    }
+
+    /**
+     * 删除一条记录
+     *
+     * @param detailsBean
+     */
+    public void deleteDetails(DetailsBean detailsBean) {
+        try {
+            mRealm.beginTransaction();
+            detailsBean.deleteFromRealm();
+            mRealm.commitTransaction();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+//    /**
+//     *  查询总年龄
+//     */
+//    private void getSumAge() {
+//        Number sum=  mRealm.where(Dog.class).findAll().sum("age");
+//        int sumAge=sum.intValue();
+//    }
 }

@@ -1,14 +1,10 @@
-package yin.style.notes.activity;
+package yin.style.notes.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.jskingen.baselib.activity.base.RecyclerViewActivity;
+import com.jskingen.baselib.fragment.RecyclerViewFragment;
 import com.jskingen.baselib.utils.RxBus;
 import com.jskingen.baselib.utils.ToastUtils;
 
@@ -21,38 +17,25 @@ import yin.style.notes.R;
 import yin.style.notes.adapter.DetailAdapter;
 import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.model.DetailsBean;
-import yin.style.notes.model.ProjectBean;
 import yin.style.notes.utils.DateUtil;
-import yin.style.notes.utils.ExcelUtil;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
-import yin.style.recyclerlib.inter.OnItemClickListener;
 
-public class DetailsActivity extends RecyclerViewActivity {
-    private FloatingActionButton fbt_add;
+/**
+ * Created by Chne on 2017/8/12.
+ * 员工 工资列表
+ */
 
-    private DetailAdapter adapter;
+public class DetailsFragment extends RecyclerViewFragment {
+
     private List<DetailsBean> list = new ArrayList<>();
+    private DetailAdapter adapter;
     private int pageNumb = 0;
-    private long projectsId;
-
-    @Override
-    protected int getViewByXml() {
-        return R.layout.activity_details;
-    }
 
     @Override
     protected void setTitle() {
-        title.setText("项目明细");
-        tv_right.setVisibility(View.VISIBLE);
-        tv_right.setText("导出");
-        tv_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.show("导出");
-                saveExcel();
-            }
-        });
+        title.setText("详情");
+        hiddenBackButton();
     }
 
     @Override
@@ -63,7 +46,6 @@ public class DetailsActivity extends RecyclerViewActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
         mRecyclerView.setLoadingMoreEnabled(true);
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -79,27 +61,21 @@ public class DetailsActivity extends RecyclerViewActivity {
                         pageNumb++;
                         loadMore(pageNumb);
                         mRecyclerView.loadMoreComplete();
-                        ToastUtils.show("加载完成");
                     }
                 }, 1500);
             }
         });
+    }
 
-        fbt_add = (FloatingActionButton) findViewById(R.id.fbt_add);
-        fbt_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, AddDetailsActivity.class);
-                intent.putExtra("projectsId", projectsId);
-                startActivity(intent);
-            }
-        });
+
+    @Override
+    protected RecyclerView.Adapter setAdapter() {
+        adapter = new DetailAdapter(R.layout.item_details, list);
+        return adapter;
     }
 
     @Override
     protected void initData() {
-        projectsId = getIntent().getLongExtra("projectsId", -1);
-
         list.clear();
         loadMore(pageNumb);
         doSubscribe(this);
@@ -111,27 +87,12 @@ public class DetailsActivity extends RecyclerViewActivity {
      * @param page
      */
     private void loadMore(int page) {
-        List<DetailsBean> tempList = RealmHelper.getInstance().findDetailsList(page, projectsId);
+        List<DetailsBean> tempList = RealmHelper.getInstance().findDetailsList(page);
         if (tempList.size() < RealmHelper.pageSize) {
             mRecyclerView.setLoadingMoreEnabled(false);
         }
         list.addAll(tempList);
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected RecyclerView.Adapter setAdapter() {
-        adapter = new DetailAdapter(R.layout.item_details, list);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(mContext, AddDetailsActivity.class);
-                intent.putExtra("detailsId", list.get(position).getId());
-                intent.putExtra("projectsId", projectsId);
-                startActivity(intent);
-            }
-        });
-        return adapter;
     }
 
     /**
@@ -174,13 +135,4 @@ public class DetailsActivity extends RecyclerViewActivity {
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
     }
-
-    /**
-     * 保存 数据到 Excel
-     */
-    private void saveExcel() {
-        ProjectBean bean = RealmHelper.getInstance().findProject(projectsId);
-        ExcelUtil.writeExecleToFile(mContext, bean, list);
-    }
-
 }

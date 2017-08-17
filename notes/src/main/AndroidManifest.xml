@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="yin.style.notes">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -10,17 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddMainActivity" />
+
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.AddProjectsActivity" />
         <activity android:name=".activity.DetailsActivity" />
         <activity android:name=".activity.AddDetailsActivity" />
-        <activity android:name=".fragment.SettingActivity"></activity>
+        <activity android:name=".activity.LockActivity" />
     </application>
 
 </manifest>

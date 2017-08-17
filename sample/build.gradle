@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
+//apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.versions.compileSdkVersion
@@ -35,7 +35,7 @@ dependencies {
 
     compile rootProject.ext.dependencies["appcompat-v7"]
 //    注解
-    compile rootProject.ext.dependencies["butterknife"]
+//    compile rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
     compile 'com.android.support:multidex:1.0.0'

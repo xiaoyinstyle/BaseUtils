@@ -15,12 +15,16 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath "io.realm:realm-gradle-plugin:3.5.0"
+
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo'
+        }
     }
 }
 

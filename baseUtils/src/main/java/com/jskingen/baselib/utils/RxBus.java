@@ -1,10 +1,7 @@
 package com.jskingen.baselib.utils;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 
 import java.util.HashMap;
-import java.util.Vector;
 
 import rx.Observable;
 import rx.Subscription;
@@ -13,7 +10,6 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -163,6 +159,6 @@ public class RxBus {
 //                    }
 //                });
 //
-//        addSubscription(context, subscription);
+//         RxBus.getInstance(). addSubscription(context, subscription);
 //    }
 }

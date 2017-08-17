@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -12,6 +13,7 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_item_details_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -24,13 +26,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="3dp">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:padding="3dp">
 
                 <TextView
@@ -42,12 +43,13 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_item_details_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
-                    android:text="100"
                     android:textColor="@color/textBlack"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="100" />
             </LinearLayout>
 
 
@@ -66,30 +68,34 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_item_details_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="收款"
                     android:textColor="@color/textBlack"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="收款" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_item_details_remarks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:padding="3dp"
-            android:text="备注： 这是备注内容"
             android:textColor="@color/textBlack"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="备注： 这是备注内容" />
 
         <TextView
+            android:id="@+id/tv_item_details_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:padding="3dp"
-            android:text="2017-08-10"
+            tools:text="2017-08-10"
+            android:textColor="@color/textGrey"
             android:textSize="12sp" />
     </LinearLayout>
 
