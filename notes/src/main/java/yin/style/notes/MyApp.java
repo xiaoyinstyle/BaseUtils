@@ -4,12 +4,19 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.stetho.Stetho;
+import com.jskingen.baselib.BaseHelp;
+import com.jskingen.baselib.Configuration;
+import com.jskingen.baselib.utils.FileUtils;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.io.File;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import yin.style.notes.dao.DaoMigration;
-import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.utils.MD5;
 
 /**
@@ -29,6 +36,17 @@ public class MyApp extends MultiDexApplication {
         super.onCreate();
         instance = this;
         initRealm();
+        init();
+    }
+
+    private void init() {
+
+        Configuration configuration = new Configuration.Builder(this)
+                .baseUrl("http;//baidu.com")
+                .fileName("Notes")
+                .debug(BuildConfig.DEBUG)
+                .build();
+        BaseHelp.getInstance().init(configuration);
     }
 
     /**
@@ -52,7 +70,27 @@ public class MyApp extends MultiDexApplication {
         );
     }
 
+    /**
+     * 图案的超级密码
+     *
+     * @return
+     */
     public String getSuperLock() {
         return MD5.getMD5(superLock);
     }
+
+    /**
+     * Excel 保存路径
+     *
+     * @param context
+     * @return
+     */
+    public static String getExcelPath(Context context) {
+        File dirFile = new File(FileUtils.getRootPath(context), "Excel");
+        if (dirFile != null && !dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        return dirFile.getPath();
+    }
+
 }

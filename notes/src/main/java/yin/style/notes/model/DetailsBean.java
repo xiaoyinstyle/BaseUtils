@@ -104,12 +104,19 @@ public class DetailsBean extends RealmObject {
 
     public static String getFlagText(int flag) {
         String text = "";
-        if (flag == ProjectBean.PROJECTS_FLAG_START) {
-            text = "预定";
-        } else if (flag == ProjectBean.PROJECTS_FLAG_RUNNING) {
-            text = "进行中";
-        } else if (flag == ProjectBean.PROJECTS_FLAG_END) {
-            text = "结束";
+        switch (flag) {
+            case DetailsBean.DETAILS_FLAG_RECEIPT:
+                text = "收款";
+                break;
+            case DetailsBean.DETAILS_FLAG_MATERIAL:
+                text = "材料";
+                break;
+            case DetailsBean.DETAILS_FLAG_WAGE:
+                text = "工资";
+                break;
+            case DetailsBean.DETAILS_FLAG_OTHER:
+                text = "其他";
+                break;
         }
         return text;
     }

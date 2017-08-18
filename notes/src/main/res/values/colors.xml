@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+
     <color name="tabSelect">#1E88E5</color>
     <color name="tabUnSelect">#9E9E9E</color>
 
+    <color name="textOrange">#FF6600</color>
 
     <color name="textBlack">#333333</color>
     <color name="textGrey">#848484</color>

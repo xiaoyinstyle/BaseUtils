@@ -2,12 +2,20 @@ package yin.style.notes.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jskingen.baselib.fragment.TitleFragment;
+import com.jskingen.baselib.utils.ToastUtils;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import yin.style.notes.R;
+import yin.style.notes.activity.AboutActivity;
+import yin.style.notes.activity.ExportHistoryActivity;
 import yin.style.notes.activity.LockActivity;
 
 /**
@@ -15,7 +23,6 @@ import yin.style.notes.activity.LockActivity;
  * 2、九宫格密码（设置、修改）
  */
 public class SettingFragment extends TitleFragment {
-    LinearLayout llSetLock;
 
     @Override
     protected void setTitle() {
@@ -30,14 +37,7 @@ public class SettingFragment extends TitleFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        llSetLock = (LinearLayout) findViewById(R.id.ll_set_lock);
-        llSetLock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, LockActivity.class));
 
-            }
-        });
     }
 
     @Override
@@ -45,4 +45,24 @@ public class SettingFragment extends TitleFragment {
 
     }
 
+    @OnClick({R.id.ll_set_lock, R.id.ll_set_history, R.id.ll_set_backup, R.id.ll_set_recovery, R.id.ll_set_about})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_set_lock:
+                startActivity(new Intent(mContext, LockActivity.class));
+                break;
+            case R.id.ll_set_history:
+                startActivity(new Intent(mContext, ExportHistoryActivity.class));
+                break;
+            case R.id.ll_set_backup:
+                ToastUtils.show("正在开发..");
+                break;
+            case R.id.ll_set_recovery:
+                ToastUtils.show("正在开发..");
+                break;
+            case R.id.ll_set_about:
+                startActivity(new Intent(mContext, AboutActivity.class));
+                break;
+        }
+    }
 }

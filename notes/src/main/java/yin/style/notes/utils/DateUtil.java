@@ -85,7 +85,7 @@ public class DateUtil {
 
     public static String date2Str(Date d, String format) {// yyyy-MM-dd HH:mm:ss
         if (d == null) {
-            return null;
+            return "";
         }
         if (format == null || format.length() == 0) {
             format = FORMAT;

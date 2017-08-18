@@ -2,6 +2,9 @@ package yin.style.notes.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jskingen.baselib.fragment.RecyclerViewFragment;
@@ -65,8 +68,21 @@ public class DetailsFragment extends RecyclerViewFragment {
                 }, 1500);
             }
         });
+
+        addHeadView();
     }
 
+    private void addHeadView() {
+        View headView = View.inflate(mContext, R.layout.head_details, null);
+        headView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+
+
+
+
+
+        adapter.addHeaderView(headView);
+    }
 
     @Override
     protected RecyclerView.Adapter setAdapter() {

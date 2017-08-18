@@ -21,28 +21,28 @@ public class MainActivity extends TabActivity {
     protected void addFragment(List<TabEntity> tabEntities) {
         ProjectsFragment projectsFragment = new ProjectsFragment();
         TabEntity tab = new TabEntity();
-        tab.setSelectedIcon(R.drawable.ic_launcher);
-        tab.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab.setSelectedIcon(R.mipmap.ic_tab_projects_);
+        tab.setUnSelectedIcon(R.mipmap.ic_tab_projects_un);
         tab.setSelectedColor(getResources().getColor(R.color.tabSelect));
         tab.setUnSelectedColor(getResources().getColor(R.color.tabUnSelect));
         tab.setFragment(projectsFragment);
         tab.setTitle("项目");
         tabEntities.add(tab);
 
-        DetailsFragment staffFragment = new DetailsFragment();
+        DetailsFragment detailsFragment = new DetailsFragment();
         tab = new TabEntity();
-        tab.setSelectedIcon(R.drawable.ic_launcher);
-        tab.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab.setSelectedIcon(R.mipmap.ic_tab_details);
+        tab.setUnSelectedIcon(R.mipmap.ic_tab_details_un);
         tab.setSelectedColor(getResources().getColor(R.color.tabSelect));
         tab.setUnSelectedColor(getResources().getColor(R.color.tabUnSelect));
-        tab.setFragment(staffFragment);
+        tab.setFragment(detailsFragment);
         tab.setTitle("详情");
         tabEntities.add(tab);
 
         SettingFragment settingFragment = new SettingFragment();
         tab = new TabEntity();
-        tab.setSelectedIcon(R.drawable.ic_launcher);
-        tab.setUnSelectedIcon(R.drawable.ic_launcher);
+        tab.setSelectedIcon(R.mipmap.ic_tab_setting_);
+        tab.setUnSelectedIcon(R.mipmap.ic_tab_setting_un);
         tab.setSelectedColor(getResources().getColor(R.color.tabSelect));
         tab.setUnSelectedColor(getResources().getColor(R.color.tabUnSelect));
         tab.setFragment(settingFragment);

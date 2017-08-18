@@ -214,11 +214,11 @@ public class AddDetailsActivity extends TitleActivity {
 
             //添加或者 更新 数据库
             if (detailsId == -1) {
-                for (int i = 0; i < 30; i++) {
-                    detailsBean.setContent(detailsContent + "_" + i);
-                    RealmHelper.getInstance().addDetails(detailsBean);
-                }
-//                RealmHelper.getInstance().addDetails(detailsBean);
+//                for (int i = 0; i < 30; i++) {
+//                    detailsBean.setContent(detailsContent + "_" + i);
+//                    RealmHelper.getInstance().addDetails(detailsBean);
+//                }
+                RealmHelper.getInstance().addDetails(detailsBean);
                 detailsBean.setUpdateData(false);
             } else {
                 RealmHelper.getInstance().updateDetails(detailsBean);

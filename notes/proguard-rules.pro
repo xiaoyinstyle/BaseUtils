@@ -23,3 +23,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+#import android.*;
+#import android.webkit.*;
+#import android.webkit.WebStorage.*;
+#import android.net.*;
+#import android.net.http.*;

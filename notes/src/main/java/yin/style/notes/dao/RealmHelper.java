@@ -132,6 +132,14 @@ public class RealmHelper {
         return beanList;
     }
 
+    public List<DetailsBean> findDetailsALL(long projectId) {
+        RealmResults<DetailsBean> projectBeen = mRealm.where(DetailsBean.class)
+                .findAllSorted("id", Sort.DESCENDING);
+
+        List<DetailsBean> beanList = projectBeen.subList(0, projectBeen.size());
+        return beanList;
+    }
+
     /**
      * 查询所有 DetailsBean
      */

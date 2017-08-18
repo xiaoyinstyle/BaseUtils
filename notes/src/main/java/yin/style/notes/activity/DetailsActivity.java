@@ -1,8 +1,8 @@
 package yin.style.notes.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +11,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jskingen.baselib.activity.base.RecyclerViewActivity;
 import com.jskingen.baselib.utils.RxBus;
 import com.jskingen.baselib.utils.ToastUtils;
+import com.jskingen.baselib.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,7 @@ import yin.style.notes.adapter.DetailAdapter;
 import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.model.DetailsBean;
 import yin.style.notes.model.ProjectBean;
-import yin.style.notes.utils.DateUtil;
 import yin.style.notes.utils.ExcelUtil;
-import yin.style.recyclerlib.adapter.BaseQuickAdapter;
-import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 
 public class DetailsActivity extends RecyclerViewActivity {
@@ -35,6 +33,8 @@ public class DetailsActivity extends RecyclerViewActivity {
     private List<DetailsBean> list = new ArrayList<>();
     private int pageNumb = 0;
     private long projectsId;
+
+    private LoadingDialog dialog;
 
     @Override
     protected int getViewByXml() {
@@ -49,7 +49,6 @@ public class DetailsActivity extends RecyclerViewActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show("导出");
                 saveExcel();
             }
         });
@@ -179,8 +178,25 @@ public class DetailsActivity extends RecyclerViewActivity {
      * 保存 数据到 Excel
      */
     private void saveExcel() {
-        ProjectBean bean = RealmHelper.getInstance().findProject(projectsId);
-        ExcelUtil.writeExecleToFile(mContext, bean, list);
+        if (dialog == null)
+            dialog = new LoadingDialog.Builder(this)
+                    .setMessage("保存中..")
+                    .setTextColor(Color.WHITE)
+                    .setBackground(R.drawable.progress_custom_bg_black)
+                    .setCancelable(false)
+                    .create();
+
+        dialog.show();
+        tv_right.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final ProjectBean bean = RealmHelper.getInstance().findProject(projectsId);
+                final List<DetailsBean> list = RealmHelper.getInstance().findDetailsALL(projectsId);
+                ExcelUtil.writeExecleToFile(mContext, bean, list);
+                ToastUtils.show("导出成功");
+                dialog.hide();
+            }
+        },1000);
     }
 
 }

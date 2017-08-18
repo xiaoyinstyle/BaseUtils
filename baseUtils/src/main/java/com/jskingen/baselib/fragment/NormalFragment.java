@@ -23,7 +23,7 @@ import butterknife.Unbinder;
 
 public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
-    private View view;
+    protected View view;
     protected Activity mContext;
 
     @Nullable
