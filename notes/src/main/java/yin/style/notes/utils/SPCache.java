@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.jskingen.baselib.utils.GsonUtils;
 
 import yin.style.notes.MyApp;
+import yin.style.notes.model.RuleDetails;
 import yin.style.notes.model.RuleProjects;
 
 /**
@@ -64,8 +65,11 @@ public class SPCache {
         String s = sharedPreferences.getString("ruleProjects", "");
         if (s.isEmpty()) {
             ruleProjects = new RuleProjects();
-            ruleProjects.setUp(true);
             ruleProjects.setFlag(RuleProjects.FLAG_TIME);
+            ruleProjects.setUp(true);
+            ruleProjects.setStart(true);
+            ruleProjects.setRun(true);
+            ruleProjects.setEnd(true);
         } else {
             ruleProjects = GsonUtils.getObject(s, RuleProjects.class);
         }
@@ -75,6 +79,35 @@ public class SPCache {
     public void setRuleProjects(RuleProjects ruleProjects) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ruleProjects", GsonUtils.toJson(ruleProjects));
+        editor.commit();
+    }
+
+
+    /**
+     * 获取 保存 的 Details  搜索的规则
+     *
+     * @return
+     */
+    public RuleDetails getRuleDetails() {
+        RuleDetails ruleDetails;
+        String s = sharedPreferences.getString("ruleDetails", "");
+        if (s.isEmpty()) {
+            ruleDetails = new RuleDetails();
+            ruleDetails.setFlag(RuleProjects.FLAG_TIME);
+            ruleDetails.setUp(true);
+            ruleDetails.setMaterial(true);
+            ruleDetails.setReceipt(true);
+            ruleDetails.setWage(true);
+            ruleDetails.setOther(true);
+        } else {
+            ruleDetails = GsonUtils.getObject(s, RuleDetails.class);
+        }
+        return ruleDetails;
+    }
+
+    public void setRuleDetails(RuleDetails ruleDetails) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ruleDetails", GsonUtils.toJson(ruleDetails));
         editor.commit();
     }
 

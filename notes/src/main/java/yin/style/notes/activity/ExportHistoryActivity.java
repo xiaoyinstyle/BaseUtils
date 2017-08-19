@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.jskingen.baselib.activity.base.RecyclerViewActivity;
+import com.jskingen.baselib.utils.FileUtils;
+import com.jskingen.baselib.utils.ToastUtils;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.ValueCallback;
 
@@ -54,12 +56,12 @@ public class ExportHistoryActivity extends RecyclerViewActivity {
     protected RecyclerView.Adapter setAdapter() {
         adapter = new BaseQuickAdapter<File>(R.layout.item_export_history, list) {
             @Override
-            protected void setViewHolder(BaseViewHolder baseViewHolder, final File bean, int position) {
+            protected void setViewHolder(BaseViewHolder baseViewHolder, final File bean, final int position) {
                 baseViewHolder.setText(R.id.tv_item_exp_file_name, bean.getName());
                 baseViewHolder.getView(R.id.tv_item_exp_file_open).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        shareFile(list.get(position));
                     }
                 });
 
@@ -75,22 +77,14 @@ public class ExportHistoryActivity extends RecyclerViewActivity {
         return adapter;
     }
 
+    /**
+     * 打开 Excel 文件
+     * @param filePath
+     */
     private void openFile(String filePath) {
-        String a = mContext.getCallingPackage();
-        String b =  mContext.getCallingPackage() + "." + mContext.getLocalClassName();
-//        String jsondata = "{pkgName:\"" + mContext.getCallingPackage() + "\", "
-//                + "className:\"" + mContext.getCallingPackage() + "." + mContext.getLocalClassName() + "\","
-//                + "thirdCtx: {pp:123},"
-//                + "menuItems:"
-//                + "["
-//                + "{id:0,iconResId:" + R.drawable.ic_launcher + ",text:\"分享\"}"
-//                + "]"
-//                + " }";
-
         HashMap<String, String> params = new HashMap<>();
         params.put("style", "0");
         params.put("local", "true");
-//        params.put("menuData", jsondata);
 
         QbSdk.openFileReader(mContext, filePath, params, new ValueCallback<String>() {
             @Override
@@ -100,6 +94,32 @@ public class ExportHistoryActivity extends RecyclerViewActivity {
         });
     }
 
+    /**
+     * 分享 Excel 文件
+     *
+     * @param file
+     */
+    private void shareFile(File file) {
+        Intent imageIntent = new Intent(Intent.ACTION_SEND);
+        imageIntent.setType("application/vnd.ms-excel");
+        imageIntent.putExtra(Intent.EXTRA_STREAM, FileUtils.getUri2File(mContext, file));
+        startActivity(Intent.createChooser(imageIntent, "分享"));
+    }
+
+    /**
+     * 删除 Excel 文件
+     *
+     * @param file
+     */
+    private void deleteFile(File file) {
+        if (file.delete()) {
+            list.remove(file);
+            adapter.notifyDataSetChanged();
+            ToastUtils.show("删除成功");
+        } else {
+            ToastUtils.show("删除失败");
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

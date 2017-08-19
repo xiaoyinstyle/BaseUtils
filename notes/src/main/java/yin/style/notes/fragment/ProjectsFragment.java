@@ -28,14 +28,15 @@ import java.util.List;
 import rx.Subscription;
 import rx.functions.Action1;
 import yin.style.notes.R;
+import yin.style.notes.SortListener;
 import yin.style.notes.activity.AddProjectsActivity;
 import yin.style.notes.activity.DetailsActivity;
 import yin.style.notes.adapter.ProjectsAdapter;
 import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.model.ProjectBean;
 import yin.style.notes.model.RuleProjects;
-import yin.style.notes.utils.DateUtil;
 import yin.style.notes.utils.SPCache;
+import yin.style.notes.utils.SortPopwindow;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.recyclerlib.inter.OnItemClickLongListener;
 
@@ -43,9 +44,9 @@ import yin.style.recyclerlib.inter.OnItemClickLongListener;
  * Created by Chne on 2017/8/12.
  */
 
-public class ProjectsFragment extends RecyclerViewFragment implements View.OnClickListener {
-    private TextView tvProjectHeadBudget;
-    private TextView tvProjectHeadDate;
+public class ProjectsFragment extends RecyclerViewFragment {
+    private TextView tvProjectHeadSort;
+    private TextView tvProjectHeadType;
     private TextView tvProjectHeadStart;
     private TextView tvProjectHeadEnd;
 
@@ -53,8 +54,11 @@ public class ProjectsFragment extends RecyclerViewFragment implements View.OnCli
     private List<ProjectBean> list = new ArrayList<>();
     private int pageNumb = 0;
 
-    private TimePickerView tpvStart;
-    private TimePickerView tpvEnd;
+    private SortPopwindow popwindow;
+
+    private RuleProjects ruleProjects;
+    private Drawable up;
+    private Drawable down;
 
     @Override
     protected void setTitle() {
@@ -103,71 +107,28 @@ public class ProjectsFragment extends RecyclerViewFragment implements View.OnCli
     }
 
     private void addHeadView() {
+        popwindow = new SortPopwindow(mContext, view, SortPopwindow.FLAG_PROJECTS, new SortListener() {
+            @Override
+            public void finish() {
+                setView();
+            }
+        });
+
         View headView = View.inflate(mContext, R.layout.head_projects, null);
         headView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        tvProjectHeadBudget = (TextView) headView.findViewById(R.id.tv_project_head_budget);
-        tvProjectHeadDate = (TextView) headView.findViewById(R.id.tv_project_head_date);
+        tvProjectHeadSort = (TextView) headView.findViewById(R.id.tv_project_head_sort);
+        tvProjectHeadType = (TextView) headView.findViewById(R.id.tv_project_head_type);
         tvProjectHeadStart = (TextView) headView.findViewById(R.id.tv_project_head_start);
         tvProjectHeadEnd = (TextView) headView.findViewById(R.id.tv_project_head_end);
-
-        tvProjectHeadBudget.setOnClickListener(this);
-        tvProjectHeadDate.setOnClickListener(this);
-        tvProjectHeadStart.setOnClickListener(this);
-        tvProjectHeadEnd.setOnClickListener(this);
+        headView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popwindow.show();
+            }
+        });
         adapter.addHeaderView(headView);
-
-        tpvStart = new TimePickerView.Builder(mContext, new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-                ruleProjects.setStartTime(DateUtil.date2Str(date, "yyyy-MM-dd"));
-                SPCache.getInstance().setRuleProjects(ruleProjects);
-
-                tvProjectHeadStart.setText(ruleProjects.getStartTime());
-            }
-        }).setLayoutRes(R.layout.dialog_timepicker, new CustomListener() {
-            @Override
-            public void customLayout(View v) {
-                //顶部标题
-                TextView tvTitle = (TextView) v.findViewById(com.bigkoo.pickerview.R.id.tvTitle);
-                tvTitle.setText("开始时间");//默认为空
-
-                //确定和取消按钮
-                v.findViewById(R.id.btnSubmit).setOnClickListener(tvpStartOnclick);
-                v.findViewById(R.id.btnClear).setOnClickListener(tvpStartOnclick);
-                v.findViewById(R.id.btnCancel).setOnClickListener(tvpStartOnclick);
-            }
-        }).isDialog(true)
-                .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
-                .build();
-
-        tpvEnd = new TimePickerView.Builder(mContext, new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-                ruleProjects.setEndTime(DateUtil.date2Str(date, "yyyy-MM-dd"));
-                SPCache.getInstance().setRuleProjects(ruleProjects);
-
-                tvProjectHeadEnd.setText(ruleProjects.getEndTime());
-            }
-        }).setLayoutRes(R.layout.dialog_timepicker, new CustomListener() {
-            @Override
-            public void customLayout(View v) {
-                //顶部标题
-                TextView tvTitle = (TextView) v.findViewById(com.bigkoo.pickerview.R.id.tvTitle);
-                tvTitle.setText("结束时间");//默认为空
-
-                //确定和取消按钮
-                v.findViewById(R.id.btnSubmit).setOnClickListener(tvpEndOnclick);
-                v.findViewById(R.id.btnClear).setOnClickListener(tvpEndOnclick);
-                v.findViewById(R.id.btnCancel).setOnClickListener(tvpEndOnclick);
-            }
-        }).isDialog(true)
-                .setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
-                .build();
-
     }
-
-    RuleProjects ruleProjects;
 
     @Override
     protected void initData() {
@@ -176,33 +137,19 @@ public class ProjectsFragment extends RecyclerViewFragment implements View.OnCli
         down = AppCompatResources.getDrawable(mContext, R.mipmap.ic_to_down);
         down.setBounds(0, 0, down.getMinimumWidth(), down.getMinimumHeight());
 
-        ruleProjects = SPCache.getInstance().getRuleProjects();
-        setView(ruleProjects);
+        setView();
 
         list.clear();
         loadMore(pageNumb);
         doSubscribe(this);
     }
 
-    private Drawable up;
-    private Drawable down;
-
-    private void setView(RuleProjects ruleProjects) {
-
-        switch (ruleProjects.getFlag()) {
-            case RuleProjects.FLAG_TIME:
-                tvProjectHeadDate.setTextColor(getResources().getColor(R.color.textOrange));
-                tvProjectHeadBudget.setTextColor(getResources().getColor(R.color.textGrey));
-                tvProjectHeadDate.setCompoundDrawables(null, null, ruleProjects.isUp() ? up : down, null);
-                tvProjectHeadBudget.setCompoundDrawables(null, null, null, null);
-                break;
-            case RuleProjects.FLAG_MONEY:
-                tvProjectHeadDate.setTextColor(getResources().getColor(R.color.textGrey));
-                tvProjectHeadBudget.setTextColor(getResources().getColor(R.color.textOrange));
-                tvProjectHeadDate.setCompoundDrawables(null, null, null, null);
-                tvProjectHeadBudget.setCompoundDrawables(null, null, ruleProjects.isUp() ? up : down, null);
-                break;
-        }
+    private void setView() {
+        ruleProjects = SPCache.getInstance().getRuleProjects();
+        tvProjectHeadSort.setCompoundDrawables(null, null, ruleProjects.isUp() ? up : down, null);
+        tvProjectHeadSort.setText(RuleProjects.getFlagText(ruleProjects.getFlag()));
+        //****
+        tvProjectHeadType.setText(RuleProjects.getFlagText(ruleProjects.getFlag()));
         tvProjectHeadStart.setText(ruleProjects.getStartTime());
         tvProjectHeadEnd.setText(ruleProjects.getEndTime());
     }
@@ -284,81 +231,4 @@ public class ProjectsFragment extends RecyclerViewFragment implements View.OnCli
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
     }
-
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_project_head_budget:
-                if (ruleProjects.getFlag() == RuleProjects.FLAG_MONEY)
-                    ruleProjects.setUp(!ruleProjects.isUp());
-                else {
-                    ruleProjects.setUp(true);
-                    ruleProjects.setFlag(RuleProjects.FLAG_MONEY);
-                }
-
-                SPCache.getInstance().setRuleProjects(ruleProjects);
-                setView(ruleProjects);
-                break;
-            case R.id.tv_project_head_date:
-                if (ruleProjects.getFlag() == RuleProjects.FLAG_TIME)
-                    ruleProjects.setUp(!ruleProjects.isUp());
-                else {
-                    ruleProjects.setUp(true);
-                    ruleProjects.setFlag(RuleProjects.FLAG_TIME);
-                }
-
-                SPCache.getInstance().setRuleProjects(ruleProjects);
-                setView(ruleProjects);
-                break;
-            case R.id.tv_project_head_start:
-                tpvStart.show();
-                break;
-            case R.id.tv_project_head_end:
-//                tpvEnd.setDate();
-                tpvEnd.show();
-                break;
-        }
-    }
-
-    //自定义时间选择 控件 dialog 的点击事件
-    View.OnClickListener tvpEndOnclick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btnSubmit:
-                    tpvEnd.returnData();
-                    break;
-                case R.id.btnCancel:
-                    break;
-                case R.id.btnClear:
-                    ruleProjects.setEndTime("");
-                    SPCache.getInstance().setRuleProjects(ruleProjects);
-
-                    tvProjectHeadEnd.setText("");
-                    break;
-            }
-            tpvEnd.dismiss();
-        }
-    };
-
-    //自定义时间选择 控件 dialog 的点击事件
-    View.OnClickListener tvpStartOnclick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btnSubmit:
-                    tpvStart.returnData();
-                    break;
-                case R.id.btnCancel:
-                    break;
-                case R.id.btnClear:
-                    ruleProjects.setStartTime("");
-                    SPCache.getInstance().setRuleProjects(ruleProjects);
-
-                    tvProjectHeadStart.setText("");
-                    break;
-            }
-            tpvStart.dismiss();
-        }
-    };
-
 }

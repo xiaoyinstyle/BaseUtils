@@ -7,11 +7,13 @@ package yin.style.notes.model;
  */
 
 public class RuleProjects {
-    public static final int FLAG_MONEY = 1;//按金额
-    //    public static final int FLAG_TYPE = 2;//按类型
-    public static final int FLAG_TIME = 3;//按时间
+    public static final int FLAG_TIME = 1;//按时间
+    public static final int FLAG_MONEY = 2;//按金额
+    private int flag;
     private boolean isUp;
-    private int Flag;
+    private boolean isStart;
+    private boolean isRun;
+    private boolean isEnd;
     private String startTime;
     private String endTime;
 
@@ -24,11 +26,35 @@ public class RuleProjects {
     }
 
     public int getFlag() {
-        return Flag;
+        return flag;
     }
 
     public void setFlag(int flag) {
-        Flag = flag;
+        this.flag = flag;
+    }
+
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
+    }
+
+    public boolean isRun() {
+        return isRun;
+    }
+
+    public void setRun(boolean run) {
+        isRun = run;
+    }
+
+    public boolean isEnd() {
+        return isEnd;
+    }
+
+    public void setEnd(boolean end) {
+        isEnd = end;
     }
 
     public String getStartTime() {
@@ -45,5 +71,15 @@ public class RuleProjects {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public static String getFlagText(int flag) {
+        switch (flag) {
+            case FLAG_TIME:
+                return "时间";
+            case FLAG_MONEY:
+                return "预算";
+        }
+        return "";
     }
 }

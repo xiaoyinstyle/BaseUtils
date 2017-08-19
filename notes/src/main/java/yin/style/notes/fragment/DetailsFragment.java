@@ -1,10 +1,13 @@
 package yin.style.notes.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jskingen.baselib.fragment.RecyclerViewFragment;
@@ -17,10 +20,15 @@ import java.util.List;
 import rx.Subscription;
 import rx.functions.Action1;
 import yin.style.notes.R;
+import yin.style.notes.SortListener;
 import yin.style.notes.adapter.DetailAdapter;
 import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.model.DetailsBean;
+import yin.style.notes.model.RuleDetails;
+import yin.style.notes.model.RuleProjects;
 import yin.style.notes.utils.DateUtil;
+import yin.style.notes.utils.SPCache;
+import yin.style.notes.utils.SortPopwindow;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 
@@ -30,6 +38,15 @@ import yin.style.recyclerlib.holder.BaseViewHolder;
  */
 
 public class DetailsFragment extends RecyclerViewFragment {
+    private TextView tvDetailHeadSort;
+    private TextView tvDetailHeadType;
+    private TextView tvDetailHeadStart;
+    private TextView tvDetailHeadEnd;
+
+    private SortPopwindow popwindow;
+    private RuleDetails ruleDetails;
+    private Drawable up;
+    private Drawable down;
 
     private List<DetailsBean> list = new ArrayList<>();
     private DetailAdapter adapter;
@@ -73,15 +90,38 @@ public class DetailsFragment extends RecyclerViewFragment {
     }
 
     private void addHeadView() {
+        popwindow = new SortPopwindow(mContext, view, SortPopwindow.FLAG_DETAILS, new SortListener() {
+            @Override
+            public void finish() {
+                setView();
+            }
+        });
+
         View headView = View.inflate(mContext, R.layout.head_details, null);
         headView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-
-
-
-
+        tvDetailHeadSort = (TextView) headView.findViewById(R.id.tv_detail_head_sort);
+        tvDetailHeadType = (TextView) headView.findViewById(R.id.tv_detail_head_type);
+        tvDetailHeadStart = (TextView) headView.findViewById(R.id.tv_detail_head_start);
+        tvDetailHeadEnd = (TextView) headView.findViewById(R.id.tv_detail_head_end);
+        headView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popwindow.show();
+            }
+        });
 
         adapter.addHeaderView(headView);
+    }
+
+    private void setView() {
+        ruleDetails = SPCache.getInstance().getRuleDetails();
+        tvDetailHeadSort.setCompoundDrawables(null, null, ruleDetails.isUp() ? up : down, null);
+        tvDetailHeadSort.setText(RuleDetails.getFlagText(ruleDetails.getFlag()));
+        //***
+        tvDetailHeadType.setText(RuleDetails.getFlagText(ruleDetails.getFlag()));
+        tvDetailHeadStart.setText(ruleDetails.getStartTime());
+        tvDetailHeadEnd.setText(ruleDetails.getEndTime());
     }
 
     @Override
@@ -92,6 +132,13 @@ public class DetailsFragment extends RecyclerViewFragment {
 
     @Override
     protected void initData() {
+        up = AppCompatResources.getDrawable(mContext, R.mipmap.ic_to_up);
+        up.setBounds(0, 0, up.getMinimumWidth(), up.getMinimumHeight());
+        down = AppCompatResources.getDrawable(mContext, R.mipmap.ic_to_down);
+        down.setBounds(0, 0, down.getMinimumWidth(), down.getMinimumHeight());
+
+        setView();
+
         list.clear();
         loadMore(pageNumb);
         doSubscribe(this);
