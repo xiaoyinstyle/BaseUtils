@@ -21,12 +21,6 @@
         android:text="获取权限" />
 
     <Button
-        android:id="@+id/openDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="打开弹框" />
-
-    <Button
         android:id="@+id/getList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

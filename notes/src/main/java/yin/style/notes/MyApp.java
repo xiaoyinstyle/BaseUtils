@@ -9,9 +9,6 @@ import com.jskingen.baselib.Configuration;
 import com.jskingen.baselib.utils.FileUtils;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
-
 import java.io.File;
 
 import io.realm.Realm;
@@ -42,7 +39,6 @@ public class MyApp extends MultiDexApplication {
     private void init() {
 
         Configuration configuration = new Configuration.Builder(this)
-                .baseUrl("http;//baidu.com")
                 .fileName("Notes")
                 .debug(BuildConfig.DEBUG)
                 .build();

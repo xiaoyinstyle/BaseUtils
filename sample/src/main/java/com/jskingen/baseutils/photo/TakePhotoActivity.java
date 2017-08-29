@@ -7,19 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.picture.activity.PictureAlbumActivity;
-import com.jskingen.baselib.picture.inter.OnSelectListener;
-import com.jskingen.baselib.picture.model.MediaFile;
-import com.jskingen.baselib.picture.utils.PictureManage;
-import com.jskingen.baselib.picture.utils.PictureUtils;
-import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baseutils.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,9 +24,6 @@ public class TakePhotoActivity extends TitleActivity {
     CheckBox checkboxTake;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
-    private PhotoAdapter adapter;
-    private List<MediaFile> list = new ArrayList<>();
 
     @Override
     protected void setTitle() {
@@ -54,8 +41,6 @@ public class TakePhotoActivity extends TitleActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new PhotoAdapter(R.layout.item_takephoto, list);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -74,25 +59,11 @@ public class TakePhotoActivity extends TitleActivity {
             case R.id.bt_takephoto:
                 // 只拍照
                 //相册选择
-                PictureUtils.getInstance().openCamera(this, checkbox.isChecked(), new OnSelectListener() {
-                    @Override
-                    public void onComplete(List<MediaFile> selectListt) {
-                        list.clear();
-                        list.addAll(selectListt);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+
                 break;
             case R.id.bt_album:
                 //相册选择
-                PictureUtils.getInstance().openAlbum(this, checkboxTake.isChecked(), checkbox.isChecked(), new OnSelectListener() {
-                    @Override
-                    public void onComplete(List<MediaFile> selectListt) {
-                        list.clear();
-                        list.addAll(selectListt);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+
                 break;
             case R.id.bt_album_more:
                 //选择张数
@@ -105,14 +76,6 @@ public class TakePhotoActivity extends TitleActivity {
                     nub = 3;
                 }
 
-                PictureUtils.getInstance().openAlbum(this, nub, checkboxTake.isChecked(), new OnSelectListener() {
-                    @Override
-                    public void onComplete(List<MediaFile> selectListt) {
-                        list.clear();
-                        list.addAll(selectListt);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
                 break;
         }
     }

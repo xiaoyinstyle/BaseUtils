@@ -26,7 +26,6 @@ public class BaseHelp extends Application {
 
     private Configuration mConfiguration;
     private Context mContext;   //ApplicationContext
-    private OkHttpClient mOkHttpClient;
     private String fileName;
 
     public static BaseHelp getInstance() {
@@ -46,40 +45,7 @@ public class BaseHelp extends Application {
     }
 
     public void init(Configuration configuration) {
-        this.mConfiguration = configuration;
 
-        if (configuration.okhttpBuilder == null) {
-            configuration.okhttpBuilder = new OkHttpClient.Builder();
-
-            configuration.okhttpBuilder
-                    .connectTimeout(configuration.timeout, TimeUnit.SECONDS)
-                    .readTimeout(configuration.timeout, TimeUnit.SECONDS);
-        }
-
-        this.mOkHttpClient = configuration.okhttpBuilder.build();
-
-        //Log工具
-        LogUtils.Debug = isDebug();
-        Logger.init(LOG_TAG)               // default PRETTYLOGGER or use just init()
-                .setMethodCount(0)            // default 2
-                .hideThreadInfo()             // default shown
-                .setLogLevel(isDebug() ? LogLevel.FULL : LogLevel.NONE); // default LogLevel.FULL
-
-        //OkHttpUtils
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(configuration.timeout, TimeUnit.MILLISECONDS)
-                .readTimeout(configuration.timeout, TimeUnit.MILLISECONDS)
-                .addInterceptor(new LoggerInterceptor("TAG"))
-                .build();
-        OkHttpUtils.initClient(okHttpClient);
-    }
-
-    public OkHttpClient getOkHttpClient() {
-        return mOkHttpClient;
-    }
-
-    public Configuration getConfiguration() {
-        return mConfiguration;
     }
 
     public String getFileName() {

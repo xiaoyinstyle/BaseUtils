@@ -2,7 +2,6 @@ package com.jskingen.baselib.activity.base;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import com.jskingen.baselib.R;
 import com.jskingen.baselib.activity.adapter.TabAdapter;
 import com.jskingen.baselib.activity.model.TabEntity;
-import com.jskingen.baselib.view.MyViewPage;
+import com.jskingen.baselib.view.CommonViewPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public abstract class TabActivity extends NormalAcitivity {
     protected TabAdapter adapter;
     //Tab标题集合
     protected List<TabEntity> tabEntities = new ArrayList<>();
-    protected MyViewPage mViewPager;
+    protected CommonViewPage mViewPager;
 
     @Override
     protected int getViewByXml() {
@@ -35,7 +34,7 @@ public abstract class TabActivity extends NormalAcitivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        mViewPager = (MyViewPage) findViewById(R.id.viewPage);
+        mViewPager = (CommonViewPage) findViewById(R.id.viewPage);
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
 
         addFragment(tabEntities);

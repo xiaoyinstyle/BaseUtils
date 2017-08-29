@@ -25,7 +25,6 @@ public class App extends MultiDexApplication {
     private void init() {
 
         Configuration configuration = new Configuration.Builder(this)
-                .baseUrl(Constant.BASE_URL)
                 .fileName("Demo")
                 .debug(BuildConfig.DEBUG)
                 .build();

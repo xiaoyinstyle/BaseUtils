@@ -11,15 +11,15 @@ import android.view.MotionEvent;
  * 支持手动控制是否左右滑动的 ViewPage
  */
 
-public class MyViewPage extends ViewPager {
+public class CommonViewPage extends ViewPager {
     private boolean isCanScroll = true;
 
-    public MyViewPage(Context context, AttributeSet attrs) {
+    public CommonViewPage(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODOAuto-generated constructor stub
     }
 
-    public MyViewPage(Context context) {
+    public CommonViewPage(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
     }

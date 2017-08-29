@@ -1,6 +1,7 @@
 package com.jskingen.baselib.net.exception;
 
-import com.jskingen.baselib.network.model.HttpResult;
+
+import com.jskingen.baselib.net.model.HttpResult;
 
 /**
  * Created by ChneY on 2017/4/7.

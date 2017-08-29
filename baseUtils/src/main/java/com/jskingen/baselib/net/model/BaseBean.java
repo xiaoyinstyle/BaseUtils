@@ -1,4 +1,4 @@
-package com.jskingen.baselib.network.model;
+package com.jskingen.baselib.net.model;
 
 import java.io.Serializable;
 

@@ -10,12 +10,9 @@ import okhttp3.OkHttpClient;
  */
 
 public class Configuration {
-    public String baseUrl = "";
     public boolean debug = false;
     public String fileName = "";
     public Context context;
-    public long timeout = 20L;
-    public OkHttpClient.Builder okhttpBuilder;
 
     private Configuration() {
     }
@@ -28,11 +25,6 @@ public class Configuration {
             configuration.context = context;
         }
 
-        public Builder baseUrl(String baseUrl) {
-            configuration.baseUrl = baseUrl;
-            return this;
-        }
-
         public Builder fileName(String fileName) {
             configuration.fileName = fileName;
             return this;
@@ -43,20 +35,7 @@ public class Configuration {
             return this;
         }
 
-        public Builder timeout(long timeout) {
-            configuration.timeout = timeout;
-            return this;
-        }
-
-        public Builder okhttpBuilder(OkHttpClient.Builder okhttpBuilder) {
-            configuration.okhttpBuilder = okhttpBuilder;
-            return this;
-        }
-
         public Configuration build() {
-            //OkHttp的 BaseUrl
-            if (TextUtils.isEmpty(configuration.baseUrl))
-                throw new NullPointerException("baseUrl cannot be null, please set baseUrl in Configuration ");
             //缓存的文件夹 目录
             if (TextUtils.isEmpty(configuration.fileName))
                 throw new NullPointerException("Cache fileName cannot be null, please set fileName in Configuration ");

@@ -34,15 +34,10 @@
         <activity android:name=".baseactivity.mWebviewActivity" />
         <activity android:name=".http.mUpdataActivity" />
         <activity android:name=".utils.mDialogActivity" />
-        <activity
-            android:name=".flowLayout.FlowLayoutActivity"
-            android:configChanges="screenSize|orientation"
-            android:screenOrientation="landscape" />
+        <activity android:name=".flowLayout.FlowLayoutActivity" />
         <activity android:name=".utils.mPopWindowActivity" />
         <activity android:name=".utils.mRefreshviewActivity" />
-        <activity
-            android:name=".utils.mRecyclerVActivity"
-         ></activity>
+        <activity android:name=".utils.mRecyclerVActivity"></activity>
     </application>
 
 </manifest>

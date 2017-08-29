@@ -1,4 +1,4 @@
-package com.jskingen.baselib.network.model;
+package com.jskingen.baselib.net.model;
 
 /**
  * Created by ChneY on 2017/4/7.
