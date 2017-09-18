@@ -13,7 +13,7 @@ import com.jskingen.baseutils.baseactivity.mWebviewActivity;
 import com.jskingen.baseutils.common.PhoneInfo;
 import com.jskingen.baseutils.http.mDownloadActivity;
 import com.jskingen.baseutils.http.mNetworkActivity;
-import com.jskingen.baseutils.http.mUpdataActivity;
+import com.jskingen.baseutils.http.mUpdateActivity;
 import com.jskingen.baseutils.image.mImageActivity;
 import com.jskingen.baseutils.photo.TakePhotoActivity;
 import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
@@ -57,7 +57,7 @@ public class MainActivity extends TitleActivity {
 
     @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
             , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image, R.id.bt_main_http
-            , R.id.bt_main_download, R.id.bt_main_upload, R.id.bt_main_update
+            , R.id.bt_main_download_upload, R.id.bt_main_update
             , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
             , R.id.bt_main_popWindow , R.id.bt_main_refresh, R.id.bt_main_rec})
     public void onViewClicked(View view) {
@@ -83,14 +83,11 @@ public class MainActivity extends TitleActivity {
             case R.id.bt_main_http:
                 startActivity(new Intent(this, mNetworkActivity.class));
                 break;
-            case R.id.bt_main_download:
-                startActivity(new Intent(this, mDownloadActivity.class));
-                break;
-            case R.id.bt_main_upload:
+            case R.id.bt_main_download_upload:
                 startActivity(new Intent(this, mDownloadActivity.class));
                 break;
             case R.id.bt_main_update:
-                startActivity(new Intent(this, mUpdataActivity.class));
+                startActivity(new Intent(this, mUpdateActivity.class));
                 break;
             case R.id.bt_main_dialog:
                 startActivity(new Intent(this, mDialogActivity.class));

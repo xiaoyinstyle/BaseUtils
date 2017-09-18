@@ -1,22 +1,23 @@
-package com.jskingen.baselib.updata;
+package com.jskingen.baselib.update;
 
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.jskingen.baselib.update.model.DownLoadBean;
+import com.jskingen.baselib.utils.FileUtils;
 
 import java.io.File;
 
 /**
- * Created by Chne on 2017/8/31.
+ * Created by ChneY on 2017/8/31.
  */
 
 public class DownloadApkUtils {
-    public static long downloadUpdateApkId = -1;//下载更新Apk 下载任务对应的Id
-    public static String downloadUpdateApkFilePath;//下载更新Apk 文件路径
-
     /**
      * 通过浏览器下载APK包
      *
@@ -45,7 +46,6 @@ public class DownloadApkUtils {
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        downloadUpdateApkFilePath = filePath;
         try {
             DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
@@ -62,7 +62,8 @@ public class DownloadApkUtils {
 
             Uri fileUri = Uri.fromFile(new File(filePath));
             request.setDestinationUri(fileUri);
-            downloadUpdateApkId = downloadManager.enqueue(request);
+            long downloadUpdateApkId = downloadManager.enqueue(request);
+            DownloadApkReceiver.downloadList.add(new DownLoadBean(downloadUpdateApkId, filePath));
         } catch (Exception e) {
             e.printStackTrace();
             downloadForWebView(context, url);
@@ -70,4 +71,6 @@ public class DownloadApkUtils {
 //            registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         }
     }
+
+
 }

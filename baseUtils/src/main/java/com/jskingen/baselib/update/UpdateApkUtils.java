@@ -2,14 +2,20 @@ package com.jskingen.baselib.update;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.jskingen.baselib.update.dailog.ConfirmDialog;
 import com.jskingen.baselib.update.inter.DialogListener;
 import com.jskingen.baselib.update.inter.OnUpdateListener;
+import com.jskingen.baselib.utils.FileUtils;
+
+import java.io.File;
 
 /**
  * Created by Chne on 2017/8/31.
@@ -17,28 +23,30 @@ import com.jskingen.baselib.update.inter.OnUpdateListener;
  * 封装的 软件更新
  */
 
-public class UpdateAppUtils {
-    public static final int DOWNLOAD_BY_APP = 1003;
-    public static final int DOWNLOAD_BY_BROWSER = 1004;
+public class UpdateApkUtils {
+    private final int DOWNLOAD_BY_SYSTEM = 1003;
+    private final int DOWNLOAD_BY_BROWSER = 1004;
+    private final int DOWNLOAD_BY_OTHER = 1005;
 
 
-    private boolean checkVersionName;//对比方式  true: 版本Name，false: 版本Code
-    private int downloadWay;//下载方式
-    private int serverVersionCode = 0;
-    private String apkPath = "";//这里应该是一个完整的 路径 (包括 **.apk)
-    private String downloadUrl = null;//下载路径
-    private String serverVersionName = "";
-    private boolean isForce = false; //是否强制更新
-    private int localVersionCode = 0;
-    private String localVersionName = "";
     private Activity activity;
 
+    private int localVersionCode = 0;
+    private String localVersionName = "";
 
-    public String getApkPath() {
-        return apkPath;
-    }
+    private boolean checkVersionName;//对比方式  true: 版本Name，false: 版本Code
+    private int serverVersionCode = 0;
+    private String serverVersionName = "";
 
-    private UpdateAppUtils(Activity activity) {
+    private String apkPath = "";//这里应该是一个完整的 路径 (包括 **.apk)
+    private String downloadUrl = null;//下载路径
+    private boolean isForce = false; //是否强制更新
+
+    private SystemDownload systemDownload;
+    private BrowserDownload browserDownload;
+    private OtherDownload otherDownload;
+
+    private UpdateApkUtils(Activity activity) {
         this.activity = activity;
         getAPPLocalVersion(activity);
     }
@@ -55,8 +63,8 @@ public class UpdateAppUtils {
         }
     }
 
-    public static UpdateAppUtils from(Activity activity) {
-        return new UpdateAppUtils(activity);
+    public static UpdateApkUtils from(Activity activity) {
+        return new UpdateApkUtils(activity);
     }
 
     /**
@@ -64,40 +72,15 @@ public class UpdateAppUtils {
      *                         false 通过VersionCode 对比
      *                         默认 false
      */
-    public UpdateAppUtils checkVersionName(boolean checkVersionName) {
+    public UpdateApkUtils checkVersionName(boolean checkVersionName) {
         this.checkVersionName = checkVersionName;
-        return this;
-    }
-
-    /**
-     * @param apkPath 下载保存在本地的 文件完整路径地址
-     */
-    public UpdateAppUtils apkPath(String apkPath) {
-        this.apkPath = apkPath;
-        return this;
-    }
-
-    /**
-     * @param downloadWay 下载方式 DownloadManager、浏览器、app
-     */
-    public UpdateAppUtils downloadWay(int downloadWay) {
-        this.downloadWay = downloadWay;
-        return this;
-    }
-
-    /**
-     * @param downloadUrl 下载的 地址
-     * @return
-     */
-    public UpdateAppUtils downloadUrl(String downloadUrl) {
-        this.downloadUrl = downloadUrl;
         return this;
     }
 
     /**
      * @param serverVersionCode 服务器端 的 VersionCode
      */
-    public UpdateAppUtils serverVersionCode(int serverVersionCode) {
+    public UpdateApkUtils serverVersionCode(int serverVersionCode) {
         this.serverVersionCode = serverVersionCode;
         return this;
     }
@@ -106,39 +89,38 @@ public class UpdateAppUtils {
      * @param serverVersionName 服务器端 的 VersionName
      * @return
      */
-    public UpdateAppUtils serverVersionName(String serverVersionName) {
+    public UpdateApkUtils serverVersionName(String serverVersionName) {
         this.serverVersionName = serverVersionName;
         return this;
     }
 
-    /**
-     * @param isForce 强制更新
-     */
-    public UpdateAppUtils isForce(boolean isForce) {
+    //系统下载
+    public SystemDownload systemDownload(String downloadUrl, String apkPath, boolean isForce) {
+        systemDownload = new SystemDownload(this);
+        this.downloadUrl = downloadUrl;
+        this.apkPath = apkPath;
         this.isForce = isForce;
-        return this;
+        return systemDownload;
     }
 
-    /**
-     * 开始
-     */
-    public void update() {
-        if (checkVersion()) {
-            //需要更新
-            if (TextUtils.isEmpty(apkPath)) {
-                Toast.makeText(activity, "apkPath is null, 文件路径不为能空", Toast.LENGTH_SHORT).show();
-            } else if (downloadUrl == null) {
-                Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
-            } else
-                downloadApk();
-        }
+    //浏览器下载
+    public BrowserDownload browserDownload(String downloadUrl, boolean isForce) {
+        browserDownload = new BrowserDownload(this);
+        this.downloadUrl = downloadUrl;
+        this.isForce = isForce;
+        return browserDownload;
     }
 
+    //应用下载/其他下载
+    public OtherDownload otherDownload(boolean isForce) {
+        otherDownload = new OtherDownload(this);
+        this.isForce = isForce;
+        return otherDownload;
+    }
 
     public void update(OnUpdateListener listener) {
-        if (listener == null) return;
-
-        listener.result(checkVersion());
+        if (listener != null)
+            listener.result(checkVersion());
     }
 
     /**
@@ -160,8 +142,8 @@ public class UpdateAppUtils {
     /**
      * 下载Apk
      */
-    private void downloadApk() {
-        ConfirmDialog dialog = new ConfirmDialog(activity, new DialogListener() {
+    private void downloadApk(final int downloadWay, final OnUpdateListener listener) {
+        final ConfirmDialog dialog = new ConfirmDialog(activity, new DialogListener() {
             @Override
             public void onclick(int flag) {
                 switch (flag) {
@@ -170,10 +152,12 @@ public class UpdateAppUtils {
                             activity.finish();
                         break;
                     case 1:  //sure
-                        if (downloadWay == DOWNLOAD_BY_APP) {
+                        if (downloadWay == DOWNLOAD_BY_SYSTEM) {
                             DownloadApkUtils.downloadForAutoInstall(activity, downloadUrl, apkPath, getApkName(apkPath));
                         } else if (downloadWay == DOWNLOAD_BY_BROWSER) {
                             DownloadApkUtils.downloadForWebView(activity, apkPath);
+                        } else {
+                            listener.result(true);
                         }
                         break;
                 }
@@ -185,11 +169,137 @@ public class UpdateAppUtils {
     }
 
     /**
-     * 获取 Apk 的文件名
-     *
-     * @return
+     * @return 获取 Apk 的文件名
      */
     private String getApkName(String apkPath) {
         return apkPath.substring(apkPath.lastIndexOf("/") + 1, apkPath.length());
+    }
+
+    /**
+     * 系统下载方式
+     */
+    public class SystemDownload {
+        private UpdateApkUtils utils;
+
+        SystemDownload(UpdateApkUtils updateApkUtils) {
+            utils = updateApkUtils;
+        }
+
+//        // apkPath 下载保存在本地的 文件完整路径地址
+//        public SystemDownload apkPath(String apkPath) {
+//            utils.apkPath = apkPath;
+//            return this;
+//        }
+//
+//        // downloadUrl 下载的 地址
+//        public SystemDownload downloadUrl(String downloadUrl) {
+//            utils.downloadUrl = downloadUrl;
+//            return this;
+//        }
+//
+//
+//        // isForce 强制更新
+//        public SystemDownload isForce(boolean isForce) {
+//            utils.isForce = isForce;
+//            return this;
+//        }
+
+        // 开始
+        public void update() {
+            if (checkVersion()) {
+                //需要更新
+                if (TextUtils.isEmpty(utils.apkPath)) {
+                    Toast.makeText(activity, "apkPath is null, 文件路径不为能空", Toast.LENGTH_SHORT).show();
+                } else if (utils.downloadUrl == null) {
+                    Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
+                } else
+                    utils.downloadApk(DOWNLOAD_BY_SYSTEM, null);
+            }
+        }
+    }
+
+    /**
+     * 跳转浏览器 下载方式
+     */
+    public class BrowserDownload {
+        private UpdateApkUtils utils;
+
+        BrowserDownload(UpdateApkUtils updateApkUtils) {
+            utils = updateApkUtils;
+        }
+
+//        // downloadUrl 下载的 地址
+//        public BrowserDownload downloadUrl(String downloadUrl) {
+//            utils.downloadUrl = downloadUrl;
+//            return this;
+//        }
+//
+//
+//        // isForce 强制更新
+//        public BrowserDownload isForce(boolean isForce) {
+//            utils.isForce = isForce;
+//            return this;
+//        }
+
+        // 开始
+        public void update() {
+            if (checkVersion()) {
+                //需要更新
+             /*   if (TextUtils.isEmpty(utils.apkPath)) {
+                    Toast.makeText(activity, "apkPath is null, 文件路径不为能空", Toast.LENGTH_SHORT).show();
+                } else */if (utils.downloadUrl == null) {
+                    Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
+                } else
+                    utils.downloadApk(DOWNLOAD_BY_BROWSER, null);
+            }
+        }
+    }
+
+    /**
+     * 跳转浏览器 下载方式
+     */
+    public class OtherDownload {
+        private UpdateApkUtils utils;
+
+        OtherDownload(UpdateApkUtils updateApkUtils) {
+            utils = updateApkUtils;
+        }
+//
+//        // isForce 强制更新
+//        public OtherDownload isForce(boolean isForce) {
+//            utils.isForce = isForce;
+//            return this;
+//        }
+
+        // 开始
+        public void update(OnUpdateListener listener) {
+            if (checkVersion()) {
+//                //需要更新
+//                if (TextUtils.isEmpty(utils.apkPath)) {
+//                    Toast.makeText(activity, "apkPath is null, 文件路径不为能空", Toast.LENGTH_SHORT).show();
+//                } else if (utils.downloadUrl == null) {
+//                    Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
+//                } else
+                    utils.downloadApk(DOWNLOAD_BY_OTHER, listener);
+            }
+        }
+    }
+
+    /**
+     * 安装
+     */
+    public static void installApk(Context context, String apkPath) {
+        Intent in = new Intent(Intent.ACTION_VIEW);
+        File apkFile = new File(apkPath);
+        if (Build.VERSION.SDK_INT >= 24) {
+            in.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileUtils.getUri2File(context, apkFile);
+            in.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            in.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        }
+        in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(in);
+
     }
 }

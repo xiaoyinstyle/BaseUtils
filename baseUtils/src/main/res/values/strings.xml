@@ -13,4 +13,6 @@
     <string name="pic_choice_picture">选择图片</string>
     <string name="pic_select_more">最多选择%d张</string>
 
+    <string name="dialog_sure">确认</string>
+
 </resources>

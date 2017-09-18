@@ -55,20 +55,9 @@ public class mNetworkActivity extends TitleActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.bt_http, R.id.bt_http2, R.id.bt_http_pro, R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload})
+    @OnClick({R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.bt_http:
-                //写法一
-                break;
-            case R.id.bt_http2:
-                //写法二
-                break;
-            case R.id.bt_http_pro:
-                //网络请求，带图片
-                break;
-            //其他用法参考 retrofit2.0 的用法
-
             case R.id.bt2_get:
                 //网络请求，带图片
                 http2_get();

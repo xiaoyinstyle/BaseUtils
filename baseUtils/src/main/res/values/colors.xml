@@ -12,4 +12,7 @@
     <color name="pic_red_point">#FF3030</color>
     <color name="pic_theme_color">#09BB07</color>
     <color name="pic_complete_press">#B6E4BB</color>
+
+    <color name="text_blue">#0076FF</color>
+    <color name="text_black">#333333</color>
 </resources>

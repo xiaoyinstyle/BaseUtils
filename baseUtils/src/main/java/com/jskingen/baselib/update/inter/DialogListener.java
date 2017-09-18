@@ -1,4 +1,4 @@
-package com.jskingen.baselib.updata.inter;
+package com.jskingen.baselib.update.inter;
 
 /**
  * Created by Chne on 2017/9/4.

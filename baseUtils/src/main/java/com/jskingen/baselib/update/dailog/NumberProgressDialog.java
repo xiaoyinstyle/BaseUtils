@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jskingen.baselib.R;
 import com.jskingen.baselib.update.inter.DialogListener;
+import com.jskingen.baselib.view.NumberProgressBar;
 
 /**
  * Created by ChneY on 2016/10/13.
@@ -15,9 +16,8 @@ import com.jskingen.baselib.update.inter.DialogListener;
 public class NumberProgressDialog extends Dialog {
 
     DialogListener callback;
-    private TextView content;
-    private TextView sureBtn;
-    private TextView cancleBtn;
+    private NumberProgressBar numberProgressBar;
+    private TextView cancelBtn;
 
     public NumberProgressDialog(Context context, DialogListener callback) {
         super(context, R.style.CustomDialog);
@@ -26,20 +26,13 @@ public class NumberProgressDialog extends Dialog {
     }
 
     private void setCustomDialog() {
-        View mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_confirm, null);
-        sureBtn = (TextView) mView.findViewById(R.id.dialog_confirm_sure);
-        cancleBtn = (TextView) mView.findViewById(R.id.dialog_confirm_cancle);
-        content = (TextView) mView.findViewById(R.id.dialog_confirm_title);
-
-
-        sureBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onclick(1);
-                cancel();
-            }
-        });
-        cancleBtn.setOnClickListener(new View.OnClickListener() {
+        View mView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_number_progress, null);
+        ((TextView) mView.findViewById(R.id.dialog_title)).setText("正在下载");
+        numberProgressBar = (NumberProgressBar) mView.findViewById(R.id.numberProgressBar);
+        numberProgressBar.setMax(100);
+        numberProgressBar.setProgress(0);
+        cancelBtn = (TextView) mView.findViewById(R.id.dialog_confirm_cancle);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callback.onclick(0);
@@ -49,11 +42,8 @@ public class NumberProgressDialog extends Dialog {
         super.setContentView(mView);
     }
 
-
-    public NumberProgressDialog setContent(String s) {
-        content.setText(s);
-        return this;
+    public void setNumberProgress(int progress) {
+        if (numberProgressBar != null)
+            numberProgressBar.setProgress(progress);
     }
-
-
 }

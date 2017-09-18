@@ -11,6 +11,8 @@ import com.squareup.leakcanary.LeakCanary;
  */
 
 public class App extends MultiDexApplication {
+    public static String downloadUrl = "http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk";
+
 
     @Override
     public void onCreate() {

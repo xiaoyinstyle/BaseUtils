@@ -21,7 +21,7 @@ public class mPermissionsActivity extends TitleActivity {
     @BindView(R.id.text)
     TextView textView;
 
-    private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    private String[] PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void setTitle() {
@@ -43,14 +43,14 @@ public class mPermissionsActivity extends TitleActivity {
 
     }
 
-    @OnClick({R.id.getPermissions, R.id.openDialog, R.id.getList})
+    @OnClick({R.id.getPermissions, R.id.getList})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.getPermissions:
                 boolean isShowDialog = ((CheckBox) findViewById(R.id.checkbox)).isChecked();
                 XPermission.getPermissions(mPermissionsActivity.this, PERMISSIONS, isShowDialog, false, new OnPermissionsListener() {
                     @Override
-                    public void result(String[] permissions) {
+                    public void missPermission(String[] permissions) {
                         ToastUtils.show("未获取权限个数：" + permissions.length);
                     }
                 });

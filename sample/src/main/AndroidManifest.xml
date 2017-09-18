@@ -32,7 +32,7 @@
         <activity android:name=".http.mDownloadActivity" />
         <activity android:name=".photo.TakePhotoActivity" />
         <activity android:name=".baseactivity.mWebviewActivity" />
-        <activity android:name=".http.mUpdataActivity" />
+        <activity android:name=".http.mUpdateActivity" />
         <activity android:name=".utils.mDialogActivity" />
         <activity android:name=".flowLayout.FlowLayoutActivity" />
         <activity android:name=".utils.mPopWindowActivity" />

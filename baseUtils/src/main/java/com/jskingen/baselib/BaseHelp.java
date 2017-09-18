@@ -19,14 +19,13 @@ import okhttp3.OkHttpClient;
  * Created by ChneY on 2017/4/22.
  */
 
-public class BaseHelp extends Application {
+public class BaseHelp {
     public static final String LOG_TAG = "LOG_JSDJ";
 
     private static BaseHelp instance;
 
     private Configuration mConfiguration;
     private Context mContext;   //ApplicationContext
-    private String fileName;
 
     public static BaseHelp getInstance() {
         if (null == instance)
@@ -45,12 +44,12 @@ public class BaseHelp extends Application {
     }
 
     public void init(Configuration configuration) {
-
+        mConfiguration = configuration;
     }
 
     public String getFileName() {
-        if(TextUtils.isEmpty(mConfiguration.fileName))
-            throw new NullPointerException("Cache fileName cannot be null, please set fileName in Configuration ");
-        return  mConfiguration.fileName;
+        if (mConfiguration == null || TextUtils.isEmpty(mConfiguration.fileName))
+            return getContext().getString(R.string.app_name);
+        return mConfiguration.fileName;
     }
 }

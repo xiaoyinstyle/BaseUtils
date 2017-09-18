@@ -23,7 +23,7 @@ public class XPermission {
         //如果低于版本6.0 ，则退出权限获取，返回 true
         if (Build.VERSION.SDK_INT < 23) {
             if (listener != null)
-                listener.result(new String[0]);
+                listener.missPermission(new String[0]);
             return;
         }
 
@@ -32,7 +32,7 @@ public class XPermission {
         if (newPermissions.length > 0) {
             fragmentPermissions(activity, newPermissions, listener, isShowDialog, dialogCanCancel);
         } else {
-            listener.result(new String[0]);
+            listener.missPermission(new String[0]);
         }
     }
 

@@ -62,10 +62,6 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
                 .setOutsideTouchable(true)
                 .create();
         popupWindow.showAsDropDown(view);
-        //得到button的左上角坐标
-//        int[] positions = new int[2];
-//        view.getLocationOnScreen(positions);
-//        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.NO_GRAVITY, 0, positions[1] + view.getHeight());
     }
 
     //向右弹出
@@ -79,10 +75,6 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
 //                .setViewOnclickListener(this)
                 .create();
         popupWindow.showAsDropDown(view, view.getWidth(), -view.getHeight());
-        //得到button的左上角坐标
-//        int[] positions = new int[2];
-//        view.getLocationOnScreen(positions);
-//        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.NO_GRAVITY, positions[0] + view.getWidth(), positions[1]);
     }
 
     //向左弹出
@@ -96,10 +88,6 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
 //                .setViewOnclickListener(this)
                 .create();
         popupWindow.showAsDropDown(view, -popupWindow.getWidth(), -view.getHeight());
-        //得到button的左上角坐标
-//        int[] positions = new int[2];
-//        view.getLocationOnScreen(positions);
-//        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.NO_GRAVITY, positions[0] - popupWindow.getWidth(), positions[1]);
     }
 
 
@@ -108,7 +96,6 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
         if (popupWindow != null && popupWindow.isShowing()) return;
 
         View upView = LayoutInflater.from(this).inflate(R.layout.popup_up, null);
-//        View upView = LayoutInflater.from(this).inflate(R.layout.popup_up, (ViewGroup) findViewById(R.id.root));
         //测量View的宽高
         popupWindow.measureWidthAndHeight(upView);
         popupWindow = new CommonPopupWindow.Builder(this)
@@ -118,7 +105,7 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
                 .setAnimationStyle(R.style.AnimUp)
                 .setViewOnclickListener(this)
                 .create();
-        popupWindow.showAtLocation(findViewById(android.R.id.content), Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(findViewById(R.id.root), Gravity.BOTTOM, 0, 0);
     }
 
     //向上弹出

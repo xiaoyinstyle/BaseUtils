@@ -1,6 +1,8 @@
 package yin.style.notes;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.stetho.Stetho;
@@ -34,6 +36,8 @@ public class MyApp extends MultiDexApplication {
         instance = this;
         initRealm();
         init();
+
+        registerActivityLifecycleCallbacks(callbacks);
     }
 
     private void init() {
@@ -65,6 +69,36 @@ public class MyApp extends MultiDexApplication {
                         .build()
         );
     }
+
+    ActivityLifecycleCallbacks callbacks = new ActivityLifecycleCallbacks() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+        }
+    };
 
     /**
      * 图案的超级密码

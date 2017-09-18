@@ -103,8 +103,8 @@ public class RequestData {
 //            return;
 //        }
         Call call = okHttpClient.newCall(request);
+        calls.add(call);
         callBack.onStart(call);
-
         call.enqueue(new Callback() {
             @Override
             public void onFailure(final Call call, final IOException e) {
@@ -119,7 +119,9 @@ public class RequestData {
                             callBack.onError("连接超时");
                         } else
                             callBack.onError(e.getMessage());
+
                         callBack.onFinish(false);
+                        cancel(call.request().tag().toString());
                     }
                 }, 200);
             }
@@ -170,14 +172,16 @@ public class RequestData {
                         });
                     } finally {
                         try {
-                            if (is != null) {
-                                is.close();
-                            }
-                            if (fos != null) {
-                                fos.close();
-                            }
-                        } catch (IOException e) {
-                            callBack.onError(e.getMessage());
+                            cancel(call.request().tag().toString());
+                            if (is != null) is.close();
+                            if (fos != null) fos.close();
+                        } catch (final IOException e) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callBack.onError(e.getMessage());
+                                }
+                            });
                         }
                     }
                 }

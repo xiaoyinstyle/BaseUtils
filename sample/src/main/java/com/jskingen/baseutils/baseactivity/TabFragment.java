@@ -33,25 +33,8 @@ public class TabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment, null);
         textView = (TextView) view.findViewById(R.id.text);
-        button = (Button) view.findViewById(R.id.button);
         textView.setText(String.valueOf((char) getArguments().getInt("index")));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getPermissions();
-            }
-        });
         return view;
     }
 
-    private String[] PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-    private void getPermissions() {
-        XPermission.getPermissions(getActivity(), PERMISSIONS,  new OnPermissionsListener() {
-            @Override
-            public void result(String[] permissions) {
-                ToastUtils.show("未获取权限个数：" + permissions.length);
-            }
-        });
-    }
 }

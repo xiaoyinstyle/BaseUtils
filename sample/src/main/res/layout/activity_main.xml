@@ -61,17 +61,10 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/bt_main_download"
+            android:id="@+id/bt_main_download_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="文件下载"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/bt_main_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="文件上传"
+            android:text="下载与上传"
             android:textAllCaps="false" />
 
         <Button
@@ -108,12 +101,14 @@
             android:layout_height="wrap_content"
             android:text="通用PopWindow"
             android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_main_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="refreshView"
             android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_main_rec"
             android:layout_width="wrap_content"

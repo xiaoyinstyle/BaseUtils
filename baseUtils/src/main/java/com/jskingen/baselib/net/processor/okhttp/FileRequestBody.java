@@ -1,5 +1,7 @@
 package com.jskingen.baselib.net.processor.okhttp;
 
+import android.os.Handler;
+
 import com.jskingen.baselib.net.inter.IFileCallBack;
 
 import java.io.File;
@@ -80,8 +82,14 @@ public class FileRequestBody extends RequestBody {
                 //增加当前写入的字节数
                 current += byteCount;
                 //回调
-                httpProcessor.onProgress((double) current / (double) remaining, current, remaining);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        httpProcessor.onProgress((double) current / (double) remaining, current, remaining);
+                    }
+                });
             }
         };
     }
+    Handler handler =new Handler();
 }

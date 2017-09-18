@@ -49,7 +49,7 @@ public class PermissionsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (listener != null)
-                    listener.result(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
+                    listener.missPermission(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
             }
         });
 
@@ -63,14 +63,14 @@ public class PermissionsFragment extends Fragment {
             @Override
             public void onCancel(DialogInterface dialog) {
                 if (listener != null)
-                    listener.result(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
+                    listener.missPermission(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
             }
         });
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 if (listener != null)
-                    listener.result(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
+                    listener.missPermission(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
             }
         });
         builder.show();
@@ -93,7 +93,7 @@ public class PermissionsFragment extends Fragment {
             if (isShowDialog && tempPermission.length > 0)
                 showMissingPermissionDialog();
             else
-                listener.result(tempPermission);
+                listener.missPermission(tempPermission);
         }
     }
 
@@ -101,7 +101,7 @@ public class PermissionsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DIALOG_REQUEST_CODE && listener != null)
-            listener.result(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
+            listener.missPermission(XPermission.lacksPermissions(getActivity(), PERMISSIONS));
     }
 
     @TargetApi(Build.VERSION_CODES.M)

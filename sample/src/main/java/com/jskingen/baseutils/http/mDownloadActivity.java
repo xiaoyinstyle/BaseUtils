@@ -11,6 +11,8 @@ import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.net.HttpHelper;
 import com.jskingen.baselib.net.callback.HttpProcessor;
 import com.jskingen.baselib.utils.LogUtils;
+import com.jskingen.baselib.utils.ToastUtils;
+import com.jskingen.baseutils.App;
 import com.jskingen.baseutils.R;
 
 import java.io.File;
@@ -54,14 +56,9 @@ public class mDownloadActivity extends TitleActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.bt2_download, R.id.bt_download, R.id.bt_upload, R.id.bt2_upload})
+    @OnClick({R.id.bt2_download, R.id.bt2_upload})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.bt_download:
-                break;
-            case R.id.bt_upload:
-                break;
-
             case R.id.bt2_download:
                 download2();
                 break;
@@ -73,10 +70,9 @@ public class mDownloadActivity extends TitleActivity {
 
     //下载
     private void download2() {
-        String url = "http://976370887.kinqin.com/php/api/1.apk";
         String file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/" + UUID.randomUUID().toString() + ".apk").getAbsolutePath();
 
-        HttpHelper.getInstance().downloadFile(url, new HashMap<String, String>(), file, new HttpProcessor(checkbox.isChecked()) {
+        HttpHelper.getInstance().downloadFile(App.downloadUrl, new HashMap<String, String>(), file, new HttpProcessor(checkbox.isChecked()) {
 
             @Override
             public void onProgress(double per, long current, long total) {
@@ -86,12 +82,14 @@ public class mDownloadActivity extends TitleActivity {
 
             @Override
             public void onFinish(boolean success) {
+                text.setText(success + "");
                 Log.e("AAA", "onFinish------>" + success);
             }
 
 
             @Override
             public void onError(String e) {
+                text.setText("onError------>" + e);
                 Log.e("AAA", "onError------>" + e);
             }
 
@@ -107,10 +105,11 @@ public class mDownloadActivity extends TitleActivity {
         Map<String, Object> maps = new HashMap();
         maps.put("fname", "admin");
         maps.put("age", "18");
-//        if (file.exists())
-//            maps.put("file", file);
-//        else
-//            ToastUtils.show("文件不存在");
+        if (!file.exists()) {
+            ToastUtils.show("文件不存在");
+            return;
+        }
+        maps.put("file", file);
 
         HttpHelper.getInstance().uploadFile(url, maps, new HttpProcessor() {
             @Override
@@ -133,6 +132,7 @@ public class mDownloadActivity extends TitleActivity {
             @Override
             public void onError(String e) {
                 Log.e("AAA", "onError------>" + e);
+                text.setText("onError------>" + e);
             }
         });
     }

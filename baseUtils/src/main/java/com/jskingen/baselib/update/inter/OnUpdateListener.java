@@ -1,4 +1,4 @@
-package com.jskingen.baselib.updata.inter;
+package com.jskingen.baselib.update.inter;
 
 /**
  * Created by Chne on 2017/8/31.
@@ -7,5 +7,5 @@ package com.jskingen.baselib.updata.inter;
  */
 
 public interface OnUpdateListener {
-    void result(boolean needUpdate);
+    void result(boolean mustUpdate);
 }

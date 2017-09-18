@@ -7,5 +7,5 @@ package com.jskingen.baselib.permission;
  */
 
 public interface OnPermissionsListener {
-    void result(String[] permissions);
+    void missPermission(String[] permissions);
 }
