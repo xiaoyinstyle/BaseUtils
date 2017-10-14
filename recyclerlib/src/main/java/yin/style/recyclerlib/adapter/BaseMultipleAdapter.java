@@ -3,9 +3,11 @@ package yin.style.recyclerlib.adapter;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -13,6 +15,9 @@ import yin.style.recyclerlib.R;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.recyclerlib.inter.OnItemClickLongListener;
+import yin.style.recyclerlib.view.EmptyView;
+import yin.style.recyclerlib.view.FooterView;
+import yin.style.recyclerlib.view.HeaderView;
 
 /**
  * Created by chenY on 2017/1/19.
@@ -98,20 +103,35 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        if (viewType == TYPE_EMPTY) {//空布局
-            if (emptyView == null)
+        if (viewType == TYPE_EMPTY) {
+            //空布局
+            EmptyView eV = new EmptyView(mContext);
+            eV.setGravity(Gravity.CENTER);
+            eV.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            if (emptyView == null) {
                 emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, parent, false);
+            }
+            eV.addView(emptyView);
             setOnclickEmpty();
-            return new BaseViewHolder(emptyView);
-        } else if (viewType == TYPE_HEADER) {//Header布局
-            return new BaseViewHolder(headerView);
-        } else if (viewType == TYPE_ITEM) {//正常布局
+            return new BaseViewHolder(eV);
+        } else if (viewType == TYPE_HEADER) {
+            //Header布局
+            HeaderView hv = new HeaderView(mContext);
+            hv.setGravity(Gravity.CENTER);
+            hv.addView(headerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return new BaseViewHolder(hv);
+        } else if (viewType == TYPE_ITEM) {
+            //正常布局
             View view = LayoutInflater.from(mContext).inflate(layoutResId, parent, false);
             return new ItemViewHolder(view);
-        } else if (viewType == TYPE_FOOTER) {//Footer布局
-            if (footerView == null)
-                throw new NullPointerException("footerView is not empty");
-            return new BaseViewHolder(footerView);
+        } else if (viewType == TYPE_FOOTER) {
+            //Footer布局
+            FooterView fv = new FooterView(mContext);
+            fv.setGravity(Gravity.CENTER);
+            fv.addView(footerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            if (footerView == null)
+//                throw new NullPointerException("footerView is not empty");
+            return new BaseViewHolder(fv);
         }
         return null;
     }
@@ -176,8 +196,10 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
      * @param headerView
      */
     public void addHeaderView(View headerView) {
-        this.headerView = headerView;
-        headerViewCount = 1;
+        if (headerView != null) {
+            this.headerView = headerView;
+            headerViewCount = 1;
+        }
     }
 
     /**
@@ -197,8 +219,11 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
     }
 
     public void addFooterView(View view) {
-        showFooterView();
-        footerView = view;
+        if (view != null) {
+            footerViewCount = 1;
+            footerView = view;
+        } else
+            footerViewCount = 0;
     }
 
     /**

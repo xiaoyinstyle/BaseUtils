@@ -44,7 +44,6 @@ public class LoadSwipeRefreshLayout extends SwipeRefreshLayout {
         mRecyclerView = new RecyclerView(context);
         addView(mRecyclerView);
         BaseDividerItem mDividerItemDecoration = new BaseDividerItem(linerWidth, linerColor);
-        mDividerItemDecoration.setHeaderCount(mAdapter.getHeaderCount());
         mDividerItemDecoration.setLinerAround(linerAround);
 
         mRecyclerView.addItemDecoration(mDividerItemDecoration);

@@ -8,13 +8,19 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
+import com.jcodecraeer.xrecyclerview.BaseRefreshHeader;
+
 import android.view.View;
 
 import yin.style.recyclerlib.view.EmptyView;
+import yin.style.recyclerlib.view.FooterView;
+import yin.style.recyclerlib.view.HeaderView;
 
 /**
  * Created by chenY on 2017/1/16.
+ * <p>
+ * 基本够用的 RecyclerView 的 间隔线
  */
 
 public class BaseDividerItem extends RecyclerView.ItemDecoration {
@@ -23,8 +29,7 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
     private Paint mPaint;
 
-    private int headerCount = 0;//HwaderView 数目
-    private boolean linerAround = false;//是否显示边框线
+    private boolean linerAround = true;//是否显示边框线
 
     public BaseDividerItem(int space) {
         init(space, color, linerAround);
@@ -58,18 +63,18 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() != null) {
             if (parent.getLayoutManager() instanceof LinearLayoutManager && !(parent.getLayoutManager() instanceof GridLayoutManager)) {
                 if (((LinearLayoutManager) parent.getLayoutManager()).getOrientation() == LinearLayoutManager.HORIZONTAL) {
-                    if (parent.getChildAdapterPosition(view) < headerCount)
+                    if (view instanceof BaseRefreshHeader || view instanceof HeaderView)
                         outRect.set(0, 0, 0, 0);
                     else
                         outRect.set(space, 0, space, 0);
                 } else {
-                    if (parent.getChildAdapterPosition(view) < headerCount)
+                    if (view instanceof BaseRefreshHeader || view instanceof HeaderView)
                         outRect.set(0, 0, 0, 0);
                     else
                         outRect.set(0, space, 0, space);
                 }
             } else {
-                if (parent.getChildAdapterPosition(view) < headerCount)
+                if (view instanceof BaseRefreshHeader || view instanceof HeaderView)
                     outRect.set(0, 0, 0, 0);
                 else
                     outRect.set(space, space, space, space);
@@ -91,9 +96,10 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
                 //绘制 空布局
                 if (!isEmptyView(c, parent, state)) {
                     //不是空的
-                    drawGrideviewHeader(c, parent);
                     if (linerAround)
-                        drawGrideviewLinerAround(c, parent);
+                        drawGridLinerAround(c, parent);
+                    else
+                        drawGridLiner(c, parent);
                 }
             }
         }
@@ -121,14 +127,14 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
         final int childSize = parent.getChildCount();
 
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) parent.getLayoutManager();
         for (int i = 0; i < childSize; i++) {
-            if (i < headerCount && linearLayoutManager.findFirstVisibleItemPosition() < headerCount)
+            View child = parent.getChildAt(i);
+            if (child instanceof BaseRefreshHeader || child instanceof HeaderView)
                 continue;
-            final View child = parent.getChildAt(i);
+
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-            final int left = child.getRight() + layoutParams.rightMargin;
-            final int right = left + space;
+            int left = child.getRight() + layoutParams.rightMargin;
+            int right = left + space;
             if (mDivider != null) {
                 mDivider.setBounds(left, top, right, bottom);
                 mDivider.draw(canvas);
@@ -145,14 +151,11 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
 
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) parent.getLayoutManager();
-
         for (int i = 0; i < childSize; i++) {
-
-            if (i < headerCount && linearLayoutManager.findFirstVisibleItemPosition() < headerCount)
+            View child = parent.getChildAt(i);
+            if (child instanceof BaseRefreshHeader || child instanceof HeaderView)
                 continue;
 
-            final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             int top = child.getBottom() + layoutParams.bottomMargin;
             int bottom = top + space;
@@ -170,164 +173,209 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     /**
      * 绘制边框
      */
-    private void drawGrideviewLinerAround(Canvas canvas, RecyclerView parent) {
+    private void drawGridLinerAround(Canvas canvas, RecyclerView parent) {
         GridLayoutManager linearLayoutManager = (GridLayoutManager) parent.getLayoutManager();
         int childSize = parent.getChildCount();
 
         if (childSize < 1)
             return;
-        if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-            childSize = childSize + linearLayoutManager.getSpanCount() - headerCount;
-        } else {
-            childSize = parent.getChildCount();
-        }
-
-        for (int j = 0; j < childSize; j++) {
-            if (!(headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) || j / linearLayoutManager.getSpanCount() != 0) {
-                int i;
-                View child;
-                if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-                    i = j - linearLayoutManager.getSpanCount();
-                    child = parent.getChildAt(i + headerCount);
-                } else {
-                    i = j;
-                    child = parent.getChildAt(i);
-                }
-
-                //跳过 Footer 的边框
-                if (i > 1 && child.getHeight() != parent.getChildAt(i - 1).getHeight()) {
-                    continue;
-                }
-                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                int top, bottom, left, right;
-
-                //child 顶部
-                if (i / linearLayoutManager.getSpanCount() == 0) {
-                    top = child.getTop() - layoutParams.topMargin - space;
-                    bottom = top + space;
-                    right = child.getRight() + layoutParams.leftMargin + space;
-                    left = child.getLeft() - layoutParams.rightMargin - space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
-                //child 底部
-                if (i / linearLayoutManager.getSpanCount() == childSize / linearLayoutManager.getSpanCount()) {
-                    top = child.getBottom() + layoutParams.bottomMargin;
-                    bottom = top + space;
-                    right = child.getRight() + layoutParams.leftMargin + space;
-                    left = child.getLeft() - layoutParams.rightMargin - space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
-                //child 左边
-                if (i % linearLayoutManager.getSpanCount() == 0) {
-                    top = child.getTop() - layoutParams.topMargin - layoutParams.bottomMargin - space;
-                    bottom = child.getBottom() + space;
-                    left = child.getLeft() - layoutParams.leftMargin - space;
-                    right = left + space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
-                //child 右边
-                if (i % linearLayoutManager.getSpanCount() == linearLayoutManager.getSpanCount() - 1) {
-                    top = child.getTop() - layoutParams.topMargin - layoutParams.bottomMargin - space;
-                    bottom = child.getBottom() + space;
-                    left = child.getRight() + layoutParams.rightMargin;
-                    right = left + space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
+        for (int i = 0; i < childSize; i++) {
+            View child = parent.getChildAt(i);
+            if (child.getWidth() > linearLayoutManager.getDecoratedLeft(child)
+                    && parent.getWidth() - linearLayoutManager.getDecoratedRight(child) < child.getWidth()) {
+//                if (child instanceof HeaderView) {
+//                    //Header
+//                    child.setBackgroundColor(Color.RED);
+//                    drawChildTop(canvas, child);
+//                    drawChildLeft(canvas, child);
+//                    drawChildRight(canvas, child);
+//                } else if (child instanceof FooterView) {
+//                    //Footer
+//                    child.setBackgroundColor(Color.BLUE);
+//                    drawChildTop(canvas, child);
+//                }
+            } else {
+                drawChildTop(canvas, child);
+                drawChildLeft(canvas, child);
+                drawChildBottom(canvas, child);
+                drawChildRight(canvas, child);
             }
         }
+//        for (int j = 0; j < childSize; j++) {
+//            if (!(headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) || j / linearLayoutManager.getSpanCount() != 0) {
+//                int i;
+//                View child;
+//                if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
+//                    i = j - linearLayoutManager.getSpanCount();
+//                    child = parent.getChildAt(i + headerCount);
+//                } else {
+//                    i = j;
+//                    child = parent.getChildAt(i);
+//                }
+//
+//                //跳过 Footer 的边框
+//                if (i > 1 && child.getHeight() != parent.getChildAt(i - 1).getHeight()) {
+//                    continue;
+//                }
+//                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+//                int top, bottom, left, right;
+//
+//                //child 顶部
+//                if (i / linearLayoutManager.getSpanCount() == 0) {
+//                    top = child.getTop() - layoutParams.topMargin - space;
+//                    bottom = top + space;
+//                    right = child.getRight() + layoutParams.leftMargin + space;
+//                    left = child.getLeft() - layoutParams.rightMargin - space;
+//                    if (mDivider != null) {
+//                        mDivider.setBounds(left, top, right, bottom);
+//                        mDivider.draw(canvas);
+//                    }
+//                    if (mPaint != null) {
+//                        canvas.drawRect(left, top, right, bottom, mPaint);
+//                    }
+//                }
+//                //child 底部
+//                if (i / linearLayoutManager.getSpanCount() == childSize / linearLayoutManager.getSpanCount()) {
+//                    top = child.getBottom() + layoutParams.bottomMargin;
+//                    bottom = top + space;
+//                    right = child.getRight() + layoutParams.leftMargin + space;
+//                    left = child.getLeft() - layoutParams.rightMargin - space;
+//                    if (mDivider != null) {
+//                        mDivider.setBounds(left, top, right, bottom);
+//                        mDivider.draw(canvas);
+//                    }
+//                    if (mPaint != null) {
+//                        canvas.drawRect(left, top, right, bottom, mPaint);
+//                    }
+//                }
+//                //child 左边
+//                if (i % linearLayoutManager.getSpanCount() == 0) {
+//                    top = child.getTop() - layoutParams.topMargin - layoutParams.bottomMargin - space;
+//                    bottom = child.getBottom() + space;
+//                    left = child.getLeft() - layoutParams.leftMargin - space;
+//                    right = left + space;
+//                    if (mDivider != null) {
+//                        mDivider.setBounds(left, top, right, bottom);
+//                        mDivider.draw(canvas);
+//                    }
+//                    if (mPaint != null) {
+//                        canvas.drawRect(left, top, right, bottom, mPaint);
+//                    }
+//                }
+//                //child 右边
+//                if (i % linearLayoutManager.getSpanCount() == linearLayoutManager.getSpanCount() - 1) {
+//                    top = child.getTop() - layoutParams.topMargin - layoutParams.bottomMargin - space;
+//                    bottom = child.getBottom() + space;
+//                    left = child.getRight() + layoutParams.rightMargin;
+//                    right = left + space;
+//                    if (mDivider != null) {
+//                        mDivider.setBounds(left, top, right, bottom);
+//                        mDivider.draw(canvas);
+//                    }
+//                    if (mPaint != null) {
+//                        canvas.drawRect(left, top, right, bottom, mPaint);
+//                    }
+//                }
+//            }
+//        }
     }
 
-    //绘制grideview item 分割线 不是填充满的
-    private void drawGrideviewHeader(Canvas canvas, RecyclerView parent) {
+    //绘制gridview item 分割线 不是填充满的
+    private void drawGridLiner(Canvas canvas, RecyclerView parent) {
         GridLayoutManager linearLayoutManager = (GridLayoutManager) parent.getLayoutManager();
         int childSize = parent.getChildCount();
 
-
         if (childSize < 1)
             return;
-        if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-            childSize = childSize + linearLayoutManager.getSpanCount() - headerCount;
-        } else {
-            childSize = parent.getChildCount();
-        }
 
-        for (int j = 0; j < childSize; j++) {
-            if (!(headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) || j / linearLayoutManager.getSpanCount() != 0) {
-                int i;
-                View child;
-                if (headerCount != 0 && linearLayoutManager.findFirstVisibleItemPosition() == 0) {
-                    i = j - linearLayoutManager.getSpanCount();
-                    child = parent.getChildAt(i + headerCount);
+        for (int i = 0; i < childSize; i++) {
+            View child = parent.getChildAt(i);
+            if (child.getWidth() > linearLayoutManager.getDecoratedLeft(child)
+                    && parent.getWidth() - linearLayoutManager.getDecoratedRight(child) < child.getWidth()) {
+                if (child instanceof BaseRefreshHeader || child instanceof HeaderView) {
+                    //Header
+                    drawChildBottom(canvas, child);
                 } else {
-                    i = j;
-                    child = parent.getChildAt(i);
+                    //Footer
+                    drawChildTop(canvas, child);
                 }
-                //跳过 Footer 的边框
-                if (i > 1 && child.getHeight() != parent.getChildAt(i - 1).getHeight()) {
-                    continue;
-                }
-                RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                int top, bottom, left, right;
-
-                //child 底部（最下边的 除外）
-                if (i / linearLayoutManager.getSpanCount() != childSize / linearLayoutManager.getSpanCount()) {
-                    top = child.getBottom() + layoutParams.bottomMargin;
-                    bottom = top + space;
-                    right = child.getRight() + layoutParams.leftMargin + space;
-                    left = child.getLeft() - layoutParams.rightMargin - space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
-                //child 右边（最右边的 除外）
-                if (i % linearLayoutManager.getSpanCount() != (linearLayoutManager.getSpanCount() - 1)) {
-                    top = child.getTop() - layoutParams.topMargin - layoutParams.bottomMargin - space;
-                    bottom = child.getBottom() + space;
-                    left = child.getRight() + layoutParams.rightMargin;
-                    right = left + space;
-                    if (mDivider != null) {
-                        mDivider.setBounds(left, top, right, bottom);
-                        mDivider.draw(canvas);
-                    }
-                    if (mPaint != null) {
-                        canvas.drawRect(left, top, right, bottom, mPaint);
-                    }
-                }
+            } else if (child.getWidth() > linearLayoutManager.getDecoratedLeft(child)
+                    && linearLayoutManager.getDecoratedRight(child) < child.getWidth() * 1.5) {
+                //每行的 第一个View
+                drawChildBottom(canvas, child);
+            } else {
+                //每行的 非第一个View
+                drawChildBottom(canvas, child);
+                drawChildLeft(canvas, child);
             }
         }
-
     }
 
-    public void setHeaderCount(int headerCount) {
-        this.headerCount = headerCount;
+    private int top, bottom, left, right;
+
+    // ItemView 的Top画线
+    private void drawChildTop(Canvas canvas, View child) {
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+        top = child.getTop() - layoutParams.topMargin - space;
+        bottom = top + space;
+        right = child.getRight() + layoutParams.leftMargin + space;
+        left = child.getLeft() - layoutParams.rightMargin - space;
+        if (mDivider != null) {
+            mDivider.setBounds(left, top, right, bottom);
+            mDivider.draw(canvas);
+        }
+        if (mPaint != null) {
+            canvas.drawRect(left, top, right, bottom, mPaint);
+        }
+    }
+
+    // ItemView 的Right 画线
+    private void drawChildRight(Canvas canvas, View child) {
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+        top = child.getTop() - layoutParams.topMargin - space;
+        bottom = child.getBottom() + space + layoutParams.bottomMargin;
+        left = child.getRight() + layoutParams.rightMargin;
+        right = left + space;
+
+        if (mDivider != null) {
+            mDivider.setBounds(left, top, right, bottom);
+            mDivider.draw(canvas);
+        }
+        if (mPaint != null) {
+            canvas.drawRect(left, top, right, bottom, mPaint);
+        }
+    }
+
+    // ItemView 的Bottom画线
+    private void drawChildBottom(Canvas canvas, View child) {
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+        top = child.getBottom() + layoutParams.bottomMargin;
+        bottom = top + space;
+        right = child.getRight() + layoutParams.leftMargin + space;
+        left = child.getLeft() - layoutParams.rightMargin - space;
+        if (mDivider != null) {
+            mDivider.setBounds(left, top, right, bottom);
+            mDivider.draw(canvas);
+        }
+        if (mPaint != null) {
+            canvas.drawRect(left, top, right, bottom, mPaint);
+        }
+    }
+
+    // ItemView 的Left 画线
+    private void drawChildLeft(Canvas canvas, View child) {
+        RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
+        top = child.getTop() - layoutParams.topMargin - space;
+        bottom = child.getBottom() + space + layoutParams.bottomMargin;
+        left = child.getLeft() - layoutParams.leftMargin - space;
+        right = left + space;
+        if (mDivider != null) {
+            mDivider.setBounds(left, top, right, bottom);
+            mDivider.draw(canvas);
+        }
+        if (mPaint != null) {
+            canvas.drawRect(left, top, right, bottom, mPaint);
+        }
     }
 
     public void setLinerAround(boolean linerAround) {

@@ -52,7 +52,7 @@ public class mRecyclerActivity extends RecyclerViewActivity {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         list.clear();
-                        for (int i = 0; i < 100; i++) {
+                        for (int i = 0; i < 30; i++) {
                             list.add("" + i);
                         }
                         adapter.notifyDataSetChanged();
@@ -85,12 +85,12 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             }
         };
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                ToastUtils.show(position + "");
-            }
-        });
+//        adapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                ToastUtils.show(position + "");
+//            }
+//        });
         return adapter;
     }
 
@@ -99,11 +99,11 @@ public class mRecyclerActivity extends RecyclerViewActivity {
         if (liner)
             return 0;
         else
-            return 3;
+            return 4;
     }
 
-    @Override
-    protected void setItemDecoration() {
-
-    }
+//    @Override
+//    protected void setItemDecoration() {
+//
+//    }
 }

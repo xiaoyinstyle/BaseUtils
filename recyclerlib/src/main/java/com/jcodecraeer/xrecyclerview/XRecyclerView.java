@@ -21,6 +21,8 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
+import yin.style.recyclerlib.decoration.BaseDividerItem;
+
 public class XRecyclerView extends RecyclerView {
     private boolean isLoadingData = false;
     private boolean isNoMore = false;
@@ -32,8 +34,8 @@ public class XRecyclerView extends RecyclerView {
     private static final float DRAG_RATE = 3;
     private LoadingListener mLoadingListener;
     private ArrowRefreshHeader mRefreshHeader;
-    private boolean pullRefreshEnabled = true;
-    private boolean loadingMoreEnabled = true;
+    private boolean pullRefreshEnabled = false;
+    private boolean loadingMoreEnabled = false;
     //下面的ItemViewType是保留值(ReservedItemViewType),如果用户的adapter与它们重复将会强制抛出异常。不过为了简化,我们检测到重复时对用户的提示是ItemViewType必须小于10000
     private static final int TYPE_REFRESH_HEADER = 10000;//设置一个很大的数字,尽可能避免和用户的adapter冲突
     private static final int TYPE_FOOTER = 10001;
@@ -59,14 +61,17 @@ public class XRecyclerView extends RecyclerView {
     }
 
     private void init() {
-        if (pullRefreshEnabled) {
+//        if (pullRefreshEnabled) {
             mRefreshHeader = new ArrowRefreshHeader(getContext());
             mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
-        }
+//        }
         LoadingMoreFooter footView = new LoadingMoreFooter(getContext());
         footView.setProgressStyle(mLoadingMoreProgressStyle);
         mFootView = footView;
         mFootView.setVisibility(GONE);
+
+        addItemDecoration(new BaseDividerItem(0));
+
     }
 
     public void setFootViewText(String loading, String noMore) {

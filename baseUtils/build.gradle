@@ -69,7 +69,7 @@ group = "yin.style.utils" // Maven Group ID for the artifact，一般填你唯�
 def libName = "baseUtils"
 
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.0.1"
+version = "0.0.2"
 //上面配置后上传至JCenter后的编译路径是这样的：compile 'yin.style.utils:recyclerLib:0.0.6'
 
 //生成源文件

@@ -2,6 +2,7 @@ package com.jskingen.baseutils.http;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -16,12 +17,18 @@ import com.jskingen.baseutils.R;
 import com.jskingen.baseutils.http.model.User;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class mNetworkActivity extends TitleActivity {
 
@@ -55,7 +62,7 @@ public class mNetworkActivity extends TitleActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload})
+    @OnClick({R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload, R.id.bt2_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt2_get:
@@ -70,7 +77,31 @@ public class mNetworkActivity extends TitleActivity {
                 //网络请求，带图片
                 http2_upload();
                 break;
+            case R.id.bt2_test:
+                http2_test();
+                break;
         }
+    }
+
+    private void http2_test() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+                Request request = new Request.Builder().url("http://www.baidu.com")
+                        .get().build();
+                Call call = client.newCall(request);
+                try {
+                    Response response = call.execute();
+                    Log.e("AAA", "" + response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
     private void http2_post() {

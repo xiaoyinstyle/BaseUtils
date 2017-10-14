@@ -16,6 +16,8 @@ import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.recyclerlib.inter.OnItemClickLongListener;
 import yin.style.recyclerlib.view.EmptyView;
+import yin.style.recyclerlib.view.FooterView;
+import yin.style.recyclerlib.view.HeaderView;
 
 public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     private View emptyView;
@@ -97,17 +99,27 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        if (viewType == TYPE_EMPTY) {//空布局
+        if (viewType == TYPE_EMPTY) {
+            //空布局
             View empty = getEmptyView(parent);
             setOnclickEmpty(empty);
             return new BaseViewHolder(empty);
-        } else if (viewType == TYPE_HEADER) {//Header布局
-            return new BaseViewHolder(headerView);
-        } else if (viewType == TYPE_ITEM) {//正常布局
+        } else if (viewType == TYPE_HEADER) {
+            //Header布局
+            HeaderView hv = new HeaderView(mContext);
+            hv.setGravity(Gravity.CENTER);
+            hv.addView(headerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return new BaseViewHolder(hv);
+        } else if (viewType == TYPE_ITEM) {
+            //正常布局
             View view = LayoutInflater.from(mContext).inflate(layoutResId, parent, false);
             return new ItemViewHolder(view);
-        } else if (viewType == TYPE_FOOTER) {//Footer布局
-            return new BaseViewHolder(footerView);
+        } else if (viewType == TYPE_FOOTER) {
+            //Footer布局
+            FooterView fv = new FooterView(mContext);
+            fv.setGravity(Gravity.CENTER);
+            fv.addView(footerView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            return new BaseViewHolder(fv);
 
         }
         return null;
@@ -142,7 +154,6 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     private View getEmptyView(ViewGroup view) {
         EmptyView eV = new EmptyView(mContext);
-        eV.removeAllViews();
         eV.setGravity(Gravity.CENTER);
         eV.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         if (emptyView == null)
