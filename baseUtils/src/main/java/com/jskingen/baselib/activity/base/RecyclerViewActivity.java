@@ -23,6 +23,7 @@ import yin.style.recyclerlib.decoration.BaseDividerItem;
 public abstract class RecyclerViewActivity extends TitleActivity {
 
     protected XRecyclerView mRecyclerView;
+    protected RecyclerView.ItemDecoration itemDecoration;
 
     @Override
     protected int getViewByXml() {
@@ -75,12 +76,11 @@ public abstract class RecyclerViewActivity extends TitleActivity {
     protected int setGridNumb() {
         return 0;
     }
-
     /**
      * 重写这个 设置间隔线
      */
     protected void setItemDecoration() {
-        RecyclerView.ItemDecoration itemDecoration = new BaseDividerItem(1, setItemColor());
+        itemDecoration = new BaseDividerItem(1, setItemColor());
         mRecyclerView.addItemDecoration(itemDecoration);
     }
 

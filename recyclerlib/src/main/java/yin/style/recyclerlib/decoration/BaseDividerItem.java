@@ -29,7 +29,7 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
     private Paint mPaint;
 
-    private boolean linerAround = true;//是否显示边框线
+    private boolean linerAround = false;//是否显示边框线
 
     public BaseDividerItem(int space) {
         init(space, color, linerAround);

@@ -32,6 +32,8 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             @Override
             public void onClick(View v) {
                 liner = !liner;
+                if (itemDecoration != null)
+                    mRecyclerView.removeItemDecoration(itemDecoration);
                 initView(null);
 
                 setCanRefresh(true);
