@@ -25,6 +25,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    //        repositories {
+//            flatDir {
+//                dirs 'aar'
+//            }
+//        }
 }
 
 dependencies {
@@ -40,4 +45,6 @@ dependencies {
     //数据库 查看
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.uphyca:stetho_realm:2.0.0'
+    //    compile(name: 'baselib-releas', ext: 'aar')
+
 }

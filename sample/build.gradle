@@ -16,13 +16,36 @@ android {
         ndk {
             abiFilters 'armeabi-v7a', 'armeabi', 'x86'
         }
+
+//        //配置keystore签名
+//        signingConfigs {
+//            release {
+//                storeFile file("Composition.jks")
+//                storePassword "composition123"
+//                keyAlias "key0"
+//                keyPassword "composition456"
+//                v2SigningEnabled false
+//            }
+//        }
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
         }
     }
+//    repositories {
+//        flatDir {
+//            dirs 'aar'
+//        }
+//    }
 }
 
 dependencies {
@@ -33,12 +56,13 @@ dependencies {
 
     compile project(':baseUtils')
 
+//    compile(name: 'bitherutils', ext: 'aar')
     compile rootProject.ext.dependencies["appcompat-v7"]
 //    注解
 //    compile rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

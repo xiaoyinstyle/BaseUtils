@@ -15,7 +15,7 @@ import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
  * @author chenyin
  * @date 2017/3/28
  */
-public abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<T> list;
     private int groupPosition;

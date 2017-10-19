@@ -1,7 +1,9 @@
 package yin.style.recyclerlib.flowlayoutmanager;
 
 /**
- * Created by xhan on 4/11/16.
+ * Created by 陈银 on 2016/4/11 12:25
+ *
+ * 描述：
  */
 public class LayoutContext {
 	public FlowLayoutOptions layoutOptions;

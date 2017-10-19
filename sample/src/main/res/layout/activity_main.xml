@@ -110,6 +110,13 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/bt_main_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义样式Button"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/bt_main_rec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -39,6 +39,7 @@ public class mExpandViewActivity extends RecyclerViewActivity {
     @Override
     protected RecyclerView.Adapter setAdapter() {
         adapter = new mExpandAdapter(this, list);
+        adapter.setNotClose();
         adapter.setOnItemClickListener(true, new OnExplandItemClickListener() {
             @Override
             public void onItemClick(View view, int groupPosition, int childPosition) {
