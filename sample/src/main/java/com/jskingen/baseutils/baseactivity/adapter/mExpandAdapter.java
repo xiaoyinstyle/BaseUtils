@@ -18,6 +18,12 @@ public class mExpandAdapter extends BaseExpandAdapter<Group> {
     public mExpandAdapter(Context context, List list) {
         super(context, list);
     }
+
+    @Override
+    protected int getLayoutType(int position) {
+        return LAYOUT_FLOW;
+    }
+
     @Override
     protected List getChild(int position) {
         return list.get(position).getGroupItems();
@@ -29,7 +35,7 @@ public class mExpandAdapter extends BaseExpandAdapter<Group> {
     }
 
     @Override
-    protected int getChildLayout() {
+    protected int getChildLayout(int p) {
         return R.layout.item_recyclerview2;
     }
 
@@ -41,6 +47,6 @@ public class mExpandAdapter extends BaseExpandAdapter<Group> {
     @Override
     protected void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition) {
         holder.setText(R.id.text, "这是GroupView_" + groupPosition);
-        holder.setBackgroundRes(R.id.text,R.color.grey);
+        holder.setBackgroundRes(R.id.text, R.color.grey);
     }
 }

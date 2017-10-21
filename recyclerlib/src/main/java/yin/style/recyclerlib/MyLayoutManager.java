@@ -1,6 +1,5 @@
 package yin.style.recyclerlib;
 
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Chne on 2017/8/3.
+ * Created by 陈银 on 2017/8/3. 12:28
+ * <p>
+ * 描述： 自定义点击放大的 一个布局
  */
 
 public class MyLayoutManager extends RecyclerView.LayoutManager {

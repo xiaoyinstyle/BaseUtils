@@ -20,6 +20,9 @@ import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
 
 
 /**
+ * 可以展开的 Expland adapter
+ * 内部 RecyclerView  可以是网格、流式布局、线性、瀑布流 (VERTICAL/HORIZONTAL)
+ *
  * @author chenyin
  * @date 2017/3/28
  */
@@ -41,6 +44,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
     private boolean isShowGroupItem[] = new boolean[0];
 
     private boolean isDefaultExpand = false;//初始化 是否展开 默认：false
+    private boolean isNotClose = false;//初始化 不可关闭
 
 
     public BaseExpandAdapter(Context context, List list) {
@@ -68,14 +72,16 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
                     if (onItemClickListener != null && groupCanClick)
                         onItemClickListener.onItemClick(holder.itemView, position, -1);
 
-                    if (!isShowGroupItem[position]) {
-                        ((ItemViewHolder) holder).mGroup.setVisibility(View.VISIBLE);
-                        isShowGroupItem[position] = true;
-                    } else {
-                        ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
-                        isShowGroupItem[position] = false;
+                    if (!isNotClose) {
+                        if (!isShowGroupItem[position]) {
+                            ((ItemViewHolder) holder).mGroup.setVisibility(View.VISIBLE);
+                            isShowGroupItem[position] = true;
+                        } else {
+                            ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
+                            isShowGroupItem[position] = false;
+                        }
+                        setGroupViewHolder(holder, isShowGroupItem[position], position);
                     }
-                    setGroupViewHolder(holder, isShowGroupItem[position], position);
                 }
             });
 
@@ -95,14 +101,16 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
             else
                 ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
 
+            //添加内部布局
             ((ItemViewHolder) holder).mGroup.setLayoutManager(getLayoutManager(position));
+
             if (itemDecoration != null)
                 ((ItemViewHolder) holder).mGroup.addItemDecoration(itemDecoration);
 
             ((ItemViewHolder) holder).mGroup.setAdapter(new ItemExpandAdapter(getChild(position), position) {
                 @Override
                 protected int getChildLayout() {
-                    return BaseExpandAdapter.this.getChildLayout();
+                    return BaseExpandAdapter.this.getChildLayout(position);
                 }
 
                 @Override
@@ -132,7 +140,10 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
         if (isShowGroupItem == null || isShowGroupItem.length != i) {
             isShowGroupItem = new boolean[i];
             for (int j = 0; j < isShowGroupItem.length; j++) {
-                isShowGroupItem[j] = isDefaultExpand(i);
+                if (isNotClose)
+                    isShowGroupItem[j] = true;
+                else
+                    isShowGroupItem[j] = isDefaultExpand(i);
             }
         }
 
@@ -179,7 +190,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
 
     protected abstract int getGroupLayout();
 
-    protected abstract int getChildLayout();
+    protected abstract int getChildLayout(int position);
 
     protected abstract void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition);
 
@@ -194,9 +205,11 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
     protected RecyclerView.LayoutManager getLayoutManager(int position) {
         if (getLayoutType(position) == LAYOUT_GRID)
             return new GridLayoutManager(mContext, getGridCount(position));
-        else if (getLayoutType(position) == LAYOUT_FLOW)
-            return new FlowLayoutManager();
-        else if (getLayoutType(position) == LAYOUT_STAGGER_VERTICAL)
+        else if (getLayoutType(position) == LAYOUT_FLOW) {
+            FlowLayoutManager flowLayoutManager = new FlowLayoutManager();
+            flowLayoutManager.setAutoMeasureEnabled(true);
+            return flowLayoutManager;
+        } else if (getLayoutType(position) == LAYOUT_STAGGER_VERTICAL)
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.VERTICAL);
         else if (getLayoutType(position) == LAYOUT_STAGGER_HORIZONTAL)
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.HORIZONTAL);
@@ -224,8 +237,19 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
 
     /*-------------------------------------*/
     /*-------------------------------------*/
+    //设置默认 是否展开、或者关闭
     public void setDefaultExpand(boolean defaultExpand) {
         isDefaultExpand = defaultExpand;
+    }
+
+    //设置默认是否可以关闭
+    public void setNotClose() {
+        isNotClose = true;
+    }
+
+    //设置默认是否可以关闭
+    public void setCanClose() {
+        isNotClose = false;
     }
 
     protected boolean isDefaultExpand(int position) {

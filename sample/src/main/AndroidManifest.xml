@@ -38,6 +38,7 @@
         <activity android:name=".utils.mPopWindowActivity" />
         <activity android:name=".utils.mRefreshviewActivity" />
         <activity android:name=".utils.mRecyclerVActivity" />
+        <activity android:name=".utils.mButtonActivity" />
         <activity android:name=".utils.mRadioButtonActivity"></activity>
     </application>
 

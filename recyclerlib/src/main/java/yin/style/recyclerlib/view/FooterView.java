@@ -12,10 +12,12 @@ import android.widget.LinearLayout;
 public class FooterView extends LinearLayout {
     public FooterView(Context context) {
         this(context, null);
+        init();
     }
 
     public FooterView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+        init();
     }
 
     public FooterView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -25,7 +27,6 @@ public class FooterView extends LinearLayout {
     }
 
     private void init() {
+        setOrientation(LinearLayout.VERTICAL);
     }
-
-
 }

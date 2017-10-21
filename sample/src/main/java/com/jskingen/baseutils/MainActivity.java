@@ -11,12 +11,13 @@ import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
 import com.jskingen.baseutils.baseactivity.mWebviewActivity;
 import com.jskingen.baseutils.common.PhoneInfo;
+import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
 import com.jskingen.baseutils.http.mDownloadActivity;
 import com.jskingen.baseutils.http.mNetworkActivity;
 import com.jskingen.baseutils.http.mUpdateActivity;
 import com.jskingen.baseutils.image.mImageActivity;
 import com.jskingen.baseutils.photo.TakePhotoActivity;
-import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
+import com.jskingen.baseutils.utils.mButtonActivity;
 import com.jskingen.baseutils.utils.mDialogActivity;
 import com.jskingen.baseutils.utils.mPermissionsActivity;
 import com.jskingen.baseutils.utils.mPopWindowActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends TitleActivity {
             , R.id.bt_main_http, R.id.bt_main_download_upload, R.id.bt_main_update
             , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
             , R.id.bt_main_popWindow, R.id.bt_main_refresh, R.id.bt_main_radio
-            , R.id.bt_main_rec})
+            , R.id.bt_main_button, R.id.bt_main_rec})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_main_tab:
@@ -111,6 +112,9 @@ public class MainActivity extends TitleActivity {
                 break;
             case R.id.bt_main_rec:
                 startActivity(new Intent(this, mRecyclerVActivity.class));
+                break;
+            case R.id.bt_main_button:
+                startActivity(new Intent(this, mButtonActivity.class));
                 break;
 
         }

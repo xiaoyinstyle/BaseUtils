@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jskingen.baseutils.MainActivity">
+    tools:context="com.jskingen.baseutils.MainActivity$MainActivity">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -114,6 +114,13 @@
             android:layout_height="wrap_content"
             android:text="RadioButton"
             android:textAllCaps="false" />
+        <Button
+            android:id="@+id/bt_main_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义样式Button"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/bt_main_rec"
             android:layout_width="wrap_content"

@@ -4,7 +4,9 @@ import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 
 /**
- * Created by xhan on 4/11/16.
+ * Created by 陈银 on 2016/4/11 12:25
+ * 
+ * 描述： 
  */
 public class LayoutHelper {
 	RecyclerView.LayoutManager layoutManager;
