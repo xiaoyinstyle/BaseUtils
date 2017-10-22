@@ -1,1 +1,1 @@
-include ':sample', ':baseUtils', ':recyclerlib', ':notes'
+include ':sample', ':baseUtils', ':recyclerlib', ':notes', ':phonenumber'

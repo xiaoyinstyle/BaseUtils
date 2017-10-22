@@ -37,7 +37,8 @@
         <activity android:name=".flowLayout.FlowLayoutActivity" />
         <activity android:name=".utils.mPopWindowActivity" />
         <activity android:name=".utils.mRefreshviewActivity" />
-        <activity android:name=".utils.mRecyclerVActivity"></activity>
+        <activity android:name=".utils.mRecyclerVActivity" />
+        <activity android:name=".view.RadioButtonActivity"></activity>
     </application>
 
 </manifest>

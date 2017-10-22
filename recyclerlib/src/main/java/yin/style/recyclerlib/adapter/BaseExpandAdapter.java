@@ -192,9 +192,9 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
 
     protected abstract int getChildLayout(int position);
 
-    protected abstract void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition);
+    protected abstract void setGroupViewHolder(BaseViewHolder baseViewHolder, boolean isOpenGroup, int groupPosition);
 
-    protected abstract void setChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition);
+    protected abstract void setChildViewHolder(BaseViewHolder baseViewHolder, int groupPosition, int childPosition);
 
     /**
      * 自定义   RecyclerView.LayoutManager

@@ -117,6 +117,13 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/bt_main_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/bt_main_rec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,17 +1,12 @@
 package com.jskingen.baseutils.baseactivity;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.jskingen.baselib.permission.OnPermissionsListener;
-import com.jskingen.baselib.permission.XPermission;
-import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baseutils.R;
 
 /**
