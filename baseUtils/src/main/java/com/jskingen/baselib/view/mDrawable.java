@@ -1,8 +1,6 @@
-package com.jskingen.baseutils.utils.view;
+package com.jskingen.baselib.view;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -13,13 +11,12 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-
-import com.jskingen.baselib.utils.DpUtil;
 
 /**
  * Created by Chne on 2017/10/21.
- */
+ *
+ *  试题的选择效果 适合 checkBox与radioButton
+ * */
 
 public class mDrawable extends Drawable {
 

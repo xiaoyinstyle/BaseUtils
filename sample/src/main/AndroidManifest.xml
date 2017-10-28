@@ -40,6 +40,7 @@
         <activity android:name=".utils.mRecyclerVActivity" />
         <activity android:name=".utils.mButtonActivity" />
         <activity android:name=".utils.mRadioButtonActivity"></activity>
+        <activity android:name=".view.RadioButtonActivity"></activity>
     </application>
 
 </manifest>
