@@ -7,20 +7,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/f3_text_left"
         android:background="@mipmap/ic_f3_header"
         android:gravity="center_vertical"
-        android:padding="10dp"
+        android:textStyle="bold"
+        android:padding="@dimen/f3_text_padding"
         android:text="今日值班"
         android:textColor="@color/text_green"
-        android:textSize="24sp" />
+        android:textSize="@dimen/f3_text_size" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/ic_f3_body">
 
-        <ImageView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

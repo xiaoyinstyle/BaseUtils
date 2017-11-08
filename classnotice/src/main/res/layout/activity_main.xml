@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:background="@mipmap/ic_main_bg"
     android:orientation="vertical"
-    android:paddingBottom="30dp"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
+    android:paddingBottom="@dimen/main_padding"
+    android:paddingLeft="@dimen/main_padding"
+    android:paddingRight="@dimen/main_padding"
     tools:context="com.bangdu.classnotice.MainActivity">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:id="@+id/fl_main_weather"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="@dimen/main_f2_left"
             android:layout_weight="1"
             tools:background="@android:color/holo_red_light"></FrameLayout>
 
@@ -36,7 +36,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/main_f3_top"
         android:layout_weight="580"
         android:orientation="horizontal">
 
@@ -52,13 +52,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="20dp"
+            android:paddingLeft="@dimen/main_f3_left"
             tools:background="@android:color/holo_red_light"></FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="@dimen/main_f2_left"
             android:layout_weight="1"
             android:orientation="vertical">
 
