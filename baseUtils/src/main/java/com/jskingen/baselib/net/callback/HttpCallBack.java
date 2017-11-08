@@ -1,8 +1,10 @@
 package com.jskingen.baselib.net.callback;
 
 import com.google.gson.Gson;
+import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.net.exception.NetException;
 import com.jskingen.baselib.net.inter.ICallBack;
+import com.jskingen.baselib.utils.LogUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,6 +17,8 @@ public abstract class HttpCallBack<T> implements ICallBack {
 
     @Override
     public void onSuccess(String result) {
+//        if(BaseHelp.getInstance().isDebug())
+        LogUtils.d(result);
         Class<?> clz = null;
         try {
             clz = analysisClassInfo(this);
