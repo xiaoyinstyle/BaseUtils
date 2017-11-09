@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,12 +19,14 @@
             android:src="@mipmap/ic_f2_loaction" />
 
         <TextView
+            android:id="@+id/tv_f5_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/f2_header_text_left"
             android:text="南京市"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/f2_text_size" />
+            android:textSize="@dimen/f2_header_text_size"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,20 +38,21 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <com.jskingen.baselib.view.AutofitTextView
+            android:id="@+id/tv_f5_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:padding="@dimen/f2_text_padding"
+            android:lines="1"
             android:text="12:30"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/f2_text_size_big"
-            android:textStyle="bold" />
+            android:textSize="@dimen/f2_text_size_big" />
 
-        <TextView
+        <com.jskingen.baselib.view.AutofitTextView
+            android:id="@+id/tv_f5_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/f2_text_padding"
+            android:lines="1"
             android:text="2017年10月26日 星期一"
             android:textColor="@color/text_black"
             android:textSize="@dimen/f2_text_size" />
@@ -63,74 +67,82 @@
         android:background="@drawable/bg_f2_bg"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="@dimen/f2_content_padding">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginRight="@dimen/f2_content_padding"
+            android:layout_weight="0.7"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/iv_f5_weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_f2_tq" />
 
-            <TextView
+            <com.jskingen.baselib.view.AutofitTextView
+                android:id="@+id/tv_f5_weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/f2_text_padding"
+                android:lines="1"
                 android:text="多云转晴"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/f2_text_size" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/f2_content_padding"
+            android:layout_marginRight="@dimen/f2_content_padding"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_f5_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lines="1"
                 android:text="17℃"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/f2_text_size_big"
-                android:textStyle="bold" />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/f2_text_size_big" />
 
-            <TextView
+            <com.jskingen.baselib.view.AutofitTextView
+                android:id="@+id/tv_f5_temp_allDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/f2_text_padding"
-                android:text="全天气候：12~22度"
+                android:lines="1"
+                android:text="全天气候:12~22度"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/f2_text_size_small" />
+                android:textSize="@dimen/f2_text_size_small"
+                app:sizeToFit="true" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:gravity="center"
+            android:lines="1"
             android:orientation="vertical">
 
 
-            <TextView
+            <com.jskingen.baselib.view.AutofitTextView
+                android:id="@+id/tv_f5_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="空气湿度：20%"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/f2_text_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="@dimen/f2_text_padding"
-                android:text="西南风2~4级"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.2"
+                android:lines="2"
+                android:padding="@dimen/f2_text_padding"
+                android:text="空气湿度：20\n西南风2~4级"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/f2_text_size" />
         </LinearLayout>

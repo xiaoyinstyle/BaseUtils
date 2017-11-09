@@ -27,7 +27,7 @@
             <!--android:gravity="center"-->
             <!--android:orientation="horizontal"-->
             <!--android:padding="10dp"-->
-            <!--android:visibility="visible" />-->
+            <!--android:visibility="gone" />-->
 
             <TextView
                 android:id="@+id/numIndicator"
@@ -44,7 +44,7 @@
             <LinearLayout
                 android:id="@+id/titleView"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="#44000000"
                 android:orientation="horizontal"
@@ -56,25 +56,25 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1000"
                     android:lines="1"
-                    android:ellipsize="marquee"
+                    android:ellipsize="end"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/f3_banner_text_size"
-                    android:textStyle="bold"
                     android:visibility="gone" />
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
+                    android:visibility="gone"
                     android:paddingRight="10dp">
 
                     <TextView
                         android:id="@+id/numIndicatorInside"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="1/1"
@@ -83,7 +83,7 @@
 
                     <LinearLayout
                         android:id="@+id/indicatorInside"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
@@ -98,9 +98,9 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/f3_indicator_size"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/f3_indicator_bottom"
         android:layout_marginTop="@dimen/f3_indicator_top"
+        android:layout_marginBottom="@dimen/f3_indicator_bottom"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </LinearLayout>

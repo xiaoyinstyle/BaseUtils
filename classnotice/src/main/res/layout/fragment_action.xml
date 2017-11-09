@@ -10,7 +10,9 @@
         android:layout_marginLeft="@dimen/f3_text_left"
         android:background="@mipmap/ic_f3_header"
         android:gravity="center_vertical"
-        android:padding="@dimen/f3_text_padding"
+        android:paddingBottom="@dimen/f3_text_padding"
+        android:paddingLeft="@dimen/f3_text_left"
+        android:paddingTop="@dimen/f3_text_padding"
         android:text="通知公告"
         android:textColor="@color/text_blue"
         android:textSize="@dimen/f3_text_size"
@@ -24,14 +26,16 @@
         android:padding="@dimen/f3_content_padding">
 
         <ImageView
+            android:id="@+id/iv_f4_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/f4_image_height"
             android:layout_marginBottom="@dimen/f4_image_margin"
             android:layout_marginLeft="@dimen/f4_image_margin"
             android:layout_marginRight="@dimen/f4_image_margin"
             android:src="@mipmap/ic_f4_image" />
 
         <TextView
+            android:id="@+id/tv_f4_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="于下个星期举行全校运动会！请各班积极报名！"

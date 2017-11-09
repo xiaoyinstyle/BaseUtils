@@ -22,13 +22,143 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/f5_title_weight"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/ic_f5_t"
                 android:gravity="center"
+                android:padding="@dimen/f5_text_padding"
                 android:text="课表"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/f5_text_size" />
+
+            <LinearLayout
+                android:id="@+id/ll_class"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_1"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="1"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_2"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="2"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_3"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="3"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_4"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="4"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_5"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="5"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_6"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="6"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/ic_f5_7"
+                        android:gravity="center"
+                        android:padding="@dimen/f5_text_padding"
+                        android:text="7"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/f5_text_size" />
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -38,13 +168,22 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/f5_title_weight"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/ic_f5_t"
                 android:gravity="center"
+                android:padding="@dimen/f5_text_padding"
                 android:text="今日"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/f5_text_size" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_today"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,13 +193,22 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/f5_title_weight"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/ic_f5_t"
                 android:gravity="center"
+                android:padding="@dimen/f5_text_padding"
                 android:text="明日"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/f5_text_size" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_tomorrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" />
         </LinearLayout>
 
     </LinearLayout>
@@ -72,7 +220,9 @@
         android:layout_marginRight="@dimen/f3_text_left"
         android:background="@mipmap/ic_f5_header"
         android:gravity="center_vertical|right"
-        android:padding="@dimen/f3_text_padding"
+        android:paddingBottom="@dimen/f3_text_padding"
+        android:paddingRight="@dimen/f3_text_left"
+        android:paddingTop="@dimen/f3_text_padding"
         android:text="教室课表"
         android:textColor="@color/text_yellow"
         android:textSize="@dimen/f3_text_size"

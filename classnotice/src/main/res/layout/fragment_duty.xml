@@ -11,7 +11,9 @@
         android:background="@mipmap/ic_f3_header"
         android:gravity="center_vertical"
         android:textStyle="bold"
-        android:padding="@dimen/f3_text_padding"
+        android:paddingTop="@dimen/f3_text_padding"
+        android:paddingBottom="@dimen/f3_text_padding"
+        android:paddingLeft="@dimen/f3_text_left"
         android:text="今日值班"
         android:textColor="@color/text_green"
         android:textSize="@dimen/f3_text_size" />
@@ -19,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:background="@mipmap/ic_f3_body">
 
         <android.support.v7.widget.RecyclerView

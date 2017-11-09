@@ -1,16 +1,18 @@
 package com.bangdu.classnotice.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bangdu.classnotice.R;
-import com.bangdu.classnotice.f1.TabFragment;
+import com.bangdu.classnotice.f1.ClassStyleFragment;
+import com.bangdu.classnotice.f1.TodayClassFragment;
+import com.bangdu.classnotice.view.TitleClassView;
 import com.jskingen.baselib.activity.model.TabEntity;
 import com.jskingen.baselib.fragment.NormalFragment;
 import com.jskingen.baselib.utils.DpUtil;
@@ -35,6 +37,8 @@ public class ClassSummaryFragment extends NormalFragment {
     private int[] iconSelectIds = new int[]{R.mipmap.ic_f1_jrbj_, R.mipmap.ic_f1_bjfc_, R.mipmap.ic_f1_bjxc_};
     private int[] iconUnSelectIds = new int[]{R.mipmap.ic_f1_jrbj, R.mipmap.ic_f1_bjfc, R.mipmap.ic_f1_bjxc};
 
+    @BindView(R.id.title_class_view)
+    TitleClassView titleClassView;
     @BindView(R.id.tl_f1)
     VerticalTabLayout tlF1;
     @BindView(R.id.vp_f1)
@@ -78,33 +82,44 @@ public class ClassSummaryFragment extends NormalFragment {
 
             }
         });
+
+        titleClassView.setText("三年级<40>班");
     }
 
     private void setFragment() {
-        for (int i = 0; i < 3; i++) {
-            TabEntity tabEntity = new TabEntity();
-            tabEntity.setFragment(TabFragment.newInstance(i));
-            tabEntity.setTitle(titles[i]);
+        TabEntity tabEntity0 = new TabEntity();
+        tabEntity0.setFragment(new TodayClassFragment());
+        tabEntity0.setTitle(titles[0]);
+        tabEntity0.setSelectedIcon(iconSelectIds[0]);
+        tabEntity0.setUnSelectedIcon(iconUnSelectIds[0]);
+        tabEntity0.setSelectedColor(Color.BLACK);
+        tabEntity0.setUnSelectedColor(Color.BLACK);
+        tabEntities.add(tabEntity0);
 
-            tabEntity.setSelectedIcon(iconSelectIds[i]);
-            tabEntity.setUnSelectedIcon(iconUnSelectIds[i]);
+        TabEntity tabEntity1 = new TabEntity();
+//        tabEntity1.setFragment(new ClassStyleFragment());
+        tabEntity1.setFragment(new TodayClassFragment());
+        tabEntity1.setTitle(titles[1]);
+        tabEntity1.setSelectedIcon(iconSelectIds[1]);
+        tabEntity1.setUnSelectedIcon(iconUnSelectIds[1]);
+        tabEntity1.setSelectedColor(Color.BLACK);
+        tabEntity1.setUnSelectedColor(Color.BLACK);
+        tabEntities.add(tabEntity1);
 
-//            tabEntity.setSelectedColor(Color.parseColor("#F19D2A"));
-//            tabEntity.setUnSelectedColor(Color.parseColor("#9C9372"));
-            tabEntity.setSelectedColor(ContextCompat.getColor(mContext, R.color.text_black));
-            tabEntity.setUnSelectedColor(ContextCompat.getColor(mContext, R.color.text_black));
-
-            tabEntities.add(tabEntity);
-        }
-
-
+        TabEntity tabEntity2 = new TabEntity();
+        tabEntity2.setFragment(new TodayClassFragment());
+        tabEntity2.setTitle(titles[2]);
+        tabEntity2.setSelectedIcon(iconSelectIds[2]);
+        tabEntity2.setUnSelectedIcon(iconUnSelectIds[2]);
+        tabEntity2.setSelectedColor(Color.BLACK);
+        tabEntity2.setUnSelectedColor(Color.BLACK);
+        tabEntities.add(tabEntity2);
     }
 
     @Override
     protected void initData() {
 
     }
-
 
     class MyTabAdapter implements TabAdapter {
         @Override
@@ -123,7 +138,8 @@ public class ClassSummaryFragment extends NormalFragment {
                     .setIcon(tabEntities.get(position).getSelectedIcon(), tabEntities.get(position).getUnSelectedIcon())
                     .setIconGravity(Gravity.START)
                     .setIconMargin((int) DpUtil.dp2px(mContext, 5))
-                    .setIconSize((int) DpUtil.dp2px(mContext, 25), (int) DpUtil.dp2px(mContext, 25))
+                    .setIconSize((int) DpUtil.dp2px(mContext, getResources().getDimension(R.dimen.f1_icon_size)),
+                            (int) DpUtil.dp2px(mContext, getResources().getDimension(R.dimen.f1_icon_size)))
                     .build();
         }
 
@@ -131,7 +147,7 @@ public class ClassSummaryFragment extends NormalFragment {
         public ITabView.TabTitle getTitle(int position) {
             return new TabView.TabTitle.Builder()
                     .setContent(tabEntities.get(position).getTitle())
-                    .setTextSize(14)
+                    .setTextSize(28)
                     .setTextColor(tabEntities.get(position).getSelectedColor(), tabEntities.get(position).getUnSelectedColor())
                     .build();
         }

@@ -1,6 +1,7 @@
 package com.bangdu.classnotice;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import com.bangdu.classnotice.fragment.ActionFragment;
@@ -30,7 +31,8 @@ public class MainActivity extends NormalAcitivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+//        常亮
+//        view.setKeepScreenOn(true);
 
         getSupportFragmentManager().beginTransaction().add(R.id.fl_main_summarize, new ClassSummaryFragment()).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.fl_main_weather, new WeatherFragment()).commit();
@@ -45,5 +47,17 @@ public class MainActivity extends NormalAcitivity {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            Intent home = new Intent(Intent.ACTION_MAIN);
+//            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            home.addCategory(Intent.CATEGORY_HOME);
+//            startActivity(home);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

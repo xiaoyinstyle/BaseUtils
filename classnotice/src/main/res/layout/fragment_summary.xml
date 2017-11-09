@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/main_padding"
         android:background="@drawable/bg_f1_white" />
 
     <LinearLayout
@@ -16,11 +16,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_f1_header" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/f1_header_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/f1_header_top"
+                android:layout_marginTop="@dimen/f1_header_top"
+                android:src="@mipmap/ic_f1_header" />
+
+            <com.bangdu.classnotice.view.TitleClassView
+                android:id="@+id/title_class_view"
+                android:layout_width="250dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/f1_header_top" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +50,7 @@
                 app:tab_mode="fixed" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="@dimen/f1_divider_width"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:background="#9C9372" />
@@ -48,7 +62,7 @@
                 android:layout_weight="2" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="@dimen/f1_divider_width"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:background="#9C9372" />
@@ -58,7 +72,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/f1_text_padding">
 
                 <TextView
                     android:id="@+id/tv_f1_1"
@@ -66,7 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="当前课程：第三节"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/f1_3_text_size" />
 
                 <TextView
                     android:id="@+id/tv_f1_2"
@@ -74,13 +90,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="10:00~10:45"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/f1_3_text_small" />
 
                 <ImageView
                     android:id="@+id/iv_f1_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="@dimen/f1_image_width"
+                    android:layout_height="@dimen/f1_image_height"
                     android:layout_weight="1"
                     android:src="@mipmap/ic_f1_img" />
 
@@ -90,7 +106,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="课程名称：语文"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/f1_3_text_small" />
 
                 <TextView
                     android:id="@+id/tv_f1_4"
@@ -98,7 +115,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="教授老师：张老是"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/f1_3_text_small" />
             </LinearLayout>
 
         </LinearLayout>
