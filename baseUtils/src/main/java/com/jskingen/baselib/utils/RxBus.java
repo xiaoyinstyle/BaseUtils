@@ -1,6 +1,8 @@
 package com.jskingen.baselib.utils;
 
 
+import android.content.Context;
+
 import java.util.HashMap;
 
 import rx.Observable;
@@ -140,25 +142,25 @@ public class RxBus {
         mSubscriptionMap.remove(key);
     }
 
-//    /**
-//     * 复制并调用 这里到 activity或者fragment中  使用 RxBus.getInstance().post("1024");方法调用
-//     * 其中post的参数时String时为主线程，为Int时 为子线程。
-//     */
-//    public void doSubscribe(Context context) {
-//        Subscription subscription = RxBus.getInstance()
-//                .doSubscribe(Integer.class, new Action1<Integer>() {
-//                    @Override
-//                    public void call(Integer s) {
-//                        //设置接口
+    /**
+     * 复制并调用 这里到 activity或者fragment中  使用 RxBus.getInstance().post("1024");方法调用
+     * 其中post的参数时String时为主线程，为Int时 为子线程。
+     */
+    public void doSubscribe(Object o) {
+        Subscription subscription = RxBus.getInstance()
+                .doSubscribe(Integer.class, new Action1<Integer>() {
+                    @Override
+                    public void call(Integer s) {
+                        //设置接口
 //                        mEvent.RxBusEvent(s);
-//                    }
-//                }, new Action1<Throwable>() {
-//                    @Override
-//                    public void call(Throwable throwable) {
-//
-//                    }
-//                });
-//
-//         RxBus.getInstance(). addSubscription(context, subscription);
-//    }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
+
+        RxBus.getInstance().addSubscription(o, subscription);
+    }
 }

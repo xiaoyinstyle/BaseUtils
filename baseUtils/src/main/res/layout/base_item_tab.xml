@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         tools:src="@drawable/ic_launcher" />
 
-    <TextView
+    <com.jskingen.baselib.view.AutofitTextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

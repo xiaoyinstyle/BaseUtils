@@ -1,5 +1,6 @@
 package com.bangdu.classnotice.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class ActionFragment extends NormalFragment {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        adapter = new MyAdapter(R.layout.item_action, list);
+        adapter = new MyAdapter(mContext, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(adapter);
 
@@ -50,13 +51,18 @@ public class ActionFragment extends NormalFragment {
         for (int i = 0; i < 5; i++) {
             list.add("");
         }
-        adapter.notifyChanged();
+        adapter.notifyDataSetChanged();
     }
 
     class MyAdapter extends BaseQuickAdapter<String> {
 
-        public MyAdapter(int layoutResId, List mData) {
-            super(layoutResId, mData);
+        public MyAdapter(Context mContext, List mData) {
+            super(mContext, mData);
+        }
+
+        @Override
+        protected int getLayoutResId() {
+            return R.layout.item_action;
         }
 
         @Override

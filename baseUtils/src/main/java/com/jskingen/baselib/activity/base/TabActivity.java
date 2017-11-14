@@ -2,6 +2,8 @@ package com.jskingen.baselib.activity.base;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,12 +22,14 @@ import java.util.List;
  * TabActivity
  */
 
-public abstract class TabActivity extends NormalAcitivity {
+public abstract class TabActivity extends NormalAcitivity implements ViewPager.OnPageChangeListener {
     protected TabLayout mTabLayout;
     protected TabAdapter adapter;
     //Tab标题集合
     protected List<TabEntity> tabEntities = new ArrayList<>();
     protected CommonViewPage mViewPager;
+
+    private float menuTextSize = 13;//默认13 sp
 
     @Override
     protected int getViewByXml() {
@@ -72,11 +76,21 @@ public abstract class TabActivity extends NormalAcitivity {
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
             setTabItem(mTabLayout.getTabAt(0), true);
         }
+
+        mViewPager.addOnPageChangeListener(this);
+//        mViewPager.sAn
     }
 
-    public void setCurrentItem(int position){
+    public void setCurrentItem(int position) {
         mViewPager.setCurrentItem(position);
     }
+
+//    public void setSwitchAnimation(boolean switchAnimation) {
+//        if (mViewPager != null){
+//            mViewPager.setPageTransformer(false,null);
+//        }
+//    }
+
     /**
      * 设置 itemTab
      */
@@ -96,14 +110,29 @@ public abstract class TabActivity extends NormalAcitivity {
         }
 
         holder.text.setText(tabEntities.get(position).getTitle());
-
+        holder.text.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTextSize);
         if (isSelected) {
             holder.text.setTextColor(tabEntities.get(position).getSelectedColor());
-            holder.icon.setImageResource(tabEntities.get(position).getSelectedIcon());
+            if (tabEntities.get(position).getSelectedIcon() != 0)
+                holder.icon.setImageResource(tabEntities.get(position).getSelectedIcon());
         } else {
             holder.text.setTextColor(tabEntities.get(position).getUnSelectedColor());
-            holder.icon.setImageResource(tabEntities.get(position).getUnSelectedIcon());
+            if (tabEntities.get(position).getSelectedIcon() != 0)
+                holder.icon.setImageResource(tabEntities.get(position).getUnSelectedIcon());
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public abstract void onPageSelected(int position);
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     private class ViewHolder {
@@ -118,8 +147,9 @@ public abstract class TabActivity extends NormalAcitivity {
      * @param isVisible
      */
     protected void showPoint(int pos, boolean isVisible) {
-        if (null == mTabLayout || pos >= mTabLayout.getTabCount())
+        if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return;
+        }
         View view = mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.v_red_point);
         view.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
     }
@@ -133,8 +163,9 @@ public abstract class TabActivity extends NormalAcitivity {
      * @param isVisible
      */
     protected void showPoint(int pos, int number, boolean isVisible) {
-        if (null == mTabLayout || pos >= mTabLayout.getTabCount())
+        if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return;
+        }
         TextView textView = (TextView) mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.tv_red_point);
         textView.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
         textView.setText((number > 99 ? 99 : number) + "");
@@ -145,8 +176,9 @@ public abstract class TabActivity extends NormalAcitivity {
      * @return 带文字的 小红点
      */
     protected TextView getPointTextView(int pos) {
-        if (null == mTabLayout || pos >= mTabLayout.getTabCount())
+        if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return null;
+        }
         return (TextView) mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.tv_red_point);
     }
 
@@ -155,8 +187,9 @@ public abstract class TabActivity extends NormalAcitivity {
      * @return小红点
      */
     protected View getPointView(int pos) {
-        if (null == mTabLayout || pos >= mTabLayout.getTabCount())
+        if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return null;
+        }
         return mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.v_red_point);
     }
 
@@ -175,10 +208,26 @@ public abstract class TabActivity extends NormalAcitivity {
 //    protected abstract int getTabTextColorUnSelect();
 
     /**
+     *
+     */
+    protected void setMenuTextSize(float textSize_SP) {
+        if (null == mTabLayout) {
+            return;
+        }
+        menuTextSize = textSize_SP;
+        for (int pos = 0; pos < mTabLayout.getTabCount(); pos++) {
+            TextView textView = (TextView) mTabLayout.getTabAt(pos).getCustomView().findViewById(R.id.tv_name);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTextSize);
+        }
+
+    }
+
+    /**
      * @param canScroll 是否可以左右滑动
      */
     public void setCanScroll(boolean canScroll) {
-        if (mViewPager != null)
+        if (mViewPager != null) {
             mViewPager.setCanScroll(canScroll);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.jskingen.baseutils.flowLayout;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jskingen.baselib.fragment.NormalFragment;
 import com.jskingen.baseutils.R;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +28,7 @@ import yin.style.recyclerlib.inter.OnItemClickListener;
  * Created by ChneY on 2017/5/19.
  */
 
-public class FlowLayoutFragment extends Fragment {
+public class FlowLayoutFragment extends NormalFragment {
     private RecyclerView rvcontent;
     private RecyclerView rvbase;
     private List<String> bastStr = Arrays.asList("接警接警接警", "出动出动", "到场", "侦", "布\n阵"
@@ -38,10 +40,14 @@ public class FlowLayoutFragment extends Fragment {
     private TestAdapter adapter;
     private List<TestBean> list = new ArrayList<>();
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_flowlayout, container, false);
+    protected int getViewByXml() {
+        return R.layout.fragment_flowlayout;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
         rvbase = (RecyclerView) view.findViewById(R.id.rv_base);
         rvcontent = (RecyclerView) view.findViewById(R.id.rv_content);
 
@@ -52,7 +58,12 @@ public class FlowLayoutFragment extends Fragment {
         FlowLayoutManager manager2 = new FlowLayoutManager();
         manager2.setAutoMeasureEnabled(true);
         rvcontent.setLayoutManager(manager2);
-        baseQuickAdapter = new BaseQuickAdapter<String>(R.layout.item_fragment_flowlayout, bastStr) {
+        baseQuickAdapter = new BaseQuickAdapter<String>(getContext(), bastStr) {
+            @Override
+            protected int getLayoutResId() {
+                return R.layout.item_fragment_flowlayout;
+            }
+
             @Override
             protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
                 baseViewHolder.setText(R.id.tv_item_test, s);
@@ -71,15 +82,15 @@ public class FlowLayoutFragment extends Fragment {
         });
         rvbase.setAdapter(baseQuickAdapter);
 
-        adapter = new TestAdapter(R.layout.item_fragment_flowlayout, list);
+        adapter = new TestAdapter(getContext(), list);
         rvcontent.setAdapter(adapter);
-        initBaseData();
-        return view;
     }
 
-    private void initBaseData() {
+    @Override
+    protected void initData() {
 
     }
+
 
     class TestBean {
         private String text;
@@ -109,8 +120,14 @@ public class FlowLayoutFragment extends Fragment {
 
     private class TestAdapter extends BaseQuickAdapter<TestBean> {
 
-        public TestAdapter(@LayoutRes int layoutResId, List mData) {
-            super(layoutResId, mData);
+
+        public TestAdapter(Context mContext, List mData) {
+            super(mContext, mData);
+        }
+
+        @Override
+        protected int getLayoutResId() {
+            return R.layout.item_fragment_flowlayout;
         }
 
         @Override
@@ -118,8 +135,9 @@ public class FlowLayoutFragment extends Fragment {
             baseViewHolder.setText(R.id.tv_item_test, testBean.getText());
             baseViewHolder.setText(R.id.tv_item_time, testBean.getTime());
 
-            if (position == mData.size() - 1)
+            if (position == mData.size() - 1) {
                 baseViewHolder.getView(R.id.iv_item_arror).setVisibility(View.INVISIBLE);
+            }
 
         }
     }

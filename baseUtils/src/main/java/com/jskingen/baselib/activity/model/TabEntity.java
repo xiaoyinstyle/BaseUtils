@@ -3,8 +3,11 @@ package com.jskingen.baselib.activity.model;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 
+import dalvik.annotation.TestTarget;
+
 /**
  * TabActivity 的导航条
+ * @author Chne
  */
 public class TabEntity {
     private String title;
@@ -31,14 +34,17 @@ public class TabEntity {
         return selectedIcon;
     }
 
+    @Deprecated
     public void setSelectedIcon(int selectedIcon) {
         this.selectedIcon = selectedIcon;
     }
+
 
     public int getUnSelectedIcon() {
         return unSelectedIcon;
     }
 
+    @Deprecated
     public void setUnSelectedIcon(int unSelectedIcon) {
         this.unSelectedIcon = unSelectedIcon;
     }
@@ -47,6 +53,7 @@ public class TabEntity {
         return selectedColor;
     }
 
+    @Deprecated
     public void setSelectedColor(@ColorInt int selectedColor) {
         this.selectedColor = selectedColor;
     }
@@ -55,6 +62,7 @@ public class TabEntity {
         return unSelectedColor;
     }
 
+    @Deprecated
     public void setUnSelectedColor(@ColorInt int unSelectedColor) {
         this.unSelectedColor = unSelectedColor;
     }
@@ -65,5 +73,15 @@ public class TabEntity {
 
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    public void setMenuIcon(int selectedIcon, int unSelectedIcon) {
+        this.selectedIcon = selectedIcon;
+        this.unSelectedIcon = unSelectedIcon;
+    }
+
+    public void setTextColor(@ColorInt int selectedColor, @ColorInt int unSelectedColor) {
+        this.selectedColor = selectedColor;
+        this.unSelectedColor = unSelectedColor;
     }
 }

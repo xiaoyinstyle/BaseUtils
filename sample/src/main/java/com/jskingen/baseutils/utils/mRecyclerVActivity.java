@@ -37,7 +37,12 @@ public class mRecyclerVActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         layoutManager = new MyLayoutManager(recyclerView, 4);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new BaseQuickAdapter<String>(R.layout.item_m_rec, list) {
+        adapter = new BaseQuickAdapter<String>(this, list) {
+            @Override
+            protected int getLayoutResId() {
+                return R.layout.item_m_rec;
+            }
+
             @Override
             protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
                 baseViewHolder.setText(R.id.tv_, "" + s);

@@ -18,15 +18,17 @@ public class HttpHelper implements IHttpProcessor {
     private static HttpHelper _instance;
 
     private HttpHelper() {
+        if (mIHttpProcessor == null) {
+            init(new OkHttpProcessor());
+        }
     }
 
     public static HttpHelper getInstance() {
-        synchronized (HttpHelper.class) {
-            if (_instance == null) {
-                _instance = new HttpHelper();
-            }
-            if (_instance.mIHttpProcessor == null)
-                _instance.init(new OkHttpProcessor());
+        if (_instance == null) {
+            _instance = new HttpHelper();
+        }
+        if (mIHttpProcessor == null) {
+            init(new OkHttpProcessor());
         }
         return _instance;
     }
@@ -57,7 +59,7 @@ public class HttpHelper implements IHttpProcessor {
 
     @Override
     public void uploadFile(String url, Map<String, Object> params, IFileCallBack callBack) {
-        mIHttpProcessor.uploadFile(url, params,  callBack);
+        mIHttpProcessor.uploadFile(url, params, callBack);
     }
 
     @Override

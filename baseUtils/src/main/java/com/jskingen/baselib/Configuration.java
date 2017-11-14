@@ -38,7 +38,7 @@ public class Configuration {
         public Configuration build() {
             //缓存的文件夹 目录
             if (TextUtils.isEmpty(configuration.fileName))
-                throw new NullPointerException("Cache fileName cannot be null, please set fileName in Configuration ");
+                configuration.fileName = configuration.context.getString(R.string.app_name);
             return configuration;
         }
 

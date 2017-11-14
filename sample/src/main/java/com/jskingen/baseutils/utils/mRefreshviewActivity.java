@@ -93,7 +93,12 @@ public class mRefreshviewActivity extends AppCompatActivity {
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new BaseQuickAdapter<String>(android.R.layout.simple_list_item_1, list) {
+        recyclerView.setAdapter(new BaseQuickAdapter<String>(this, list) {
+            @Override
+            protected int getLayoutResId() {
+                return android.R.layout.simple_list_item_1;
+            }
+
             @Override
             protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
                 baseViewHolder.setText(android.R.id.text1, s);

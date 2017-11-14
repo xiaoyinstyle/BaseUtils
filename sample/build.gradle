@@ -55,6 +55,7 @@ dependencies {
     })
 
     compile project(':baseUtils')
+//    compile 'yin.style.utils:baseUtils:0.0.3'
 
 //    compile(name: 'bitherutils', ext: 'aar')
     compile rootProject.ext.dependencies["appcompat-v7"]

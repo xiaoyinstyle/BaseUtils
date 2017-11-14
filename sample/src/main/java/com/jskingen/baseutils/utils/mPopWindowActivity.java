@@ -142,7 +142,12 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
                     list.add("Android");
                 }
 
-                BaseQuickAdapter mAdapter = new BaseQuickAdapter<String>(R.layout.item_recyclerview, list) {
+                BaseQuickAdapter mAdapter = new BaseQuickAdapter<String>(mContext, list) {
+                    @Override
+                    protected int getLayoutResId() {
+                        return R.layout.item_recyclerview;
+                    }
+
                     @Override
                     protected void setViewHolder(BaseViewHolder baseViewHolder, String s, int position) {
                         baseViewHolder.setText(R.id.text, list.get(position));

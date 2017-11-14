@@ -18,13 +18,16 @@ public class MainActivity extends TabActivity {
     }
 
     @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
     protected void addFragment(List<TabEntity> tabEntities) {
         ProjectsFragment projectsFragment = new ProjectsFragment();
         TabEntity tab = new TabEntity();
-        tab.setSelectedIcon(R.mipmap.ic_tab_projects_);
-        tab.setUnSelectedIcon(R.mipmap.ic_tab_projects_un);
-        tab.setSelectedColor(getResources().getColor(R.color.tabSelect));
-        tab.setUnSelectedColor(getResources().getColor(R.color.tabUnSelect));
+        tab.setMenuIcon(R.mipmap.ic_tab_projects_, R.mipmap.ic_tab_projects_un);
+        tab.setTextColor(getResources().getColor(R.color.tabSelect), getResources().getColor(R.color.tabUnSelect));
         tab.setFragment(projectsFragment);
         tab.setTitle("项目");
         tabEntities.add(tab);

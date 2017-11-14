@@ -16,6 +16,11 @@ public class mTabActivity extends TabActivity {
     private int[] iconSelectIds = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
 
     @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
     protected void addFragment(List<TabEntity> tabEntities) {
 
         for (int i = 0; i < 3; i++) {
@@ -23,11 +28,8 @@ public class mTabActivity extends TabActivity {
             tabEntity.setFragment(TabFragment.newInstance(i));
             tabEntity.setTitle(titles[i]);
 
-            tabEntity.setSelectedIcon(iconSelectIds[i]);
-            tabEntity.setUnSelectedIcon(iconUnSelectIds[i]);
-
-            tabEntity.setSelectedColor(Color.parseColor("#01B200"));
-            tabEntity.setUnSelectedColor(Color.parseColor("#A9B7B7"));
+            tabEntity.setMenuIcon(iconSelectIds[i], iconUnSelectIds[i]);
+            tabEntity.setTextColor(Color.parseColor("#01B200"), Color.parseColor("#A9B7B7"));
 
             tabEntities.add(tabEntity);
         }

@@ -80,7 +80,12 @@ public class mRecyclerActivity extends RecyclerViewActivity {
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new BaseQuickAdapter(R.layout.item_recyclerview, list) {
+        adapter = new BaseQuickAdapter(mContext, list) {
+            @Override
+            protected int getLayoutResId() {
+                return R.layout.item_recyclerview;
+            }
+
             @Override
             protected void setViewHolder(BaseViewHolder baseViewHolder, Object o, int position) {
                 baseViewHolder.setText(R.id.text, "测试—\n—" + position);

@@ -30,15 +30,15 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     private static final int TYPE_HEADER = 0x00000333;
 
     protected List<T> mData;
-    protected int layoutResId;
+//    protected int layoutResId;
 
     protected Context mContext;
     private int headerViewCount = 0;
     private int footerViewCount = 0;
     private boolean showEmptyView = true;
 
-    public BaseQuickAdapter(@LayoutRes int layoutResId, List mData) {
-        this.layoutResId = layoutResId;
+    public BaseQuickAdapter(Context mContext, List mData) {
+        this.mContext = mContext;
         this.mData = mData;
     }
 
@@ -71,12 +71,13 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     @Override
     public int getItemCount() {
-        if (mData == null || mData.size() == 0)
-            if (showEmptyView)
+        if (mData == null || mData.size() == 0) {
+            if (showEmptyView) {
                 return 1;
-            else
+            } else {
                 return 0;
-        else {
+            }
+        } else {
             return mData.size() + footerViewCount + headerViewCount;
         }
     }
@@ -98,7 +99,6 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
         if (viewType == TYPE_EMPTY) {
             //空布局
             View empty = getEmptyView(parent);
@@ -112,7 +112,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
             return new BaseViewHolder(hv);
         } else if (viewType == TYPE_ITEM) {
             //正常布局
-            View view = LayoutInflater.from(mContext).inflate(layoutResId, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(getLayoutResId(), parent, false);
             return new ItemViewHolder(view);
         } else if (viewType == TYPE_FOOTER) {
             //Footer布局
@@ -135,16 +135,18 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (onItemClickListener != null)
+                        if (onItemClickListener != null) {
                             onItemClickListener.onItemClick(holder.itemView, new_position);
+                        }
                     }
                 });
 
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if (onItemClickLongListener != null)
+                        if (onItemClickLongListener != null) {
                             onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
+                        }
                         return true;
                     }
                 });
@@ -156,8 +158,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         EmptyView eV = new EmptyView(mContext);
         eV.setGravity(Gravity.CENTER);
         eV.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        if (emptyView == null)
+        if (emptyView == null) {
             emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
+        }
         eV.addView(emptyView);
         return eV;
     }
@@ -166,10 +169,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
      * @param position 是否 是headview或者FooterView
      */
     public boolean isOtherView(int position) {
-        if (position < headerViewCount || position > headerViewCount + mData.size() - 1)
-            return true;
-        else
-            return false;
+        return position < headerViewCount || position > headerViewCount + mData.size() - 1;
     }
 
     /**
@@ -183,9 +183,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
      * @param emptyView 设置空布局
      */
     public void setEmptyView(View emptyView) {
-        if (emptyView == null)
+        if (emptyView == null) {
             setShowEmptyView(false);
-        else {
+        } else {
             setShowEmptyView(true);
             this.emptyView = emptyView;
         }
@@ -237,8 +237,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         if (view != null) {
             footerViewCount = 1;
             footerView = view;
-        } else
+        } else {
             footerViewCount = 0;
+        }
     }
 
     /**
@@ -248,15 +249,17 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         ev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onEmptyClickListener != null)
+                if (onEmptyClickListener != null) {
                     onEmptyClickListener.onItemClick(emptyView, 0);
+                }
             }
         });
         ev.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (onEmptyClickLongListener != null)
+                if (onEmptyClickLongListener != null) {
                     onEmptyClickLongListener.onItemLongClick(emptyView, 0);
+                }
                 return true;
             }
         });
@@ -275,6 +278,10 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public int getFooterCount() {
         return footerViewCount;
     }
+
+
+    @LayoutRes
+    protected abstract int getLayoutResId();
 
     protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T t, int position);
 
@@ -320,8 +327,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         notifyItemChanged(position + headerViewCount);
     }
 
-    public void notifyChanged() {
-        if (showEmptyView)
-            notifyDataSetChanged();
-    }
+//    public void notifyChanged() {
+//        if (showEmptyView) {
+//            notifyDataSetChanged();
+//        }
+//    }
 }

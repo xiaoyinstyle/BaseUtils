@@ -1,5 +1,6 @@
 package com.bangdu.classnotice.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,11 +44,11 @@ public class CourseFragment extends NormalFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        todayAdapter = new MyAdapter(R.layout.item_course, todayList);
+        todayAdapter = new MyAdapter(mContext, todayList);
         rvToday.setLayoutManager(new GridLayoutManager(mContext, 7));
         rvToday.setAdapter(todayAdapter);
 
-        tomorrowAdapter = new MyAdapter(R.layout.item_course, tomorrowList);
+        tomorrowAdapter = new MyAdapter(mContext, tomorrowList);
         rvTomorrow.setLayoutManager(new GridLayoutManager(mContext, 7));
         rvTomorrow.setAdapter(tomorrowAdapter);
 
@@ -59,14 +60,19 @@ public class CourseFragment extends NormalFragment {
             todayList.add("" + i);
             tomorrowList.add("" + i);
         }
-        todayAdapter.notifyChanged();
-        tomorrowAdapter.notifyChanged();
+        todayAdapter.notifyDataSetChanged();
+        tomorrowAdapter.notifyDataSetChanged();
     }
 
     class MyAdapter extends BaseQuickAdapter<String> {
 
-        public MyAdapter(int layoutResId, List mData) {
-            super(layoutResId, mData);
+        public MyAdapter(Context mContext, List mData) {
+            super(mContext, mData);
+        }
+
+        @Override
+        protected int getLayoutResId() {
+            return R.layout.item_course;
         }
 
         @Override

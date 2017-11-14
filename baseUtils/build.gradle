@@ -25,39 +25,37 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
 
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["cardview-v7"]
 
     //retrofit2
-    compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["converter-gson"]
-    compile rootProject.ext.dependencies["converter-rxjava"]
+//    compile rootProject.ext.dependencies["retrofit"]
+//    compile rootProject.ext.dependencies["converter-gson"]
+//    compile rootProject.ext.dependencies["converter-rxjava"]
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["okhttp3"]
     //图片加载glide
     compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["gson"]
     //注解
     compile rootProject.ext.dependencies["butterknife"]
 
     compile 'com.zhy:okhttputils:2.6.2'
 
-//    //MaterialDialog
-//    compile rootProject.ext.dependencies["commons"]
-//    compile rootProject.ext.dependencies["core"]
+    //    //MaterialDialog
+    //    compile rootProject.ext.dependencies["commons"]
+    //    compile rootProject.ext.dependencies["core"]
     //可放大缩小的 IamgeView
     compile 'com.commit451:PhotoView:1.2.4'
 
     compile project(':recyclerlib')
 }
 
-//
 ////添加这两行
 //apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'com.jfrog.bintray'
-//
 //
 ////gradlew install
 ////gradlew bintrayUpload
@@ -69,8 +67,8 @@ dependencies {
 //def libName = "baseUtils"
 //
 //// 版本号，下次更新是只需要更改版本号即可
-//version = "0.0.2"
-////上面配置后上传至JCenter后的编译路径是这样的：compile 'yin.style.utils:recyclerLib:0.0.6'
+//version = "0.0.3"
+////上面配置后上传至JCenter后的编译路径是这样的：compile 'yin.style.utils:baseUtils:0.0.3'
 //
 ////生成源文件
 //task sourcesJar(type: Jar) {
