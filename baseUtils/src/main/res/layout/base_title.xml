@@ -17,9 +17,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/base_title_btn"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:src="@drawable/base_back_selector"
+            android:src="@drawable/base_back_up"
             android:visibility="visible" />
 
         <TextView
@@ -29,9 +30,9 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="@android:color/white"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
             android:visibility="gone" />
 
         <ImageView
@@ -42,6 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:background="@drawable/base_title_btn"
             android:paddingLeft="10dp"
             android:visibility="gone" />
 

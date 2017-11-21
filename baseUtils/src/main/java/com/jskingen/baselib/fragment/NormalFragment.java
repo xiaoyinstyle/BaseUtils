@@ -49,7 +49,8 @@ public abstract class NormalFragment extends Fragment {
 //        } else {
 //            initData(); //设置数据
 //        }
-        initData(); //设置数据
+        if (!setLazy())
+            initData(); //设置数据
         return ll_root;
     }
 
@@ -77,15 +78,26 @@ public abstract class NormalFragment extends Fragment {
         unbinder.unbind();
     }
 
-//    @Override
-//    protected void lazyLoad() {
-//        if (!isPrepared || !isVisible) {
-//            return;
-//        }
-//        initData();
-//    }
+    protected boolean isVisible;
+    protected boolean hasLoad;
 
-    protected boolean setLazy() {
-        return false;
+    /**
+     * 在这里实现Fragment数据的缓加载.
+     *
+     * @param isVisibleToUser
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            LogUtils.e("AAA", "setUserVisibleHint--" + isVisibleToUser);
+            if (!hasLoad) {
+                hasLoad = true;
+                initData();
+            }
+        }
     }
+
+    protected abstract boolean setLazy();
 }

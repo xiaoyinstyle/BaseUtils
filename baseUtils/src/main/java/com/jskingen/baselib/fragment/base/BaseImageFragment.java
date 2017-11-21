@@ -59,6 +59,11 @@ public class BaseImageFragment extends NormalFragment {
     protected void initData() {
     }
 
+    @Override
+    protected boolean setLazy() {
+        return false;
+    }
+
     /**
      * 点击关闭
      */

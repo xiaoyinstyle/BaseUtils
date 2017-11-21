@@ -91,6 +91,11 @@ public class FlowLayoutFragment extends NormalFragment {
 
     }
 
+    @Override
+    protected boolean setLazy() {
+        return false;
+    }
+
 
     class TestBean {
         private String text;

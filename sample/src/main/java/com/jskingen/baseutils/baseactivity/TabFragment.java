@@ -14,7 +14,7 @@ import com.jskingen.baseutils.R;
 /**
  * Created by chenY on 2017/1/17
  */
-public class TabFragment extends NormalFragment {
+public class  TabFragment extends NormalFragment {
     private TextView textView;
     private TextView button;
 
@@ -43,5 +43,10 @@ public class TabFragment extends NormalFragment {
     @Override
     protected void initData() {
         LogUtils.e("AAA", "initData--" + a);
+    }
+
+    @Override
+    protected boolean setLazy() {
+        return false;
     }
 }
