@@ -56,7 +56,7 @@ public class mDownloadActivity extends TitleActivity {
         super.onDestroy();
     }
 
-    @OnClick({R.id.bt2_download, R.id.bt2_upload})
+    @OnClick({R.id.bt2_download, R.id.bt2_upload, R.id.bt2_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt2_download:
@@ -64,6 +64,12 @@ public class mDownloadActivity extends TitleActivity {
                 break;
             case R.id.bt2_upload:
                 upload2();
+                break;
+            case R.id.bt2_cancel:
+                HttpHelper.getInstance().cancel(App.downloadUrl);
+                HttpHelper.getInstance().cancel(url);
+                break;
+            default:
                 break;
         }
     }
@@ -75,7 +81,7 @@ public class mDownloadActivity extends TitleActivity {
         HttpHelper.getInstance().downloadFile(App.downloadUrl, new HashMap<String, String>(), file, new HttpProcessor(checkbox.isChecked()) {
 
             @Override
-            public void onProgress(double per, long current, long total) {
+            public void onProgress(float per, long current, long total) {
                 Log.e("AAA", "per------>" + per);
                 text.setText(per + "");
             }
@@ -96,11 +102,11 @@ public class mDownloadActivity extends TitleActivity {
 
         });
     }
+    String url = "http://976370887.kinqin.com/php/api/mult.php";
 
     //上传
     private void upload2() {
         //localhost:8080/upload.do
-        String url = "http://976370887.kinqin.com/php/api/mult.php";
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/a.apk");
         Map<String, Object> maps = new HashMap();
         maps.put("fname", "admin");
@@ -119,7 +125,7 @@ public class mDownloadActivity extends TitleActivity {
             }
 
             @Override
-            public void onProgress(double per, long current, long total) {
+            public void onProgress(float per, long current, long total) {
                 Log.e("AAA", "per------>" + per);
                 text.setText(per + "");
             }

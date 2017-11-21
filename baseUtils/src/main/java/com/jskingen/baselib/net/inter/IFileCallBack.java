@@ -7,7 +7,7 @@ package com.jskingen.baselib.net.inter;
 
 public interface IFileCallBack extends ICallBack{
 
-    void onProgress(double per, long current, long total);
+    void onProgress(float per, long current, long total);
 
     void onFinish(boolean success);
 

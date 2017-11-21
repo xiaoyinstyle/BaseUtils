@@ -155,7 +155,7 @@ public class RequestData {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    callBack.onProgress(((double) finalCurrent / (double) total), finalCurrent, total);
+                                    callBack.onProgress(((float) finalCurrent / (float) total), finalCurrent, total);
                                 }
                             });
                         }

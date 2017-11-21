@@ -25,7 +25,7 @@ public abstract class HttpProcessor implements IFileCallBack {
     }
 
     @Override
-    public void onProgress(double per, long fileSizeDownloaded, long fileSize) {
+    public void onProgress(float per, long fileSizeDownloaded, long fileSize) {
 
     }
 
@@ -42,6 +42,7 @@ public abstract class HttpProcessor implements IFileCallBack {
 //    public void onError(String e) {
 //
 //    }
+
     @Override
     public void onFinish() {
 

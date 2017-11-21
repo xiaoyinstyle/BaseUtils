@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,6 +80,7 @@ public abstract class TabActivity extends NormalAcitivity implements ViewPager.O
 
         mViewPager.addOnPageChangeListener(this);
 //        mViewPager.sAn
+        mViewPager.setOffscreenPageLimit(tabEntities.size());
     }
 
     public void setCurrentItem(int position) {
@@ -113,12 +115,14 @@ public abstract class TabActivity extends NormalAcitivity implements ViewPager.O
         holder.text.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTextSize);
         if (isSelected) {
             holder.text.setTextColor(tabEntities.get(position).getSelectedColor());
-            if (tabEntities.get(position).getSelectedIcon() != 0)
+            if (tabEntities.get(position).getSelectedIcon() != 0) {
                 holder.icon.setImageResource(tabEntities.get(position).getSelectedIcon());
+            }
         } else {
             holder.text.setTextColor(tabEntities.get(position).getUnSelectedColor());
-            if (tabEntities.get(position).getSelectedIcon() != 0)
+            if (tabEntities.get(position).getSelectedIcon() != 0) {
                 holder.icon.setImageResource(tabEntities.get(position).getUnSelectedIcon());
+            }
         }
     }
 
@@ -220,6 +224,20 @@ public abstract class TabActivity extends NormalAcitivity implements ViewPager.O
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTextSize);
         }
 
+    }
+
+    /**
+     * 设置TabLayout 的 高度
+     *
+     * @param height
+     */
+    protected void setTabHeight(int height) {
+        if (mTabLayout == null) {
+            return;
+        }
+        ViewGroup.LayoutParams params = mTabLayout.getLayoutParams();
+        params.height = height;
+        mTabLayout.setLayoutParams(params);
     }
 
     /**

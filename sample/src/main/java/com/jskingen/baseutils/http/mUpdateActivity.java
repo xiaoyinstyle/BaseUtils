@@ -112,7 +112,7 @@ public class mUpdateActivity extends TitleActivity {
         dialog.show();
         HttpHelper.getInstance().downloadFile(downloadUrl, null, apkPath, new HttpProcessor() {
             @Override
-            public void onProgress(double per, long fileSizeDownloaded, long fileSize) {
+            public void onProgress(float per, long fileSizeDownloaded, long fileSize) {
                 Log.e("AAA", "per:" + per);
                 dialog.setNumberProgress((int) (per * 100));
             }

@@ -105,7 +105,7 @@ public class mNetworkActivity extends TitleActivity {
     }
 
     private void http2_post() {
-        HttpHelper.init(new OkHttpProcessor());
+//        HttpHelper.init(new OkHttpProcessor());
         Map<String, String> maps = new HashMap();
         maps.put("fname", "admin");
         maps.put("age", "18");
@@ -120,13 +120,13 @@ public class mNetworkActivity extends TitleActivity {
 
             @Override
             public void onError(NetException exception) {
-                ToastUtils.show("网络请求失败");
+                ToastUtils.show("网络请求失败:" + exception.getMessage());
             }
         });
     }
 
     private void http2_get() {
-        HttpHelper.init(new OkHttpProcessor());
+//        HttpHelper.init(new OkHttpProcessor());
         Map<String, String> maps = new HashMap();
         maps.put("fname", "admin");
         maps.put("age", "18");
@@ -149,7 +149,7 @@ public class mNetworkActivity extends TitleActivity {
     private void http2_upload() {
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/image.jpg");
 
-        HttpHelper.init(new OkHttpProcessor());
+//        HttpHelper.init(new OkHttpProcessor());
         Map<String, Object> maps = new HashMap();
         maps.put("fname", "admin");
         maps.put("age", "18");

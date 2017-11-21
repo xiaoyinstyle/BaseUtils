@@ -11,10 +11,8 @@ import android.support.v4.content.FileProvider;
 import com.jskingen.baselib.BaseHelp;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * android 7.0 文件管理 utils
@@ -23,12 +21,14 @@ import java.util.UUID;
  */
 
 public class FileUtils {
-    private static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
-    private static final String xml_name = "root";                    //xml文件的nam值
-    //    private static final String fileName = BaseHelp.getInstance().getContext().getString(R.string.app_name);                    //根目录下文件名
-    private static final String fileName = BaseHelp.getInstance().getFileName();               //根目录下文件名
+    public static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
+    public static final String xml_name = "root";                    //xml文件的nam值
+    public static final String fileName = BaseHelp.getInstance().getFileName();               //根目录下文件名
 
     public static File getFile2Uri(Context context, Uri uri) {
+        if (getPath(context, uri) == null) {
+            return null;
+        }
         return new File(getPath(context, uri));
     }
 

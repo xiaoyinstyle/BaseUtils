@@ -2,7 +2,6 @@ package com.jskingen.baseutils.baseactivity;
 
 
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 
 import com.jskingen.baselib.activity.base.TabActivity;
 import com.jskingen.baselib.activity.model.TabEntity;

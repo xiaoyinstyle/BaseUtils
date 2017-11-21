@@ -3,9 +3,12 @@ package com.jskingen.baselib.net.callback;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Handler;
 
+import com.jskingen.baselib.R;
 import com.jskingen.baselib.utils.AppManager;
+import com.jskingen.baselib.view.LoadingDialog;
 
 import okhttp3.Call;
 
@@ -16,7 +19,7 @@ import okhttp3.Call;
 public abstract class OnHttpCallBack<T> extends HttpCallBack<T> {
     private boolean showDialog;
     private Context mContext;
-    private ProgressDialog mDialog;
+    private LoadingDialog mDialog;
 
     public OnHttpCallBack() {
 
@@ -26,7 +29,10 @@ public abstract class OnHttpCallBack<T> extends HttpCallBack<T> {
         this.showDialog = showDialog;
         if (showDialog) {
             mContext = AppManager.getInstance().currentActivity();
-            mDialog = new ProgressDialog(mContext);
+            mDialog = new LoadingDialog.Builder(mContext)
+                    .setBackground(R.drawable.progress_custom_bg_black)
+                    .setTextColor(Color.WHITE)
+                    .create();
         }
     }
 
@@ -34,7 +40,10 @@ public abstract class OnHttpCallBack<T> extends HttpCallBack<T> {
         this.showDialog = showDialog;
         if (showDialog) {
             mContext = context;
-            mDialog = new ProgressDialog(mContext);
+            mDialog = new LoadingDialog.Builder(mContext)
+                    .setBackground(R.drawable.progress_custom_bg_black)
+                    .setTextColor(Color.WHITE)
+                    .create();
         }
     }
 
@@ -60,7 +69,9 @@ public abstract class OnHttpCallBack<T> extends HttpCallBack<T> {
         mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
-                call.cancel();
+                if (call != null) {
+                    call.cancel();
+                }
             }
         });
     }

@@ -85,7 +85,7 @@ public class FileRequestBody extends RequestBody {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        httpProcessor.onProgress((double) current / (double) remaining, current, remaining);
+                        httpProcessor.onProgress((float) current / (float) remaining, current, remaining);
                     }
                 });
             }

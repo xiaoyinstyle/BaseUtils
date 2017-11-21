@@ -4,6 +4,8 @@ import android.support.multidex.MultiDexApplication;
 
 import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.Configuration;
+import com.jskingen.baselib.net.HttpHelper;
+import com.jskingen.baselib.net.processor.OkHttpUtilsProcessor;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -11,7 +13,8 @@ import com.squareup.leakcanary.LeakCanary;
  */
 
 public class App extends MultiDexApplication {
-    public static String downloadUrl = "http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk";
+//    public static String downloadUrl = "http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk";
+    public static String downloadUrl = "http://xmp.down.sandai.net/kankan/XMPSetupLite-xl8.exe";
 
 
     @Override
@@ -31,5 +34,7 @@ public class App extends MultiDexApplication {
                 .debug(BuildConfig.DEBUG)
                 .build();
         BaseHelp.getInstance().init(configuration);
+
+        HttpHelper.init(new OkHttpUtilsProcessor());
     }
 }

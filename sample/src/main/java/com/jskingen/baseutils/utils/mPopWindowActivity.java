@@ -97,7 +97,7 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
 
         View upView = LayoutInflater.from(this).inflate(R.layout.popup_up, null);
         //测量View的宽高
-        popupWindow.measureWidthAndHeight(upView);
+        CommonPopupWindow.measureWidthAndHeight(upView);
         popupWindow = new CommonPopupWindow.Builder(this)
                 .setView(R.layout.popup_up)
                 .setWidthAndHeight(ViewGroup.LayoutParams.MATCH_PARENT, upView.getMeasuredHeight())
