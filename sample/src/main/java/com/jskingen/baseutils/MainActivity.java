@@ -62,7 +62,7 @@ public class MainActivity extends TitleActivity {
             , R.id.bt_main_http, R.id.bt_main_download_upload, R.id.bt_main_update
             , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
             , R.id.bt_main_popWindow, R.id.bt_main_refresh, R.id.bt_main_radio
-            , R.id.bt_main_button, R.id.bt_main_rec})
+            , R.id.bt_main_button, R.id.bt_main_rec, R.id.bt_main_demo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_main_tab:
@@ -115,6 +115,9 @@ public class MainActivity extends TitleActivity {
                 break;
             case R.id.bt_main_button:
                 startActivity(new Intent(this, mButtonActivity.class));
+                break;
+            case R.id.bt_main_demo:
+                startActivity(new Intent(this, DemoActivity.class));
                 break;
 
         }

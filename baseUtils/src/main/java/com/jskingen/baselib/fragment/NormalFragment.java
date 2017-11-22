@@ -1,7 +1,6 @@
 package com.jskingen.baselib.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -12,9 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jskingen.baselib.R;
-import com.jskingen.baselib.utils.LogUtils;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -27,7 +24,7 @@ public abstract class NormalFragment extends Fragment {
     protected View view;
     protected Activity mContext;
 
-    private boolean isPrepared;   // 标志位，标志已经初始化完成。
+    private boolean hasLoad;
 
     @Nullable
     @Override
@@ -41,16 +38,15 @@ public abstract class NormalFragment extends Fragment {
         unbinder = ButterKnife.bind(this, ll_root);
 
         initView(savedInstanceState);   //初始化布局
-//        //加载数据
-//        if (setLazy()) {
-//            //XXX初始化view的各控件
-//            isPrepared = true;
-//            lazyLoad();
-//        } else {
-//            initData(); //设置数据
-//        }
-        if (!setLazy())
+//        LogUtils.e("AAA", "onCreateView--" + getUserVisibleHint());
+//        LogUtils.e("AAA", "onCreateView--" + isVisible());
+
+        if (!setLazy()) {
             initData(); //设置数据
+        }
+        if (setLazy() && getUserVisibleHint()) {
+            initData(); //设置数据
+        }
         return ll_root;
     }
 
@@ -78,8 +74,6 @@ public abstract class NormalFragment extends Fragment {
         unbinder.unbind();
     }
 
-    protected boolean isVisible;
-    protected boolean hasLoad;
 
     /**
      * 在这里实现Fragment数据的缓加载.
@@ -89,9 +83,8 @@ public abstract class NormalFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
-            LogUtils.e("AAA", "setUserVisibleHint--" + isVisibleToUser);
+        if (setLazy() && getUserVisibleHint()) {
+//            LogUtils.e("AAA", "setUserVisibleHint--" + isVisibleToUser);
             if (!hasLoad) {
                 hasLoad = true;
                 initData();
@@ -99,5 +92,14 @@ public abstract class NormalFragment extends Fragment {
         }
     }
 
-    protected abstract boolean setLazy();
+    /**
+     * 默认开启懒加载
+     *
+     * @return
+     */
+    protected boolean setLazy() {
+        return true;
+    }
+
+    ;
 }
