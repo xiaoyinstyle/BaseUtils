@@ -1,3 +1,2 @@
-include ':sample', ':baseUtils', ':recyclerlib', ':notes', ':classnotice'
-//include ':sample', ':baseUtils', ':recyclerlib', ':notes', ':classnotice'
-//include ':sample'//, ':baseUtils', ':recyclerlib', ':notes', ':classnotice'
+include ':sample', ':baseUtils', ':recyclerlib', ':notes'//, ':classnotice'
+//include ':charter-demo', ':charter-library'

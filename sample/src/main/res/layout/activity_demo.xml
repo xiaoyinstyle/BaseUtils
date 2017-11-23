@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/holo_blue_light"
     android:layout_height="match_parent"
-    tools:context="com.jskingen.baseutils.DemoActivity">
+    tools:context="com.jskingen.baseutils.chat.DemoActivity">
 
-    <com.jskingen.baseutils.BrokenLineChartView
+    <com.jskingen.baseutils.chat.BrokenLineChartView
         android:layout_width="match_parent"
         android:id="@+id/chatView"
         android:layout_height="match_parent" />

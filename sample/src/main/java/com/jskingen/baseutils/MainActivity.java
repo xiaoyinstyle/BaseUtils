@@ -10,6 +10,7 @@ import com.jskingen.baseutils.baseactivity.mExpandViewActivity;
 import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
 import com.jskingen.baseutils.baseactivity.mWebviewActivity;
+import com.jskingen.baseutils.chat.DemoActivity;
 import com.jskingen.baseutils.common.PhoneInfo;
 import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
 import com.jskingen.baseutils.http.mDownloadActivity;
