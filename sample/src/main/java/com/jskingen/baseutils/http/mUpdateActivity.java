@@ -92,6 +92,8 @@ public class mUpdateActivity extends TitleActivity {
                             }
                         });
                 break;
+            default:
+                break;
         }
     }
 
