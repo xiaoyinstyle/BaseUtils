@@ -1,5 +1,6 @@
 package yin.style.notes.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.view.View;
@@ -20,8 +21,14 @@ import yin.style.recyclerlib.holder.BaseViewHolder;
 public class ProjectsAdapter  extends BaseQuickAdapter<ProjectBean> {
     int labelColor[] = {Color.parseColor("#01BF9D"), Color.parseColor("#EA4B35"), Color.parseColor("#95A5A5")};
 
-    public ProjectsAdapter(@LayoutRes int layoutResId, List mData) {
-        super(layoutResId, mData);
+    public ProjectsAdapter(Context mContext, List mData) {
+        super(mContext, mData);
+    }
+
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.item_main;
     }
 
     @Override

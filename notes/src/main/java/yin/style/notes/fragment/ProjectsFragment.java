@@ -170,7 +170,7 @@ public class ProjectsFragment extends RecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new ProjectsAdapter(R.layout.item_main, list);
+        adapter = new ProjectsAdapter(mContext, list);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

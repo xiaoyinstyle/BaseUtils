@@ -48,8 +48,8 @@ public class FlowLayoutFragment extends NormalFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        rvbase = (RecyclerView) view.findViewById(R.id.rv_base);
-        rvcontent = (RecyclerView) view.findViewById(R.id.rv_content);
+        rvbase = (RecyclerView) findViewById(R.id.rv_base);
+        rvcontent = (RecyclerView) findViewById(R.id.rv_content);
 
         FlowLayoutManager manager = new FlowLayoutManager();
         manager.setAutoMeasureEnabled(true);

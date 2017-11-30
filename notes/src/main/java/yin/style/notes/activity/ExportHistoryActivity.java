@@ -54,7 +54,12 @@ public class ExportHistoryActivity extends RecyclerViewActivity {
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new BaseQuickAdapter<File>(R.layout.item_export_history, list) {
+        adapter = new BaseQuickAdapter<File>(mContext, list) {
+            @Override
+            protected int getLayoutResId() {
+                return R.layout.item_export_history;
+            }
+
             @Override
             protected void setViewHolder(BaseViewHolder baseViewHolder, final File bean, final int position) {
                 baseViewHolder.setText(R.id.tv_item_exp_file_name, bean.getName());

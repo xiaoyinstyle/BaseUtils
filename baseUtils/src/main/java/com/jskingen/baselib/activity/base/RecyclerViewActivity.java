@@ -39,9 +39,6 @@ public abstract class RecyclerViewActivity extends TitleActivity {
         setCanRefresh(false);
         setCanLoading(false);
 
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
-
         if (null == setAdapter())
             throw new NullPointerException("RecyclerView adapter is not null");
         else

@@ -1,5 +1,6 @@
 package yin.style.notes.adapter;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 
 import java.util.List;
@@ -15,8 +16,14 @@ import yin.style.recyclerlib.holder.BaseViewHolder;
  */
 
 public class DetailAdapter extends BaseQuickAdapter<DetailsBean> {
-    public DetailAdapter(@LayoutRes int layoutResId, List mData) {
-        super(layoutResId, mData);
+
+    public DetailAdapter(Context mContext, List mData) {
+        super(mContext, mData);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.item_details;
     }
 
     @Override

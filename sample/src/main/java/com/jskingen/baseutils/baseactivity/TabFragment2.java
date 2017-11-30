@@ -33,7 +33,7 @@ public class TabFragment2 extends NormalFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        textView = (TextView) view.findViewById(R.id.text);
+        textView = (TextView) findViewById(R.id.text);
         a = String.valueOf((char) getArguments().getInt("index"));
         textView.setText(a);
     }
@@ -47,7 +47,6 @@ public class TabFragment2 extends NormalFragment {
     protected boolean setLazy() {
         return false;
     }
-
 
 
 }

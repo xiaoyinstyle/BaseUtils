@@ -163,7 +163,11 @@
 # OkHttp3
 -dontwarn okhttp3.logging.**
 -keep class okhttp3.internal.**{*;}
+-keep interface okhttp3.**{*;}
 -dontwarn okio.**
+#====okhttputils====
+-keep class com.zhy.** { *;}
+-keep interface com.zhy.http.**{*;}
 # Retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
@@ -202,6 +206,12 @@
     @butterknife.* <methods>;
 }
 
-
-
+#友盟分析
+-keep class com.umeng.error.UMError{ public *; }
+-keep class com.umeng.error.UMErrorCatch{ public *; }
+-keep class com.umeng.error.UMErrorDataManger{ public *; }
+-keep class com.umeng.error.BatteryUtils{ public *; }
+# 腾讯统计
+-keep class com.tencent.stat.* { *;}
+-keep class com.tencent.mid.* { *;}
 

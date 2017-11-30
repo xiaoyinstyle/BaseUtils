@@ -3,6 +3,7 @@ package com.jskingen.baselib.activity.base;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,19 +22,19 @@ public abstract class TitleActivity extends NormalAcitivity {
     protected ImageView iv_right;
     protected TextView tv_right;
     protected TextView title;
-    protected LinearLayout ll_title;
+    protected FrameLayout ll_title;
 
     @Override
-    protected void addTitleLayout(LinearLayout root) {
-        View view = View.inflate(mContext, R.layout.base_title, null);
-        root.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    protected void addTitleLayout(LinearLayout rootView) {
+        super.addTitleLayout(rootView);
 
-        iv_left = (ImageView) view.findViewById(R.id.iv_left);
-        tv_left = (TextView) view.findViewById(R.id.tv_left);
-        iv_right = (ImageView) view.findViewById(R.id.iv_right);
-        tv_right = (TextView) view.findViewById(R.id.tv_right);
-        title = (TextView) view.findViewById(R.id.tv_title);
-        ll_title = (LinearLayout) view.findViewById(R.id.rl_title);
+        iv_left = (ImageView) titleView.findViewById(R.id.iv_left);
+        tv_left = (TextView) titleView.findViewById(R.id.tv_left);
+        iv_right = (ImageView) titleView.findViewById(R.id.iv_right);
+        tv_right = (TextView) titleView.findViewById(R.id.tv_right);
+        title = (TextView) titleView.findViewById(R.id.tv_title);
+        ll_title = (FrameLayout) titleView.findViewById(R.id.rl_title);
+        ll_title.setVisibility(View.VISIBLE);
         //返回按键监听
         iv_left.setOnClickListener(new View.OnClickListener() {
             @Override

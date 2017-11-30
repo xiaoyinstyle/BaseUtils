@@ -9,12 +9,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.jcodecraeer.xrecyclerview.BaseRefreshHeader;
 
 import android.view.View;
 
+import com.jcodecraeer.xrecyclerview.BaseRefreshHeader;
+
 import yin.style.recyclerlib.view.EmptyView;
-import yin.style.recyclerlib.view.FooterView;
 import yin.style.recyclerlib.view.HeaderView;
 
 /**

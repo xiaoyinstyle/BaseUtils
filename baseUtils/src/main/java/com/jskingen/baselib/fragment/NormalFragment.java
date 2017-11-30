@@ -1,6 +1,9 @@
 package com.jskingen.baselib.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -8,9 +11,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.jskingen.baselib.R;
+import com.jskingen.baselib.activity.base.NormalAcitivity;
+import com.jskingen.baselib.utils.ScreenUtil;
+import com.jskingen.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -21,8 +28,9 @@ import butterknife.Unbinder;
 
 public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
-    protected View view;
     protected Activity mContext;
+    protected LinearLayout rootView;
+    protected View titleView;
 
     private boolean hasLoad;
 
@@ -31,15 +39,15 @@ public abstract class NormalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         //动态加载content
-        LinearLayout ll_root = (LinearLayout) inflater.inflate(R.layout.base_activity, container, false);
-        addTitleLayout(ll_root);//加载Title布局
-        view = View.inflate(getContext(), getViewByXml(), null);
-        ll_root.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        unbinder = ButterKnife.bind(this, ll_root);
+        rootView = (LinearLayout) inflater.inflate(R.layout.base_activity, container, false);
+        addTitleLayout(rootView);//加载Title布局
+        setStatusView();//沉浸式
+
+        View view = View.inflate(getContext(), getViewByXml(), null);
+        rootView.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        unbinder = ButterKnife.bind(this, rootView);
 
         initView(savedInstanceState);   //初始化布局
-//        LogUtils.e("AAA", "onCreateView--" + getUserVisibleHint());
-//        LogUtils.e("AAA", "onCreateView--" + isVisible());
 
         if (!setLazy()) {
             initData(); //设置数据
@@ -47,11 +55,22 @@ public abstract class NormalFragment extends Fragment {
         if (setLazy() && getUserVisibleHint()) {
             initData(); //设置数据
         }
-        return ll_root;
+        return rootView;
     }
 
-    protected void addTitleLayout(LinearLayout ll_root) {
+    protected void addTitleLayout(LinearLayout rootView) {
+        titleView = View.inflate(mContext, R.layout.base_title, null);
+        rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
 
+    /**
+     * 设置沉浸式
+     */
+    private void setStatusView() {
+        if (mContext instanceof NormalAcitivity) {
+            ((NormalAcitivity) mContext).hideStatusView();
+            showStatusView();
+        }
     }
 
     protected abstract int getViewByXml();
@@ -62,10 +81,10 @@ public abstract class NormalFragment extends Fragment {
 
     @Nullable
     public View findViewById(@IdRes int id) {
-        if (id < 0) {
+        if (id <= 0) {
             return null;
         }
-        return view.findViewById(id);
+        return rootView.findViewById(id);
     }
 
     @Override
@@ -101,5 +120,33 @@ public abstract class NormalFragment extends Fragment {
         return true;
     }
 
-    ;
+    //关闭键盘
+    protected void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mContext.getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    /**
+     * 沉浸式 隐藏
+     */
+    public void hideStatusView() {
+
+        if (titleView == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.compat(mContext, Color.TRANSPARENT);
+            titleView.setPadding(0, 0, 0, 0);
+        }
+    }
+
+    /**
+     * 沉浸式 显示
+     */
+    public void showStatusView() {
+        if (titleView == null) return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            StatusBarCompat.compat(mContext, getResources().getColor(R.color.colorPrimaryDark));
+            titleView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+        }
+    }
 }

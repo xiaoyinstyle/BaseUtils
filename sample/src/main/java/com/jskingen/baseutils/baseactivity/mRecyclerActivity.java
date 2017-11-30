@@ -54,40 +54,41 @@ public class mRecyclerActivity extends RecyclerViewActivity {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         list.clear();
-                        for (int i = 0; i < 30; i++) {
+                        for (int i = 0; i < 20; i++) {
                             list.add("" + i);
                         }
                         adapter.notifyDataSetChanged();
-                        setRefreshComplete();
+                        mRecyclerView.reset();
                     }
-                }, 3000);
+                }, 1500);
             }
 
             @Override
             public void onLoadMore() {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        for (int i = 0; i < 20; i++) {
+                        for (int i = 0; i < 10; i++) {
                             list.add("" + i);
                         }
                         adapter.notifyDataSetChanged();
-                        setLoadMoreComplete();
+                        mRecyclerView.reset();
+                        mRecyclerView.setNoMore(list.size() > 50);
                     }
-                }, 3000);
+                }, 2000);
             }
         });
     }
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new BaseQuickAdapter(mContext, list) {
+        adapter = new BaseQuickAdapter<String>(mContext, list) {
             @Override
             protected int getLayoutResId() {
                 return R.layout.item_recyclerview;
             }
 
             @Override
-            protected void setViewHolder(BaseViewHolder baseViewHolder, Object o, int position) {
+            protected void setViewHolder(BaseViewHolder baseViewHolder, String o, int position) {
                 baseViewHolder.setText(R.id.text, "测试—\n—" + position);
             }
         };

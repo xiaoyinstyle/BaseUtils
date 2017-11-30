@@ -7,7 +7,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.utils.DpUtil;
+import com.jskingen.baselib.utils.ScreenUtil;
 import com.jskingen.baseutils.R;
 import com.jskingen.baselib.view.mDrawable;
 
@@ -40,7 +40,7 @@ public class mRadioButtonActivity extends TitleActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        int width = (int) DpUtil.sp2px(this, 17);
+        int width = (int) ScreenUtil.sp2px(this, 17);
         rb1.setButtonDrawable(mDrawable.getCheckDrawable("A", width, Color.WHITE, Color.BLUE, Color.GRAY));
         rb2.setButtonDrawable(mDrawable.getCheckDrawable("B", width, Color.WHITE, Color.BLUE, Color.GRAY));
 

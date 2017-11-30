@@ -50,13 +50,36 @@ public class FileUtils {
             }
             return path;
         } else {
-            String pa;
-            if (hasSdcard()) {
-                pa = new File(Environment.getExternalStorageDirectory().getPath()).getPath();
-                path = pa + uri.getPath().substring(xml_name.length() + 1, uri.getPath().length());
-                return path;
-            } else
-                return null;
+            String result;
+            Cursor cursor = context.getContentResolver().query(uri,
+                    new String[]{MediaStore.Images.ImageColumns.DATA},//
+                    null, null, null);
+            if (cursor == null) {
+                result = uri.getPath();
+            } else {
+                cursor.moveToFirst();
+                int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                if (-1 == index) {
+                    String pa;
+                    if (hasSdcard()) {
+                        pa = new File(Environment.getExternalStorageDirectory().getPath()).getPath();
+                        result = pa + uri.getPath().substring(xml_name.length() + 1, uri.getPath().length());
+                    } else
+                        result = null;
+                } else {
+                    result = cursor.getString(index);
+                }
+                cursor.close();
+            }
+            return result;
+
+//            String pa;
+//            if (hasSdcard()) {
+//                pa = new File(Environment.getExternalStorageDirectory().getPath()).getPath();
+//                path = pa + uri.getPath().substring(xml_name.length() + 1, uri.getPath().length());
+//                return path;
+//            } else
+//                return null;
 
         }
     }

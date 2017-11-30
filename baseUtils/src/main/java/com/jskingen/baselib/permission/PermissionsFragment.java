@@ -19,8 +19,8 @@ import com.jskingen.baselib.R;
  */
 
 public class PermissionsFragment extends Fragment {
-    private final int PERMISSIONS_REQUEST_CODE = 42;
-    private final int DIALOG_REQUEST_CODE = 41;
+    private final int PERMISSIONS_REQUEST_CODE = 1042;
+    private final int DIALOG_REQUEST_CODE = 1041;
 
     private OnPermissionsListener listener;
 

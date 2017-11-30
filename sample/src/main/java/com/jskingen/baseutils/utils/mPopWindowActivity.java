@@ -4,19 +4,16 @@ import android.os.Bundle;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 
 import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.utils.DpUtil;
+import com.jskingen.baselib.utils.ScreenUtil;
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baselib.view.PopupWindow.CommonPopupWindow;
 import com.jskingen.baseutils.R;
@@ -127,7 +124,7 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
                 .setView(R.layout.query_info)
                 .setWidthAndHeight(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .create();
-        popupWindow.showAsDropDown(view, (int) (-popupWindow.getWidth() + DpUtil.dp2px(this, 20)), -(popupWindow.getHeight() + view.getMeasuredHeight()));
+        popupWindow.showAsDropDown(view, (int) (-popupWindow.getWidth() + ScreenUtil.dp2px(this, 20)), -(popupWindow.getHeight() + view.getMeasuredHeight()));
     }
 
     @Override

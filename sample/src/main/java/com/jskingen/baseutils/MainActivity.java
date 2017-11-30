@@ -118,9 +118,18 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mButtonActivity.class));
                 break;
             case R.id.bt_main_demo:
-                startActivity(new Intent(this, DemoActivity.class));
+//                startActivity(new Intent(this, DemoActivity.class));
+                hideStatusView();
+                if (b) {
+                    hideStatusView();
+                } else {
+                    showStatusView();
+                }
+                b = !b;
                 break;
 
         }
     }
+
+    boolean b;
 }

@@ -120,7 +120,7 @@ public class DetailsActivity extends RecyclerViewActivity {
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new DetailAdapter(R.layout.item_details, list);
+        adapter = new DetailAdapter(mContext, list);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

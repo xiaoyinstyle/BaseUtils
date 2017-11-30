@@ -126,7 +126,7 @@ public class DetailsFragment extends RecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new DetailAdapter(R.layout.item_details, list);
+        adapter = new DetailAdapter(mContext, list);
         return adapter;
     }
 

@@ -3,6 +3,9 @@ package com.jskingen.baselib.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 
 import com.jskingen.baselib.R;
 import com.jskingen.baselib.activity.base.NormalAcitivity;
+import com.jskingen.baselib.activity.model.TabEntity;
 import com.jskingen.baselib.imageload.GlideUtil;
 import com.jskingen.baselib.utils.ToastUtils;
 import com.jskingen.baselib.view.imagezoom.ImageViewTouch;
@@ -28,7 +32,6 @@ public class PicturePreviewActivity extends NormalAcitivity {
 
     private MyAdapter adapter;
     protected List<View> lists = new ArrayList<>();
-    private int totalNumb = 0;
     private boolean showSaveBtn = true;
     private List<Object> picList = new ArrayList<>();
 
@@ -58,7 +61,7 @@ public class PicturePreviewActivity extends NormalAcitivity {
 
             @Override
             public void onPageSelected(int position) {
-                tvLeft.setText((position + 1) + "/" + totalNumb);
+                tvLeft.setText((position + 1) + "/" + (picList.size() + 1));
             }
 
             @Override
@@ -87,8 +90,8 @@ public class PicturePreviewActivity extends NormalAcitivity {
         //添加数据
         picList = (List<Object>) getIntent().getSerializableExtra(IMAGELIST);
 
-        tvLeft.setText(1 + "/" + totalNumb);
-        if (totalNumb == 0) {
+        tvLeft.setText(1 + "/" + (picList.size() + 1));
+        if (picList.size() == 0) {
             ToastUtils.show("图片加载失败");
             finish();
         }
@@ -118,7 +121,6 @@ public class PicturePreviewActivity extends NormalAcitivity {
             }
         });
         view.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
-        totalNumb++;
         return view;
     }
 
@@ -154,4 +156,33 @@ public class PicturePreviewActivity extends NormalAcitivity {
             return viewLists.get(position);
         }
     }
+
+    class TabAdapter extends FragmentStatePagerAdapter {
+        private List<Fragment> tabEntities;
+
+        /**
+         * 构造方法
+         */
+        public TabAdapter(FragmentManager fm, List<Fragment> titles) {
+            super(fm);
+            this.tabEntities = titles;
+        }
+
+        /**
+         * 返回显示的Fragment总数
+         */
+        @Override
+        public int getCount() {
+            return tabEntities.size();
+        }
+
+        /**
+         * 返回要显示的Fragment的某个实例
+         */
+        @Override
+        public Fragment getItem(int position) {
+            return tabEntities.get(position);
+        }
+
+        }
 }
