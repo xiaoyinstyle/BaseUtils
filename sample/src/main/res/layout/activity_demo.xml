@@ -7,20 +7,62 @@
     android:background="@android:color/holo_blue_light"
     tools:context="com.jskingen.baseutils.chat.ChatsActivity">
 
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <RadioButton />
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1" />
+
+        <com.jskingen.baseutils.demo.GridRadioGroup
+            android:id="@+id/grg"
+            android:layout_width="wrap_content"
+            android:background="@android:color/holo_red_light"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文本1" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文本2" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文本3" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文   本llllll4" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文kkkk本5" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文本6" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文本7" />
 
 
-    </RadioGroup>
-
-    <!--<com.jskingen.baseutils.demo.GridRadioGroup-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-
-    <!--</com.jskingen.baseutils.demo.GridRadioGroup>-->
+        </com.jskingen.baseutils.demo.GridRadioGroup>
+    </LinearLayout>
 
 </LinearLayout>
