@@ -4,7 +4,7 @@ package com.jskingen.baseutils.chat;
  * Created by BangDu on 2017/11/23.
  */
 
-public class ChatYEntry {
+public class ChatYEntry implements Comparable<ChatYEntry> {
     float value = 0;
     String text = "";
     int color = 0;
@@ -40,5 +40,11 @@ public class ChatYEntry {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    @Override
+    public int compareTo(ChatYEntry o) {
+        int i = (int) (1000 * (this.getValue() - o.getValue()));//先按照年龄排序
+        return i;
     }
 }

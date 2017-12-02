@@ -11,9 +11,14 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class DemoActivity extends TitleActivity {
+/**
+ * @author Chne
+ *
+ * 折线图 与 柱形图
+ */
+public class ChatsActivity extends TitleActivity {
     @BindView(R.id.chatView)
-    BrokenLineChartView chatView;
+    LineChartView chatView;
 
     private int[] progress = {2000, 5000, 6000, 8000, 500, 6000, 9000, 1900};
     String[] xWeeks = new String[]{"周一", "周二", "周三", "周四", "周五", "周六", "周日", "周周"};
@@ -21,7 +26,7 @@ public class DemoActivity extends TitleActivity {
 
     @Override
     protected int getViewByXml() {
-        return R.layout.activity_demo;
+        return R.layout.activity_chats;
     }
 
     @Override

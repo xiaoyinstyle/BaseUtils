@@ -10,8 +10,8 @@ import com.jskingen.baseutils.baseactivity.mExpandViewActivity;
 import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
 import com.jskingen.baseutils.baseactivity.mWebviewActivity;
-import com.jskingen.baseutils.chat.DemoActivity;
 import com.jskingen.baseutils.common.PhoneInfo;
+import com.jskingen.baseutils.demo.DemoActivity;
 import com.jskingen.baseutils.flowLayout.FlowLayoutActivity;
 import com.jskingen.baseutils.http.mDownloadActivity;
 import com.jskingen.baseutils.http.mNetworkActivity;
@@ -118,14 +118,14 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mButtonActivity.class));
                 break;
             case R.id.bt_main_demo:
-//                startActivity(new Intent(this, DemoActivity.class));
-                hideStatusView();
-                if (b) {
-                    hideStatusView();
-                } else {
-                    showStatusView();
-                }
-                b = !b;
+                startActivity(new Intent(this, DemoActivity.class));
+//                hideStatusView();
+//                if (b) {
+//                    hideStatusView();
+//                } else {
+//                    showStatusView();
+//                }
+//                b = !b;
                 break;
 
         }

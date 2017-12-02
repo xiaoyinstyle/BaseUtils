@@ -107,7 +107,7 @@ public class ProjectsFragment extends RecyclerViewFragment {
     }
 
     private void addHeadView() {
-        popwindow = new SortPopwindow(mContext, view, SortPopwindow.FLAG_PROJECTS, new SortListener() {
+        popwindow = new SortPopwindow(mContext, rootView, SortPopwindow.FLAG_PROJECTS, new SortListener() {
             @Override
             public void finish() {
                 setView();

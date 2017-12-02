@@ -90,7 +90,7 @@ public class DetailsFragment extends RecyclerViewFragment {
     }
 
     private void addHeadView() {
-        popwindow = new SortPopwindow(mContext, view, SortPopwindow.FLAG_DETAILS, new SortListener() {
+        popwindow = new SortPopwindow(mContext, rootView, SortPopwindow.FLAG_DETAILS, new SortListener() {
             @Override
             public void finish() {
                 setView();

@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public class LineChartView extends View {
     private Paint textPaint;// 矩形画笔 柱状图的样式信息
     private boolean showText = true;// 在柱状图上显示数字
     private float maxValue = 10000;
+    private boolean showMaxText = true;
 
     private List<ChatXEntry> entryXList = new ArrayList<>();
     private List<ChatYEntry> entryYList = new ArrayList<>();
@@ -45,7 +47,7 @@ public class LineChartView extends View {
     private int colorTitleText = Color.CYAN;
     private int textSize_SP = 10;
     private int textTitleSize_SP = 8;
-    private  int lineWidth = 8;
+    private int lineWidth = 8;
 
     public LineChartView(Context context) {
         super(context);
@@ -117,6 +119,8 @@ public class LineChartView extends View {
 
         // 设置左部的数字
         for (int i = 0; i < entryYList.size(); i++) {
+            if (!showMaxText && i == entryYList.size() - 1)
+                break;
             canvas.drawText(entryYList.get(i).getText(),
                     dp2px(25), dp2px(13) + (1 - entryYList.get(i).getValue()) * leftHeight,
                     titlePaint);
@@ -170,7 +174,7 @@ public class LineChartView extends View {
                 rect.right = (int) (rect.left + dp2px(spaceLeft) * 0.5);
                 int rh = (int) (leftHeight - leftHeight * (value / maxValue));
                 rect.top = rh + dp2px(10);
-                rect.bottom = height;
+                rect.bottom = height + dp2px(5);
 
                 canvas.drawRect(rect, paint);
                 // 是否显示柱状图上方的数字
@@ -224,7 +228,12 @@ public class LineChartView extends View {
         entryXList.addAll(xEntrys);
 
         entryYList.clear();
+        Collections.sort(yEntrys);
         entryYList.addAll(yEntrys);
+//        for (int i = 0; i < yEntrys.size(); i++) {
+//            LogUtils.e("AAA_" + i, "" + yEntrys.get(i).getValue() + "__" + yEntrys.get(i).getText());
+//        }
+
         invalidate();
 
     }
@@ -267,5 +276,10 @@ public class LineChartView extends View {
 
     public void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public void setMaxValue(float maxValue, boolean showMaxText) {
+        this.maxValue = maxValue;
+        this.showMaxText = showMaxText;
     }
 }
