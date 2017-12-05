@@ -2,14 +2,15 @@ package com.jskingen.baselib.utils;
 
 import android.util.Log;
 
-import com.jskingen.baselib.BaseHelp;
+import com.jskingen.baselib.BaseApplication;
+
 
 /**
  * Created by ChneY on 2017/4/22.
  */
 
 public class LogUtils {
-    private static final String TAG = BaseHelp.LOG_TAG;
+    private static final String TAG = BaseApplication.getInstance().LOG_TAG;
     public static boolean Debug = true;
 
     private LogUtils() {

@@ -1,21 +1,26 @@
 package com.jskingen.baseutils.demo;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baseutils.R;
-import com.jskingen.baseutils.chat.ChatXEntry;
-import com.jskingen.baseutils.chat.ChatYEntry;
 
-import java.util.ArrayList;
-import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author Chne
  */
 public class DemoActivity extends TitleActivity {
+
+    @BindView(R.id.grg)
+    GridRadioGroup grg;
+    @BindView(R.id.tv)
+    TextView tv;
 
     @Override
     protected int getViewByXml() {
@@ -34,6 +39,18 @@ public class DemoActivity extends TitleActivity {
 
     @Override
     protected void setTitle() {
+
+    }
+
+    @OnClick(R.id.tv)
+    public void onViewClicked() {
+
+        grg.removeAllViews();
+        for (int i = 0; i < 5; i++) {
+            RadioButton radioButton = new RadioButton(mContext);
+            radioButton.setText("文本—" + i);
+            grg.addView(radioButton, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
 
     }
 }

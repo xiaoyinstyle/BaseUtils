@@ -1,7 +1,6 @@
 package com.jskingen.baselib.net.callback;
 
 import com.google.gson.Gson;
-import com.jskingen.baselib.BaseHelp;
 import com.jskingen.baselib.net.exception.NetException;
 import com.jskingen.baselib.net.inter.ICallBack;
 import com.jskingen.baselib.utils.LogUtils;

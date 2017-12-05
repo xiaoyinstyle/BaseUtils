@@ -117,33 +117,10 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 
-    //    /**
-//     * 沉浸式 隐藏
-//     */
-//    public void hideStatusView() {
-//        if (titleView == null) return;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            StatusBarCompat.compat(mContext, Color.TRANSPARENT);
-//            titleView.setPadding(0, 0, 0, 0);
-//        }
-//    }
-//
-//    /**
-//     * 沉浸式 显示
-//     */
-//    public void showStatusView() {
-//        if (titleView == null) return;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            StatusBarCompat.compat(mContext, getResources().getColor(R.color.colorPrimaryDark));
-//            titleView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
-//        }
-//    }
-
     /**
      * 设置沉浸式
      */
     public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isShowStatus) {
                 StatusBarCompat.compat(this, statusBarColor);

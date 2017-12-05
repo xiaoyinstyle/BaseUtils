@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
-import com.jskingen.baselib.BaseHelp;
+import com.jskingen.baselib.BaseApplication;
 
 /**
  * Created by chenY on 2017/1/18.
@@ -82,12 +82,12 @@ public class ToastUtils {
 
     public static void show(CharSequence message) {
         if (isShow)
-            showMessage(BaseHelp.getInstance().getContext(), message, Toast.LENGTH_SHORT);
+            showMessage(BaseApplication.getInstance().getContext(), message, Toast.LENGTH_SHORT);
     }
 
     public static void show(@StringRes int message) {
         if (isShow)
-            showMessage(BaseHelp.getInstance().getContext(), BaseHelp.getInstance().getContext().getString(message), Toast.LENGTH_SHORT);
+            showMessage(BaseApplication.getInstance().getContext(), BaseApplication.getInstance().getContext().getString(message), Toast.LENGTH_SHORT);
     }
 
     /**

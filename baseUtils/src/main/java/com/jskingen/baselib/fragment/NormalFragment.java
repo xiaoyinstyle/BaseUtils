@@ -132,6 +132,8 @@ public abstract class NormalFragment extends Fragment {
 
     /**
      * 设置沉浸式
+     * <p>
+     * 与 setStatusView() 配合使用
      */
     public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

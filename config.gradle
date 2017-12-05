@@ -1,4 +1,4 @@
-def supportVersion = "24.2.1"
+def supportVersion = "25.0.0"
 
 ext {
     dependencies = ["support-v4"              : "com.android.support:support-v4:${supportVersion}",
@@ -21,7 +21,7 @@ ext {
                     "glide-okhttp-integration": "com.github.bumptech.glide:okhttp-integration:1.3.1",   //
                     "logger"                  : "com.orhanobut:logger:1.15",   //日志 https://github.com/orhanobut/logger
                     "MPAndroidChart"          : "com.github.PhilJay:MPAndroidChart:v3.0.2",   //图表控件 https://github.com/PhilJay/MPAndroidChart
-                    "flowlayout"              : "com.zhy:flowlayout-lib:1.0.1",   //流式布局 https://github.com/hongyangAndroid/FlowLayout
+//                    "flowlayout"              : "com.zhy:flowlayout-lib:1.0.1",   //流式布局 https://github.com/hongyangAndroid/FlowLayout
 
                     "gson"                    : "com.google.code.gson:gson:2.2.4", //Gson https://github.com/google/gson/blob/master/UserGuide.md
                     "imageloader"             : "com.nostra13.universalimageloader:universal-image-loader:1.9.5", //UniversalImageLoader https://github.com/nostra13/Android-Universal-Image-Loader

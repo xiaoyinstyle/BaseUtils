@@ -8,7 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
-import com.jskingen.baselib.BaseHelp;
+import com.jskingen.baselib.BaseApplication;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -21,9 +21,9 @@ import java.util.Date;
  */
 
 public class FileUtils {
-    public static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
+    public static final String authority = BaseApplication.getInstance().getContext().getPackageName() + ".provider"; //authority值
     public static final String xml_name = "root";                    //xml文件的nam值
-    public static final String fileName = BaseHelp.getInstance().getFileName();               //根目录下文件名
+    public static final String fileName = BaseApplication.getInstance().getFileName();               //根目录下文件名
 
     public static File getFile2Uri(Context context, Uri uri) {
         if (getPath(context, uri) == null) {

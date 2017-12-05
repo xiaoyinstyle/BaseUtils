@@ -50,6 +50,8 @@ dependencies {
     //可放大缩小的 IamgeView
     compile 'com.commit451:PhotoView:1.2.4'
 
+    compile 'com.android.support:multidex:1.0.1'
+
     compile project(':recyclerlib')
 }
 
