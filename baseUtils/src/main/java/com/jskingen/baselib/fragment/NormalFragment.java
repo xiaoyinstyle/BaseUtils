@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.jskingen.baselib.R;
@@ -29,6 +30,7 @@ import butterknife.Unbinder;
 public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
     protected Activity mContext;
+    public ViewGroup decorView;
     protected LinearLayout rootView;
     protected View titleView;
 
@@ -39,9 +41,10 @@ public abstract class NormalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         //动态加载content
-        rootView = (LinearLayout) inflater.inflate(R.layout.base_activity, container, false);
+        decorView = (ViewGroup) inflater.inflate(R.layout.base_activity, container, false);
+        rootView = (LinearLayout) decorView.findViewById(R.id.base_root);
         addTitleLayout(rootView);//加载Title布局
-        setStatusView();//沉浸式
+//        setStatusView();//沉浸式
 
         View view = View.inflate(getContext(), getViewByXml(), null);
         rootView.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -60,16 +63,17 @@ public abstract class NormalFragment extends Fragment {
 
     protected void addTitleLayout(LinearLayout rootView) {
         titleView = View.inflate(mContext, R.layout.base_title, null);
+        titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     /**
-     * 设置沉浸式
+     * 设置Activity的沉浸式到Fragment中（使用时，有一定的约束条件）
      */
     private void setStatusView() {
         if (mContext instanceof NormalAcitivity) {
-            ((NormalAcitivity) mContext).hideStatusView();
-            showStatusView();
+            ((NormalAcitivity) mContext).setStatusBarView(mContext, false, Color.TRANSPARENT);
+            setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
@@ -127,26 +131,20 @@ public abstract class NormalFragment extends Fragment {
     }
 
     /**
-     * 沉浸式 隐藏
+     * 设置沉浸式
      */
-    public void hideStatusView() {
-
-        if (titleView == null) return;
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            StatusBarCompat.compat(mContext, Color.TRANSPARENT);
-            titleView.setPadding(0, 0, 0, 0);
-        }
-    }
-
-    /**
-     * 沉浸式 显示
-     */
-    public void showStatusView() {
-        if (titleView == null) return;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            StatusBarCompat.compat(mContext, getResources().getColor(R.color.colorPrimaryDark));
-            titleView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+            if (isShowStatus) {
+                StatusBarCompat.compat(this, statusBarColor);
+                titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
+            } else {
+                titleView.setPadding(0, 0, 0, 0);
+                StatusBarCompat.compat(this, Color.TRANSPARENT);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 }

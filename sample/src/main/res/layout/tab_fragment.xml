@@ -7,6 +7,7 @@
 
     <TextView
         android:id="@+id/text"
+        android:background="@color/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

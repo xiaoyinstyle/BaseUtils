@@ -1,11 +1,14 @@
 package com.jskingen.baseutils;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import com.jskingen.baselib.activity.base.TitleActivity;
 import com.jskingen.baselib.log.Logger;
+import com.jskingen.baselib.utils.LogUtils;
+import com.jskingen.baselib.utils.ScreenUtil;
 import com.jskingen.baseutils.baseactivity.mExpandViewActivity;
 import com.jskingen.baseutils.baseactivity.mRecyclerActivity;
 import com.jskingen.baseutils.baseactivity.mTabActivity;
@@ -118,14 +121,12 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mButtonActivity.class));
                 break;
             case R.id.bt_main_demo:
-                startActivity(new Intent(this, DemoActivity.class));
+//                startActivity(new Intent(this, DemoActivity.class));
 //                hideStatusView();
-//                if (b) {
-//                    hideStatusView();
-//                } else {
-//                    showStatusView();
-//                }
-//                b = !b;
+                LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
+
+                setStatusBarView(mContext, b, Color.parseColor("#55CCCCCC"));
+                b = !b;
                 break;
 
         }

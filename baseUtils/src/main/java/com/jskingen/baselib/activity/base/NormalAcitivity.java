@@ -40,7 +40,6 @@ public abstract class NormalAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         setContentView(R.layout.base_activity);
         if (!removeAppManager())
             AppManager.getInstance().addActivity(this);//Activity 管理器
@@ -68,6 +67,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
 
     protected void addTitleLayout(LinearLayout rootView) {
         titleView = View.inflate(mContext, R.layout.base_title, null);
+        titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
@@ -81,8 +81,13 @@ public abstract class NormalAcitivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            return;
         }
-        showStatusView();
+
+        setStatusBarView(mContext, true,  getResources().getColor(R.color.colorPrimaryDark));
     }
 
     protected abstract int getViewByXml();
@@ -112,26 +117,45 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 
-    /**
-     * 沉浸式 隐藏
-     */
-    public void hideStatusView() {
-        StatusBarCompat.compat(mContext, Color.TRANSPARENT);
-        if (titleView == null) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            titleView.setPadding(0, 0, 0, 0);
-        }
-    }
+    //    /**
+//     * 沉浸式 隐藏
+//     */
+//    public void hideStatusView() {
+//        if (titleView == null) return;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            StatusBarCompat.compat(mContext, Color.TRANSPARENT);
+//            titleView.setPadding(0, 0, 0, 0);
+//        }
+//    }
+//
+//    /**
+//     * 沉浸式 显示
+//     */
+//    public void showStatusView() {
+//        if (titleView == null) return;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            StatusBarCompat.compat(mContext, getResources().getColor(R.color.colorPrimaryDark));
+//            titleView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+//        }
+//    }
 
     /**
-     * 沉浸式 显示
+     * 设置沉浸式
      */
-    public void showStatusView() {
-        StatusBarCompat.compat(mContext, getResources().getColor(R.color.colorPrimaryDark));
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
 
-        if (titleView == null) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            titleView.setPadding(0, ScreenUtil.getStatusHeight(mContext), 0, 0);
+            if (isShowStatus) {
+                StatusBarCompat.compat(this, statusBarColor);
+                titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
+            } else {
+                titleView.setPadding(0, 0, 0, 0);
+                StatusBarCompat.compat(this, Color.TRANSPARENT);
+            }
+
+            return true;
+        } else {
+            return false;
         }
     }
 }

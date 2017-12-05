@@ -161,8 +161,6 @@ public class ScreenUtil {
 
     /**
      * 状态高度的测量
-     *
-     * @return
      */
     public static int getStatusHeight(Context context) {
         //方法1: 通过系统尺寸资源获取
@@ -172,7 +170,7 @@ public class ScreenUtil {
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
             statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
-            LogUtils.d("状态栏-方法1:" + statusBarHeight);
+            LogUtils.i("状态栏-方法1:" + statusBarHeight);
         } else {
             //方法2: 通过R类的反射
             try {
@@ -181,10 +179,10 @@ public class ScreenUtil {
                 int height = Integer.parseInt(clazz.getField("status_bar_height")
                         .get(object).toString());
                 statusBarHeight = context.getResources().getDimensionPixelSize(height);
-                LogUtils.d("状态栏-方法2:" + statusBarHeight);
+                LogUtils.i("状态栏-方法2:" + statusBarHeight);
             } catch (Exception e) {
 //                e.printStackTrace();
-                LogUtils.d("状态栏-获取失败");
+                LogUtils.i("状态栏-获取失败");
             }
         }
 
@@ -192,18 +190,20 @@ public class ScreenUtil {
     }
 
     /**
-     * Aci的测量
-     *
-     * @return
+     * 状态高度的测量
      */
     public static int getTitleHeight(Activity context) {
-//        TypedValue typedValue = new TypedValue();
-//        context.getTheme().resolveAttribute(android.R.attr.textAppearanceLarge, typedValue, true);
-//        int[] attribute = new int[] { android.R.attr.textSize };
-//        TypedArray array = context.obtainStyledAttributes(typedValue.resourceId, attribute);
-//        int textSize = array.getDimensionPixelSize(0 /* index */, -1 /* default size */);
-//        array.recycle();
-
-        return context.getActionBar().getHeight();
+        try {
+            TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(android.R.attr.textAppearanceLarge, typedValue, true);
+            int[] attribute = new int[]{android.R.attr.actionBarSize};
+            TypedArray array = context.obtainStyledAttributes(typedValue.resourceId, attribute);
+            int textSize = array.getDimensionPixelSize(0 /* index */, -1 /* default size */);
+            array.recycle();
+            return textSize;
+        } catch (Exception e) {
+//            e.printStackTrace();
+            return 0;
+        }
     }
 }
