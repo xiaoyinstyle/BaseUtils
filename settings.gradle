@@ -1,2 +1,3 @@
-include ':sample', ':baseUtils', ':recyclerlib', ':notes'//, ':classnotice'
-//include ':charter-demo', ':charter-library'
+include ':sample', ':baseUtils', ':recyclerlib'
+//include ':jpeg-android'
+include ':notes'

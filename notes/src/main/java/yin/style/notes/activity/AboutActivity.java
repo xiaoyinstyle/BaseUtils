@@ -2,7 +2,7 @@ package yin.style.notes.activity;
 
 import android.os.Bundle;
 
-import com.jskingen.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.base.TitleActivity;
 
 import yin.style.notes.R;
 

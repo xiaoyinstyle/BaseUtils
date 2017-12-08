@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jskingen.baselib">
+    package="yin.style.baselib">
 
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -20,13 +20,13 @@
         </provider>
 
         <activity
-            android:name=".activity.PicturePreviewActivity"
+            android:name="yin.style.baselib.activity.PicturePreviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <!--下载-->
         <receiver
-            android:name=".update.DownloadApkReceiver"
+            android:name="yin.style.baselib.update.DownloadApkReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jskingen.baselib.activity.base.NormalAcitivity;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.activity.base.NormalAcitivity;
+import yin.style.baselib.utils.ToastUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import yin.style.notes.MyApp;
 import yin.style.notes.R;
 import yin.style.notes.utils.MD5;

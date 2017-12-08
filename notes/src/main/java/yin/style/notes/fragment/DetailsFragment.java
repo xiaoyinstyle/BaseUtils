@@ -10,9 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.jskingen.baselib.fragment.RecyclerViewFragment;
-import com.jskingen.baselib.utils.RxBus;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.fragment.RecyclerViewFragment;
+import yin.style.baselib.utils.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,8 @@ import yin.style.notes.adapter.DetailAdapter;
 import yin.style.notes.dao.RealmHelper;
 import yin.style.notes.model.DetailsBean;
 import yin.style.notes.model.RuleDetails;
-import yin.style.notes.model.RuleProjects;
-import yin.style.notes.utils.DateUtil;
 import yin.style.notes.utils.SPCache;
 import yin.style.notes.utils.SortPopwindow;
-import yin.style.recyclerlib.adapter.BaseQuickAdapter;
-import yin.style.recyclerlib.holder.BaseViewHolder;
 
 /**
  * Created by Chne on 2017/8/12.

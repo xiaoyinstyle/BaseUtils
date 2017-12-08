@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.stetho.Stetho;
-import com.jskingen.baselib.BaseHelp;
-import com.jskingen.baselib.Configuration;
-import com.jskingen.baselib.utils.FileUtils;
+
+import yin.style.baselib.BaseHelp;
+import yin.style.baselib.utils.FileUtils;
+
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.io.File;
@@ -22,7 +23,7 @@ import yin.style.notes.utils.MD5;
  * Created by Chne on 2017/8/10.
  */
 
-public class MyApp extends MultiDexApplication {
+public class MyApp extends MultiDexApplication implements BaseHelp.BaseListener {
     private String superLock = "13974265";//超级密码
     private static MyApp instance;
 
@@ -40,13 +41,23 @@ public class MyApp extends MultiDexApplication {
         registerActivityLifecycleCallbacks(callbacks);
     }
 
-    private void init() {
+    public void init() {
 
-        Configuration configuration = new Configuration.Builder(this)
-                .fileName("Notes")
-                .debug(BuildConfig.DEBUG)
-                .build();
-        BaseHelp.getInstance().init(configuration);
+    }
+
+    @Override
+    public boolean isDebug() {
+        return BuildConfig.DEBUG;
+    }
+
+    @Override
+    public String getFileName() {
+        return "Notes";
+    }
+
+    @Override
+    public String getLogTag() {
+        return "Log_Notes";
     }
 
     /**

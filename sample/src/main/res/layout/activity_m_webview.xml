@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jskingen.baseutils.baseactivity.mWebviewActivity">
+    tools:context="com.jskingen.baseutils.yin.jskingen.baseutils.baseactivity.mWebviewActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -73,7 +73,8 @@ public class XRecyclerView extends RecyclerView {
         mFootView = footView;
         mFootView.setVisibility(GONE);
 
-        pullRefreshEnabled = false;
+        setPullRefreshEnabled(false);
+        setLoadingMoreEnabled(false);
     }
 
     public LoadingMoreFooter getDefaultFootView() {

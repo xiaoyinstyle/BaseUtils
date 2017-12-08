@@ -105,10 +105,14 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         }
     }
 
+    private int allChildHeight = 0;
+
     private boolean isEmptyView(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (parent.getChildCount() != 0) {
             for (int i = 0; i < parent.getChildCount(); i++) {
                 View view = parent.getChildAt(i);
+                allChildHeight = allChildHeight + view.getHeight();
+
                 if (view instanceof EmptyView) {
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
                     layoutParams.height = parent.getBottom() - space * 2;

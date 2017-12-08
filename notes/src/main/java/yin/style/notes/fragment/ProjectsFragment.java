@@ -1,28 +1,21 @@
 package yin.style.notes.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.TimePickerView;
-import com.bigkoo.pickerview.listener.CustomListener;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.jskingen.baselib.fragment.RecyclerViewFragment;
-import com.jskingen.baselib.utils.RxBus;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.fragment.RecyclerViewFragment;
+import yin.style.baselib.utils.RxBus;
+import yin.style.baselib.utils.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import rx.Subscription;

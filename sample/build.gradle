@@ -4,12 +4,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.versions.compileSdkVersion
     buildToolsVersion rootProject.ext.versions.buildToolsVersion
-
     defaultConfig {
-        applicationId "com.jskingen.baseutils"
+        applicationId 'yin.style.sample'
         minSdkVersion rootProject.ext.versions.minSdkVersion
         targetSdkVersion rootProject.ext.versions.targetSdkVersion
-        versionCode 1 
+        versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -46,6 +45,8 @@ android {
 //            dirs 'aar'
 //        }
 //    }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -53,21 +54,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile project(':baseUtils')
-//    compile 'yin.style.utils:baseUtils:0.0.3'
-
-//    compile(name: 'bitherutils', ext: 'aar')
+    //    compile 'yin.style.utils:baseUtils:0.0.3'
+    //    compile(name: 'bitherutils', ext: 'aar')
     compile rootProject.ext.dependencies["appcompat-v7"]
-//    注解
-//    compile rootProject.ext.dependencies["butterknife"]
+    //    注解
+    //    compile rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-
-
     compile 'com.zhihu.android:matisse:0.4.3'
+
+    compile 'com.android.support:multidex:1.0.1'
+
 }

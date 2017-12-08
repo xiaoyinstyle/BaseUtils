@@ -8,10 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.jskingen.baselib.activity.base.RecyclerViewActivity;
-import com.jskingen.baselib.utils.RxBus;
-import com.jskingen.baselib.utils.ToastUtils;
-import com.jskingen.baselib.view.LoadingDialog;
+import yin.style.baselib.activity.base.RecyclerViewActivity;
+import yin.style.baselib.utils.RxBus;
+import yin.style.baselib.utils.ToastUtils;
+import yin.style.baselib.view.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;

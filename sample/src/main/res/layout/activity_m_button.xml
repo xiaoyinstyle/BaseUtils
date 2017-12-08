@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/text_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:unableTextColor="@android:color/holo_orange_dark"/>
 
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/background_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             app:unableBackgroundColor="@android:color/holo_red_light"/>
 
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/radius_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             app:radius="10dp"
             app:unableBackgroundColor="@android:color/holo_red_light"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/round_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             app:radius="2dp"
             app:unableBackgroundColor="@android:color/holo_red_light"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/different_radius_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             app:pressedBackgroundColor="@color/colorPrimaryDark"
             app:unableBackgroundColor="@android:color/holo_red_light"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/dash_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             app:unableStrokeWidth="2dp"
             app:unableTextColor="@android:color/holo_orange_dark"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/stroke_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
             app:unableStrokeWidth="2dp"
             app:unableTextColor="@android:color/holo_orange_dark"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/stroke_background_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
             app:pressedBackgroundColor="@color/colorPrimaryDark"
             app:pressedTextColor="@android:color/white"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/stroke_background_test2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             app:pressedBackgroundColor="@color/colorPrimaryDark"
             app:pressedTextColor="@android:color/white"/>
 
-        <com.jskingen.baselib.view.StateButton
+        <yin.style.baselib.view.StateButton
             android:id="@+id/stroke_background_animation_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

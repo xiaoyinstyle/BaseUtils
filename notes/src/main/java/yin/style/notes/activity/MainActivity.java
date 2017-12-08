@@ -1,7 +1,7 @@
 package yin.style.notes.activity;
 
-import com.jskingen.baselib.activity.base.TabActivity;
-import com.jskingen.baselib.activity.model.TabEntity;
+import yin.style.baselib.activity.base.TabActivity;
+import yin.style.baselib.activity.model.TabEntity;
 
 import java.util.List;
 

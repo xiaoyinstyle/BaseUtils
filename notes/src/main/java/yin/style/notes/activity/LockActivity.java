@@ -3,8 +3,8 @@ package yin.style.notes.activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.jskingen.baselib.activity.base.TitleActivity;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.utils.ToastUtils;
 
 import yin.style.notes.MyApp;
 import yin.style.notes.R;

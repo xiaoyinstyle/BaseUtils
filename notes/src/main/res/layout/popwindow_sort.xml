@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@color/greylight"
+                    android:background="@color/line_grey"
                     android:gravity="center"
                     android:text="筛选"
                     android:textColor="@color/textOrange"

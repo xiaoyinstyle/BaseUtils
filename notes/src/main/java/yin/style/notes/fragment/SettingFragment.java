@@ -2,17 +2,12 @@ package yin.style.notes.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.jskingen.baselib.fragment.TitleFragment;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.fragment.TitleFragment;
+import yin.style.baselib.utils.ToastUtils;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import yin.style.notes.R;
 import yin.style.notes.activity.AboutActivity;
 import yin.style.notes.activity.ExportHistoryActivity;

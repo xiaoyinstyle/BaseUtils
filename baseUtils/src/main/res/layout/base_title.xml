@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:background="@color/colorPrimary">
 
     <FrameLayout
@@ -35,7 +36,7 @@
                 android:id="@+id/iv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/base_backgroud_press"
+                android:background="@drawable/base_background_press"
                 android:padding="8dp"
                 android:src="@drawable/base_back"
                 android:visibility="visible" />
@@ -44,7 +45,7 @@
                 android:id="@+id/tv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/base_backgroud_press"
+                android:background="@drawable/base_background_press"
                 android:gravity="center_vertical"
                 android:maxLength="5"
                 android:paddingLeft="10dp"
@@ -65,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/base_backgroud_press"
+                android:background="@drawable/base_background_press"
                 android:gravity="center_vertical"
                 android:maxLength="5"
                 android:paddingLeft="10dp"
@@ -78,7 +79,7 @@
                 android:id="@+id/iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/base_backgroud_press"
+                android:background="@drawable/base_background_press"
                 android:padding="8dp"
                 android:visibility="gone"
                 tools:src="@drawable/ic_launcher"
@@ -86,4 +87,12 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/base_line"
+        android:visibility="invisible"
+        tools:visibility="visible" />
 </LinearLayout>

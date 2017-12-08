@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_light"
-    tools:context="com.jskingen.baseutils.chat.ChatsActivity">
+    tools:context="com.jskingen.baseutils.yin.jskingen.baseutils.chat.ChatsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:text="文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1文本1" />
 
-        <com.jskingen.baseutils.demo.GridRadioGroup
+        <yin.style.sample.demo.GridRadioGroup
             android:id="@+id/grg"
             android:layout_width="wrap_content"
             android:background="@android:color/holo_red_light"
@@ -62,7 +62,7 @@
                 android:text="文本7" />
 
 
-        </com.jskingen.baseutils.demo.GridRadioGroup>
+        </yin.style.sample.demo.GridRadioGroup>
     </LinearLayout>
 
 </LinearLayout>

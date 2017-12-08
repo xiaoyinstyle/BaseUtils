@@ -23,7 +23,7 @@
             android:textColor="@color/text_black"
             android:textSize="19sp" />
 
-        <com.jskingen.baselib.view.NumberProgressBar
+        <yin.style.baselib.view.NumberProgressBar
             android:id="@+id/numberProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

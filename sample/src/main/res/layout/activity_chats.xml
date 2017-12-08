@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:background="@android:color/holo_blue_light"
     android:layout_height="match_parent"
-    tools:context="com.jskingen.baseutils.chat.ChatsActivity">
+    tools:context="com.jskingen.baseutils.yin.jskingen.baseutils.chat.ChatsActivity">
 
-    <com.jskingen.baseutils.chat.LineChartView
+    <yin.style.sample.chat.LineChartView
         android:layout_width="match_parent"
         android:id="@+id/chatView"
         android:layout_height="match_parent" />

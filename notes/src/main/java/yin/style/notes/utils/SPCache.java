@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.jskingen.baselib.utils.GsonUtils;
+import yin.style.baselib.utils.GsonUtils;
 
 import yin.style.notes.MyApp;
 import yin.style.notes.model.RuleDetails;

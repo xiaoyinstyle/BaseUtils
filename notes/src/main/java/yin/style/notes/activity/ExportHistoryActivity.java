@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.jskingen.baselib.activity.base.RecyclerViewActivity;
-import com.jskingen.baselib.utils.FileUtils;
-import com.jskingen.baselib.utils.ToastUtils;
+import yin.style.baselib.activity.base.RecyclerViewActivity;
+import yin.style.baselib.utils.FileUtils;
+import yin.style.baselib.utils.ToastUtils;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.ValueCallback;
 

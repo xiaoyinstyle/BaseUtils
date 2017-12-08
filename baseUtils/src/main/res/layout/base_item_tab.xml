@@ -12,12 +12,12 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         tools:src="@drawable/ic_launcher" />
 
-    <com.jskingen.baselib.view.AutofitTextView
+    <yin.style.baselib.view.AutofitTextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
