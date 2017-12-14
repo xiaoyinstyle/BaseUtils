@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;

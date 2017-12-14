@@ -12,7 +12,7 @@ import yin.style.baselib.net.HttpHelper;
 import yin.style.baselib.net.callback.HttpProcessor;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.App;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.io.File;
 import java.util.HashMap;

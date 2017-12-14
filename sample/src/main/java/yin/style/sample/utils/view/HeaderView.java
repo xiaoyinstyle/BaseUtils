@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import yin.style.baselib.view.refreshView.RefreshHeader;
 import yin.style.baselib.view.refreshView.RefreshLayout;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 /**
  * Created by Chne on 2017/7/31.

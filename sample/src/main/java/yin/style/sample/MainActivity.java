@@ -3,8 +3,11 @@ package yin.style.sample;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
+import yin.style.baselib.utils.AppManager;
 import yin.style.sample.baseActivity.mExpandViewActivity;
 import yin.style.sample.common.PhoneInfo;
 import yin.style.sample.flowLayout.FlowLayoutActivity;
@@ -17,7 +20,7 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.utils.LogUtils;
 import yin.style.baselib.utils.ScreenUtil;
 
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mTabActivity;
@@ -61,6 +64,25 @@ public class MainActivity extends TitleActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+    }
+
+    private long exitTime = 0;//点击2次返回，退出程序
+
+    //点击两次退出
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {//两秒内再次点击返回则退出
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                AppManager.getInstance().finishAllActivity();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
@@ -127,6 +149,7 @@ public class MainActivity extends TitleActivity {
 //                hideStatusView();
                 LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
 
+                setStatusBarText(mContext, b);
                 setStatusBarView(mContext, b, Color.parseColor("#55CCCCCC"));
                 b = !b;
                 break;

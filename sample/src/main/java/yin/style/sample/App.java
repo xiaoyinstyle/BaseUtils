@@ -6,8 +6,6 @@ import yin.style.baselib.BaseHelp;
 import yin.style.baselib.net.HttpHelper;
 import yin.style.baselib.net.processor.OkHttpUtilsProcessor;
 
-import com.jskingen.baseutils.BuildConfig;
-import com.jskingen.baseutils.R;
 import com.squareup.leakcanary.LeakCanary;
 
 /**

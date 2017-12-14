@@ -36,22 +36,23 @@ abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
         holder.itemView.setTag(position);
 
         setViewHolder(holder, groupPosition, position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null)
-                    onItemClickListener.onItemClick(holder.itemView, groupPosition, position);
-            }
-        });
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (onItemClickLongListener != null)
+        if (onItemClickListener != null)
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(holder.itemView, groupPosition, position);
+                }
+            });
+
+        if (onItemClickLongListener != null)
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
                     onItemClickLongListener.onItemLongClick(holder.itemView, groupPosition, position);
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
     }
 
     @Override

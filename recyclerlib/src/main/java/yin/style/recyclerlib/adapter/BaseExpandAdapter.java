@@ -85,14 +85,15 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
                 }
             });
 
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (onItemClickLongListener != null && groupCanClick)
+            if (onItemClickLongListener != null && groupCanClick)
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
                         onItemClickLongListener.onItemLongClick(holder.itemView, position, -1);
-                    return true;
-                }
-            });
+                        return true;
+                    }
+                });
+
             if (((ViewGroup) holder.itemView).getChildCount() == 1)
                 ((ViewGroup) holder.itemView).addView(((ItemViewHolder) holder).mGroup);
 

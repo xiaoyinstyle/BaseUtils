@@ -12,7 +12,7 @@ import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.view.HeaderScrollView;
 
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import butterknife.BindView;
 
@@ -23,6 +23,7 @@ import butterknife.BindView;
 public class HeadViewFragment extends NormalFragment {
     protected View tView;
     @BindView(R.id.tsv)
+
     HeaderScrollView tsv;
     @BindView(R.id.root)
     FrameLayout root;
@@ -34,10 +35,8 @@ public class HeadViewFragment extends NormalFragment {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setStatusView();
+//        setStatusView(true);
         addTitle();
-        tView.setBackgroundColor(Color.BLUE);
-        tView.setBackgroundResource(R.drawable.base_progress_bar);
         tsv.setTitleView(tView, false, 1);
         tsv.setScrollViewListener(new HeaderScrollView.OnScrollListener() {
             @Override
@@ -59,6 +58,9 @@ public class HeadViewFragment extends NormalFragment {
 
     private void addTitle() {
         tView = View.inflate(mContext, R.layout.base_title, null);
+        tView.setBackgroundColor(Color.BLUE);
+
+        setStatusBarText(mContext, true);
         boolean isHas = setStatusBarView(mContext, false, Color.TRANSPARENT);
         tView.setPadding(0, isHas ? ScreenUtil.getStatusHeight(mContext) : 0, 0, 0);
 

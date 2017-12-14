@@ -16,7 +16,7 @@ import android.widget.ListView;
 import yin.style.sample.utils.view.HeaderView;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.refreshView.RefreshLayout;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;

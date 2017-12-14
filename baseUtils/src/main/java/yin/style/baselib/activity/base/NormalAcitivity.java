@@ -20,6 +20,7 @@ import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
+import yin.style.baselib.view.BarTextColorUtils;
 
 /**
  * Created by ChneY on 2017/4/22.
@@ -127,6 +128,18 @@ public abstract class NormalAcitivity extends AppCompatActivity {
                 StatusBarCompat.compat(this, Color.TRANSPARENT);
             }
 
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 设置沉浸式 字体颜色
+     */
+    public boolean setStatusBarText(Activity activity, boolean barTextDark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            BarTextColorUtils.StatusBarLightMode(activity, barTextDark);
             return true;
         } else {
             return false;

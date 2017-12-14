@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jskingen.baseutils">
+    package="yin.style.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,39 +10,40 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="yin.style.sample.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="yin.style.sample.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="yin.style.sample.baseActivity.mTabActivity" />
-        <activity android:name="yin.style.sample.baseActivity.mRecyclerActivity" />
-        <activity android:name="yin.style.sample.utils.mPermissionsActivity" />
-        <activity android:name="yin.style.sample.baseActivity.mExpandViewActivity" />
-        <activity android:name="yin.style.sample.image.mImageActivity" />
-        <activity android:name="yin.style.sample.http.mNetworkActivity" />
-        <activity android:name="yin.style.sample.http.mDownloadActivity" />
-        <activity android:name="yin.style.sample.photo.TakePhotoActivity" />
-        <activity android:name="yin.style.sample.baseActivity.mWebviewActivity" />
-        <activity android:name="yin.style.sample.http.mUpdateActivity" />
-        <activity android:name="yin.style.sample.utils.mDialogActivity" />
-        <activity android:name="yin.style.sample.flowLayout.FlowLayoutActivity" />
-        <activity android:name="yin.style.sample.utils.mPopWindowActivity" />
-        <activity android:name="yin.style.sample.utils.mRefreshviewActivity" />
-        <activity android:name="yin.style.sample.utils.mRecyclerVActivity" />
-        <activity android:name="yin.style.sample.utils.mButtonActivity" />
-        <activity android:name="yin.style.sample.utils.mRadioButtonActivity" />
-        <activity android:name="yin.style.sample.chat.ChatsActivity"></activity>
-        <activity android:name="yin.style.sample.demo.DemoActivity"></activity>
+        <activity android:name=".baseActivity.mTabActivity" />
+        <activity android:name=".baseActivity.mRecyclerActivity" />
+        <activity android:name=".utils.mPermissionsActivity" />
+        <activity android:name=".baseActivity.mExpandViewActivity" />
+        <activity android:name=".image.mImageActivity" />
+        <activity android:name=".http.mNetworkActivity" />
+        <activity android:name=".http.mDownloadActivity" />
+        <activity android:name=".photo.TakePhotoActivity" />
+        <activity android:name=".photo.TakePhotoActivity2" />
+        <activity android:name=".baseActivity.mWebviewActivity" />
+        <activity android:name=".http.mUpdateActivity" />
+        <activity android:name=".utils.mDialogActivity" />
+        <activity android:name=".flowLayout.FlowLayoutActivity" />
+        <activity android:name=".utils.mPopWindowActivity" />
+        <activity android:name=".utils.mRefreshviewActivity" />
+        <activity android:name=".utils.mRecyclerVActivity" />
+        <activity android:name=".utils.mButtonActivity" />
+        <activity android:name=".utils.mRadioButtonActivity" />
+        <activity android:name=".chat.ChatsActivity"></activity>
+        <activity android:name=".demo.DemoActivity"></activity>
     </application>
 
 </manifest>

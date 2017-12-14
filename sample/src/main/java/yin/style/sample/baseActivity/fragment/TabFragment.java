@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.LogUtils;
-import com.jskingen.baseutils.R;
+
+import yin.style.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,24 +76,25 @@ public class TabFragment extends NormalFragment {
     @OnClick(R.id.bt_change)
     public void onViewClicked() {
         index++;
-        setStatusBarView(mContext, index % 2 == 0, Color.MAGENTA);
+//        setStatusBarText(mContext, index % 2 == 0);
+//        setStatusBarView(mContext, index % 2 == 0, Color.MAGENTA);
 
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//
-//        if (fragment1 == null) {
-//            fragment1 = TabFragment2.newInstance(8);
-//            transaction.add(R.id.fm_content, fragment1);
-//        }
-//        if (fragment2 == null) {
-//            fragment2 = TabFragment2.newInstance(9);
-//            transaction.add(R.id.fm_content, fragment2);
-//        }
-//
-//        hideFragment(transaction);
-//
-//        transaction.show(index % 2 == 1 ? fragment1 : fragment2);
-//
-//        transaction.commit();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        if (fragment1 == null) {
+            fragment1 = TabFragment2.newInstance(8);
+            transaction.add(R.id.fm_content, fragment1);
+        }
+        if (fragment2 == null) {
+            fragment2 = TabFragment2.newInstance(9);
+            transaction.add(R.id.fm_content, fragment2);
+        }
+
+        hideFragment(transaction);
+
+        transaction.show(index % 2 == 1 ? fragment1 : fragment2);
+
+        transaction.commit();
     }
 
     //隐藏所有的fragment

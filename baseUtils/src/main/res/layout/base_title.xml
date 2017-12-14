@@ -93,6 +93,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/base_line"
-        android:visibility="invisible"
+        android:visibility="gone"
         tools:visibility="visible" />
 </LinearLayout>

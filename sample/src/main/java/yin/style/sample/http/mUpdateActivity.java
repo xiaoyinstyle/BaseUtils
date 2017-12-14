@@ -14,7 +14,7 @@ import yin.style.baselib.update.inter.DialogListener;
 import yin.style.baselib.update.inter.OnUpdateListener;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.utils.ToastUtils;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;

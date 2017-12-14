@@ -2,12 +2,12 @@ package yin.style.sample.baseActivity.adapter;
 
 import android.content.Context;
 
-import com.jskingen.baseutils.R;
 
 import java.util.List;
 
 import yin.style.recyclerlib.adapter.BaseExpandAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
+import yin.style.sample.R;
 
 /**
  * Created by ChneY on 2017/5/16.

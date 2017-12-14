@@ -145,16 +145,15 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (onItemClickListener != null)
-                            onItemClickListener.onItemClick(holder.itemView, new_position);
+                        onItemClickListener.onItemClick(holder.itemView, new_position);
                     }
                 });
-
+            }
+            if (onItemClickLongListener != null) {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if (onItemClickLongListener != null)
-                            onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
+                        onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
                         return true;
                     }
                 });

@@ -2,6 +2,7 @@ package yin.style.baselib.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
@@ -45,20 +46,18 @@ public class HeaderScrollView extends NestedScrollView {
     }
 
     private void initView(Context context) {
-        if (autoMeasureBanner) {
+        if (autoMeasureBanner && getChildCount() > 0) {
             ViewTreeObserver vto = getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    if (getChildCount() > 0) {
-                        getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        ViewGroup childGrop = (ViewGroup) getChildAt(0);
-                        if (childGrop.getChildCount() == 0) return;
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    ViewGroup childGroup = (ViewGroup) getChildAt(0);
+                    if (childGroup.getChildCount() == 0) return;
 
-                        mBannerView = childGrop.getChildAt(0);
-                        bannerHeight = mBannerView.getHeight();
-                        LogUtils.e("HeaderScrollView_BannerView_h:" + mBannerView.getHeight());
-                    }
+                    mBannerView = childGroup.getChildAt(0);
+                    bannerHeight = mBannerView.getHeight();
+                    LogUtils.e("HeaderScrollView_BannerView_h:" + mBannerView.getHeight());
                 }
             });
         }
@@ -139,12 +138,12 @@ public class HeaderScrollView extends NestedScrollView {
      *
      * @param titleView
      */
-    public void setTitleView(View titleView, boolean isBgGradient, float orgAlpha) {
+    public void setTitleView(@NonNull View titleView, boolean isBgGradient, float orgAlpha) {
         mTitleView = titleView;
         this.isBgGradient = isBgGradient;
         setTitleBgAlpha(orgAlpha);
 
-        if (autoMeasureTitle) {
+        if (autoMeasureTitle && mTitleView != null) {
             ViewTreeObserver vto = getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -180,7 +179,7 @@ public class HeaderScrollView extends NestedScrollView {
     /**
      * @param scrollViewListener 　监听
      */
-    public void setScrollViewListener(OnScrollListener scrollViewListener) {
+    public void setScrollViewListener(@NonNull OnScrollListener scrollViewListener) {
         this.scrollViewListener = scrollViewListener;
 
     }

@@ -4,6 +4,7 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.net.inter.ICallBack;
 import yin.style.baselib.net.inter.IFileCallBack;
 import yin.style.baselib.net.inter.IHttpProcessor;
+
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
@@ -79,15 +80,19 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Logger.e(Tag, e.toString());
-                if (e instanceof FileNotFoundException) {
-                    callBack.onError("文件操作权限未获取");
-                } else if (e instanceof ConnectException) {
-                    callBack.onError("网络未连接");
-                } else if (e instanceof SocketTimeoutException) {
-                    callBack.onError("连接超时");
-                } else {
-                    callBack.onError(e.getMessage());
+                try {
+                    Logger.e(Tag, e.toString());
+                    if (e instanceof FileNotFoundException) {
+                        callBack.onError("文件操作权限未获取");
+                    } else if (e instanceof ConnectException) {
+                        callBack.onError("网络未连接");
+                    } else if (e instanceof SocketTimeoutException) {
+                        callBack.onError("连接超时");
+                    } else {
+                        callBack.onError(e.getMessage());
+                    }
+                } catch (Exception e1) {
+
                 }
             }
 
@@ -136,15 +141,19 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Logger.e(Tag, e.toString());
-                if (e instanceof FileNotFoundException) {
-                    callBack.onError("文件操作权限未获取");
-                } else if (e instanceof ConnectException) {
-                    callBack.onError("网络未连接");
-                } else if (e instanceof SocketTimeoutException) {
-                    callBack.onError("连接超时");
-                } else {
-                    callBack.onError(e.getMessage());
+                try {
+                    Logger.e(Tag, e.toString());
+                    if (e instanceof FileNotFoundException) {
+                        callBack.onError("文件操作权限未获取");
+                    } else if (e instanceof ConnectException) {
+                        callBack.onError("网络未连接");
+                    } else if (e instanceof SocketTimeoutException) {
+                        callBack.onError("连接超时");
+                    } else {
+                        callBack.onError(e.getMessage());
+                    }
+                } catch (Exception e1) {
+
                 }
             }
 
@@ -203,15 +212,19 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Logger.e(Tag, e.toString());
-                if (e instanceof FileNotFoundException) {
-                    callBack.onError("文件操作权限未获取");
-                } else if (e instanceof ConnectException) {
-                    callBack.onError("网络未连接");
-                } else if (e instanceof SocketTimeoutException) {
-                    callBack.onError("连接超时");
-                } else {
-                    callBack.onError(e.getMessage());
+                try {
+                    Logger.e(Tag, e.toString());
+                    if (e instanceof FileNotFoundException) {
+                        callBack.onError("文件操作权限未获取");
+                    } else if (e instanceof ConnectException) {
+                        callBack.onError("网络未连接");
+                    } else if (e instanceof SocketTimeoutException) {
+                        callBack.onError("连接超时");
+                    } else {
+                        callBack.onError(e.getMessage());
+                    }
+                } catch (Exception e1) {
+
                 }
             }
 
@@ -282,15 +295,19 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Logger.e(Tag, e.toString());
-                if (e instanceof FileNotFoundException) {
-                    callBack.onError("文件操作权限未获取");
-                } else if (e instanceof ConnectException) {
-                    callBack.onError("网络未连接");
-                } else if (e instanceof SocketTimeoutException) {
-                    callBack.onError("连接超时");
-                } else {
-                    callBack.onError(e.getMessage());
+                try {
+                    Logger.e(Tag, e.toString());
+                    if (e instanceof FileNotFoundException) {
+                        callBack.onError("文件操作权限未获取");
+                    } else if (e instanceof ConnectException) {
+                        callBack.onError("网络未连接");
+                    } else if (e instanceof SocketTimeoutException) {
+                        callBack.onError("连接超时");
+                    } else {
+                        callBack.onError(e.getMessage());
+                    }
+                } catch (Exception e1) {
+
                 }
             }
 
@@ -347,15 +364,21 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-                Logger.e(Tag, e.toString());
-                if (e instanceof FileNotFoundException) {
-                    callBack.onError("文件操作权限未获取");
-                } else if (e instanceof ConnectException) {
-                    callBack.onError("网络未连接");
-                } else if (e instanceof SocketTimeoutException) {
-                    callBack.onError("连接超时");
-                } else {
-                    callBack.onError(e.getMessage());
+                try {
+
+                    Logger.e(Tag, e.toString());
+                    if (e instanceof FileNotFoundException) {
+                        callBack.onError("文件操作权限未获取");
+                    } else if (e instanceof ConnectException) {
+                        callBack.onError("网络未连接");
+                    } else if (e instanceof SocketTimeoutException) {
+                        callBack.onError("连接超时");
+                    } else {
+                        callBack.onError(e.getMessage());
+                    }
+
+                } catch (Exception e1) {
+
                 }
                 callBack.onFinish(false);
                 clearTag(url);

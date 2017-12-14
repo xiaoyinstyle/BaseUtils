@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.LogUtils;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 /**
  * Created by chenY on 2017/1/17

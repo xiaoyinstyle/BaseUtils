@@ -6,7 +6,7 @@ import android.graphics.Color;
 import yin.style.sample.baseActivity.fragment.HeadViewFragment;
 import yin.style.baselib.activity.base.TabActivity;
 import yin.style.baselib.activity.model.TabEntity;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import yin.style.sample.baseActivity.fragment.TabFragment;
 

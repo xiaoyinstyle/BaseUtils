@@ -59,39 +59,38 @@ public class StatusBarCompat {
     }
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void compat(NormalFragment fragment, int statusColor) {
-
-        //当前手机版本为5.0及以上
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (statusColor != INVALID_VAL) {
-                fragment.getActivity().getWindow().setStatusBarColor(statusColor);
-            }
-            return;
-        }
-
-        //当前手机版本为4.4
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            int color = COLOR_DEFAULT;
-            ViewGroup contentView = (ViewGroup) fragment.decorView;
-            if (statusColor != INVALID_VAL) {
-                color = statusColor;
-            }
-
-            StatusBarView statusBarView = null;
-
-            for (int i = 0; i < contentView.getChildCount(); i++) {
-                if (contentView.getChildAt(i) instanceof StatusBarView)
-                    statusBarView = (StatusBarView) contentView.getChildAt(i);
-            }
-            if (statusBarView == null) {
-                statusBarView = new StatusBarView(fragment.getContext());
-
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        getStatusBarHeight(fragment.getContext()));
-                contentView.addView(statusBarView, lp);
-            }
-            statusBarView.setBackgroundColor(color);
-
-        }
+//        //当前手机版本为5.0及以上
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            if (statusColor != INVALID_VAL) {
+//                fragment.getActivity().getWindow().setStatusBarColor(statusColor);
+//            }
+//            return;
+//        }
+//
+//        //当前手机版本为4.4
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            int color = COLOR_DEFAULT;
+//            ViewGroup contentView = (ViewGroup) fragment.decorView;
+//            if (statusColor != INVALID_VAL) {
+//                color = statusColor;
+//            }
+//
+//            StatusBarView statusBarView = null;
+//
+//            for (int i = 0; i < contentView.getChildCount(); i++) {
+//                if (contentView.getChildAt(i) instanceof StatusBarView)
+//                    statusBarView = (StatusBarView) contentView.getChildAt(i);
+//            }
+//            if (statusBarView == null) {
+//                statusBarView = new StatusBarView(fragment.getContext());
+//
+//                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                        getStatusBarHeight(fragment.getContext()));
+//                contentView.addView(statusBarView, lp);
+//            }
+//            statusBarView.setBackgroundColor(color);
+//
+//        }
     }
 
     public static void compat(Activity activity) {
@@ -108,7 +107,7 @@ public class StatusBarCompat {
         return result;
     }
 
-    static class StatusBarView extends View {
+  public   static class StatusBarView extends View {
 
         public StatusBarView(Context context) {
             super(context);

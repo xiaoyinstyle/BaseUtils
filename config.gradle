@@ -1,45 +1,42 @@
-def supportVersion = "25.0.0"
-
 ext {
-    dependencies = ["support-v4"              : "com.android.support:support-v4:${supportVersion}",
-                    "appcompat-v7"            : "com.android.support:appcompat-v7:${supportVersion}",
-                    "design"                  : "com.android.support:design:${supportVersion}",
-                    "cardview-v7"             : "com.android.support:cardview-v7:${supportVersion}",
-                    "recyclerview-v7"         : "com.android.support:recyclerview-v7:${supportVersion}",
+//    dependencies = ["support-v4"              : "com.android.support:support-v4:${supportVersion}",
+//                    "appcompat-v7"            : "com.android.support:appcompat-v7:${supportVersion}",
+//                    "design"                  : "com.android.support:design:${supportVersion}",
+//                    "cardview-v7"             : "com.android.support:cardview-v7:${supportVersion}",
+//                    "recyclerview-v7"         : "com.android.support:recyclerview-v7:${supportVersion}",
+//
+//                    "retrofit"                : "com.squareup.retrofit2:retrofit:2.2.0",    //Retrofit https://github.com/square/retrofit, http://gank.io/post/56e80c2c677659311bed9841
+//                    "converter-gson"          : "com.squareup.retrofit2:converter-gson:2.2.0",
+//                    "converter-rxjava"        : "com.squareup.retrofit2:adapter-rxjava:2.2.0",
+//                    "rxjava"                  : "io.reactivex:rxjava:1.2.2",   //RxJava https://github.com/ReactiveX/RxJava, http://gank.io/post/560e15be2dca930e00da1083
+//                    "rxandroid"               : "io.reactivex:rxandroid:1.2.1",     //RxAndroid https://github.com/ReactiveX/RxAndroid
+//                    "okhttp3"                 : "com.squareup.okhttp3:okhttp:3.4.1",   //网络请求 https://github.com/square/okhttp
+//                    "logging"                 : "com.squareup.okhttp3:logging-interceptor:3.4.1",//okhttp的log
+//                    "butterknife"             : "com.jakewharton:butterknife:8.5.1",   //注解 https://github.com/JakeWharton/butterknife
+//                    "butterknife-compiler"    : "com.jakewharton:butterknife-compiler:8.5.1",   //注解
+//
+//                    "glide"                   : "com.github.bumptech.glide:glide:3.7.0",   //图片加载 https://github.com/bumptech/glide
+//                    "glide-okhttp-integration": "com.github.bumptech.glide:okhttp-integration:1.3.1",   //
+//                    "logger"                  : "com.orhanobut:logger:1.15",   //日志 https://github.com/orhanobut/logger
+//                    "MPAndroidChart"          : "com.github.PhilJay:MPAndroidChart:v3.0.2",   //图表控件 https://github.com/PhilJay/MPAndroidChart
+////                    "flowlayout"              : "com.zhy:flowlayout-lib:1.0.1",   //流式布局 https://github.com/hongyangAndroid/FlowLayout
+//
+//                    "gson"                    : "com.google.code.gson:gson:2.2.4", //Gson https://github.com/google/gson/blob/master/UserGuide.md
+//                    "imageloader"             : "com.nostra13.universalimageloader:universal-image-loader:1.9.5", //UniversalImageLoader https://github.com/nostra13/Android-Universal-Image-Loader
+//                    "xrecyclerview"           : "com.jcodecraeer:xrecyclerview:1.3.2",  //xrecyclerview  https://github.com/jianghejie/XRecyclerView
+//                    "eventbus"                : "org.greenrobot:eventbus:3.0.0",  //eventbus  https://github.com/jianghejie/XRecyclerView
+//
+//                    "commons"                 : "com.afollestad.material-dialogs:commons:0.9.4.4",  // material-dialogs  https://github.com/afollestad/material-dialogs
+//                    "core"                    : "com.afollestad.material-dialogs:core:0.9.4.4",
+//                    "fastjson"                : "compile 'com.alibaba:fastjson:1.1.56.android",
+//                    "fresco"                  : "compile 'com.facebook.fresco:fresco:1.1.01",
+//    ]
+    supportLibVersion = '26.1.0'
 
-                    "retrofit"                : "com.squareup.retrofit2:retrofit:2.2.0",    //Retrofit https://github.com/square/retrofit, http://gank.io/post/56e80c2c677659311bed9841
-                    "converter-gson"          : "com.squareup.retrofit2:converter-gson:2.2.0",
-                    "converter-rxjava"        : "com.squareup.retrofit2:adapter-rxjava:2.2.0",
-                    "rxjava"                  : "io.reactivex:rxjava:1.2.2",   //RxJava https://github.com/ReactiveX/RxJava, http://gank.io/post/560e15be2dca930e00da1083
-                    "rxandroid"               : "io.reactivex:rxandroid:1.2.1",     //RxAndroid https://github.com/ReactiveX/RxAndroid
-                    "okhttp3"                 : "com.squareup.okhttp3:okhttp:3.4.1",   //网络请求 https://github.com/square/okhttp
-                    "logging"                 : "com.squareup.okhttp3:logging-interceptor:3.4.1",//okhttp的log
-                    "butterknife"             : "com.jakewharton:butterknife:8.5.1",   //注解 https://github.com/JakeWharton/butterknife
-                    "butterknife-compiler"    : "com.jakewharton:butterknife-compiler:8.5.1",   //注解
-
-                    "glide"                   : "com.github.bumptech.glide:glide:3.7.0",   //图片加载 https://github.com/bumptech/glide
-                    "glide-okhttp-integration": "com.github.bumptech.glide:okhttp-integration:1.3.1",   //
-                    "logger"                  : "com.orhanobut:logger:1.15",   //日志 https://github.com/orhanobut/logger
-                    "MPAndroidChart"          : "com.github.PhilJay:MPAndroidChart:v3.0.2",   //图表控件 https://github.com/PhilJay/MPAndroidChart
-//                    "flowlayout"              : "com.zhy:flowlayout-lib:1.0.1",   //流式布局 https://github.com/hongyangAndroid/FlowLayout
-
-                    "gson"                    : "com.google.code.gson:gson:2.2.4", //Gson https://github.com/google/gson/blob/master/UserGuide.md
-                    "imageloader"             : "com.nostra13.universalimageloader:universal-image-loader:1.9.5", //UniversalImageLoader https://github.com/nostra13/Android-Universal-Image-Loader
-                    "xrecyclerview"           : "com.jcodecraeer:xrecyclerview:1.3.2",  //xrecyclerview  https://github.com/jianghejie/XRecyclerView
-                    "eventbus"                : "org.greenrobot:eventbus:3.0.0",  //eventbus  https://github.com/jianghejie/XRecyclerView
-
-                    "commons"                 : "com.afollestad.material-dialogs:commons:0.9.4.4",  // material-dialogs  https://github.com/afollestad/material-dialogs
-                    "core"                    : "com.afollestad.material-dialogs:core:0.9.4.4",
-                    "fastjson"                : "compile 'com.alibaba:fastjson:1.1.56.android",
-                    "fresco"                  : "compile 'com.facebook.fresco:fresco:1.1.01",
-    ]
-
-    versions = [
-            "buildToolsVersion": "25.0.2",
-            "compileSdkVersion": 25,
-            "minSdkVersion"    : 14,
-            "targetSdkVersion" : 25,
-            "versionCode"      : 1,
-            "versionName"      : "1.0"
-    ]
+    buildToolsVersion = "26.0.2"
+    compileSdkVersion = 26
+    minSdkVersion = 14
+    targetSdkVersion = 25
+    versionCode = 1
+    versionName = 1.0
 }

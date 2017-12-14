@@ -1,3 +1,4 @@
-include ':sample', ':baseUtils', ':recyclerlib'
-//include ':jpeg-android'
-include ':notes'
+include  ':baseUtils', ':recyclerlib'
+include ':sample'
+include ':matisse'
+

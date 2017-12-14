@@ -5,7 +5,7 @@ import android.view.View;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.utils.DialogUtils;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

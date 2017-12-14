@@ -8,7 +8,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import yin.style.baselib.activity.base.RecyclerViewActivity;
 
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import yin.style.baselib.utils.ToastUtils;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;

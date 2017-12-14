@@ -135,18 +135,15 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (onItemClickListener != null) {
-                            onItemClickListener.onItemClick(holder.itemView, new_position);
-                        }
+                        onItemClickListener.onItemClick(holder.itemView, new_position);
                     }
                 });
-
+            }
+            if (onItemClickListener != null) {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if (onItemClickLongListener != null) {
-                            onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
-                        }
+                        onItemClickLongListener.onItemLongClick(holder.itemView, new_position);
                         return true;
                     }
                 });

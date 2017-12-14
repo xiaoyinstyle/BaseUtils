@@ -10,7 +10,7 @@ import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.ToastUtils;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;

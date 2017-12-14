@@ -6,7 +6,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -1,59 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
-    tools:context="com.jskingen.baseutils.yin.jskingen.baseutils.photo.TakePhotoActivity">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/checkbox"
+        <RadioButton
+            android:id="@+id/bt_type_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="裁剪" />
+            android:layout_marginRight="10dp"
+            android:text="知乎方式" />
 
-        <CheckBox
-            android:id="@+id/checkbox_take"
+        <RadioButton
+            android:id="@+id/bt_type_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="显示相机" />
+            android:text="底部弹框" />
+    </RadioGroup>
 
-        <Button
-            android:id="@+id/bt_takephoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="拍照" />
+    <TextView
+        android:id="@+id/tv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
-        <Button
-            android:id="@+id/bt_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="相册单选" />
-
-        <EditText
-            android:id="@+id/et_pic_nub"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="最多？张数（默认为3张）"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/bt_album_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="相册多选" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+    <FrameLayout
+        android:id="@+id/fl_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

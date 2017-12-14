@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import yin.style.baselib.view.BarTextColorUtils;
 
 /**
  * Created by ChneY on 2017/5/6.
@@ -50,16 +52,21 @@ public abstract class NormalFragment extends Fragment {
         rootView.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         unbinder = ButterKnife.bind(this, rootView);
 
-        initView(savedInstanceState);   //初始化布局
         hasInit = true;
 
         if (!setLazy()) {
-            initData(); //设置数据
+            init(savedInstanceState); //设置数据
         }
         if (setLazy() && getUserVisibleHint()) {
-            initData(); //设置数据
+            init(savedInstanceState); //设置数据
         }
         return rootView;
+    }
+
+    //懒加载
+    private void init(Bundle savedInstanceState) {
+        initView(savedInstanceState);   //初始化布局
+        initData(); //设置数据
     }
 
     protected void addTitleLayout(LinearLayout rootView) {
@@ -71,10 +78,11 @@ public abstract class NormalFragment extends Fragment {
     /**
      * 设置Activity的沉浸式到Fragment中（使用时，有一定的约束条件）
      */
-    protected final void setStatusView() {
+    protected final void setStatusView(boolean isTransparent) {
         if (mContext instanceof NormalAcitivity) {
             ((NormalAcitivity) mContext).setStatusBarView(mContext, false, Color.TRANSPARENT);
-            setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark));
+            if (!isTransparent)
+                setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
@@ -111,7 +119,7 @@ public abstract class NormalFragment extends Fragment {
 //            LogUtils.e("AAA", "setUserVisibleHint--" + isVisibleToUser);
             if (hasInit && !hasLoad) {
                 hasLoad = true;
-                initData();
+                init(null);
             }
         }
     }
@@ -145,6 +153,18 @@ public abstract class NormalFragment extends Fragment {
                 StatusBarCompat.compat(this, Color.TRANSPARENT);
                 titleView.setPadding(0, 0, 0, 0);
             }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 设置沉浸式 字体颜色
+     */
+    public boolean setStatusBarText(Activity activity, boolean barTextDark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            BarTextColorUtils.StatusBarLightMode(activity, barTextDark);
             return true;
         } else {
             return false;

@@ -3,7 +3,7 @@ package yin.style.sample.flowLayout;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 public class FlowLayoutActivity extends TitleActivity {
     @Override

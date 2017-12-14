@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.utils.ScreenUtil;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 import yin.style.baselib.view.mDrawable;
 
 import butterknife.BindView;

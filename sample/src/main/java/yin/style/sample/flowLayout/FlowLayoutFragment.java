@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import yin.style.baselib.fragment.NormalFragment;
-import com.jskingen.baseutils.R;
+import yin.style.sample.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
