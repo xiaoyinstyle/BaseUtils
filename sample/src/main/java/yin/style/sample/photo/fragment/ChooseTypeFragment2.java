@@ -74,9 +74,6 @@ public class ChooseTypeFragment2 extends NormalFragment {
 
     }
 
-    List<Uri> mSelected;
-    int REQUEST_CODE_CHOOSE = 105;
-
     private final int RESULT_TAKE_PHOTE = 100;
     private final int RESULT_OPEN_ALBUM = 101;
     private CommonPopupWindow popupWindow;
@@ -85,20 +82,6 @@ public class ChooseTypeFragment2 extends NormalFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            mSelected = Matisse.obtainResult(data);
-            Log.d("Matisse", "mSelected: " + mSelected);
-            if (mSelected.size() == 1) {
-                File file = FileUtils.getFile2Uri(mContext, mSelected.get(0));
-                LogUtils.e("文件：" + file.exists());
-                LogUtils.e("文件：" + file.getPath());
-
-                list.clear();
-                list.add(file);
-                photoAdapter.notifyDataSetChanged();
-            }
-        }
 
         if (resultCode == RESULT_OK) {
             if (requestCode == RESULT_TAKE_PHOTE) {
@@ -121,7 +104,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
     }
 
 
-    @OnClick({R.id.bt_takephoto, R.id.bt_album})
+    @OnClick({R.id.bt_takephoto})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_takephoto:
@@ -138,31 +121,6 @@ public class ChooseTypeFragment2 extends NormalFragment {
                             }
                         });
 
-                break;
-            case R.id.bt_album:
-                //相册选择
-                XPermission.getPermissions(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                        , false, false, new OnPermissionsListener() {
-                            @Override
-                            public void missPermission(String[] strings) {
-                                if (strings.length == 0) {
-                                    Matisse.from(mContext)
-                                            .choose(MimeType.of(MimeType.JPEG, MimeType.PNG))
-                                            .maxSelectable(1)
-                                            .countable(false)
-                                            .capture(true)
-                                            .captureStrategy(new CaptureStrategy(true, FileUtils.authority))
-//                                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//                                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                                            .thumbnailScale(0.85f)
-                                            .imageEngine(new GlideEngine())
-                                            .forResult(REQUEST_CODE_CHOOSE);
-                                } else {
-                                    ToastUtils.show("权限获取失败");
-                                }
-                            }
-                        });
                 break;
         }
     }
@@ -223,7 +181,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
                     }
                 })
                 .create();
-        popupWindow.showAtLocation(findViewById(R.id.root), Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
 
     }
 

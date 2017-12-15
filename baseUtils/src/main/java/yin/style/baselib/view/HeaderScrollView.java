@@ -1,7 +1,6 @@
 package yin.style.baselib.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
@@ -46,7 +45,7 @@ public class HeaderScrollView extends NestedScrollView {
     }
 
     private void initView(Context context) {
-        if (autoMeasureBanner && getChildCount() > 0) {
+        if (autoMeasureBanner ) {
             ViewTreeObserver vto = getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -143,7 +142,7 @@ public class HeaderScrollView extends NestedScrollView {
         this.isBgGradient = isBgGradient;
         setTitleBgAlpha(orgAlpha);
 
-        if (autoMeasureTitle && mTitleView != null) {
+        if (autoMeasureTitle && titleView != null) {
             ViewTreeObserver vto = getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override

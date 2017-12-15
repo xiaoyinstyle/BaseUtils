@@ -1,9 +1,9 @@
 package yin.style.baselib.activity.base;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import yin.style.baselib.R;
@@ -23,7 +23,7 @@ public abstract class TitleActivity extends NormalAcitivity {
     protected FrameLayout ll_title;
 
     @Override
-    protected void addTitleLayout(LinearLayout rootView) {
+    protected void addTitleLayout(ViewGroup rootView) {
         super.addTitleLayout(rootView);
 
         iv_left = (ImageView) titleView.findViewById(R.id.iv_left);

@@ -20,8 +20,6 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.utils.LogUtils;
 import yin.style.baselib.utils.ScreenUtil;
 
-import yin.style.sample.R;
-
 import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mTabActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
@@ -149,8 +147,7 @@ public class MainActivity extends TitleActivity {
 //                hideStatusView();
                 LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
 
-                setStatusBarText(mContext, b);
-                setStatusBarView(mContext, b, Color.parseColor("#55CCCCCC"));
+                setStatusBarView(mContext, b, Color.WHITE, false);
                 b = !b;
                 break;
 

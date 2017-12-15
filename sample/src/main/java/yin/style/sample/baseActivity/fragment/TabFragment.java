@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.Button;
 import android.widget.TextView;
 
+import yin.style.baselib.activity.base.NormalAcitivity;
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.LogUtils;
 
@@ -76,8 +77,7 @@ public class TabFragment extends NormalFragment {
     @OnClick(R.id.bt_change)
     public void onViewClicked() {
         index++;
-//        setStatusBarText(mContext, index % 2 == 0);
-//        setStatusBarView(mContext, index % 2 == 0, Color.MAGENTA);
+        setStatusBarView(mContext, index % 2 == 0);
 
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 

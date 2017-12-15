@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply from: "../config.gradle"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -48,8 +47,8 @@ android {
 
     productFlavors {
     }
-}
 
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -67,7 +66,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
 
     compile project(':matisse')
 //    compile 'com.zhihu.android:matisse:0.4.3'

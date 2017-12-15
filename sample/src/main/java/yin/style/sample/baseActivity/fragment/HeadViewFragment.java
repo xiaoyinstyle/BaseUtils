@@ -37,7 +37,7 @@ public class HeadViewFragment extends NormalFragment {
     protected void initView(Bundle savedInstanceState) {
 //        setStatusView(true);
         addTitle();
-        tsv.setTitleView(tView, false, 1);
+        tsv.setTitleView(tView, true, 0);
         tsv.setScrollViewListener(new HeaderScrollView.OnScrollListener() {
             @Override
             public void onScrollChanged(int bannerHeight, int titleHeight, int scrollHeight, float scale) {
@@ -60,8 +60,7 @@ public class HeadViewFragment extends NormalFragment {
         tView = View.inflate(mContext, R.layout.base_title, null);
         tView.setBackgroundColor(Color.BLUE);
 
-        setStatusBarText(mContext, true);
-        boolean isHas = setStatusBarView(mContext, false, Color.TRANSPARENT);
+        boolean isHas = setStatusBarView(mContext, false);
         tView.setPadding(0, isHas ? ScreenUtil.getStatusHeight(mContext) : 0, 0, 0);
 
         root.addView(tView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));

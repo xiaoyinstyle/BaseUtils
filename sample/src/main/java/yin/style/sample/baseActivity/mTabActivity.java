@@ -24,6 +24,8 @@ public class mTabActivity extends TabActivity {
 
     @Override
     protected void addFragment(List<TabEntity> tabEntities) {
+        setStatusBarView(mContext, false, 0,true);
+
         TabEntity tabEntity0 = new TabEntity();
         tabEntity0.setFragment(new HeadViewFragment());
         tabEntity0.setTitle(titles[0]);

@@ -17,6 +17,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.internal.ui.SelectedPreviewActivity;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
 
 import java.util.ArrayList;
@@ -54,8 +55,8 @@ public class ChooseTypeFragment extends NormalFragment {
     List<Object> list = new ArrayList<>();
 
     MediaStoreCompat mMediaStoreCompat;
-    int REQUEST_CODE_CHOOSE = 105;
-    int REQUEST_CODE_TAKEPHOTO = 106;
+    int REQUEST_CODE_CHOOSE = 205;
+    int REQUEST_CODE_TAKEPHOTO = 206;
 
     @Override
     protected int getViewByXml() {

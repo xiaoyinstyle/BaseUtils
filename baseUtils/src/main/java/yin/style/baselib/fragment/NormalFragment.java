@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,7 +21,7 @@ import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import yin.style.baselib.view.BarTextColorUtils;
+import yin.style.baselib.utils.StatusBarTextColor;
 
 /**
  * Created by ChneY on 2017/5/6.
@@ -31,9 +30,8 @@ import yin.style.baselib.view.BarTextColorUtils;
 public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
     protected Activity mContext;
-    public ViewGroup decorView;
     protected LinearLayout rootView;
-    protected View titleView;
+    public View titleView;
 
     private boolean hasLoad;
     private boolean hasInit;
@@ -43,10 +41,9 @@ public abstract class NormalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         //动态加载content
-        decorView = (ViewGroup) inflater.inflate(R.layout.base_activity, container, false);
+        ViewGroup decorView = (ViewGroup) inflater.inflate(R.layout.base_activity, container, false);
         rootView = (LinearLayout) decorView.findViewById(R.id.base_root);
         addTitleLayout(rootView);//加载Title布局
-//        setStatusView();//沉浸式
 
         View view = View.inflate(getContext(), getViewByXml(), null);
         rootView.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -69,21 +66,10 @@ public abstract class NormalFragment extends Fragment {
         initData(); //设置数据
     }
 
-    protected void addTitleLayout(LinearLayout rootView) {
+    protected void addTitleLayout(ViewGroup rootView) {
         titleView = View.inflate(mContext, R.layout.base_title, null);
         titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-    }
-
-    /**
-     * 设置Activity的沉浸式到Fragment中（使用时，有一定的约束条件）
-     */
-    protected final void setStatusView(boolean isTransparent) {
-        if (mContext instanceof NormalAcitivity) {
-            ((NormalAcitivity) mContext).setStatusBarView(mContext, false, Color.TRANSPARENT);
-            if (!isTransparent)
-                setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark));
-        }
     }
 
     protected abstract int getViewByXml();
@@ -144,13 +130,13 @@ public abstract class NormalFragment extends Fragment {
      * <p>
      * 与 setStatusView() 配合使用
      */
-    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isShowStatus) {
-                StatusBarCompat.compat(this, statusBarColor);
+//                StatusBarCompat.compat(this, statusBarColor);
                 titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
             } else {
-                StatusBarCompat.compat(this, Color.TRANSPARENT);
+//                StatusBarCompat.compat(this, Color.TRANSPARENT);
                 titleView.setPadding(0, 0, 0, 0);
             }
             return true;
@@ -164,7 +150,7 @@ public abstract class NormalFragment extends Fragment {
      */
     public boolean setStatusBarText(Activity activity, boolean barTextDark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            BarTextColorUtils.StatusBarLightMode(activity, barTextDark);
+            StatusBarTextColor.StatusBarLightMode(activity, barTextDark);
             return true;
         } else {
             return false;

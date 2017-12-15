@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import yin.style.baselib.fragment.NormalFragment;
 
 /**
- * Created by BangDu on 2017/11/30.
+ * Created by 陈银 on 2017/12/15 10:15
+ * <p>
+ * 状态栏背景沉浸式
  */
-
 public class StatusBarCompat {
     private static final int INVALID_VAL = -1;
     private static final int COLOR_DEFAULT = Color.parseColor("#20000000");
@@ -50,7 +51,7 @@ public class StatusBarCompat {
                 statusBarView = new StatusBarView(activity);
 
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        getStatusBarHeight(activity));
+                        ScreenUtil.getStatusHeight(activity));
                 contentView.addView(statusBarView, lp);
             }
             statusBarView.setBackgroundColor(color);
@@ -70,7 +71,7 @@ public class StatusBarCompat {
 //        //当前手机版本为4.4
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 //            int color = COLOR_DEFAULT;
-//            ViewGroup contentView = (ViewGroup) fragment.decorView;
+//            ViewGroup contentView = (ViewGroup) fragment.titleView;
 //            if (statusColor != INVALID_VAL) {
 //                color = statusColor;
 //            }
@@ -85,7 +86,7 @@ public class StatusBarCompat {
 //                statusBarView = new StatusBarView(fragment.getContext());
 //
 //                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                        getStatusBarHeight(fragment.getContext()));
+//                        ScreenUtil.getStatusHeight(fragment.getContext()));
 //                contentView.addView(statusBarView, lp);
 //            }
 //            statusBarView.setBackgroundColor(color);
@@ -98,16 +99,7 @@ public class StatusBarCompat {
     }
 
 
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-  public   static class StatusBarView extends View {
+    public static class StatusBarView extends View {
 
         public StatusBarView(Context context) {
             super(context);

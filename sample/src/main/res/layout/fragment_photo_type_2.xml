@@ -20,13 +20,9 @@
             android:id="@+id/bt_takephoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="仅拍照" />
+            android:text="弹框" />
 
-        <Button
-            android:id="@+id/bt_album"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="相册单选" />
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

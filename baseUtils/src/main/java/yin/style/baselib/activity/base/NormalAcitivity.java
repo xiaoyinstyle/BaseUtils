@@ -20,7 +20,7 @@ import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
-import yin.style.baselib.view.BarTextColorUtils;
+import yin.style.baselib.utils.StatusBarTextColor;
 
 /**
  * Created by ChneY on 2017/4/22.
@@ -63,7 +63,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         return false;
     }
 
-    protected void addTitleLayout(LinearLayout rootView) {
+    protected void addTitleLayout(ViewGroup rootView) {
         titleView = View.inflate(mContext, R.layout.base_title, null);
         titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -85,7 +85,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
             return;
         }
 
-        setStatusBarView(mContext, true,  getResources().getColor(R.color.colorPrimaryDark));
+        setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), false);
     }
 
     protected abstract int getViewByXml();
@@ -118,28 +118,16 @@ public abstract class NormalAcitivity extends AppCompatActivity {
     /**
      * 设置沉浸式
      */
-    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor) {
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isShowStatus) {
-                StatusBarCompat.compat(this, statusBarColor);
+                StatusBarCompat.compat(activity, statusBarColor);
                 titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
             } else {
                 titleView.setPadding(0, 0, 0, 0);
-                StatusBarCompat.compat(this, Color.TRANSPARENT);
+                StatusBarCompat.compat(activity, Color.TRANSPARENT);
             }
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 设置沉浸式 字体颜色
-     */
-    public boolean setStatusBarText(Activity activity, boolean barTextDark) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            BarTextColorUtils.StatusBarLightMode(activity, barTextDark);
+            StatusBarTextColor.StatusBarLightMode(activity, barTextDark);
             return true;
         } else {
             return false;
