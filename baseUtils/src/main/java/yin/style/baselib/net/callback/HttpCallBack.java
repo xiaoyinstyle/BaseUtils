@@ -1,6 +1,9 @@
 package yin.style.baselib.net.callback;
 
 import com.google.gson.Gson;
+
+import okhttp3.Call;
+import yin.style.baselib.BaseHelp;
 import yin.style.baselib.net.exception.NetException;
 import yin.style.baselib.net.inter.ICallBack;
 import yin.style.baselib.utils.LogUtils;
@@ -13,11 +16,16 @@ import java.lang.reflect.Type;
  */
 
 public abstract class HttpCallBack<T> implements ICallBack {
+    @Override
+    public void onStart(Call call) {
+        if (BaseHelp.getInstance().isDebug())
+            LogUtils.d(call.request().url().toString());
+    }
 
     @Override
     public void onSuccess(String result) {
-//        if(BaseHelp.getInstance().isDebug())
-        LogUtils.d(result);
+        if (BaseHelp.getInstance().isDebug())
+            LogUtils.d(result);
         Class<?> clz = null;
         try {
             clz = analysisClassInfo(this);
@@ -27,8 +35,9 @@ public abstract class HttpCallBack<T> implements ICallBack {
         T t;
         if (clz.equals(String.class) || clz.equals(null)) {
             t = (T) result;
-        } else
+        } else {
             t = (T) new Gson().fromJson(result, clz);
+        }
 
         try {
             onSuccess(t);

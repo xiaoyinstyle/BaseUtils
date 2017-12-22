@@ -115,15 +115,15 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
 
                 if (view instanceof EmptyView) {
                     int otherHeight = 0;
-                    for (int j = 0; j < parent.getChildCount(); j++) {
-                        if (j == i)
-                            continue;
-                        otherHeight = otherHeight + view.getHeight() + space * 2;
-                    }
+//                    for (int j = 0; j < parent.getChildCount(); j++) {
+//                        if (j == i)
+//                            continue;
+//                        otherHeight = otherHeight + view.getHeight() + space * 2;
+//                    }
 
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) view.getLayoutParams();
-                    if (otherHeight != 0)
-                        layoutParams.height = parent.getBottom() - space * 2 - otherHeight;
+//                    if (otherHeight != 0)
+//                        layoutParams.height = parent.getBottom() - space * 2 - otherHeight;
                     layoutParams.width = parent.getRight() - space * 2;
                     view.setLayoutParams(layoutParams);
                     return true;

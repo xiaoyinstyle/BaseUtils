@@ -76,8 +76,8 @@ public abstract class RecyclerViewFragment extends TitleFragment {
      * 重写这个 设置间隔线
      */
     protected void setItemDecoration() {
-        RecyclerView.ItemDecoration itemDecoration = new BaseDividerItem(1, setItemColor());
-        mRecyclerView.addItemDecoration(itemDecoration);
+//        RecyclerView.ItemDecoration itemDecoration = new BaseDividerItem(1, setItemColor());
+//        mRecyclerView.addItemDecoration(itemDecoration);
     }
 
     /**

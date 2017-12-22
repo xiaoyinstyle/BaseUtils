@@ -18,6 +18,6 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/activity_tab_height"
         android:background="@android:color/white" />
 </LinearLayout>

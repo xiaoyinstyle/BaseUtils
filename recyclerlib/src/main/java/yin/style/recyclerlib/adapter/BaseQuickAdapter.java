@@ -37,6 +37,8 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     private int footerViewCount = 0;
     private boolean showEmptyView = true;
 
+    private int gridNumb = 1;
+
     public BaseQuickAdapter(Context mContext, List mData) {
         this.mContext = mContext;
         this.mData = mData;
@@ -101,7 +103,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_EMPTY) {
             //空布局
-            View empty = getEmptyView(parent);
+            EmptyView empty = getEmptyView(parent);
             setOnclickEmpty(empty);
             return new BaseViewHolder(empty);
         } else if (viewType == TYPE_HEADER) {
@@ -151,7 +153,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
         }
     }
 
-    private View getEmptyView(ViewGroup view) {
+    private EmptyView getEmptyView(ViewGroup view) {
         EmptyView eV = new EmptyView(mContext);
         eV.setGravity(Gravity.CENTER);
         eV.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -159,6 +161,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
             emptyView = LayoutInflater.from(mContext).inflate(R.layout.listview_empty, view, false);
         }
         eV.addView(emptyView);
+
         return eV;
     }
 

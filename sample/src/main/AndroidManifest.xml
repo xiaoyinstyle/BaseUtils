@@ -32,7 +32,6 @@
         <activity android:name=".http.mNetworkActivity" />
         <activity android:name=".http.mDownloadActivity" />
         <activity android:name=".photo.TakePhotoActivity" />
-        <activity android:name=".photo.TakePhotoActivity2" />
         <activity android:name=".baseActivity.mWebviewActivity" />
         <activity android:name=".http.mUpdateActivity" />
         <activity android:name=".utils.mDialogActivity" />

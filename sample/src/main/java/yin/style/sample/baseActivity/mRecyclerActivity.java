@@ -1,13 +1,17 @@
 package yin.style.sample.baseActivity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import yin.style.baselib.activity.base.RecyclerViewActivity;
 
+import yin.style.baselib.utils.ToastUtils;
+import yin.style.recyclerlib.inter.OnItemTouchListener;
 import yin.style.sample.R;
 
 import java.util.ArrayList;
@@ -43,10 +47,27 @@ public class mRecyclerActivity extends RecyclerViewActivity {
     }
 
     @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+
+        mRecyclerView.addOnItemTouchListener(new OnItemTouchListener(this) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder viewHolder) {
+                ToastUtils.show("66__" + viewHolder.getLayoutPosition());
+            }
+
+            @Override
+            public void onItemLOngClick(RecyclerView.ViewHolder viewHolder) {
+                ToastUtils.show("777");
+            }
+        });
+    }
+
+    @Override
     protected void initData() {
         setCanRefresh(true);
         setCanLoading(true);
-        refresh();
+//        refresh();
 
         setListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -103,9 +124,9 @@ public class mRecyclerActivity extends RecyclerViewActivity {
 
     @Override
     protected int setGridNumb() {
-        if (liner)
-            return 0;
-        else
+//        if (liner)
+//            return 0;
+//        else
             return 4;
     }
 

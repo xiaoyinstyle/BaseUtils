@@ -76,8 +76,8 @@ public abstract class RecyclerViewActivity extends TitleActivity {
      * 重写这个 设置间隔线
      */
     protected void setItemDecoration() {
-        itemDecoration = new BaseDividerItem(1, setItemColor());
-        mRecyclerView.addItemDecoration(itemDecoration);
+//        itemDecoration = new BaseDividerItem(1, setItemColor());
+//        mRecyclerView.addItemDecoration(itemDecoration);
     }
 
     /**
