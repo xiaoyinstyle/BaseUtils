@@ -169,7 +169,6 @@ public class ScreenUtil {
         if (resourceId > 0) {
             //根据资源ID获取响应的尺寸值
             statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
-            LogUtils.i("状态栏-方法1:" + statusBarHeight);
         } else {
             //方法2: 通过R类的反射
             try {
@@ -178,7 +177,6 @@ public class ScreenUtil {
                 int height = Integer.parseInt(clazz.getField("status_bar_height")
                         .get(object).toString());
                 statusBarHeight = context.getResources().getDimensionPixelSize(height);
-                LogUtils.i("状态栏-方法2:" + statusBarHeight);
             } catch (Exception e) {
 //                e.printStackTrace();
                 LogUtils.i("状态栏-获取失败");

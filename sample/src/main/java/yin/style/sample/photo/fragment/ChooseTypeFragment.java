@@ -10,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
-import com.zhihu.matisse.internal.ui.SelectedPreviewActivity;
 import com.zhihu.matisse.internal.utils.MediaStoreCompat;
 
 import java.util.ArrayList;
@@ -25,11 +23,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import yin.style.baselib.photo.PicturePreviewActivity;
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
+import yin.style.baselib.photo.PictureUtils;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.utils.ToastUtils;
+import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.sample.R;
 import yin.style.sample.photo.GifSizeFilter;
 import yin.style.sample.photo.adapter.PhotoAdapter;
@@ -52,7 +53,7 @@ public class ChooseTypeFragment extends NormalFragment {
     RecyclerView recyclerview;
 
     PhotoAdapter photoAdapter;
-    List<Object> list = new ArrayList<>();
+    ArrayList<Object> list = new ArrayList<>();
 
     MediaStoreCompat mMediaStoreCompat;
     int REQUEST_CODE_CHOOSE = 205;
@@ -68,6 +69,13 @@ public class ChooseTypeFragment extends NormalFragment {
         photoAdapter = new PhotoAdapter(mContext, list);
         recyclerview.setLayoutManager(new GridLayoutManager(mContext, 4));
         recyclerview.setAdapter(photoAdapter);
+
+        photoAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                PictureUtils.preview(mContext, list, position, false);
+            }
+        });
     }
 
     @Override
@@ -82,7 +90,6 @@ public class ChooseTypeFragment extends NormalFragment {
         switch (view.getId()) {
             case R.id.bt_takephoto:
                 // 只拍照
-                //相册选择
                 XPermission.getPermissions(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                         , false, false, new OnPermissionsListener() {
                             @Override
@@ -107,7 +114,7 @@ public class ChooseTypeFragment extends NormalFragment {
                                 if (strings.length == 0) {
                                     Matisse.from(mContext)
                                             .choose(MimeType.ofImage())
-                                            .theme(R.style.Matisse_Dracula)
+                                            .theme(R.style.Matisse_Zhihu)
                                             .countable(false)
                                             .maxSelectable(1)
 //                                            .imageEngine(new PicassoEngine())
@@ -164,17 +171,4 @@ public class ChooseTypeFragment extends NormalFragment {
             photoAdapter.notifyDataSetChanged();
         }
     }
-
-    /**
-     * 预览
-     */
-    private void preView() {
-//        Intent intent = new Intent(this, SelectedPreviewActivity.class);
-//
-//        Bundle bundle =new Bundle();
-//        bundle.pu
-//        intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-//        startActivity(intent);
-    }
-
 }

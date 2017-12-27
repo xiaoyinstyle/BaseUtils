@@ -20,7 +20,7 @@
         </provider>
 
         <activity
-            android:name="yin.style.baselib.activity.PicturePreviewActivity"
+            android:name="yin.style.baselib.photo.PicturePreviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 

@@ -14,7 +14,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -22,7 +23,9 @@
             android:layout_height="35dp"
             android:layout_margin="15dp"
             android:padding="5dp"
-            android:src="@mipmap/base_close" />
+            android:src="@mipmap/base_close"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </RelativeLayout>
 
     <LinearLayout

@@ -62,6 +62,7 @@ public abstract class NormalFragment extends Fragment {
 
     //懒加载
     private void init(Bundle savedInstanceState) {
+        hasLoad = true;
         initView(savedInstanceState);   //初始化布局
         initData(); //设置数据
     }
@@ -102,9 +103,7 @@ public abstract class NormalFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (setLazy() && getUserVisibleHint()) {
-//            LogUtils.e("AAA", "setUserVisibleHint--" + isVisibleToUser);
             if (hasInit && !hasLoad) {
-                hasLoad = true;
                 init(null);
             }
         }

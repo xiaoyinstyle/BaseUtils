@@ -1,5 +1,6 @@
 package yin.style.baselib.permission;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -17,6 +18,11 @@ import java.util.List;
  */
 
 public class XPermission {
+    public static final String CAMERA = Manifest.permission.CAMERA;
+    public static final String WRITE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
+
+
     private static final String TAG = "xPermissions";
 
     public static void getPermissions(Activity activity, String[] permissions, boolean isShowDialog, boolean dialogCanCancel, OnPermissionsListener listener) {
