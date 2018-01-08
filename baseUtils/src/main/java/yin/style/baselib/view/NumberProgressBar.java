@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import yin.style.baselib.R;
-import yin.style.baselib.view.inter.OnProgressBarListener;
 
 import static yin.style.baselib.view.NumberProgressBar.ProgressTextVisibility.Invisible;
 import static yin.style.baselib.view.NumberProgressBar.ProgressTextVisibility.Visible;
@@ -505,5 +504,9 @@ public class NumberProgressBar extends View {
 
     public void setOnProgressBarListener(OnProgressBarListener listener) {
         mListener = listener;
+    }
+
+    public interface OnProgressBarListener {
+        void onProgressChange(int current, int max);
     }
 }

@@ -21,11 +21,48 @@ public class XPermission {
     public static final String CAMERA = Manifest.permission.CAMERA;
     public static final String WRITE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
+    public static final String LOCATION_GPS = Manifest.permission.ACCESS_FINE_LOCATION;
+    public static final String LOCATION_NET = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final String PHONE = Manifest.permission.CALL_PHONE;
+    public static final String SMS = Manifest.permission.SEND_SMS;
 
+    private static final String TAG = "XPermissions";
 
-    private static final String TAG = "xPermissions";
+    public static XPermission init(Activity activity) {
+        return new XPermission(activity);
+    }
 
-    public static void getPermissions(Activity activity, String[] permissions, boolean isShowDialog, boolean dialogCanCancel, OnPermissionsListener listener) {
+    public XPermission setPermissions(String... permissions) {
+        this.permissions = permissions;
+        return this;
+    }
+
+    public XPermission showDialog(boolean isShowDialog, boolean dialogCanCancel) {
+        this.isShowDialog = isShowDialog;
+        this.dialogCanCancel = dialogCanCancel;
+        return this;
+    }
+
+    public void get(OnPermissionsListener listener) {
+        if (permissions == null)
+            return;
+
+        start(listener);
+    }
+
+    private Activity activity;
+    private String[] permissions;
+    private boolean isShowDialog;
+    private boolean dialogCanCancel;
+
+    private XPermission() {
+    }
+
+    private XPermission(Activity activity) {
+        this.activity = activity;
+    }
+
+    private void start(OnPermissionsListener listener) {
         //如果低于版本6.0 ，则退出权限获取，返回 true
         if (Build.VERSION.SDK_INT < 23) {
             if (listener != null)
@@ -40,10 +77,6 @@ public class XPermission {
         } else {
             listener.missPermission(new String[0]);
         }
-    }
-
-    public static void getPermissions(Activity activity, String[] permissions, OnPermissionsListener listener) {
-        getPermissions(activity, permissions, false, false, listener);
     }
 
     /**

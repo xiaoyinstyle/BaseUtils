@@ -1,22 +1,8 @@
 package yin.style.sample.photo;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.io.File;
-import java.util.UUID;
-
-import yin.style.baselib.utils.FileUtils;
-import yin.style.baselib.view.PopupWindow.CommonPopupWindow;
-import yin.style.sample.R;
+import yin.style.baselib.view.popupWindow.CommonPopupWindow;
 
 /**
  * Created by BangDu on 2017/12/15.

@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/progress_custom_bg"
+    android:background="@drawable/progress_custom_bg_black"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="20dp"

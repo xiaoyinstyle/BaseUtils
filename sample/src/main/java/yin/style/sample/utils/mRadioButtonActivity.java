@@ -9,7 +9,7 @@ import android.widget.RadioGroup;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.sample.R;
-import yin.style.baselib.view.mDrawable;
+import yin.style.baselib.view.TestChoiceDrawable;
 
 import butterknife.BindView;
 
@@ -41,12 +41,12 @@ public class mRadioButtonActivity extends TitleActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         int width = (int) ScreenUtil.sp2px(this, 17);
-        rb1.setButtonDrawable(mDrawable.getCheckDrawable("A", width, Color.WHITE, Color.BLUE, Color.GRAY));
-        rb2.setButtonDrawable(mDrawable.getCheckDrawable("B", width, Color.WHITE, Color.BLUE, Color.GRAY));
+        rb1.setButtonDrawable(TestChoiceDrawable.getCheckDrawable("A", width, Color.WHITE, Color.BLUE, Color.GRAY));
+        rb2.setButtonDrawable(TestChoiceDrawable.getCheckDrawable("B", width, Color.WHITE, Color.BLUE, Color.GRAY));
 
-        cb1.setButtonDrawable(mDrawable.getCheckDrawable("A", width, Color.WHITE, Color.BLUE, Color.GRAY));
-        cb2.setButtonDrawable(mDrawable.getCheckDrawable("B", width, Color.WHITE, Color.BLUE, Color.GRAY));
-        cb3.setButtonDrawable(mDrawable.getCheckDrawable("C", width, Color.WHITE, Color.BLUE, Color.GRAY));
+        cb1.setButtonDrawable(TestChoiceDrawable.getCheckDrawable("A", width, Color.WHITE, Color.BLUE, Color.GRAY));
+        cb2.setButtonDrawable(TestChoiceDrawable.getCheckDrawable("B", width, Color.WHITE, Color.BLUE, Color.GRAY));
+        cb3.setButtonDrawable(TestChoiceDrawable.getCheckDrawable("C", width, Color.WHITE, Color.BLUE, Color.GRAY));
     }
 
     @Override

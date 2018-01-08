@@ -14,11 +14,11 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by Chne on 2017/10/21.
- *
- *  试题的选择效果 适合 checkBox与radioButton
- * */
+ * <p>
+ * 试题的选择A、B、C、D效果 适合 checkBox与radioButton
+ */
 
-public class mDrawable extends Drawable {
+public class TestChoiceDrawable extends Drawable {
 
     private Paint mPaintCircle;
     private Paint mPaintText;
@@ -26,15 +26,15 @@ public class mDrawable extends Drawable {
     private int textSizePx = 30;
     private int mWidth;
 
-//    private mDrawable(String mText, boolean checkStatue) {
+//    private TestChoiceDrawable(String mText, boolean checkStatue) {
 //        this(mText, checkStatue, 60, Color.WHITE, Color.BLUE, Color.parseColor("#dfdfdf"));
 //    }
 //
-//    private mDrawable(String mText, boolean checkStatue, @ColorInt int bgColor) {
+//    private TestChoiceDrawable(String mText, boolean checkStatue, @ColorInt int bgColor) {
 //        this(mText, checkStatue, 60, Color.WHITE, bgColor, Color.parseColor("#dfdfdf"));
 //    }
 
-    private mDrawable(String mText, boolean checkStatue, int textSize_px, @ColorInt int textColor, @ColorInt int bgColor, @ColorInt int circleColor) {
+    private TestChoiceDrawable(String mText, boolean checkStatue, int textSize_px, @ColorInt int textColor, @ColorInt int bgColor, @ColorInt int circleColor) {
         this.mText = mText;
         this.textSizePx = textSize_px;
         mWidth = (int) (textSize_px * 1.6f);
@@ -98,9 +98,9 @@ public class mDrawable extends Drawable {
                                                      @ColorInt int textColor, @ColorInt int bgColor, @ColorInt int circleColor) {
 
         StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[]{android.R.attr.state_checked}, new mDrawable(mText, true, textSize_px, textColor, bgColor, circleColor));
+        drawable.addState(new int[]{android.R.attr.state_checked}, new TestChoiceDrawable(mText, true, textSize_px, textColor, bgColor, circleColor));
 //        drawable.addState(new int[]{android.R.attr.state_, android.R.attr.state_pressed}, mEnabledPressedDrawable);
-        drawable.addState(new int[0], new mDrawable(mText, false, textSize_px, textColor, bgColor, circleColor));
+        drawable.addState(new int[0], new TestChoiceDrawable(mText, false, textSize_px, textColor, bgColor, circleColor));
         return drawable;
     }
 }

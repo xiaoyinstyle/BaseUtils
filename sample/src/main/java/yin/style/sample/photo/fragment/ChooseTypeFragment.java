@@ -90,41 +90,21 @@ public class ChooseTypeFragment extends NormalFragment {
         switch (view.getId()) {
             case R.id.bt_takephoto:
                 // 只拍照
-                XPermission.getPermissions(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                        , false, false, new OnPermissionsListener() {
-                            @Override
-                            public void missPermission(String[] strings) {
-                                if (strings.length == 0) {
-                                    if (mMediaStoreCompat != null) {
-                                        mMediaStoreCompat.dispatchCaptureIntent(mContext, REQUEST_CODE_TAKEPHOTO);
-                                    }
-                                } else {
-                                    ToastUtils.show("权限获取失败");
-                                }
-                            }
-                        });
+                if (mMediaStoreCompat != null) {
+                    mMediaStoreCompat.dispatchCaptureIntent(mContext, REQUEST_CODE_TAKEPHOTO);
+                }
 
                 break;
             case R.id.bt_album:
                 //相册选择
-                XPermission.getPermissions(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                        , false, false, new OnPermissionsListener() {
-                            @Override
-                            public void missPermission(String[] strings) {
-                                if (strings.length == 0) {
-                                    Matisse.from(mContext)
-                                            .choose(MimeType.ofImage())
-                                            .theme(R.style.Matisse_Zhihu)
-                                            .countable(false)
-                                            .maxSelectable(1)
+                Matisse.from(mContext)
+                        .choose(MimeType.ofImage())
+                        .theme(R.style.Matisse_Zhihu)
+                        .countable(false)
+                        .maxSelectable(1)
 //                                            .imageEngine(new PicassoEngine())
-                                            .imageEngine(new GlideEngine())
-                                            .forResult(REQUEST_CODE_CHOOSE);
-                                } else {
-                                    ToastUtils.show("权限获取失败");
-                                }
-                            }
-                        });
+                        .imageEngine(new GlideEngine())
+                        .forResult(REQUEST_CODE_CHOOSE);
                 break;
             case R.id.bt_album_more:
                 //选择张数

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
+
 import yin.style.baselib.R;
 
 /**
@@ -130,6 +131,17 @@ public class LoadingDialog extends Dialog {
 
         public Builder setBackground(@DrawableRes int backgroundRes) {
             loadingDialog.setBackground(backgroundRes);
+            return this;
+        }
+
+        public Builder setThemeWhite(boolean isWhite) {
+            if (isWhite) {
+                loadingDialog.setBackground(R.drawable.progress_custom_bg);
+                loadingDialog.setTextColor(Color.parseColor("#a7a7a7"));
+            } else {
+                loadingDialog.setBackground(R.drawable.progress_custom_bg_black);
+                loadingDialog.setTextColor(Color.WHITE);
+            }
             return this;
         }
 

@@ -48,12 +48,18 @@ public class mPermissionsActivity extends TitleActivity {
         switch (view.getId()) {
             case R.id.getPermissions:
                 boolean isShowDialog = ((CheckBox) findViewById(R.id.checkbox)).isChecked();
-                XPermission.getPermissions(mPermissionsActivity.this, PERMISSIONS, isShowDialog, false, new OnPermissionsListener() {
-                    @Override
-                    public void missPermission(String[] permissions) {
-                        ToastUtils.show("未获取权限个数：" + permissions.length);
-                    }
-                });
+                XPermission.init(mContext)
+                        .setPermissions(PERMISSIONS)
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .showDialog(isShowDialog, true)
+                        .get(new OnPermissionsListener() {
+                            @Override
+                            public void missPermission(String[] permissions) {
+                                ToastUtils.show("未获取权限个数：" + permissions.length);
+                            }
+                        });
+
                 break;
             case R.id.getList:
                 String[] str = XPermission.lacksPermissions(mPermissionsActivity.this, PERMISSIONS);

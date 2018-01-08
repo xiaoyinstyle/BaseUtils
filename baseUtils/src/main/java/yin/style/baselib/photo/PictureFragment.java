@@ -12,10 +12,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
 import yin.style.baselib.R;
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.LogUtils;
+import yin.style.baselib.view.photoview.PhotoViewAttacher;
 
 /**
  * Created by 陈银 on 2017/12/27 11:20

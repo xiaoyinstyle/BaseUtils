@@ -1,4 +1,4 @@
-package yin.style.baselib.view.PopupWindow;
+package yin.style.baselib.view.popupWindow;
 
 import android.content.Context;
 import android.view.View;

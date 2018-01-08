@@ -42,7 +42,6 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
 
     //可放大缩小的 IamgeView
-    compile 'com.commit451:PhotoView:1.2.4'
     compile project(':recyclerlib')
 }
 

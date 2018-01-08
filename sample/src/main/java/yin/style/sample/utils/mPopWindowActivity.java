@@ -15,7 +15,7 @@ import android.widget.Button;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
-import yin.style.baselib.view.PopupWindow.CommonPopupWindow;
+import yin.style.baselib.view.popupWindow.CommonPopupWindow;
 import yin.style.sample.R;
 
 import java.util.ArrayList;

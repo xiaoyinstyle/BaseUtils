@@ -2,27 +2,18 @@ package yin.style.sample.photo.fragment;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,13 +23,12 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.OnClick;
 import yin.style.baselib.fragment.NormalFragment;
-import yin.style.baselib.imageload.GlideUtil;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.utils.LogUtils;
 import yin.style.baselib.utils.ToastUtils;
-import yin.style.baselib.view.PopupWindow.CommonPopupWindow;
+import yin.style.baselib.view.popupWindow.CommonPopupWindow;
 import yin.style.sample.R;
 import yin.style.sample.photo.adapter.PhotoAdapter;
 
@@ -109,18 +99,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
         switch (view.getId()) {
             case R.id.bt_takephoto:
                 // 只拍照
-                XPermission.getPermissions(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                        , false, false, new OnPermissionsListener() {
-                            @Override
-                            public void missPermission(String[] strings) {
-                                if (strings.length == 0) {
-                                    showPictureDialog();
-                                } else {
-                                    ToastUtils.show("权限获取失败");
-                                }
-                            }
-                        });
-
+                showPictureDialog();
                 break;
         }
     }
