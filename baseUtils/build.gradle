@@ -45,6 +45,7 @@ dependencies {
     compile project(':recyclerlib')
 }
 
+
 ////添加这两行
 //apply plugin: 'com.github.dcendents.android-maven'
 //apply plugin: 'com.jfrog.bintray'

@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * @attr ref R.styleable.AutofitTextView_minTextSize
  * @attr ref R.styleable.AutofitTextView_precision
  */
-public class AutofitHelper {
+public class AutoFitHelper {
 
     private static final String TAG = "AutoFitTextHelper";
     private static final boolean SPEW = false;
@@ -41,27 +41,27 @@ public class AutofitHelper {
     private static final float DEFAULT_PRECISION = 0.5f;
 
     /**
-     * Creates a new instance of {@code AutofitHelper} that wraps a {@link TextView} and enables
+     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
      * automatically sizing the text to fit.
      */
-    public static AutofitHelper create(TextView view) {
+    public static AutoFitHelper create(TextView view) {
         return create(view, null, 0);
     }
 
     /**
-     * Creates a new instance of {@code AutofitHelper} that wraps a {@link TextView} and enables
+     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
      * automatically sizing the text to fit.
      */
-    public static AutofitHelper create(TextView view, AttributeSet attrs) {
+    public static AutoFitHelper create(TextView view, AttributeSet attrs) {
         return create(view, attrs, 0);
     }
 
     /**
-     * Creates a new instance of {@code AutofitHelper} that wraps a {@link TextView} and enables
+     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
      * automatically sizing the text to fit.
      */
-    public static AutofitHelper create(TextView view, AttributeSet attrs, int defStyle) {
-        AutofitHelper helper = new AutofitHelper(view);
+    public static AutoFitHelper create(TextView view, AttributeSet attrs, int defStyle) {
+        AutoFitHelper helper = new AutoFitHelper(view);
         boolean sizeToFit = true;
         if (attrs != null) {
             Context context = view.getContext();
@@ -69,12 +69,12 @@ public class AutofitHelper {
             float precision = helper.getPrecision();
 
             TypedArray ta = context.obtainStyledAttributes(
-                    attrs, R.styleable.AutofitTextView,
+                    attrs, R.styleable.AutoFitTextView,
                     defStyle, 0);
-            sizeToFit = ta.getBoolean(R.styleable.AutofitTextView_sizeToFit, sizeToFit);
-            minTextSize = ta.getDimensionPixelSize(R.styleable.AutofitTextView_minTextSize,
+            sizeToFit = ta.getBoolean(R.styleable.AutoFitTextView_sizeToFit, sizeToFit);
+            minTextSize = ta.getDimensionPixelSize(R.styleable.AutoFitTextView_minTextSize,
                     minTextSize);
-            precision = ta.getFloat(R.styleable.AutofitTextView_precision, precision);
+            precision = ta.getFloat(R.styleable.AutoFitTextView_precision, precision);
             ta.recycle();
 
             helper.setMinTextSize(TypedValue.COMPLEX_UNIT_PX, minTextSize)
@@ -239,7 +239,7 @@ public class AutofitHelper {
     private View.OnLayoutChangeListener mOnLayoutChangeListener =
             new AutofitOnLayoutChangeListener();
 
-    private AutofitHelper(TextView view) {
+    private AutoFitHelper(TextView view) {
         final Context context = view.getContext();
         float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
 
@@ -257,7 +257,7 @@ public class AutofitHelper {
      * Adds an {@link OnTextSizeChangeListener} to the list of those whose methods are called
      * whenever the {@link TextView}'s {@code textSize} changes.
      */
-    public AutofitHelper addOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
+    public AutoFitHelper addOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
         if (mListeners == null) {
             mListeners = new ArrayList<OnTextSizeChangeListener>();
         }
@@ -269,7 +269,7 @@ public class AutofitHelper {
      * Removes the specified {@link OnTextSizeChangeListener} from the list of those whose methods
      * are called whenever the {@link TextView}'s {@code textSize} changes.
      */
-    public AutofitHelper removeOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
+    public AutoFitHelper removeOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
         if (mListeners != null) {
             mListeners.remove(listener);
         }
@@ -290,7 +290,7 @@ public class AutofitHelper {
      *
      * @param precision The amount of precision.
      */
-    public AutofitHelper setPrecision(float precision) {
+    public AutoFitHelper setPrecision(float precision) {
         if (mPrecision != precision) {
             mPrecision = precision;
 
@@ -313,7 +313,7 @@ public class AutofitHelper {
      * @param size The scaled pixel size.
      * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
      */
-    public AutofitHelper setMinTextSize(float size) {
+    public AutoFitHelper setMinTextSize(float size) {
         return setMinTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
@@ -325,7 +325,7 @@ public class AutofitHelper {
      * @param size The desired size in the given units.
      * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
      */
-    public AutofitHelper setMinTextSize(int unit, float size) {
+    public AutoFitHelper setMinTextSize(int unit, float size) {
         Context context = mTextView.getContext();
         Resources r = Resources.getSystem();
 
@@ -359,7 +359,7 @@ public class AutofitHelper {
      * @param size The scaled pixel size.
      * @attr ref android.R.styleable#TextView_textSize
      */
-    public AutofitHelper setMaxTextSize(float size) {
+    public AutoFitHelper setMaxTextSize(float size) {
         return setMaxTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
@@ -371,7 +371,7 @@ public class AutofitHelper {
      * @param size The desired size in the given units.
      * @attr ref android.R.styleable#TextView_textSize
      */
-    public AutofitHelper setMaxTextSize(int unit, float size) {
+    public AutoFitHelper setMaxTextSize(int unit, float size) {
         Context context = mTextView.getContext();
         Resources r = Resources.getSystem();
 
@@ -401,7 +401,7 @@ public class AutofitHelper {
     /**
      * @see TextView#setMaxLines(int)
      */
-    public AutofitHelper setMaxLines(int lines) {
+    public AutoFitHelper setMaxLines(int lines) {
         if (mMaxLines != lines) {
             mMaxLines = lines;
 
@@ -420,7 +420,7 @@ public class AutofitHelper {
     /**
      * Set the enabled state of automatically resizing text.
      */
-    public AutofitHelper setEnabled(boolean enabled) {
+    public AutoFitHelper setEnabled(boolean enabled) {
         if (mEnabled != enabled) {
             mEnabled = enabled;
 
@@ -534,7 +534,7 @@ public class AutofitHelper {
     }
 
     /**
-     * When an object of a type is attached to an {@code AutofitHelper}, its methods will be called
+     * When an object of a type is attached to an {@code AutoFitHelper}, its methods will be called
      * when the {@code textSize} is changed.
      */
     public interface OnTextSizeChangeListener {

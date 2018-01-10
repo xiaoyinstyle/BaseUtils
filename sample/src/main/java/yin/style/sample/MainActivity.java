@@ -10,6 +10,7 @@ import android.widget.Toast;
 import yin.style.baselib.utils.AppManager;
 import yin.style.sample.baseActivity.mExpandViewActivity;
 import yin.style.sample.common.PhoneInfo;
+import yin.style.sample.demo.DemoActivity;
 import yin.style.sample.flowLayout.FlowLayoutActivity;
 import yin.style.sample.http.mNetworkActivity;
 import yin.style.sample.photo.TakePhotoActivity;
@@ -143,11 +144,11 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mButtonActivity.class));
                 break;
             case R.id.bt_main_demo:
-//                startActivity(new Intent(this, DemoActivity.class));
+                startActivity(new Intent(this, DemoActivity.class));
 //                hideStatusView();
-                LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
+//                LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
 
-                setStatusBarView(mContext, b, Color.WHITE, false);
+//                setStatusBarView(mContext, b, Color.WHITE, false);
                 b = !b;
                 break;
 

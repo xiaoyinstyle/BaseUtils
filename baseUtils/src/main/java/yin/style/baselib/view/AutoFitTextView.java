@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-import yin.style.baselib.view.autoTextView.AutofitHelper;
+import yin.style.baselib.view.autoTextView.AutoFitHelper;
 
 /**
  * A {@link TextView} that re-sizes its text to be no larger than the width of the view.
@@ -14,27 +14,27 @@ import yin.style.baselib.view.autoTextView.AutofitHelper;
  * @attr ref R.styleable.AutofitTextView_minTextSize
  * @attr ref R.styleable.AutofitTextView_precision
  */
-public class AutofitTextView extends TextView implements AutofitHelper.OnTextSizeChangeListener {
+public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSizeChangeListener {
 
-    private AutofitHelper mHelper;
+    private AutoFitHelper mHelper;
 
-    public AutofitTextView(Context context) {
+    public AutoFitTextView(Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public AutofitTextView(Context context, AttributeSet attrs) {
+    public AutoFitTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public AutofitTextView(Context context, AttributeSet attrs, int defStyle) {
+    public AutoFitTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-        mHelper = AutofitHelper.create(this, attrs, defStyle)
+        mHelper = AutoFitHelper.create(this, attrs, defStyle)
                 .addOnTextSizeChangeListener(this);
     }
 
@@ -74,9 +74,9 @@ public class AutofitTextView extends TextView implements AutofitHelper.OnTextSiz
     }
 
     /**
-     * Returns the {@link AutofitHelper} for this View.
+     * Returns the {@link AutoFitHelper} for this View.
      */
-    public AutofitHelper getAutofitHelper() {
+    public AutoFitHelper getAutofitHelper() {
         return mHelper;
     }
 

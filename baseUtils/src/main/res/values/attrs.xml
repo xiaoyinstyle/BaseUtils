@@ -27,11 +27,25 @@
 
     <!--带清除的输入框-->
     <declare-styleable name="CleanableEditText">
-        <attr name="clear_size" format="dimension"></attr>
+        <attr name="clear_size" format="dimension" />
+    </declare-styleable>
+
+    <!--自定义比例宽高的View-->
+    <declare-styleable name="ScaleView">
+        <attr name="scale_weight_width" format="float" />
+        <attr name="scale_weight_height" format="float" />
+        <attr name="scale_max_height" format="dimension" />
+        <attr name="scale_min_height" format="dimension" />
+        <attr name="scale_max_width" format="dimension" />
+        <attr name="scale_min_width" format="dimension" />
+        <attr name="scale_references" format="enum">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
     </declare-styleable>
 
     <!--自动调整字体-->
-    <declare-styleable name="AutofitTextView">
+    <declare-styleable name="AutoFitTextView">
         <!-- Minimum size of the text. -->
         <attr name="minTextSize" format="dimension" />
         <!-- Amount of precision used to calculate the correct text size to fit within its
