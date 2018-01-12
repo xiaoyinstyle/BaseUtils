@@ -41,8 +41,10 @@
         <activity android:name=".utils.mRecyclerVActivity" />
         <activity android:name=".utils.mButtonActivity" />
         <activity android:name=".utils.mRadioButtonActivity" />
-        <activity android:name=".chat.ChatsActivity"></activity>
-        <activity android:name=".demo.DemoActivity"></activity>
+        <activity android:name=".chat.ChatsActivity" />
+        <activity android:name=".demo.DemoActivity" />
+        <activity android:name=".mvp.Main2Activity" />
+        <activity android:name=".mvp.Main3Activity"></activity>
     </application>
 
 </manifest>

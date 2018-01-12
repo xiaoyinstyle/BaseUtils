@@ -28,6 +28,7 @@ public class App extends MultiDexApplication implements BaseHelp.BaseListener {
         instance = this;
         BaseHelp.getInstance().init(this);
         init();
+
     }
 
     protected void init() {
