@@ -53,9 +53,13 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    implementation "com.android.support:design:${rootProject.supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
 
-    compile project(':baseUtils')
-    //    compile 'yin.style.utils:baseUtils:0.0.3'
+    //    compile project(':baseUtils')
+//    implementation project(':recyclerlib')
+    compile 'yin.style.utils:baseUtils:0.0.4'
+    compile 'yin.style.utils:recyclerlib:0.1.1_without'
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -67,12 +71,14 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 
     compile 'com.android.support:multidex:1.0.2'
-
     compile project(':matisse')
+    compile project(':lib-ios-dialog')
 //    compile 'com.zhihu.android:matisse:0.4.3'
 
     compile 'com.google.dagger:dagger:2.8'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     //java注解
     compile 'org.glassfish:javax.annotation:10.0-b28'
+
+
 }

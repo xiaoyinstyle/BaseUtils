@@ -27,7 +27,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile "com.android.support:support-v4:${rootProject.supportLibVersion}"
+    implementation "com.android.support:support-v4:${rootProject.supportLibVersion}"
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
     implementation "com.android.support:design:${rootProject.supportLibVersion}"
     compile "com.android.support:cardview-v7:${rootProject.supportLibVersion}"
@@ -37,7 +37,9 @@ dependencies {
     compile "io.reactivex:rxjava:1.2.2"
     compile "io.reactivex:rxandroid:1.2.1"
     //图片加载glide
-    compile "com.github.bumptech.glide:glide:3.7.0"
+//    compile "com.github.bumptech.glide:glide:3.7.0"
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     compile "com.google.code.gson:gson:2.8.0"
     //注解
     compile "com.jakewharton:butterknife:8.8.1"
@@ -46,8 +48,31 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
 
     //可放大缩小的 IamgeView
-    compile project(':recyclerlib')
+    implementation project(':recyclerlib')
+//    compile 'yin.style.utils:recyclerlib:0.1.0'
 }
+
+//gradlew install
+//gradlew bintrayUpload
+ext {
+    upload_group_id = 'yin.style.utils'
+    upload_version = '0.0.4_jsj'
+
+    site_url = 'https://github.com/xiaoyinstyle/BaseUtils'
+    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
+    git_issue_url = ''
+
+    bintray_pkg_repo = 'maven'
+    bintray_pkg_name = 'baseUtils'
+    bintray_pkg_desc = 'A base util.'
+
+    developer_id = 'xiaoyinstyle'
+    developer_name = 'chneyin'
+    developer_email = 'xiaoyinstyle@gmail.com'
+}
+
+apply from: 'publish.gradle'
+
 
 
 ////添加这两行
@@ -64,7 +89,7 @@ dependencies {
 //def libName = "baseUtils"
 //
 //// 版本号，下次更新是只需要更改版本号即可
-//version = "0.0.3"
+//version = "0.0.4"
 ////上面配置后上传至JCenter后的编译路径是这样的：compile 'yin.style.utils:baseUtils:0.0.3'
 //
 ////生成源文件

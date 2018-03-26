@@ -26,27 +26,29 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.android.support:design:${supportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:design:${rootProject.supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
 }
 
-ext {
-    upload_group_id = 'yin.style.utils'
-    upload_version = '0.1.1'
-
-    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
-    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
-    git_issue_url = ''
-
-    bintray_pkg_repo = 'maven'
-    bintray_pkg_name = 'RecyclerViewLib'
-    bintray_pkg_desc = 'A recyclerView util.'
-
-    developer_id = 'xiaoyinstyle'
-    developer_name = 'chneyin'
-    developer_email = 'xiaoyinstyle@gmail.com'
-}
-
-apply from: 'publish.gradle'
+////gradlew install
+////gradlew bintrayUpload
+//ext {
+//    upload_group_id = 'yin.style.utils'
+//    upload_version = '0.1.1_without'
+//
+//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
+//    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
+//    git_issue_url = ''
+//
+//    bintray_pkg_repo = 'maven'
+//    bintray_pkg_name = 'RecyclerViewLib'
+//    bintray_pkg_desc = 'A recyclerView util.'
+//
+//    developer_id = 'xiaoyinstyle'
+//    developer_name = 'chneyin'
+//    developer_email = 'xiaoyinstyle@gmail.com'
+//}
+//
+//apply from: 'publish.gradle'
 

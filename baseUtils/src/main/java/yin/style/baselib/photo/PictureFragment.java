@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
@@ -58,17 +57,17 @@ public class PictureFragment extends NormalFragment {
         }
         final PhotoViewAttacher mAttacher = new PhotoViewAttacher(ivBasePicture);
 
-        Glide.with(this)
-                .load(file)
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .into(new SimpleTarget<Bitmap>(480, 800) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        ivBasePicture.setImageBitmap(resource);
-                        mAttacher.update();
-                    }
-                });
+//        Glide.with(this)
+//                .load(file)
+//                .asBitmap()
+//                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+//                .into(new SimpleTarget<Bitmap>(480, 800) {
+//                    @Override
+//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                        ivBasePicture.setImageBitmap(resource);
+//                        mAttacher.update();
+//                    }
+//                });
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {

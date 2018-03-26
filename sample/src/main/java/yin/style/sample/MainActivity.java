@@ -14,6 +14,7 @@ import yin.style.sample.demo.DemoActivity;
 import yin.style.sample.flowLayout.FlowLayoutActivity;
 import yin.style.sample.http.mNetworkActivity;
 import yin.style.sample.photo.TakePhotoActivity;
+import yin.style.sample.utils.mDialog2Activity;
 import yin.style.sample.utils.mPopWindowActivity;
 import yin.style.sample.utils.mRefreshviewActivity;
 import yin.style.baselib.activity.base.TitleActivity;
@@ -87,7 +88,7 @@ public class MainActivity extends TitleActivity {
     @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
             , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image
             , R.id.bt_main_http, R.id.bt_main_download_upload, R.id.bt_main_update
-            , R.id.bt_main_dialog, R.id.bt_main_photo, R.id.bt_main_flowlayout
+            , R.id.bt_main_dialog, R.id.bt_main_dialog_ios, R.id.bt_main_photo, R.id.bt_main_flowlayout
             , R.id.bt_main_popWindow, R.id.bt_main_refresh, R.id.bt_main_radio
             , R.id.bt_main_button, R.id.bt_main_rec, R.id.bt_main_demo})
     public void onViewClicked(View view) {
@@ -121,6 +122,9 @@ public class MainActivity extends TitleActivity {
                 break;
             case R.id.bt_main_dialog:
                 startActivity(new Intent(this, mDialogActivity.class));
+                break;
+            case R.id.bt_main_dialog_ios:
+                startActivity(new Intent(this, mDialog2Activity.class));
                 break;
             case R.id.bt_main_photo:
                 startActivity(new Intent(this, TakePhotoActivity.class));

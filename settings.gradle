@@ -1,4 +1,4 @@
-include  ':baseUtils', ':recyclerlib'
+include  ':baseUtils', ':recyclerlib','lib-ios-dialog'
 include ':sample'
 include ':matisse'
 
