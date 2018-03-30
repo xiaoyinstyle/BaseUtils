@@ -58,7 +58,7 @@ public class RequestData {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Logger.e(Tag, e.toString());
+                        Logger.e(e.toString());
                         if (e instanceof FileNotFoundException) {
                             callBack.onError("文件操作权限未获取");
                         } else if (e instanceof ConnectException) {

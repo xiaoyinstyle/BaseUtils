@@ -1,6 +1,5 @@
 package yin.style.baselib.net.processor;
 
-import android.util.Log;
 
 import yin.style.baselib.log.Logger;
 import yin.style.baselib.net.processor.okhttp.FileRequestBody;
@@ -156,7 +155,7 @@ public class OkHttpProcessor implements IHttpProcessor {
         try {
             return URLEncoder.encode(str, "UTF-8");
         } catch (Exception e) {
-            Log.e("参数转码异常", e.toString());
+            Logger.e("参数转码异常:"+ e.toString());
             throw new RuntimeException(e);
         }
     }
@@ -177,7 +176,7 @@ public class OkHttpProcessor implements IHttpProcessor {
                         RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
                         mBuilder.addFormDataPart(entry.getKey(), file.getName(), fileBody);
                     } else
-                        Logger.e(Tag, entry.getKey() + "--> 文件不存在");
+                        Logger.e(entry.getKey() + "--> 文件不存在");
                 } else if (entry.getValue() instanceof String || entry.getValue() instanceof Integer) {
                     mBuilder.addFormDataPart(entry.getKey(), entry.getValue().toString());
                 }

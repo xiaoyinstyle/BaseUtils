@@ -23,13 +23,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import yin.style.baselib.photo.PicturePreviewActivity;
 import yin.style.baselib.fragment.NormalFragment;
-import yin.style.baselib.permission.OnPermissionsListener;
-import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.photo.PictureUtils;
 import yin.style.baselib.utils.FileUtils;
-import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.sample.R;
 import yin.style.sample.photo.GifSizeFilter;

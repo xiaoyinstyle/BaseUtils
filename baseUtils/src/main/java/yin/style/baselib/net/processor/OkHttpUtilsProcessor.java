@@ -81,7 +81,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
             @Override
             public void onError(Call call, Exception e, int id) {
                 try {
-                    Logger.e(Tag, e.toString());
+                    Logger.e(e.toString());
                     if (e instanceof FileNotFoundException) {
                         callBack.onError("文件操作权限未获取");
                     } else if (e instanceof ConnectException) {
@@ -142,7 +142,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
             @Override
             public void onError(Call call, Exception e, int id) {
                 try {
-                    Logger.e(Tag, e.toString());
+                    Logger.e( e.toString());
                     if (e instanceof FileNotFoundException) {
                         callBack.onError("文件操作权限未获取");
                     } else if (e instanceof ConnectException) {
@@ -181,7 +181,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
                     if (file.exists()) {
                         builder.addFile(entry.getKey(), file.getName(), file);
                     } else {
-                        Logger.e(Tag, entry.getKey() + "--> 文件不存在");
+                        Logger.e(entry.getKey() + "--> 文件不存在");
                     }
                 } else if (entry.getValue() instanceof String || entry.getValue() instanceof Integer) {
                     builder.addParams(entry.getKey(), "" + entry.getValue());
@@ -213,7 +213,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
             @Override
             public void onError(Call call, Exception e, int id) {
                 try {
-                    Logger.e(Tag, e.toString());
+                    Logger.e( e.toString());
                     if (e instanceof FileNotFoundException) {
                         callBack.onError("文件操作权限未获取");
                     } else if (e instanceof ConnectException) {
@@ -257,7 +257,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
                     if (file.exists()) {
                         builder.addFile(entry.getKey(), file.getName(), file);
                     } else {
-                        Logger.e(Tag, entry.getKey() + "--> 文件不存在");
+                        Logger.e(entry.getKey() + "--> 文件不存在");
                     }
                 } else if (entry.getValue() instanceof String || entry.getValue() instanceof Integer) {
                     builder.addParams(entry.getKey(), "" + entry.getValue());
@@ -296,7 +296,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
             @Override
             public void onError(Call call, Exception e, int id) {
                 try {
-                    Logger.e(Tag, e.toString());
+                    Logger.e(e.toString());
                     if (e instanceof FileNotFoundException) {
                         callBack.onError("文件操作权限未获取");
                     } else if (e instanceof ConnectException) {
@@ -366,7 +366,7 @@ public class OkHttpUtilsProcessor implements IHttpProcessor {
             public void onError(Call call, Exception e, int id) {
                 try {
 
-                    Logger.e(Tag, e.toString());
+                    Logger.e(e.toString());
                     if (e instanceof FileNotFoundException) {
                         callBack.onError("文件操作权限未获取");
                     } else if (e instanceof ConnectException) {
