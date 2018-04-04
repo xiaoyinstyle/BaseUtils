@@ -13,7 +13,7 @@ import yin.style.sample.baseActivity.fragment.TabFragment;
 import java.util.List;
 
 public class mTabActivity extends TabActivity {
-    private String[] titles = new String[]{"测试一", "测试二", "测试三"};
+    private String[] titles = new String[]{"测试一测试一测试一测试一测试一测试一测试一测试一", "", "测试三"};
     private int[] iconUnSelectIds = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
     private int[] iconSelectIds = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
 

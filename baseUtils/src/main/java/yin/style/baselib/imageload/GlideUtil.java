@@ -350,12 +350,13 @@ public class GlideUtil {
         setView(imageView, res, error);
     }
 
-//    /**
-//     * .显示gif动画,asGif()判断是否是gif动画
-//     */
-//    public void setGif(ImageView imageView, Object res) {
+    /**
+     * .显示gif动画,asGif()判断是否是gif动画
+     */
+    public void setGif(ImageView imageView, Object res) {
+        Glide.with(context).load(res).into(imageView);
 //        Glide.with(context).load(res).asGif().into(imageView);
-//    }
+    }
 
     /**
      * 设置圆形图片

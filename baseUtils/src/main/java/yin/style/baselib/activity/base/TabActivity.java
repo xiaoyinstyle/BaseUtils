@@ -3,6 +3,7 @@ package yin.style.baselib.activity.base;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,12 @@ public abstract class TabActivity extends NormalAcitivity implements ViewPager.O
             itemTab.setTag(holder);
         } else {
             holder = (ViewHolder) itemTab.getTag();
+        }
+
+        if (TextUtils.isEmpty(tabEntities.get(position).getTitle())) {
+            holder.text.setVisibility(View.GONE);
+        } else {
+            holder.text.setVisibility(View.VISIBLE);
         }
 
         holder.text.setText(tabEntities.get(position).getTitle());

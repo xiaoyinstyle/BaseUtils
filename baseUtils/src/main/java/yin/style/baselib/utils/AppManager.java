@@ -133,4 +133,18 @@ public class AppManager {
             System.exit(0);
         }
     }
+
+    /**
+     * 检查activity是否已经运行
+     *
+     * @return
+     */
+    public boolean isRunning(Class<?> cls) {
+        for (Activity activity : activityStack) {
+            if ((activity.getClass().equals(cls))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

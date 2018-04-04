@@ -36,7 +36,7 @@ public class AutoFitHelper {
     private static final boolean SPEW = false;
 
     // Minimum size of the text in pixels
-    private static final int DEFAULT_MIN_TEXT_SIZE = 8; //sp
+    private static final int DEFAULT_MIN_TEXT_SIZE = 4; //sp
     // How precise we want to be when reaching the target textWidth size
     private static final float DEFAULT_PRECISION = 0.5f;
 
