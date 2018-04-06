@@ -1,6 +1,5 @@
 package yin.style.sample.photo.fragment;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -23,11 +22,8 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.OnClick;
 import yin.style.baselib.fragment.NormalFragment;
-import yin.style.baselib.permission.OnPermissionsListener;
-import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.utils.LogUtils;
-import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.popupWindow.CommonPopupWindow;
 import yin.style.sample.R;
 import yin.style.sample.photo.adapter.PhotoAdapter;

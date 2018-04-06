@@ -1,13 +1,17 @@
 package yin.style.baselib.photo;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 
@@ -57,17 +61,18 @@ public class PictureFragment extends NormalFragment {
         }
         final PhotoViewAttacher mAttacher = new PhotoViewAttacher(ivBasePicture);
 
-//        Glide.with(this)
-//                .load(file)
-//                .asBitmap()
-//                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-//                .into(new SimpleTarget<Bitmap>(480, 800) {
-//                    @Override
-//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                        ivBasePicture.setImageBitmap(resource);
-//                        mAttacher.update();
-//                    }
-//                });
+        Glide.with(this)
+                .load(file)
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                )
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        ivBasePicture.setImageDrawable(resource);
+                        mAttacher.update();
+                    }
+                });
         mAttacher.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {

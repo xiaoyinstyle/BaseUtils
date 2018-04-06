@@ -72,7 +72,7 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.2'
     compile project(':matisse')
-    compile project(':lib-ios-dialog')
+//    compile project(':lib-ios-dialog')
 //    compile 'com.zhihu.android:matisse:0.4.3'
 
     compile 'com.google.dagger:dagger:2.8'
