@@ -3,13 +3,16 @@ package yin.style.sample.photo.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -24,10 +27,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import yin.style.baselib.fragment.NormalFragment;
+import yin.style.baselib.permission.OnPermissionsListener;
+import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.photo.PictureUtils;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.recyclerlib.inter.OnItemClickListener;
 import yin.style.sample.R;
+import yin.style.sample.photo.CameraActivity;
 import yin.style.sample.photo.GifSizeFilter;
 import yin.style.sample.photo.adapter.PhotoAdapter;
 
@@ -54,6 +60,7 @@ public class ChooseTypeFragment extends NormalFragment {
     MediaStoreCompat mMediaStoreCompat;
     int REQUEST_CODE_CHOOSE = 205;
     int REQUEST_CODE_TAKEPHOTO = 206;
+    int REQUEST_CODE_TAKEVIDEO = 207;
 
     @Override
     protected int getViewByXml() {
@@ -81,9 +88,20 @@ public class ChooseTypeFragment extends NormalFragment {
     }
 
 
-    @OnClick({R.id.bt_takephoto, R.id.bt_album, R.id.bt_album_more})
+    @OnClick({R.id.bt_takevideo, R.id.bt_takephoto, R.id.bt_album, R.id.bt_album_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.bt_takevideo:
+                // 微信拍摄
+                XPermission.init(mContext).setPermissions(new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA}).get(new OnPermissionsListener() {
+                    @Override
+                    public void missPermission(String[] permissions) {
+                        startActivityForResult(new Intent(mContext, CameraActivity.class), REQUEST_CODE_TAKEVIDEO);
+
+                    }
+                });
+                break;
             case R.id.bt_takephoto:
                 // 只拍照
                 if (mMediaStoreCompat != null) {
@@ -145,6 +163,22 @@ public class ChooseTypeFragment extends NormalFragment {
             list.clear();
             list.add(path);
             photoAdapter.notifyDataSetChanged();
+        } else if (requestCode == REQUEST_CODE_TAKEVIDEO) {
+            if (resultCode == 101) {
+                Log.i("CJT", "picture");
+                String path = data.getStringExtra("path");
+
+                list.clear();
+                list.add(path);
+                photoAdapter.notifyDataSetChanged();
+            }
+            if (resultCode == 102) {
+                Log.i("CJT", "video");
+                String path = data.getStringExtra("path");
+            }
+            if (resultCode == 103) {
+                Toast.makeText(mContext, "请检查相机权限~", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

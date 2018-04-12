@@ -12,7 +12,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi-v7a', 'armeabi', 'x86'
+            abiFilters 'armeabi-v7a'//, 'armeabi', 'x86'
         }
 
 //        //配置keystore签名
@@ -44,7 +44,11 @@ android {
 //            dirs 'aar'
 //        }
 //    }
-
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['jniLibs']
+//        }
+//    }
     productFlavors {
     }
 
@@ -72,6 +76,7 @@ dependencies {
 
     compile 'com.android.support:multidex:1.0.2'
     compile project(':matisse')
+    compile project(':camera')
 //    compile project(':lib-ios-dialog')
 //    compile 'com.zhihu.android:matisse:0.4.3'
 

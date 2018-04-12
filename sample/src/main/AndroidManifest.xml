@@ -44,7 +44,7 @@
         <activity android:name=".chat.ChatsActivity" />
         <activity android:name=".demo.DemoActivity" />
         <activity android:name=".mvp.Main2Activity" />
-        <activity android:name=".mvp.Main3Activity" />
+        <activity android:name="photo.CameraActivity" />
         <activity android:name=".utils.mDialog2Activity"></activity>
     </application>
 
