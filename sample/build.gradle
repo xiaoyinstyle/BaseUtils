@@ -26,6 +26,14 @@ android {
 //            }
 //        }
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def temp = "debug"
+            if (variant.buildType.name == "release")
+                temp = "release"
+            outputFileName = "sample_${defaultConfig.versionCode}_v${defaultConfig.versionName}_${temp}.apk"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -39,6 +47,7 @@ android {
 //            signingConfig signingConfigs.release
         }
     }
+
 //    repositories {
 //        flatDir {
 //            dirs 'aar'

@@ -1,6 +1,8 @@
 package yin.style.baselib.net.processor;
 
 
+import android.text.TextUtils;
+
 import yin.style.baselib.log.Logger;
 import yin.style.baselib.net.processor.okhttp.FileRequestBody;
 import yin.style.baselib.net.inter.ICallBack;
@@ -144,9 +146,10 @@ public class OkHttpProcessor implements IHttpProcessor {
         }
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            sb.append(entry.getKey()).append("=")
-                    .append(encode(entry.getValue().toString()))
-                    .append("&");
+            if (!TextUtils.isEmpty(entry.getKey()) && !TextUtils.isEmpty(entry.getValue()))
+                sb.append(entry.getKey()).append("=")
+                        .append(encode(entry.getValue().toString()))
+                        .append("&");
         }
         return sb.toString();
     }
@@ -155,7 +158,7 @@ public class OkHttpProcessor implements IHttpProcessor {
         try {
             return URLEncoder.encode(str, "UTF-8");
         } catch (Exception e) {
-            Logger.e("参数转码异常:"+ e.toString());
+            Logger.e("参数转码异常:" + e.toString());
             throw new RuntimeException(e);
         }
     }
@@ -196,7 +199,8 @@ public class OkHttpProcessor implements IHttpProcessor {
 
         if (params != null & !params.isEmpty()) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                body.add(entry.getKey(), entry.getValue().toString());
+                if (!TextUtils.isEmpty(entry.getKey()) && !TextUtils.isEmpty(entry.getValue()))
+                    body.add(entry.getKey(), entry.getValue().toString());
             }
         }
         return body.build();

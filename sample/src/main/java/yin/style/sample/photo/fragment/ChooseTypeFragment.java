@@ -93,10 +93,11 @@ public class ChooseTypeFragment extends NormalFragment {
         switch (view.getId()) {
             case R.id.bt_takevideo:
                 // 微信拍摄
-                XPermission.init(mContext).setPermissions(new String[]{
+                XPermission.init(getActivity()).setPermissions(new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA}).get(new OnPermissionsListener() {
                     @Override
                     public void missPermission(String[] permissions) {
+
                         startActivityForResult(new Intent(mContext, CameraActivity.class), REQUEST_CODE_TAKEVIDEO);
 
                     }

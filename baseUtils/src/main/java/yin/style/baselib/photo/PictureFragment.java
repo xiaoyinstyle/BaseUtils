@@ -63,9 +63,9 @@ public class PictureFragment extends NormalFragment {
 
         Glide.with(this)
                 .load(file)
-                .apply(new RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                )
+//                .apply(new RequestOptions()
+//                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+//                )
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

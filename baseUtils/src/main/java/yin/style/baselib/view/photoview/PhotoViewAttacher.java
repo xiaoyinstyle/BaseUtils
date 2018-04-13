@@ -44,6 +44,11 @@ import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_UP;
 
+/**
+ * Author by ChneYin, Email 976370887@qq.com, Date on  2018/4/13.
+ * <p>
+ * ViewPager and DrawerLayout.  bug 解决方案：https://github.com/chrisbanes/PhotoView
+ */
 public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,
         OnGestureListener,
         ViewTreeObserver.OnGlobalLayoutListener {

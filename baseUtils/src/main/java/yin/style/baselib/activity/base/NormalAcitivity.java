@@ -78,6 +78,7 @@ public abstract class NormalAcitivity extends AppCompatActivity {
         titleView = View.inflate(mContext, R.layout.base_title, null);
         titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//        rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
     /**

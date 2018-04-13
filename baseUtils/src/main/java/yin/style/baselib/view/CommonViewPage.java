@@ -3,6 +3,7 @@ package yin.style.baselib.view;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -42,7 +43,14 @@ public class CommonViewPage extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent arg0) {
         // TODOAuto-generated method stub
         if (isCanScroll) {
-            return super.onInterceptTouchEvent(arg0);
+            try {
+                return super.onInterceptTouchEvent(arg0);
+            } catch (IllegalArgumentException e) {
+                //uncomment if you really want to see these errors
+                //e.printStackTrace();
+                Log.e(this.toString(), "onInterceptTouchEvent: ", e);
+                return false;
+            }
         } else {
             return false;
         }

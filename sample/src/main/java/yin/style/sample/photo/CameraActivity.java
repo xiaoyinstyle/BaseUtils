@@ -84,7 +84,7 @@ public class CameraActivity extends AppCompatActivity {
                 Log.i("CJT", "url = " + url + ", Bitmap = " + path);
                 Intent intent = new Intent();
                 intent.putExtra("path", path);
-                setResult(101, intent);
+                setResult(102, intent);
                 finish();
             }
         });
