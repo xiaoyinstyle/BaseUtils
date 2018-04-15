@@ -1,6 +1,7 @@
 package yin.style.baselib.update;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,12 +9,12 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
-import yin.style.baselib.update.dailog.ConfirmDialog;
-import yin.style.baselib.update.inter.DialogListener;
 import yin.style.baselib.update.inter.OnUpdateListener;
 import yin.style.baselib.utils.FileUtils;
+import yin.style.baselib.view.IOSDialog;
 
 import java.io.File;
 
@@ -143,15 +144,19 @@ public class UpdateApkUtils {
      * 下载Apk
      */
     private void downloadApk(final int downloadWay, final OnUpdateListener listener) {
-        final ConfirmDialog dialog = new ConfirmDialog(activity, new DialogListener() {
-            @Override
-            public void onclick(int flag) {
-                switch (flag) {
-                    case 0:  //cancle
+        IOSDialog dialog = new IOSDialog(activity)
+                .setTitle("更新提示")
+                .setMessage("发现新版本:" + serverVersionName + "\n是否下载更新?")
+                .setNegativeButton("取消", new IOSDialog.OnClickListener() {
+                    @Override
+                    public boolean onClick(Dialog dialog, View view) {
                         if (isForce)
                             activity.finish();
-                        break;
-                    case 1:  //sure
+                        return false;
+                    }
+                }).setPositiveButton("更新", new IOSDialog.OnClickListener() {
+                    @Override
+                    public boolean onClick(Dialog dialog, View view) {
                         if (downloadWay == DOWNLOAD_BY_SYSTEM) {
                             DownloadApkUtils.downloadForAutoInstall(activity, downloadUrl, apkPath, getApkName(apkPath));
                         } else if (downloadWay == DOWNLOAD_BY_BROWSER) {
@@ -159,11 +164,10 @@ public class UpdateApkUtils {
                         } else {
                             listener.result(true);
                         }
-                        break;
-                }
-            }
-        });
-        dialog.setContent("发现新版本:" + serverVersionName + "\n是否下载更新?");
+                        return false;
+                    }
+                });
+
         dialog.setCancelable(false);
         dialog.show();
     }
@@ -247,7 +251,8 @@ public class UpdateApkUtils {
                 //需要更新
              /*   if (TextUtils.isEmpty(utils.apkPath)) {
                     Toast.makeText(activity, "apkPath is null, 文件路径不为能空", Toast.LENGTH_SHORT).show();
-                } else */if (utils.downloadUrl == null) {
+                } else */
+                if (utils.downloadUrl == null) {
                     Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
                 } else
                     utils.downloadApk(DOWNLOAD_BY_BROWSER, null);
@@ -280,7 +285,7 @@ public class UpdateApkUtils {
 //                } else if (utils.downloadUrl == null) {
 //                    Toast.makeText(activity, "downloadUrl is null, 下载地址不为能空", Toast.LENGTH_SHORT).show();
 //                } else
-                    utils.downloadApk(DOWNLOAD_BY_OTHER, listener);
+                utils.downloadApk(DOWNLOAD_BY_OTHER, listener);
             }
         }
     }

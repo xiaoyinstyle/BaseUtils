@@ -54,7 +54,7 @@ public class AutoFitLayout extends FrameLayout {
                     R.styleable.AutoFitTextView,
                     defStyle,
                     0);
-            sizeToFit = ta.getBoolean(R.styleable.AutoFitTextView_sizeToFit, sizeToFit);
+            sizeToFit = ta.getBoolean(R.styleable.AutoFitTextView_sizeToFit, true);
             minTextSize = ta.getDimensionPixelSize(R.styleable.AutoFitTextView_minTextSize,
                     minTextSize);
             precision = ta.getFloat(R.styleable.AutoFitTextView_precision, precision);

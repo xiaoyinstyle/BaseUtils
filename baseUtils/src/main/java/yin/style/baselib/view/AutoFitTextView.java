@@ -1,6 +1,8 @@
 package yin.style.baselib.view;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -117,7 +119,6 @@ public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSiz
      * is adjusted based on the current density and user font size preference.
      *
      * @param size The scaled pixel size.
-     *
      * @attr ref android.R.styleable#TextView_textSize
      */
     public void setMaxTextSize(float size) {
@@ -130,7 +131,6 @@ public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSiz
      *
      * @param unit The desired dimension unit.
      * @param size The desired size in the given units.
-     *
      * @attr ref android.R.styleable#TextView_textSize
      */
     public void setMaxTextSize(int unit, float size) {
@@ -149,7 +149,6 @@ public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSiz
      * is adjusted based on the current density and user font size preference.
      *
      * @param minSize The scaled pixel size.
-     *
      * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
      */
     public void setMinTextSize(int minSize) {
@@ -160,9 +159,8 @@ public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSiz
      * Set the minimum text size to a given unit and value. See TypedValue for the possible
      * dimension units.
      *
-     * @param unit The desired dimension unit.
+     * @param unit    The desired dimension unit.
      * @param minSize The desired size in the given units.
-     *
      * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
      */
     public void setMinTextSize(int unit, float minSize) {
@@ -190,5 +188,18 @@ public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSiz
     @Override
     public void onTextSizeChange(float textSize, float oldTextSize) {
         // do nothing
+    }
+
+    @Override
+    public Drawable getBackground() {
+        Drawable drawable = super.getBackground();
+        //android低版本 圆角bug
+//        if (drawable instanceof GradientDrawable) {
+//            ((GradientDrawable) drawable).setCornerRadii(new float[]{0f, 0f,
+//                    (float) getMeasuredHeight(), (float) getMeasuredHeight(),
+//                    0f, 0f});
+//        }
+
+        return drawable;
     }
 }

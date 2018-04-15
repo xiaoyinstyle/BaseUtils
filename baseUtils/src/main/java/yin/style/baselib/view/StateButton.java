@@ -136,10 +136,10 @@ public class StateButton extends AppCompatButton {
         setStroke();
 
         //set background
-        mStateBackground.addState(states[0], mPressedBackground);
-        mStateBackground.addState(states[1], mPressedBackground);
-        mStateBackground.addState(states[3], mUnableBackground);
-        mStateBackground.addState(states[2], mNormalBackground);
+        mStateBackground.addState(states[0], mPressedBackground == null ? getBackground() : mPressedBackground);
+        mStateBackground.addState(states[1], mPressedBackground == null ? getBackground() : mPressedBackground);
+        mStateBackground.addState(states[3], mUnableBackground == null ? getBackground() : mUnableBackground);
+        mStateBackground.addState(states[2], mNormalBackground == null ? getBackground() : mNormalBackground);
         setBackgroundDrawable(mStateBackground);
         a.recycle();
     }

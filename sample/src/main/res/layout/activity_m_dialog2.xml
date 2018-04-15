@@ -7,19 +7,19 @@
         android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="消息" />
+        android:text="原生" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="图片" />
+        android:text="仿1 常规" />
 
     <Button
         android:id="@+id/btn3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="列表" />
+        android:text="仿2 自定义View" />
 
     <Button
         android:id="@+id/btn4"
