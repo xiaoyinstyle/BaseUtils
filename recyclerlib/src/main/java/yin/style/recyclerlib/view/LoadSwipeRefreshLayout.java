@@ -12,6 +12,8 @@ import yin.style.recyclerlib.decoration.BaseDividerItem;
 
 /**
  * Created by ChneY on 2017/1/15.
+ *
+ *
  */
 
 public class LoadSwipeRefreshLayout extends SwipeRefreshLayout {

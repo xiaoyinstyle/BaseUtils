@@ -51,9 +51,10 @@
                 android:background="@drawable/base_background_press"
                 android:padding="10dp"
                 android:scaleType="centerInside"
-                android:visibility="visible"
+                android:visibility="gone"
                 tools:layout_width="48dp"
-                tools:src="@drawable/ic_launcher" />
+                tools:src="@drawable/ic_launcher"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_left"

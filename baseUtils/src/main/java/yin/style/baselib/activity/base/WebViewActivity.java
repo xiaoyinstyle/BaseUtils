@@ -1,8 +1,11 @@
 package yin.style.baselib.activity.base;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -74,6 +77,14 @@ public abstract class WebViewActivity extends TitleActivity {
                 }
                 super.onProgressChanged(view, newProgress);
             }
+
+            //文件选择
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+//                return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+                openFileChooserImplForAndroid5(filePathCallback);
+                return true;
+            }
         });
 
         setWebView(webView);
@@ -122,4 +133,34 @@ public abstract class WebViewActivity extends TitleActivity {
         }
     }
 
+    public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_5 = 2;
+    public ValueCallback<Uri[]> mUploadMessageForAndroid5;
+
+    private void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
+        mUploadMessageForAndroid5 = uploadMsg;
+        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        contentSelectionIntent.setType("image/*");
+
+        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
+
+        startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE_FOR_ANDROID_5);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == FILECHOOSER_RESULTCODE_FOR_ANDROID_5) {
+            if (null == mUploadMessageForAndroid5)
+                return;
+            Uri result = (intent == null || resultCode != RESULT_OK) ? null : intent.getData();
+            if (result != null) {
+                mUploadMessageForAndroid5.onReceiveValue(new Uri[]{result});
+            } else {
+                mUploadMessageForAndroid5.onReceiveValue(new Uri[]{});
+            }
+            mUploadMessageForAndroid5 = null;
+        }
+    }
 }

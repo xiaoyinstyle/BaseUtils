@@ -40,7 +40,7 @@ public abstract class OnItemTouchListener implements RecyclerView.OnItemTouchLis
 
     public abstract void onItemClick(RecyclerView.ViewHolder viewHolder);
 
-    public abstract void onItemLOngClick(RecyclerView.ViewHolder viewHolder);
+    public abstract void onItemLongClick(RecyclerView.ViewHolder viewHolder);
 
     private class ItemTouchHelperGestureListener extends GestureDetector.SimpleOnGestureListener {
 
@@ -57,7 +57,7 @@ public abstract class OnItemTouchListener implements RecyclerView.OnItemTouchLis
             View child = recyclerView.findChildViewUnder(event.getX(), event.getY());
             if (child != null) {
                 RecyclerView.ViewHolder viewHolder = recyclerView.getChildViewHolder(child);
-                onItemLOngClick(viewHolder);
+                onItemLongClick(viewHolder);
             }
         }
     }

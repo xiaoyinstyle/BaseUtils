@@ -57,7 +57,7 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             }
 
             @Override
-            public void onItemLOngClick(RecyclerView.ViewHolder viewHolder) {
+            public void onItemLongClick(RecyclerView.ViewHolder viewHolder) {
                 ToastUtils.show("777");
             }
         });
