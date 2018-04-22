@@ -1,42 +1,59 @@
 package yin.style.sample;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import yin.style.baselib.utils.AppManager;
-import yin.style.sample.baseActivity.mExpandViewActivity;
-import yin.style.sample.common.PhoneInfo;
-import yin.style.sample.demo.DemoActivity;
-import yin.style.sample.flowLayout.FlowLayoutActivity;
-import yin.style.sample.http.mNetworkActivity;
-import yin.style.sample.photo.TakePhotoActivity;
-import yin.style.sample.utils.mDialog2Activity;
-import yin.style.sample.utils.mPopWindowActivity;
-import yin.style.sample.utils.mRefreshviewActivity;
+import java.util.Arrays;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.log.Logger;
-import yin.style.baselib.utils.LogUtils;
-import yin.style.baselib.utils.ScreenUtil;
-
+import yin.style.baselib.utils.AppManager;
+import yin.style.recyclerlib.adapter.BaseQuickAdapter;
+import yin.style.recyclerlib.holder.BaseViewHolder;
+import yin.style.sample.baseActivity.mExpandViewActivity;
 import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mTabActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
+import yin.style.sample.common.PhoneInfo;
+import yin.style.sample.demo.DemoActivity;
+import yin.style.sample.flowLayout.FlowLayoutActivity;
 import yin.style.sample.http.mDownloadActivity;
+import yin.style.sample.http.mNetworkActivity;
 import yin.style.sample.http.mUpdateActivity;
 import yin.style.sample.image.mImageActivity;
+import yin.style.sample.other.AutoTextViewActivity;
+import yin.style.sample.other.PasswordInputActivity;
+import yin.style.sample.photo.TakePhotoActivity;
 import yin.style.sample.utils.mButtonActivity;
+import yin.style.sample.utils.mDialog2Activity;
 import yin.style.sample.utils.mDialogActivity;
 import yin.style.sample.utils.mPermissionsActivity;
+import yin.style.sample.utils.mPopWindowActivity;
 import yin.style.sample.utils.mRadioButtonActivity;
 import yin.style.sample.utils.mRecyclerVActivity;
-
-import butterknife.OnClick;
+import yin.style.sample.utils.mRefreshviewActivity;
 
 public class MainActivity extends TitleActivity {
+
+    @BindView(R.id.recycle_view)
+    RecyclerView recycleView;
+
+    private List<String> list = Arrays.asList(new String[]{"TabActivity", "RecyclerActivity", "ExpandView"
+            , "WebviewActivity", "6.0权限管理", "图片加载"
+            , "网络请求", "下载与上传", "软件更新"
+            , "Dialog", "仿IOS Dialog", "获取图片"
+            , "流式布局", "通用PopWindow", "refreshView"
+            , "RadioButton", "自定义样式Button", "点击放大特效"
+            , "demo", "缩放TextView", "支付宝输入框"});
 
     @Override
     protected void setTitle() {
@@ -46,7 +63,31 @@ public class MainActivity extends TitleActivity {
 
     @Override
     protected int getViewByXml() {
-        return R.layout.activity_main;
+        return R.layout.activity_main_;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+//        recycleView.setLayoutFrozen();
+        recycleView.setLayoutManager(new GridLayoutManager(mContext,3));
+        recycleView.setAdapter(new BaseQuickAdapter<String>(mContext, list) {
+            @Override
+            protected int getLayoutResId() {
+                return R.layout.recycler_main;
+            }
+
+            @Override
+            protected void setViewHolder(BaseViewHolder baseViewHolder, final String s, int position) {
+                baseViewHolder.setText(R.id.tv_item_1, s);
+                baseViewHolder.setOnClickListener(R.id.tv_item_1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onViewClicked(s);
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
@@ -59,11 +100,6 @@ public class MainActivity extends TitleActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-
     }
 
     private long exitTime = 0;//点击2次返回，退出程序
@@ -85,69 +121,63 @@ public class MainActivity extends TitleActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick({R.id.bt_main_tab, R.id.bt_main_recycler, R.id.bt_main_loadrefresh
-            , R.id.bt_main_webwiew, R.id.bt_main_permisson, R.id.bt_main_image
-            , R.id.bt_main_http, R.id.bt_main_download_upload, R.id.bt_main_update
-            , R.id.bt_main_dialog, R.id.bt_main_dialog_ios, R.id.bt_main_photo, R.id.bt_main_flowlayout
-            , R.id.bt_main_popWindow, R.id.bt_main_refresh, R.id.bt_main_radio
-            , R.id.bt_main_button, R.id.bt_main_rec, R.id.bt_main_demo})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.bt_main_tab:
+    public void onViewClicked(String view) {
+        switch (view) {
+            case "TabActivity":
                 startActivity(new Intent(this, mTabActivity.class));
                 break;
-            case R.id.bt_main_recycler:
+            case "RecyclerActivity":
                 startActivity(new Intent(this, mRecyclerActivity.class));
                 break;
-            case R.id.bt_main_loadrefresh:
+            case "ExpandView":
                 startActivity(new Intent(this, mExpandViewActivity.class));
                 break;
-            case R.id.bt_main_webwiew:
+            case "WebviewActivity":
                 startActivity(new Intent(this, mWebviewActivity.class));
                 break;
-            case R.id.bt_main_permisson:
+            case "6.0权限管理":
                 startActivity(new Intent(this, mPermissionsActivity.class));
                 break;
-            case R.id.bt_main_image:
+            case "图片加载":
                 startActivity(new Intent(this, mImageActivity.class));
                 break;
-            case R.id.bt_main_http:
+            case "网络请求":
                 startActivity(new Intent(this, mNetworkActivity.class));
                 break;
-            case R.id.bt_main_download_upload:
+            case "下载与上传":
                 startActivity(new Intent(this, mDownloadActivity.class));
                 break;
-            case R.id.bt_main_update:
+            case "软件更新":
                 startActivity(new Intent(this, mUpdateActivity.class));
                 break;
-            case R.id.bt_main_dialog:
+            case "Dialog":
                 startActivity(new Intent(this, mDialogActivity.class));
                 break;
-            case R.id.bt_main_dialog_ios:
+            case "仿IOS Dialog":
                 startActivity(new Intent(this, mDialog2Activity.class));
                 break;
-            case R.id.bt_main_photo:
+            case "获取图片":
                 startActivity(new Intent(this, TakePhotoActivity.class));
                 break;
-            case R.id.bt_main_flowlayout:
+            case "流式布局":
                 startActivity(new Intent(this, FlowLayoutActivity.class));
                 break;
-            case R.id.bt_main_popWindow:
+            case "通用PopWindow":
                 startActivity(new Intent(this, mPopWindowActivity.class));
                 break;
-            case R.id.bt_main_refresh:
+            case "refreshView":
                 startActivity(new Intent(this, mRefreshviewActivity.class));
                 break;
-            case R.id.bt_main_radio:
+            case "RadioButton":
                 startActivity(new Intent(this, mRadioButtonActivity.class));
                 break;
-            case R.id.bt_main_rec:
+            case "自定义样式Button":
                 startActivity(new Intent(this, mRecyclerVActivity.class));
                 break;
-            case R.id.bt_main_button:
+            case "点击放大特效":
                 startActivity(new Intent(this, mButtonActivity.class));
                 break;
-            case R.id.bt_main_demo:
+            case "demo":
                 startActivity(new Intent(this, DemoActivity.class));
 //                hideStatusView();
 //                LogUtils.e("titleHeight:" + ScreenUtil.getTitleHeight(mContext));
@@ -155,9 +185,17 @@ public class MainActivity extends TitleActivity {
 //                setStatusBarView(mContext, b, Color.WHITE, false);
                 b = !b;
                 break;
+            case "缩放TextView":
+                startActivity(new Intent(this, AutoTextViewActivity.class));
+                break;
+            case "支付宝输入框":
+                startActivity(new Intent(this, PasswordInputActivity.class));
+                break;
 
         }
     }
 
     boolean b;
+
+
 }

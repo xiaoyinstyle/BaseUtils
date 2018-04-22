@@ -46,7 +46,9 @@
         <activity android:name=".mvp.Main2Activity" />
         <activity android:name="photo.CameraActivity" />
         <activity android:name=".utils.mDialog2Activity" />
-        <activity android:name=".Main4Activity"></activity>
+        <activity android:name=".Main4Activity" />
+        <activity android:name=".other.AutoTextViewActivity" />
+        <activity android:name=".other.PasswordInputActivity"></activity>
     </application>
 
 </manifest>
