@@ -30,3 +30,25 @@ dependencies {
     compileOnly 'com.squareup.picasso:picasso:2.5.2'
     compileOnly 'com.github.bumptech.glide:glide:4.6.1'
 }
+
+////gradlew install
+////gradlew bintrayUpload
+//ext {
+//    upload_group_id = 'yin.style.utils'
+//    upload_version = '0.0.2'
+//
+//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
+//    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
+//    git_issue_url = ''
+//
+//    bintray_pkg_repo = 'maven'
+//    bintray_pkg_name = 'matisse'
+//    bintray_pkg_desc = '知乎开源图片选择框架，修改版'
+//
+//    developer_id = 'xiaoyinstyle'
+//    developer_name = 'chneyin'
+//    developer_email = 'xiaoyinstyle@gmail.com'
+//}
+//
+//apply from: '../publish.gradle'
+//

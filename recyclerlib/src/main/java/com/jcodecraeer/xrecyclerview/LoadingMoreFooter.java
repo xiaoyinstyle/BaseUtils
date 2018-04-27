@@ -26,19 +26,24 @@ public class LoadingMoreFooter extends LinearLayout {
     private String noMoreHint;
     private String loadingDoneHint;
 
-	public LoadingMoreFooter(Context context) {
-		super(context);
-		initView();
-	}
+    public LoadingMoreFooter(Context context) {
+        this(context, null);
+    }
 
-	/**
-	 * @param context
-	 * @param attrs
-	 */
-	public LoadingMoreFooter(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		initView();
-	}
+    /**
+     * @param context
+     * @param attrs
+     */
+    public LoadingMoreFooter(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        inflate(context, R.layout.listview_footer, this);
+        progressCon = (SimpleViewSwitcher) findViewById(R.id.listview_foot_more_progress);
+        mText = (TextView) findViewById(R.id.listview_foot_more);
+        setGravity(Gravity.CENTER);
+        setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        initView();
+    }
 
     public void setLoadingHint(String hint) {
         loadingHint = hint;
@@ -52,58 +57,43 @@ public class LoadingMoreFooter extends LinearLayout {
         loadingDoneHint = hint;
     }
 
-    public void initView(){
-        setGravity(Gravity.CENTER);
-        setLayoutParams(new RecyclerView.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        progressCon = new SimpleViewSwitcher(getContext());
-        progressCon.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
+    public void initView() {
+        AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
         progressCon.setView(progressView);
 
-        addView(progressCon);
-        mText = new TextView(getContext());
         mText.setText(getContext().getString(R.string.listview_loading));
 
-        if(loadingHint == null || loadingHint.equals("")){
-            loadingHint = (String)getContext().getText(R.string.listview_loading);
+        if (loadingHint == null || loadingHint.equals("")) {
+            loadingHint = (String) getContext().getText(R.string.listview_loading);
         }
-        if(noMoreHint == null || noMoreHint.equals("")){
-            noMoreHint = (String)getContext().getText(R.string.nomore_loading);
+        if (noMoreHint == null || noMoreHint.equals("")) {
+            noMoreHint = (String) getContext().getText(R.string.nomore_loading);
         }
-        if(loadingDoneHint == null || loadingDoneHint.equals("")){
-            loadingDoneHint = (String)getContext().getText(R.string.loading_done);
+        if (loadingDoneHint == null || loadingDoneHint.equals("")) {
+            loadingDoneHint = (String) getContext().getText(R.string.loading_done);
         }
-
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins( (int)getResources().getDimension(R.dimen.textandiconmargin),0,0,0 );
-
-        mText.setLayoutParams(layoutParams);
-        addView(mText);
     }
 
     public void setProgressStyle(int style) {
-        if(style == ProgressStyle.SysProgress){
+        if (style == ProgressStyle.SysProgress) {
             progressCon.setView(new ProgressBar(getContext(), null, android.R.attr.progressBarStyle));
-        }else{
-            AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
+        } else {
+            AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
             progressView.setIndicatorColor(0xffB5B5B5);
             progressView.setIndicatorId(style);
             progressCon.setView(progressView);
         }
     }
 
-    public void  setState(int state) {
-        switch(state) {
+    public void setState(int state) {
+        switch (state) {
             case STATE_LOADING:
                 progressCon.setVisibility(View.VISIBLE);
                 mText.setText(loadingHint);
                 this.setVisibility(View.VISIBLE);
-                    break;
+                break;
             case STATE_COMPLETE:
                 mText.setText(loadingDoneHint);
                 this.setVisibility(View.GONE);

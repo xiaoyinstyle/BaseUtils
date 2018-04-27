@@ -24,7 +24,7 @@ public class PhoneInfo {
     private Context cxt;
 
     public PhoneInfo(Context context) {
-        cxt=context;
+        cxt = context;
         telephonyManager = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -41,8 +41,8 @@ public class PhoneInfo {
      * 获取电话号码
      */
     public String getNativePhoneNumber() {
-        String NativePhoneNumber=null;
-        NativePhoneNumber=telephonyManager.getLine1Number();
+        String NativePhoneNumber = null;
+        NativePhoneNumber = telephonyManager.getLine1Number();
         return NativePhoneNumber;
     }
 
@@ -51,7 +51,7 @@ public class PhoneInfo {
      */
     public String getProvidersName() {
         String ProvidersName = "N/A";
-        try{
+        try {
             IMSI = telephonyManager.getSubscriberId();
             // IMSI号前面3位460是国家，紧接着后面2位00 02是中国移动，01是中国联通，03是中国电信。
             System.out.println(IMSI);
@@ -62,14 +62,14 @@ public class PhoneInfo {
             } else if (IMSI.startsWith("46003")) {
                 ProvidersName = "中国电信";
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ProvidersName;
     }
 
-    public String  getPhoneInfo(){
-        TelephonyManager tm = (TelephonyManager)cxt.getSystemService(Context.TELEPHONY_SERVICE);
+    public String getPhoneInfo() {
+        TelephonyManager tm = (TelephonyManager) cxt.getSystemService(Context.TELEPHONY_SERVICE);
         StringBuilder sb = new StringBuilder();
 
         sb.append("\nDeviceId(IMEI) = " + tm.getDeviceId());
@@ -87,6 +87,6 @@ public class PhoneInfo {
         sb.append("\nSimState = " + tm.getSimState());
         sb.append("\nSubscriberId(IMSI) = " + tm.getSubscriberId());
         sb.append("\nVoiceMailNumber = " + tm.getVoiceMailNumber());
-        return  sb.toString();
+        return sb.toString();
     }
 }

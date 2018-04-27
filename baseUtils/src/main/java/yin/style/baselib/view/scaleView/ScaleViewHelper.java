@@ -10,7 +10,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import yin.style.baselib.R;
-import yin.style.baselib.utils.LogUtils;
 
 /**
  * Created by ChneY on 2017/5/7.
@@ -84,14 +83,14 @@ public class ScaleViewHelper {
             width = CalculationWidth();
             height = (int) (heightWeight / widthWeight * width);
 
-            LogUtils.e("ScaleViewHelper", "width" + width);
-            LogUtils.e("ScaleViewHelper", "height" + height);
+//            LogUtils.e("ScaleViewHelper", "width" + width);
+//            LogUtils.e("ScaleViewHelper", "height" + height);
         } else {
             height = CalculationHeight();
             width = (int) (widthWeight / heightWeight * height);
 
-            LogUtils.e("ScaleViewHelper", "width" + width);
-            LogUtils.e("ScaleViewHelper", "height" + height);
+//            LogUtils.e("ScaleViewHelper", "width" + width);
+//            LogUtils.e("ScaleViewHelper", "height" + height);
         }
     }
 

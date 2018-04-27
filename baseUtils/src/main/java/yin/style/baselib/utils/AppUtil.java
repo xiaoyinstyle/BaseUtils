@@ -1,9 +1,11 @@
 package yin.style.baselib.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.telephony.TelephonyManager;
 
 /**
  * Created by ChneY on 2017/5/3.
@@ -69,5 +71,15 @@ public class AppUtil {
         return versionCode;
     }
 
-
+    /**
+     * 得到IMEI
+     *
+     * @param context
+     * @return
+     */
+    @SuppressLint("MissingPermission")
+    public static String getIMEI(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
 }

@@ -31,11 +31,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
 }
 
-//gradlew install
-//gradlew bintrayUpload
+////gradlew install
+////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.1.1'
+//    upload_version = '0.1.2'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
 //    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
@@ -51,4 +51,4 @@ dependencies {
 //}
 //
 //apply from: 'publish.gradle'
-
+//

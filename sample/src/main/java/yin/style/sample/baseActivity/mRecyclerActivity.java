@@ -124,9 +124,9 @@ public class mRecyclerActivity extends RecyclerViewActivity {
 
     @Override
     protected int setGridNumb() {
-//        if (liner)
-//            return 0;
-//        else
+        if (liner)
+            return 0;
+        else
             return 4;
     }
 
