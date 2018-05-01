@@ -84,7 +84,7 @@ public class ChooseTypeFragment extends NormalFragment {
     @Override
     protected void initData() {
         mMediaStoreCompat = new MediaStoreCompat(mContext);
-        mMediaStoreCompat.setCaptureStrategy(new CaptureStrategy(true, FileUtils.authority));
+        mMediaStoreCompat.setCaptureStrategy(new CaptureStrategy(true, FileUtils.getAuthority(mContext)));
     }
 
 
@@ -135,7 +135,7 @@ public class ChooseTypeFragment extends NormalFragment {
                         .choose(MimeType.ofAll(), false)
                         .countable(true)
                         .capture(checkboxTake.isChecked())
-                        .captureStrategy(new CaptureStrategy(true, FileUtils.authority))
+                        .captureStrategy(new CaptureStrategy(true, FileUtils.getAuthority(mContext)))
                         .maxSelectable((number < 0 || number > 10) ? 3 : number)
                         .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                      .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))

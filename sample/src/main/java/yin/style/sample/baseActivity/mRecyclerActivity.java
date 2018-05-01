@@ -1,5 +1,6 @@
 package yin.style.sample.baseActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -54,6 +55,7 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder) {
                 ToastUtils.show("66__" + viewHolder.getLayoutPosition());
+                startActivity(new Intent(null, mTabActivity.class));
             }
 
             @Override

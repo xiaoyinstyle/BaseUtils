@@ -4,9 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by ChneY on 2017/5/7.
+ * <p>
+ * A {@link ImageView} that re-sizes
  *
  * @attr ref R.styleable.ScaleView_scale_weight_width
  * @attr ref R.styleable.ScaleView_scale_weight_height

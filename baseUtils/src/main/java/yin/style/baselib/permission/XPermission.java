@@ -19,6 +19,7 @@ import java.util.List;
 
 public class XPermission {
     public static final String CAMERA = Manifest.permission.CAMERA;
+    public static final String RECORD_AUDIO = Manifest.permission.RECORD_AUDIO;
     public static final String WRITE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String LOCATION_GPS = Manifest.permission.ACCESS_FINE_LOCATION;

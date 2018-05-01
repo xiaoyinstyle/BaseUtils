@@ -21,7 +21,7 @@ import yin.style.baselib.BaseHelp;
  */
 
 public class FileUtils {
-    public static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
+    //    public static final String authority = BaseHelp.getInstance().getContext().getPackageName() + ".provider"; //authority值
     public static final String xml_name = "root";                    //xml文件的nam值
     public static final String fileName = BaseHelp.getInstance().getFileName();               //根目录下文件名
 
@@ -95,7 +95,7 @@ public class FileUtils {
         } else {
             if (hasSdcard())
                 try {
-                    fileUri = FileProvider.getUriForFile(context, authority, file);
+                    fileUri = FileProvider.getUriForFile(context, getAuthority(context), file);
                 } catch (Exception e) {
                     e.printStackTrace();
                     fileUri = null;
@@ -226,5 +226,9 @@ public class FileUtils {
         else {
             return false;
         }
+    }
+
+    public static String getAuthority(Context context) {
+        return context.getPackageName() + ".provider";
     }
 }

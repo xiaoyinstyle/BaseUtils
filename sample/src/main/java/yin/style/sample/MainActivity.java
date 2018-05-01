@@ -125,6 +125,7 @@ public class MainActivity extends TitleActivity {
         switch (view) {
             case "TabActivity":
                 startActivity(new Intent(this, mTabActivity.class));
+//                startActivity(new Intent(null, mTabActivity.class));
                 break;
             case "RecyclerActivity":
                 startActivity(new Intent(this, mRecyclerActivity.class));

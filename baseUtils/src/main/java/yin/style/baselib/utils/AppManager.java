@@ -78,7 +78,6 @@ public class AppManager {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
-            LogUtils.i("AppManager", "finish_ActivitySize:" + activityStack.size() + " ActivityName：" + activity.getComponentName());
             activity = null;
         }
     }
@@ -122,8 +121,9 @@ public class AppManager {
     /**
      * 应用程序退出
      */
-    public void AppExit(Context context) {
+    public void AppExit() {
         try {
+            Context context = currentActivity().getApplicationContext();
             finishAllActivity();
             ActivityManager activityMgr = (ActivityManager) context
                     .getSystemService(Context.ACTIVITY_SERVICE);

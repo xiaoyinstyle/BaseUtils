@@ -16,6 +16,11 @@ import yin.style.baselib.view.autoTextView.AutoFitHelper;
  * @attr ref R.styleable.AutofitTextView_minTextSize
  * @attr ref R.styleable.AutofitTextView_precision
  */
+
+/**
+ * {@link android.support.v7.widget.AppCompatTextView} support-26 autoSize
+ */
+@Deprecated
 public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSizeChangeListener {
 
     private AutoFitHelper mHelper;
