@@ -65,14 +65,14 @@ public class PasswordInputActivity extends TitleActivity {
             }
         });
 
-        /**
-         * 当密码输入完成时的回调
-         */
-        payEditText.setOnInputFinishedListener(new PayEditText.OnInputFinishedListener() {
-            @Override
-            public void onInputFinished(String password) {
-                Toast.makeText(getApplication(), "您的密码是：" + password, Toast.LENGTH_SHORT).show();
-            }
-        });
+            /**
+             * 当密码输入完成时的回调
+             */
+            payEditText.setOnInputFinishedListener(new PayEditText.OnInputFinishedListener() {
+                @Override
+                public void onInputFinished(String password) {
+                    Toast.makeText(getApplication(), "您的密码是：" + password, Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 }
