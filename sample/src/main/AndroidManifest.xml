@@ -17,12 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".LaunchActivity"
+            android:theme="@style/LaunchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity android:name=".MainActivity">
+
         </activity>
         <activity android:name=".baseActivity.mTabActivity" />
         <activity android:name=".baseActivity.mRecyclerActivity" />
@@ -48,7 +55,7 @@
         <activity android:name=".utils.mDialog2Activity" />
         <activity android:name=".Main4Activity" />
         <activity android:name=".other.AutoTextViewActivity" />
-        <activity android:name=".other.PasswordInputActivity"></activity>
+        <activity android:name=".other.PasswordInputActivity" />
     </application>
 
 </manifest>

@@ -31,7 +31,7 @@ android {
             def temp = "debug"
             if (variant.buildType.name == "release")
                 temp = "release"
-            outputFileName = "sample_${defaultConfig.versionCode}_v${defaultConfig.versionName}_${temp}.apk"
+            outputFileName = "sample_${defaultConfig.versionCode}_v${defaultConfig.versionName}_${new Date().format("yyyy-MM-dd")}_${temp}.apk"
         }
     }
     buildTypes {
