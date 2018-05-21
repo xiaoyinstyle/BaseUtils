@@ -28,12 +28,16 @@ public class PhoneInfo {
         telephonyManager = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
 
+
+    }
+
+    private boolean hasPermission() {
         //判断是否 有权限
-        PackageManager pm = context.getPackageManager();
-        boolean permission = (PackageManager.PERMISSION_GRANTED ==
-                pm.checkPermission("android.permission.READ_PHONE_STATE", context.getPackageName()));
+        PackageManager pm = cxt.getPackageManager();
+        boolean permission = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.READ_PHONE_STATE", cxt.getPackageName()));
         if (!permission)
             ToastUtils.show("未获取权限:<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>");
+        return permission;
 
     }
 
@@ -41,6 +45,8 @@ public class PhoneInfo {
      * 获取电话号码
      */
     public String getNativePhoneNumber() {
+        if (!hasPermission())
+            return "";
         String NativePhoneNumber = null;
         NativePhoneNumber = telephonyManager.getLine1Number();
         return NativePhoneNumber;
@@ -52,6 +58,8 @@ public class PhoneInfo {
     public String getProvidersName() {
         String ProvidersName = "N/A";
         try {
+            if (!hasPermission())
+            return "";
             IMSI = telephonyManager.getSubscriberId();
             // IMSI号前面3位460是国家，紧接着后面2位00 02是中国移动，01是中国联通，03是中国电信。
             System.out.println(IMSI);

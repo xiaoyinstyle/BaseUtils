@@ -1,12 +1,10 @@
 package yin.style.sample.baseActivity.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Button;
 import android.widget.TextView;
 
-import yin.style.baselib.activity.base.NormalAcitivity;
 import yin.style.baselib.fragment.NormalFragment;
 import yin.style.baselib.utils.LogUtils;
 

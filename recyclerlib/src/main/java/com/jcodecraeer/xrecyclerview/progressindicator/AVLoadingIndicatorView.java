@@ -108,7 +108,6 @@ public class AVLoadingIndicatorView extends View{
     public static final int BallGridBeat=26;
     public static final int SemiCircleSpin=27;
 
-
     @IntDef(flag = true,
             value = {
                     BallPulse,
@@ -170,6 +169,14 @@ public class AVLoadingIndicatorView extends View{
         init(attrs, defStyleAttr);
     }
 
+    public void destroy(){
+        mHasAnimation = true;
+        if(mIndicatorController != null){
+            mIndicatorController.destroy();
+            mIndicatorController = null;
+        }
+        mPaint = null;
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AVLoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -330,6 +337,8 @@ public class AVLoadingIndicatorView extends View{
     public void setVisibility(int v) {
         if (getVisibility() != v) {
             super.setVisibility(v);
+            if(mIndicatorController == null)
+                return;
             if (v == GONE || v == INVISIBLE) {
                 mIndicatorController.setAnimationStatus(BaseIndicatorController.AnimStatus.END);
             } else {
@@ -341,20 +350,28 @@ public class AVLoadingIndicatorView extends View{
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        if(mIndicatorController == null)
+            return;
         mIndicatorController.setAnimationStatus(BaseIndicatorController.AnimStatus.CANCEL);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        if(mIndicatorController == null)
+            return;
         mIndicatorController.setAnimationStatus(BaseIndicatorController.AnimStatus.START);
     }
 
     void drawIndicator(Canvas canvas){
+        if(mIndicatorController == null)
+            return;
         mIndicatorController.draw(canvas, mPaint);
     }
 
     void applyAnimation(){
+        if(mIndicatorController == null)
+            return;
         mIndicatorController.initAnimation();
     }
 

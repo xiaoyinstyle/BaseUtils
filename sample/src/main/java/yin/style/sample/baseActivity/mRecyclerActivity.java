@@ -1,10 +1,8 @@
 package yin.style.sample.baseActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -54,13 +52,13 @@ public class mRecyclerActivity extends RecyclerViewActivity {
         mRecyclerView.addOnItemTouchListener(new OnItemTouchListener(this) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder viewHolder) {
-                ToastUtils.show("66__" + viewHolder.getLayoutPosition());
-                startActivity(new Intent(null, mTabActivity.class));
+                ToastUtils.show("onItemClick__" + viewHolder.getLayoutPosition());
+//                startActivity(new Intent(mContext, mTabActivity.class));
             }
 
             @Override
             public void onItemLongClick(RecyclerView.ViewHolder viewHolder) {
-                ToastUtils.show("777");
+                ToastUtils.show("onItemLongClick");
             }
         });
     }

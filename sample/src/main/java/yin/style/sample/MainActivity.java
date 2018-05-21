@@ -16,12 +16,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.log.Logger;
+import yin.style.baselib.permission.OnPermissionsListener;
+import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.AppManager;
+import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.sample.baseActivity.mExpandViewActivity;
 import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mTabActivity;
+import yin.style.sample.baseActivity.mViewPagerActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
 import yin.style.sample.common.PhoneInfo;
 import yin.style.sample.demo.DemoActivity;
@@ -48,6 +52,7 @@ public class MainActivity extends TitleActivity {
     RecyclerView recycleView;
 
     private List<String> list = Arrays.asList(new String[]{"TabActivity", "RecyclerActivity", "ExpandView"
+            , "mViewPagerActivity"
             , "WebviewActivity", "6.0权限管理", "图片加载"
             , "网络请求", "下载与上传", "软件更新"
             , "Dialog", "仿IOS Dialog", "获取图片"
@@ -69,7 +74,7 @@ public class MainActivity extends TitleActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        recycleView.setLayoutFrozen();
-        recycleView.setLayoutManager(new GridLayoutManager(mContext,3));
+        recycleView.setLayoutManager(new GridLayoutManager(mContext, 3));
         recycleView.setAdapter(new BaseQuickAdapter<String>(mContext, list) {
             @Override
             protected int getLayoutResId() {
@@ -132,6 +137,8 @@ public class MainActivity extends TitleActivity {
                 break;
             case "ExpandView":
                 startActivity(new Intent(this, mExpandViewActivity.class));
+            case "mViewPagerActivity":
+                startActivity(new Intent(this, mViewPagerActivity.class));
                 break;
             case "WebviewActivity":
                 startActivity(new Intent(this, mWebviewActivity.class));
@@ -149,7 +156,20 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mDownloadActivity.class));
                 break;
             case "软件更新":
-                startActivity(new Intent(this, mUpdateActivity.class));
+                XPermission.init(mContext)
+                        .setPermissions(XPermission.STORAGE_WRITE)
+                        .showDialog(true, false)
+                        .get(new OnPermissionsListener() {
+                            @Override
+                            public void missPermission(String[] permissions) {
+                                if (permissions.length == 0) {
+                                    startActivity(new Intent(mContext, mUpdateActivity.class));
+                                } else {
+                                    ToastUtils.show("缺少权限");
+                                }
+                            }
+                        });
+
                 break;
             case "Dialog":
                 startActivity(new Intent(this, mDialogActivity.class));
@@ -173,10 +193,10 @@ public class MainActivity extends TitleActivity {
                 startActivity(new Intent(this, mRadioButtonActivity.class));
                 break;
             case "自定义样式Button":
-                startActivity(new Intent(this, mRecyclerVActivity.class));
+                startActivity(new Intent(this, mButtonActivity.class));
                 break;
             case "点击放大特效":
-                startActivity(new Intent(this, mButtonActivity.class));
+                startActivity(new Intent(this, mRecyclerVActivity.class));
                 break;
             case "demo":
                 startActivity(new Intent(this, DemoActivity.class));

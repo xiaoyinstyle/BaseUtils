@@ -12,9 +12,6 @@ import java.util.List;
  */
 public class BallZigZagDeflectIndicator extends BallZigZagIndicator {
 
-
-
-
     @Override
     public List<Animator> createAnimation() {
         List<Animator> animators=new ArrayList<>();

@@ -81,13 +81,15 @@ public class ToastUtils {
     }
 
     public static void show(CharSequence message) {
-        if (isShow)
-            showMessage(BaseHelp.getInstance().getContext(), message, Toast.LENGTH_SHORT);
+        Context mContext = BaseHelp.getInstance().getContext();
+        if (isShow && mContext != null)
+            showMessage(mContext, message, Toast.LENGTH_SHORT);
     }
 
     public static void show(@StringRes int message) {
-        if (isShow)
-            showMessage(BaseHelp.getInstance().getContext(), BaseHelp.getInstance().getContext().getString(message), Toast.LENGTH_SHORT);
+        Context mContext = BaseHelp.getInstance().getContext();
+        if (isShow && mContext != null)
+            showMessage(mContext, BaseHelp.getInstance().getContext().getString(message), Toast.LENGTH_SHORT);
     }
 
     /**

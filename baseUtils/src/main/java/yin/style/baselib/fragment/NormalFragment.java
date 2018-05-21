@@ -15,9 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import yin.style.baselib.R;
-import yin.style.baselib.activity.base.NormalAcitivity;
 import yin.style.baselib.utils.ScreenUtil;
-import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

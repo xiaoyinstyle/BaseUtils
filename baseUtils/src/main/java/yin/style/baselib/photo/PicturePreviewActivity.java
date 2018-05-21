@@ -11,14 +11,14 @@ import java.util.List;
 
 import yin.style.baselib.R;
 import yin.style.baselib.activity.adapter.FragmentAdapter;
-import yin.style.baselib.activity.base.NormalAcitivity;
+import yin.style.baselib.activity.base.NormalActivity;
 import yin.style.baselib.utils.ToastUtils;
 /**
  * Created by 陈银 on 2017/12/27 11:20
  * <p>
  * 图片预览Activity
  */
-public class PicturePreviewActivity extends NormalAcitivity {
+public class PicturePreviewActivity extends NormalActivity {
 
     private ViewPager viewPager;
     private TextView tvLeft;

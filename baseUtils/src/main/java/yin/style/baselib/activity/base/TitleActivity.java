@@ -14,7 +14,7 @@ import yin.style.baselib.R;
  * 正常使用的带有标题的 Activity
  */
 
-public abstract class TitleActivity extends NormalAcitivity {
+public abstract class TitleActivity extends NormalActivity {
     protected ImageView iv_left;
     protected TextView tv_left;
     protected ImageView iv_right;

@@ -308,7 +308,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param listener The on click listener;
      * @return The BaseViewHolder for chaining.
      */
-    @Deprecated
+//    @Deprecated
     public BaseViewHolder setOnClickListener(int viewId, View.OnClickListener listener) {
         View view = getView(viewId);
         view.setOnClickListener(listener);

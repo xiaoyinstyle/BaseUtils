@@ -24,7 +24,7 @@ import java.util.List;
  * TabActivity
  */
 
-public abstract class TabActivity extends NormalAcitivity implements ViewPager.OnPageChangeListener {
+public abstract class TabActivity extends NormalActivity implements ViewPager.OnPageChangeListener {
     protected TabLayout mTabLayout;
     protected TabAdapter adapter;
     //Tab标题集合

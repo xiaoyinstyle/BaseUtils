@@ -16,5 +16,6 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
 
         startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

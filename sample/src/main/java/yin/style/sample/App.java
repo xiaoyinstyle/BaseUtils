@@ -49,7 +49,7 @@ public class App extends MultiDexApplication {
 //        CrashHandler.getInstance().init(getApplicationContext());
 //        CrashHandlerImpl.getInstance().init(getApplicationContext(),false);
 //        CrashHandlerImpl.getInstance().init(getApplicationContext(),false,false,0,MainActivity.class);
-    addCrash();
+//    addCrash();
     }
 
     private void addCrash() {

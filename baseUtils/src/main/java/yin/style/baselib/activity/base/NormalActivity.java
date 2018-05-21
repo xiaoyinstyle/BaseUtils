@@ -29,7 +29,8 @@ import yin.style.baselib.utils.StatusBarTextColor;
  * 无标题的基础底层的 activity
  */
 
-public abstract class NormalAcitivity extends AppCompatActivity {
+public abstract class NormalActivity extends AppCompatActivity {
+    protected final String TAG = "LOG_ACT";
     protected LinearLayout rootView;
     protected View titleView;
 
