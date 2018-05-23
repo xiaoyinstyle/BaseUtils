@@ -35,13 +35,18 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     protected Context mContext;
     private int headerViewCount = 0;
     private int footerViewCount = 0;
-    private boolean showEmptyView = true;
+    private boolean showEmptyView;
 
     private int gridNumb = 1;
 
     public BaseQuickAdapter(Context mContext, List mData) {
+        this(mContext, mData, true);
+    }
+
+    public BaseQuickAdapter(Context mContext, List mData, boolean showEmptyView) {
         this.mContext = mContext;
         this.mData = mData;
+        this.showEmptyView = showEmptyView;
     }
 
     //正常Adapter的 监听
@@ -246,14 +251,15 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
      * 空布局 点击事件
      */
     private void setOnclickEmpty(View ev) {
-        ev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEmptyClickListener != null) {
+        if (onEmptyClickListener != null) {
+            ev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     onEmptyClickListener.onItemClick(emptyView, 0);
                 }
-            }
-        });
+            });
+        }
+
         ev.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

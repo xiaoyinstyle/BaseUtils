@@ -8,6 +8,6 @@ import android.view.View;
  * 点击事件
  */
 
-public interface OnExplandItemClickListener {
+public interface OnExpandItemClickListener {
     void onItemClick(View view, int groupPosition, int childPosition);
 }

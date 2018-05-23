@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import yin.style.recyclerlib.holder.BaseViewHolder;
-import yin.style.recyclerlib.inter.OnExplandItemClickListener;
-import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
+import yin.style.recyclerlib.inter.OnExpandItemClickListener;
+import yin.style.recyclerlib.inter.OnExpandItemClickLongListener;
 
 /**
  * @author chenyin
@@ -63,17 +63,17 @@ abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
 //************************
 
     //正常Adapter的 监听
-    private OnExplandItemClickListener onItemClickListener;
-    private OnExplandItemClickLongListener onItemClickLongListener;
+    private OnExpandItemClickListener onItemClickListener;
+    private OnExpandItemClickLongListener onItemClickLongListener;
 
     // Item 点击
-    public ItemExpandAdapter setOnItemClickListener(OnExplandItemClickListener onItemClickListener) {
+    public ItemExpandAdapter setOnItemClickListener(OnExpandItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
         return this;
     }
 
     //Item 长按
-    public ItemExpandAdapter setOnItemClickLongListener(OnExplandItemClickLongListener onItemClickLongListener) {
+    public ItemExpandAdapter setOnItemClickLongListener(OnExpandItemClickLongListener onItemClickLongListener) {
         this.onItemClickLongListener = onItemClickLongListener;
         return this;
     }

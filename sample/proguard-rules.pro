@@ -1,13 +1,9 @@
 # Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in D:\studio\sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
 
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
@@ -144,11 +140,15 @@
 -keepattributes Signature
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
--keep class com.goole.gson..** {
+-keep class com.goole.gson.** {
     <fields>;
     <methods>;
 }
--keep class com.**.model.** { *; }
+-keep class com.chengpai.gonghui.bean.** { *; }
+-keep class com.google.gson.stream.** { *; }
+-keepattributes EnclosingMethod
+-dontwarn com.google.**
+-keep class com.google.protobuf.** {*;}
 ##-End: proguard configuration for Gson  ----------
 
 ##--------------Glide--------------
@@ -163,11 +163,7 @@
 # OkHttp3
 -dontwarn okhttp3.logging.**
 -keep class okhttp3.internal.**{*;}
--keep interface okhttp3.**{*;}
 -dontwarn okio.**
-#====okhttputils====
--keep class com.zhy.** { *;}
--keep interface com.zhy.http.**{*;}
 # Retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
@@ -185,10 +181,6 @@
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 
-# Gson
--keep class com.google.gson.stream.** { *; }
--keepattributes EnclosingMethod
--keep class **.model.**{*;}#//这是你定义的实体类
 
 #--nineoldandroids---------
 -keep class com.nineoldandroids.** { *; }
@@ -206,12 +198,56 @@
     @butterknife.* <methods>;
 }
 
-#友盟分析
--keep class com.umeng.error.UMError{ public *; }
--keep class com.umeng.error.UMErrorCatch{ public *; }
--keep class com.umeng.error.UMErrorDataManger{ public *; }
--keep class com.umeng.error.BatteryUtils{ public *; }
-# 腾讯统计
--keep class com.tencent.stat.* { *;}
--keep class com.tencent.mid.* { *;}
+# 高德地图
+-keep class com.amap.api.** { *;}
+-keep class com.maploc.** {*;}
+-keep class com.autonavi.** { *;}
+
+#hotfix 阿里百川
+-keep class com.taobao.sophix.**{*;}
+-keep class com.ta.utdid2.device.**{*;}
+# Jpush
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+
+#讯飞
+-keep public class com.iflytek.** {*;}
+
+#友盟
+-keep class com.umeng.** {*;}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+#-keep public class [您的应用包名].R$*{
+#public static final int *;
+#}
+
+
+
+#-keep public class yin.style.** {*;}
+# newsagent
+-keep public class com.stonesun.** {*;}
+-keep public class org.apache.** {*;}
+# matisse
+-keep public class com.zhihu.** {*;}
+# jsoup
+-dontwarn org.jsoup.**
+-keep public class org.jsoup.** {*;}
+#-keeppackagenames org.jsoup.nodes
+
+# autolayout
+-keep public class com.zhy.** {*;}
+
+#-keep public class com.** {*;}
 

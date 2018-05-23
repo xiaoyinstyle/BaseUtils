@@ -11,7 +11,7 @@ import yin.style.sample.baseActivity.adapter.mExpandAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import yin.style.recyclerlib.inter.OnExplandItemClickListener;
+import yin.style.recyclerlib.inter.OnExpandItemClickListener;
 
 public class mExpandViewActivity extends RecyclerViewActivity {
     private List<Group> list = new ArrayList<>();
@@ -40,7 +40,7 @@ public class mExpandViewActivity extends RecyclerViewActivity {
     protected RecyclerView.Adapter setAdapter() {
         adapter = new mExpandAdapter(this, list);
         adapter.setNotClose();
-        adapter.setOnItemClickListener(true, new OnExplandItemClickListener() {
+        adapter.setOnItemClickListener(true, new OnExpandItemClickListener() {
             @Override
             public void onItemClick(View view, int groupPosition, int childPosition) {
                 ToastUtils.show(groupPosition + "__" + childPosition);

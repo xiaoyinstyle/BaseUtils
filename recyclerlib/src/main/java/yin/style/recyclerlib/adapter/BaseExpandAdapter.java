@@ -15,8 +15,8 @@ import java.util.List;
 
 import yin.style.recyclerlib.flowlayoutmanager.FlowLayoutManager;
 import yin.style.recyclerlib.holder.BaseViewHolder;
-import yin.style.recyclerlib.inter.OnExplandItemClickListener;
-import yin.style.recyclerlib.inter.OnExplandItemClickLongListener;
+import yin.style.recyclerlib.inter.OnExpandItemClickListener;
+import yin.style.recyclerlib.inter.OnExpandItemClickLongListener;
 
 
 /**
@@ -118,13 +118,13 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
                 protected void setViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
                     BaseExpandAdapter.this.setChildViewHolder(holder, groupPosition, childPosition);
                 }
-            }.setOnItemClickListener(new OnExplandItemClickListener() {
+            }.setOnItemClickListener(new OnExpandItemClickListener() {
                 @Override
                 public void onItemClick(View view, int groupPosition, int childPosition) {
                     if (onItemClickListener != null)
                         onItemClickListener.onItemClick(holder.itemView, groupPosition, childPosition);
                 }
-            }).setOnItemClickLongListener(new OnExplandItemClickLongListener() {
+            }).setOnItemClickLongListener(new OnExpandItemClickLongListener() {
                 @Override
                 public void onItemLongClick(View view, int groupPosition, int childPosition) {
                     if (onItemClickLongListener != null)
@@ -153,22 +153,22 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
 
     //----------------------*******------------------------
     //正常Adapter的 监听
-    private OnExplandItemClickListener onItemClickListener;
-    private OnExplandItemClickLongListener onItemClickLongListener;
+    private OnExpandItemClickListener onItemClickListener;
+    private OnExpandItemClickLongListener onItemClickLongListener;
 
     // Item 点击
-    public void setOnItemClickListener(OnExplandItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnExpandItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     // Item 点击
-    public void setOnItemClickListener(boolean groupCanClick, OnExplandItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(boolean groupCanClick, OnExpandItemClickListener onItemClickListener) {
         this.groupCanClick = groupCanClick;
         this.onItemClickListener = onItemClickListener;
     }
 
     //Item 长按
-    public void setOnItemClickLongListener(OnExplandItemClickLongListener onItemClickLongListener) {
+    public void setOnItemClickLongListener(OnExpandItemClickLongListener onItemClickLongListener) {
         this.onItemClickLongListener = onItemClickLongListener;
     }
 

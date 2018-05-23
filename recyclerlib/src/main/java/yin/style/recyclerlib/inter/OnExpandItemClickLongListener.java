@@ -8,7 +8,7 @@ import android.view.View;
  * 长按事件
  */
 
-public interface OnExplandItemClickLongListener {
+public interface OnExpandItemClickLongListener {
     void onItemLongClick(View view, int groupPosition, int childPosition);
 }
 
