@@ -57,7 +57,7 @@ abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
 
     @Override
     public int getItemCount() {
-        return list.isEmpty() ? 0 : list.size();
+        return (list == null || list.isEmpty()) ? 0 : list.size();
     }
 
 //************************
