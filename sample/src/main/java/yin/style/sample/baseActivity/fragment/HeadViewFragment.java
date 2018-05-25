@@ -68,8 +68,8 @@ public class HeadViewFragment extends NormalFragment {
         TextView title = (TextView) tView.findViewById(R.id.tv_title);
         title.setText("标题");
 
-        tView.findViewById(R.id.rl_title).setVisibility(View.VISIBLE);
-        tView.findViewById(R.id.iv_left).setVisibility(View.GONE);
+//        tView.findViewById(R.id.rl_title).setVisibility(View.VISIBLE);
+//        tView.findViewById(R.id.iv_left).setVisibility(View.GONE);
     }
 
     @Override

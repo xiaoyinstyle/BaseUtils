@@ -1,4 +1,4 @@
-package yin.style.baselib.view;
+package yin.style.baselib.activity.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,7 +25,6 @@ public class TitleLayout extends FrameLayout {
     public TextView tv_right;
     public TextView title;
     public View v_line;
-    public ViewGroup ll_title;
 
     public TitleLayout(@NonNull Context context) {
         this(context, null);
@@ -48,18 +47,7 @@ public class TitleLayout extends FrameLayout {
         iv_right = (ImageView) findViewById(R.id.iv_right);
         tv_right = (TextView) findViewById(R.id.tv_right);
         title = (TextView) findViewById(R.id.tv_title);
-        ll_title = (FrameLayout) findViewById(R.id.rl_title);
-        ll_title.setVisibility(View.VISIBLE);
     }
 
 
-    public void hideTitle() {
-        if (ll_title != null)
-            ll_title.setVisibility(GONE);
-    }
-
-    public void showTitle() {
-        if (ll_title != null)
-            ll_title.setVisibility(VISIBLE);
-    }
 }

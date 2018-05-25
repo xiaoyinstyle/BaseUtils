@@ -18,7 +18,6 @@ public abstract class TitleFragment extends NormalFragment {
     protected ImageView iv_right;
     protected TextView tv_right;
     protected TextView title;
-    protected FrameLayout ll_title;
 
     @Override
     protected void addTitleLayout(ViewGroup rootView) {
@@ -29,8 +28,6 @@ public abstract class TitleFragment extends NormalFragment {
         iv_right = (ImageView) titleView.findViewById(R.id.iv_right);
         tv_right = (TextView) titleView.findViewById(R.id.tv_right);
         title = (TextView) titleView.findViewById(R.id.tv_title);
-        ll_title = (FrameLayout) titleView.findViewById(R.id.rl_title);
-        ll_title.setVisibility(View.VISIBLE);
         //返回按键监听
         iv_left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +53,12 @@ public abstract class TitleFragment extends NormalFragment {
     }
 
     protected void showTitle() {
-        if (ll_title != null)
-            ll_title.setVisibility(View.VISIBLE);
+//        if (ll_title != null)
+//            ll_title.setVisibility(View.VISIBLE);
     }
 
     protected void hiddenTitle() {
-        if (ll_title != null)
-            ll_title.setVisibility(View.GONE);
+//        if (ll_title != null)
+//            ll_title.setVisibility(View.GONE);
     }
 }

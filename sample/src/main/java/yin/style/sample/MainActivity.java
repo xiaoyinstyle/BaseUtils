@@ -137,6 +137,7 @@ public class MainActivity extends TitleActivity {
                 break;
             case "ExpandView":
                 startActivity(new Intent(this, mExpandViewActivity.class));
+                break;
             case "mViewPagerActivity":
                 startActivity(new Intent(this, mViewPagerActivity.class));
                 break;

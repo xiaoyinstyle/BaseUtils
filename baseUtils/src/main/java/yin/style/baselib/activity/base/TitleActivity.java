@@ -2,11 +2,10 @@ package yin.style.baselib.activity.base;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import yin.style.baselib.R;
+import yin.style.baselib.activity.view.TitleLayout;
 
 /**
  * Created by ChneY on 2017/4/22.
@@ -20,18 +19,18 @@ public abstract class TitleActivity extends NormalActivity {
     protected ImageView iv_right;
     protected TextView tv_right;
     protected TextView title;
-    protected FrameLayout ll_title;
+    protected TitleLayout ll_title;
 
     @Override
     protected void addTitleLayout(ViewGroup rootView) {
-        super.addTitleLayout(rootView);
+         ll_title = new TitleLayout(mContext);
+        rootView.addView(ll_title, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        iv_left = (ImageView) titleView.findViewById(R.id.iv_left);
-        tv_left = (TextView) titleView.findViewById(R.id.tv_left);
-        iv_right = (ImageView) titleView.findViewById(R.id.iv_right);
-        tv_right = (TextView) titleView.findViewById(R.id.tv_right);
-        title = (TextView) titleView.findViewById(R.id.tv_title);
-        ll_title = (FrameLayout) titleView.findViewById(R.id.rl_title);
+        iv_left = ll_title.iv_left;
+        tv_left = ll_title.tv_left;
+        iv_right =ll_title.iv_right;
+        tv_right = ll_title.tv_right;
+        title =ll_title.title;
         ll_title.setVisibility(View.VISIBLE);
         //返回按键监听
         iv_left.setOnClickListener(new View.OnClickListener() {
