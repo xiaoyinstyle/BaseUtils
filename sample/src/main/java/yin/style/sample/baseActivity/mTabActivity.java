@@ -13,7 +13,7 @@ import yin.style.sample.baseActivity.fragment.TabFragment;
 import java.util.List;
 
 public class mTabActivity extends TabActivity {
-    private String[] titles = new String[]{"测试一测试一测试一测试一测试一测试一测试一测试一", "", "测试三"};
+    private String[] titles = new String[]{"测试一测试一测试一测试一测试一", "", "测试三"};
     private int[] iconUnSelectIds = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
     private int[] iconSelectIds = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
 
@@ -24,7 +24,7 @@ public class mTabActivity extends TabActivity {
 
     @Override
     protected void addFragment(List<TabEntity> tabEntities) {
-//        setStatusBarView(mContext, false, 0,true);
+        setStatusBarView(mContext, false, 0,true);
 
         TabEntity tabEntity0 = new TabEntity();
         tabEntity0.setFragment(new HeadViewFragment());
@@ -56,6 +56,4 @@ public class mTabActivity extends TabActivity {
         showPoint(1, true);//显示小红点
         showPoint(2, 3, true);//显示带数字的小红点
     }
-
-
 }

@@ -9,6 +9,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import yin.style.baselib.activity.base.RecyclerViewActivity;
 
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.inter.OnItemTouchListener;
 import yin.style.sample.R;
@@ -26,14 +27,11 @@ public class mRecyclerActivity extends RecyclerViewActivity {
     private boolean liner = true;//是否线性布局
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("RecyclerActivity");
-
-        tv_right.setText("切换");
-        tv_right.setVisibility(View.VISIBLE);
-        tv_right.setOnClickListener(new View.OnClickListener() {
+        title.setTextRight("切换", new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 liner = !liner;
                 if (itemDecoration != null)
                     mRecyclerView.removeItemDecoration(itemDecoration);

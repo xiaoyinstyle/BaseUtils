@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 import yin.style.sample.other.weight.Keyboard;
 import yin.style.sample.other.weight.PayEditText;
@@ -40,7 +41,7 @@ public class PasswordInputActivity extends TitleActivity {
     }
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
 
     }
 

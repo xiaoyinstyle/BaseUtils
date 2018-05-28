@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.log.Logger;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
@@ -61,9 +62,11 @@ public class MainActivity extends TitleActivity {
             , "demo", "缩放TextView", "支付宝输入框"});
 
     @Override
-    protected void setTitle() {
-        hiddenBackButton();
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText(getString(R.string.app_name));
+        hiddenBackButton();
+
+//        title.setIconLeft(0, null);
     }
 
     @Override

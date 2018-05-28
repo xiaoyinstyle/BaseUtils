@@ -3,11 +3,12 @@ package yin.style.sample.flowLayout;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 
 public class FlowLayoutActivity extends TitleActivity {
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("流式布局");
     }
 

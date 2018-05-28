@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import yin.style.baselib.activity.base.RecyclerViewActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.baseActivity.adapter.Group;
 import yin.style.sample.baseActivity.adapter.mExpandAdapter;
@@ -18,7 +19,7 @@ public class mExpandViewActivity extends RecyclerViewActivity {
     private mExpandAdapter adapter;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("ExpandView");
     }
 

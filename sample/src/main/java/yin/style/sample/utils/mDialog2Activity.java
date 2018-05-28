@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.IOSDialog;
 import yin.style.sample.R;
@@ -61,10 +62,7 @@ public class mDialog2Activity extends TitleActivity implements OnClickListener {
         dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
     }
 
-    @Override
-    protected void setTitle() {
-        title.setText("仿IOS Dialog");
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -159,5 +157,9 @@ public class mDialog2Activity extends TitleActivity implements OnClickListener {
             default:
                 break;
         }
+    }
+    @Override
+    protected void setTitle(TitleLayout titleLayout) {
+        title.setText("仿IOS Dialog");
     }
 }

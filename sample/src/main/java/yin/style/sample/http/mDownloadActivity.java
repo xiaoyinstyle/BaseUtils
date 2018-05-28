@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.net.HttpHelper;
 import yin.style.baselib.net.callback.HttpProcessor;
 import yin.style.baselib.utils.ToastUtils;
@@ -30,7 +31,7 @@ public class mDownloadActivity extends TitleActivity {
     TextView text;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("下载与上传");
     }
 

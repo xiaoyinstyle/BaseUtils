@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.ToastUtils;
@@ -28,7 +29,7 @@ public class mPermissionsActivity extends TitleActivity {
     private String[] PERMISSIONS2 = new String[]{XPermission.LOCATION_GPS, XPermission.LOCATION_NET};
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("权限管理");
     }
 

@@ -2,10 +2,8 @@ package yin.style.baselib.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -14,19 +12,72 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import yin.style.baselib.activity.view.StatusBarView;
+import yin.style.baselib.fragment.NormalFragment;
+
 /**
- * Created by 陈银 on 2017/12/15 10:16
+ * Created by 陈银 on 2017/12/15 10:15
  * <p>
- * 状态栏字体 颜色
+ * 状态栏背景
  */
+public class StatusBarUtils {
 
-public class StatusBarTextColor {
+    /**
+     * 状态栏背景沉浸式
+     */
+    private static final int INVALID_VAL = -1;
+    private static final int COLOR_DEFAULT = Color.parseColor("#20000000");
 
-    public static int StatusBarLightMode(Activity activity, boolean dark) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void compat(Activity activity, int statusColor) {
+        //当前手机版本为5.0及以上
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (statusColor != INVALID_VAL) {
+                activity.getWindow().setStatusBarColor(statusColor);
+            }
+            return;
+        }
+
+        //当前手机版本为4.4
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            int color = COLOR_DEFAULT;
+            ViewGroup contentView = (ViewGroup) activity.getWindow().getDecorView();
+            if (statusColor != INVALID_VAL) {
+                color = statusColor;
+            }
+
+            StatusBarView statusBarView = null;
+
+            for (int i = 0; i < contentView.getChildCount(); i++) {
+                if (contentView.getChildAt(i) instanceof StatusBarView)
+                    statusBarView = (StatusBarView) contentView.getChildAt(i);
+            }
+            if (statusBarView == null) {
+                statusBarView = new StatusBarView(activity);
+
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ScreenUtil.getStatusHeight(activity));
+                contentView.addView(statusBarView, lp);
+            }
+            statusBarView.setBackgroundColor(color);
+
+        }
+    }
+
+    public static void compat(Activity activity) {
+        compat(activity, INVALID_VAL);
+    }
+
+    /**
+     * 状态栏字体 颜色
+     */
+
+    public static int statusBarLightMode(Activity activity, boolean dark) {
         int result = 0;
         //这个方法只支持4.0以上系统
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -86,16 +137,16 @@ public class StatusBarTextColor {
      */
     private static void addTranslucentView(Activity activity, int statusBarAlpha) {
         ViewGroup contentView = (ViewGroup) activity.getWindow().getDecorView();
-        StatusBarView statusBarView = null;
+        StatusBarView2 statusBarView = null;
 
         for (int i = 0; i < contentView.getChildCount(); i++) {
-            if (contentView.getChildAt(i) instanceof StatusBarView) {
-                statusBarView = (StatusBarView) contentView.getChildAt(i);
+            if (contentView.getChildAt(i) instanceof StatusBarView2) {
+                statusBarView = (StatusBarView2) contentView.getChildAt(i);
                 break;
             }
         }
         if (statusBarView == null) {
-            statusBarView = new StatusBarView(activity);
+            statusBarView = new StatusBarView2(activity);
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.getStatusHeight(activity));
             statusBarView.setLayoutParams(params);
             contentView.addView(statusBarView);
@@ -169,23 +220,37 @@ public class StatusBarTextColor {
         return result;
     }
 
-    private static class StatusBarView extends View {
+    private static class StatusBarView2 extends LinearLayout {
 
-        public StatusBarView(Context context) {
+        public StatusBarView2(Context context) {
             super(context);
         }
 
-        public StatusBarView(Context context, @Nullable AttributeSet attrs) {
+        public StatusBarView2(Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
         }
 
-        public StatusBarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        public StatusBarView2(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        public StatusBarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
+        /**
+         * 设置沉浸式
+         */
+        public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (isShowStatus) {
+                    StatusBarUtils.compat(activity, statusBarColor);
+                    setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
+                } else {
+                    setPadding(0, 0, 0, 0);
+                    StatusBarUtils.compat(activity, Color.TRANSPARENT);
+                }
+                StatusBarUtils.statusBarLightMode(activity, barTextDark);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

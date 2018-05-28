@@ -3,12 +3,13 @@ package yin.style.sample.baseActivity;
 import android.webkit.WebView;
 
 import yin.style.baselib.activity.base.WebViewActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 
 public class mWebviewActivity extends WebViewActivity {
 
     @Override
-    protected void setTitle() {
-title.setText("WebviewActivity");
+    protected void setTitle(TitleLayout titleLayout) {
+        title.setText("WebviewActivity");
     }
 
     @Override

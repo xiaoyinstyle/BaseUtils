@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ChatsActivity extends TitleActivity {
     }
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
 
     }
 }

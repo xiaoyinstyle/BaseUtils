@@ -9,6 +9,7 @@ import java.util.List;
 
 import yin.style.baselib.activity.adapter.FragmentAdapter;
 import yin.style.baselib.activity.base.ViewPagerActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 import yin.style.sample.baseActivity.fragment.TabFragment;
 
@@ -52,7 +53,7 @@ public class mViewPagerActivity extends ViewPagerActivity {
     }
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("mViewPager");
     }
 }

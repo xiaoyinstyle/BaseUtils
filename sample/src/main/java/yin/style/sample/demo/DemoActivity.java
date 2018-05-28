@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.view.scaleView.ScaleLinearLayout;
 import yin.style.sample.R;
 
@@ -41,7 +42,7 @@ public class DemoActivity extends TitleActivity {
     }
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
 
     }
 

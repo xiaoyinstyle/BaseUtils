@@ -1,5 +1,6 @@
 package yin.style.baselib.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -15,11 +16,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import yin.style.baselib.R;
+import yin.style.baselib.activity.view.StatusBarView;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ScreenUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import yin.style.baselib.utils.StatusBarTextColor;
+import yin.style.baselib.utils.StatusBarUtils;
 
 /**
  * Created by ChneY on 2017/5/6.
@@ -29,7 +32,7 @@ public abstract class NormalFragment extends Fragment {
     private Unbinder unbinder;
     protected Activity mContext;
     protected LinearLayout rootView;
-    public View titleView;
+    protected StatusBarView statusBarView;
 
     private boolean hasLoad;
     private boolean hasInit;
@@ -41,6 +44,8 @@ public abstract class NormalFragment extends Fragment {
         //动态加载content
         ViewGroup decorView = (ViewGroup) inflater.inflate(R.layout.base_activity, container, false);
         rootView = (LinearLayout) decorView.findViewById(R.id.base_root);
+        statusBarView = decorView.findViewById(R.id.base_status_bar);
+
         addTitleLayout(rootView);//加载Title布局
 
         View view = View.inflate(getContext(), getViewByXml(), null);
@@ -66,9 +71,7 @@ public abstract class NormalFragment extends Fragment {
     }
 
     protected void addTitleLayout(ViewGroup rootView) {
-        titleView = View.inflate(mContext, R.layout.base_title, null);
-        titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
     }
 
     protected abstract int getViewByXml();
@@ -77,6 +80,7 @@ public abstract class NormalFragment extends Fragment {
 
     protected abstract void initData();
 
+    @SuppressLint("ResourceType")
     @Nullable
     public View findViewById(@IdRes int id) {
         if (id <= 0) {
@@ -124,33 +128,15 @@ public abstract class NormalFragment extends Fragment {
 
     /**
      * 设置沉浸式
-     * <p>
-     * 与 setStatusView() 配合使用
      */
     public boolean setStatusBarView(Activity activity, boolean isShowStatus) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (isShowStatus) {
-//                StatusBarCompat.compat(this, statusBarColor);
-                titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
-            } else {
-//                StatusBarCompat.compat(this, Color.TRANSPARENT);
-                titleView.setPadding(0, 0, 0, 0);
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return statusBarView.setStatusBarView(activity, isShowStatus);
     }
 
     /**
      * 设置沉浸式 字体颜色
      */
     public boolean setStatusBarText(Activity activity, boolean barTextDark) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            StatusBarTextColor.StatusBarLightMode(activity, barTextDark);
-            return true;
-        } else {
-            return false;
-        }
+        return statusBarView.setStatusBarText(activity, barTextDark);
     }
 }

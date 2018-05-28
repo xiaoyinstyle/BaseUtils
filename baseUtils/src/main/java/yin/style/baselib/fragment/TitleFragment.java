@@ -7,32 +7,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import yin.style.baselib.R;
+import yin.style.baselib.activity.view.TitleLayout;
 
 /**
  * Created by Chne on 2017/8/12.
  */
 
 public abstract class TitleFragment extends NormalFragment {
-    protected ImageView iv_left;
-    protected TextView tv_left;
-    protected ImageView iv_right;
-    protected TextView tv_right;
-    protected TextView title;
+    protected TitleLayout title;
 
     @Override
     protected void addTitleLayout(ViewGroup rootView) {
-        super.addTitleLayout(rootView);
+        title = new TitleLayout(mContext);
+        rootView.addView(title);
 
-        iv_left = (ImageView) titleView.findViewById(R.id.iv_left);
-        tv_left = (TextView) titleView.findViewById(R.id.tv_left);
-        iv_right = (ImageView) titleView.findViewById(R.id.iv_right);
-        tv_right = (TextView) titleView.findViewById(R.id.tv_right);
-        title = (TextView) titleView.findViewById(R.id.tv_title);
         //返回按键监听
-        iv_left.setOnClickListener(new View.OnClickListener() {
+        title.getIconLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                InputUtils.close(getApplicationContext(), getCurrentFocus());
                 mContext.finish();
             }
         });
@@ -42,23 +34,16 @@ public abstract class TitleFragment extends NormalFragment {
 
     protected abstract void setTitle();
 
-    protected void showBackButton() {
-        if (iv_left != null)
-            iv_left.setVisibility(View.VISIBLE);
-    }
-
     protected void hiddenBackButton() {
-        if (iv_left != null)
-            iv_left.setVisibility(View.GONE);
+
+        title.getIconLeft().setVisibility(View.GONE);
     }
 
     protected void showTitle() {
-//        if (ll_title != null)
-//            ll_title.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
     }
 
     protected void hiddenTitle() {
-//        if (ll_title != null)
-//            ll_title.setVisibility(View.GONE);
+        title.setVisibility(View.GONE);
     }
 }

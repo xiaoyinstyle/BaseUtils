@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.imageload.GlideUtil;
 import yin.style.sample.R;
 
@@ -29,7 +30,7 @@ public class mImageActivity extends TitleActivity {
     TextView tvSize;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("图片加载");
     }
 
@@ -54,12 +55,6 @@ public class mImageActivity extends TitleActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.bt_clear, R.id.bt_read})
     public void onViewClicked(View view) {

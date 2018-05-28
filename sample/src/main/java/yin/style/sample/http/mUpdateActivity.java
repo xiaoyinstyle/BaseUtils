@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.net.HttpHelper;
 import yin.style.baselib.net.callback.HttpProcessor;
 import yin.style.baselib.update.UpdateApkUtils;
@@ -29,7 +30,7 @@ public class mUpdateActivity extends TitleActivity {
     String apkPath = "";
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("软件更新");
     }
 

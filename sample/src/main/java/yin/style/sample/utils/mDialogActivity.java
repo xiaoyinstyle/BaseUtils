@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.DialogUtils;
 import yin.style.sample.R;
 
@@ -13,7 +14,7 @@ import butterknife.OnClick;
 public class mDialogActivity extends TitleActivity {
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout title) {
         title.setText("Dialog");
     }
 
@@ -32,13 +33,6 @@ public class mDialogActivity extends TitleActivity {
 
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick({R.id.loadingDialog, R.id.loading_ok, R.id.loading_error, R.id.loading_waring, R.id.loading_other})
     public void onViewClicked(View view) {

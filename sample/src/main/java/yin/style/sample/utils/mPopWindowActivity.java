@@ -13,6 +13,7 @@ import android.widget.Button;
 
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.popupWindow.CommonPopupWindow;
@@ -29,7 +30,7 @@ public class mPopWindowActivity extends TitleActivity implements CommonPopupWind
     private CommonPopupWindow popupWindow;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
 
     }
 

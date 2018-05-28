@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.net.HttpHelper;
 import yin.style.baselib.net.callback.OnHttpCallBack;
 import yin.style.baselib.net.exception.NetException;
@@ -36,7 +37,7 @@ public class mNetworkActivity extends TitleActivity {
 
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("网络请求");
     }
 

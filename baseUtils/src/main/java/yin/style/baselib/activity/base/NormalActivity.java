@@ -17,12 +17,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import yin.style.baselib.R;
+import yin.style.baselib.activity.view.StatusBarView;
 import yin.style.baselib.utils.AppManager;
-import yin.style.baselib.utils.ScreenUtil;
-import yin.style.baselib.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
-import yin.style.baselib.utils.StatusBarTextColor;
 
 /**
  * Created by ChneY on 2017/4/22.
@@ -33,7 +31,7 @@ import yin.style.baselib.utils.StatusBarTextColor;
 public abstract class NormalActivity extends AppCompatActivity {
     protected final String TAG = "LOG_ACT";
     protected ViewGroup rootView;
-//    protected View titleView;
+    protected StatusBarView statusBarView;
 
     protected Activity mContext;
 
@@ -58,8 +56,10 @@ public abstract class NormalActivity extends AppCompatActivity {
 
         //动态加载content
         rootView = (LinearLayout) super.findViewById(R.id.base_root);
+        statusBarView = super.findViewById(R.id.base_status_bar);
+
         addTitleLayout(rootView);//加载Title布局
-//        setStatusView();  //设置沉浸式
+        setStatusView();  //设置沉浸式
 
         View view = View.inflate(this, getViewByXml(), null);
         rootView.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -77,30 +77,26 @@ public abstract class NormalActivity extends AppCompatActivity {
     }
 
     protected void addTitleLayout(ViewGroup rootView) {
-//        titleView = View.inflate(mContext, R.layout.base_title, null);
-//        titleView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//        rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//        rootView.addView(titleView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
     }
 
-//    /**
-//     * 设置沉浸式
-//     */
-//    private void setStatusView() {
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View decorView = getWindow().getDecorView();
-//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-//            decorView.setSystemUiVisibility(option);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        } else if (Build.VERSION.SDK_INT >= 19) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        } else {
-//            return;
-//        }
-//
-////        setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), false);
-//    }
+    /**
+     * 设置沉浸式
+     */
+    private void setStatusView() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = getWindow().getDecorView();
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(option);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            return;
+        }
+
+        statusBarView.setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), false);
+    }
 
     protected abstract int getViewByXml();
 
@@ -130,22 +126,10 @@ public abstract class NormalActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 
-//    /**
-//         * 设置沉浸式
-//         */
-//        public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                if (isShowStatus) {
-//                    StatusBarCompat.compat(activity, statusBarColor);
-//                    titleView.setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
-//                } else {
-//                    titleView.setPadding(0, 0, 0, 0);
-//                    StatusBarCompat.compat(activity, Color.TRANSPARENT);
-//                }
-//                StatusBarTextColor.StatusBarLightMode(activity, barTextDark);
-//                return true;
-//            } else {
-//                return false;
-//            }
-//    }
+    /**
+     * 设置沉浸式
+     */
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
+        return statusBarView.setStatusBarView(activity, isShowStatus, statusBarColor, barTextDark);
+    }
 }

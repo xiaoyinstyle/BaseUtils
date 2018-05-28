@@ -7,6 +7,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.sample.R;
 import yin.style.baselib.view.TestChoiceDrawable;
@@ -29,7 +30,7 @@ public class mRadioButtonActivity extends TitleActivity {
     CheckBox cb3;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("自定义Radio");
     }
 

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 
 public class AutoTextViewActivity extends TitleActivity implements View.OnClickListener {
@@ -82,8 +83,7 @@ public class AutoTextViewActivity extends TitleActivity implements View.OnClickL
     }
 
     @Override
-    protected void setTitle() {
-
+    protected void setTitle(TitleLayout titleLayout) {
     }
 
 

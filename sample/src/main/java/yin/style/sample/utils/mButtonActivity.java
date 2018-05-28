@@ -3,6 +3,7 @@ package yin.style.sample.utils;
 import android.os.Bundle;
 
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 
 public class mButtonActivity extends TitleActivity {
@@ -23,7 +24,7 @@ public class mButtonActivity extends TitleActivity {
     }
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
 
     }
 }

@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import yin.style.baselib.activity.base.TitleActivity;
+import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.sample.R;
 import yin.style.sample.photo.fragment.ChooseTypeFragment;
 import yin.style.sample.photo.fragment.ChooseTypeFragment2;
@@ -33,7 +34,7 @@ public class TakePhotoActivity extends TitleActivity {
     RadioButton btType1;
 
     @Override
-    protected void setTitle() {
+    protected void setTitle(TitleLayout titleLayout) {
         title.setText("图片选择");
     }
 
