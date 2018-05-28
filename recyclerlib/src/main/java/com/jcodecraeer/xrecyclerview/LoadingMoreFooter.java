@@ -26,23 +26,25 @@ public class LoadingMoreFooter extends LinearLayout {
     private String noMoreHint;
     private String loadingDoneHint;
 
+    private AVLoadingIndicatorView progressView;
+
     public LoadingMoreFooter(Context context) {
         this(context, null);
     }
 
-    /**
-     * @param context
-     * @param attrs
-     */
     public LoadingMoreFooter(Context context, AttributeSet attrs) {
         super(context, attrs);
         inflate(context, R.layout.listview_footer, this);
-        progressCon = (SimpleViewSwitcher) findViewById(R.id.listview_foot_more_progress);
-        mText = (TextView) findViewById(R.id.listview_foot_more);
-        setGravity(Gravity.CENTER);
         setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
         initView();
+    }
+
+    public void destroy() {
+        progressCon = null;
+        if (progressView != null) {
+            progressView.destroy();
+            progressView = null;
+        }
     }
 
     public void setLoadingHint(String hint) {
@@ -58,11 +60,14 @@ public class LoadingMoreFooter extends LinearLayout {
     }
 
     public void initView() {
-        AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
+        progressCon = findViewById(R.id.listview_foot_progress);
+
+        progressView = new AVLoadingIndicatorView(getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
         progressCon.setView(progressView);
 
+        mText = findViewById(R.id.listview_foot_more);
         mText.setText(getContext().getString(R.string.listview_loading));
 
         if (loadingHint == null || loadingHint.equals("")) {
@@ -80,7 +85,7 @@ public class LoadingMoreFooter extends LinearLayout {
         if (style == ProgressStyle.SysProgress) {
             progressCon.setView(new ProgressBar(getContext(), null, android.R.attr.progressBarStyle));
         } else {
-            AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
+            progressView = new AVLoadingIndicatorView(this.getContext());
             progressView.setIndicatorColor(0xffB5B5B5);
             progressView.setIndicatorId(style);
             progressCon.setView(progressView);

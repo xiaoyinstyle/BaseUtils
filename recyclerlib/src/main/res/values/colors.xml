@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#FFFFFFFF</color>
-    <color name="dark">#424242</color>
-    <color name="red">#FFD4212A</color>
-    <color name="grey">#8C8C8C</color>
-    <color name="background">#FFCFCFCF</color>
-    <color name="line_grey">#DCDCDC</color>
-
+    <!--<color name="white">#FFFFFFFF</color>-->
+    <!--<color name="dark">#424242</color>-->
+    <!--<color name="red">#FFD4212A</color>-->
+    <!--<color name="grey">#8C8C8C</color>-->
+    <!--<color name="background">#FFCFCFCF</color>-->
+    <!--<color name="line_grey">#DCDCDC</color>-->
+    <color name="listview_foot_text">#666666</color>
+    <color name="listview_header_text">#333333</color>
+    <color name="listview_header_hint_text">#666666</color>
 </resources>

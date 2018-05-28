@@ -33,12 +33,8 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             @Override
             public void onClick(View view) {
                 liner = !liner;
-                if (itemDecoration != null)
-                    mRecyclerView.removeItemDecoration(itemDecoration);
-                initView(null);
 
-                setCanRefresh(true);
-                setCanLoading(true);
+                setLayoutManager();
             }
         });
     }
@@ -111,12 +107,6 @@ public class mRecyclerActivity extends RecyclerViewActivity {
                 baseViewHolder.setText(R.id.text, "测试—\n—" + position);
             }
         };
-//        adapter.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                ToastUtils.show(position + "");
-//            }
-//        });
         return adapter;
     }
 
@@ -128,8 +118,4 @@ public class mRecyclerActivity extends RecyclerViewActivity {
             return 4;
     }
 
-//    @Override
-//    protected void setItemDecoration() {
-//
-//    }
 }

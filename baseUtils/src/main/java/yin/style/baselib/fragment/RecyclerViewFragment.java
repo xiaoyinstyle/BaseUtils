@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 import yin.style.baselib.R;
 
 import yin.style.recyclerlib.decoration.BaseDividerItem;
@@ -31,11 +32,6 @@ public abstract class RecyclerViewFragment extends TitleFragment {
 
         setLayoutManager();
         setItemDecoration();
-        setCanRefresh(false);
-        setCanLoading(false);
-
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
 
         if (null == setAdapter())
             throw new NullPointerException("RecyclerView adapter is not null");
@@ -117,17 +113,10 @@ public abstract class RecyclerViewFragment extends TitleFragment {
     }
 
     /**
-     * 刷新完成
+     * 加载/刷新完成
      */
-    public void setRefreshComplete() {
-        mRecyclerView.refreshComplete();
-    }
-
-    /**
-     * 加载完成
-     */
-    public void setLoadMoreComplete() {
-        mRecyclerView.loadMoreComplete();
+    public void setReset() {
+        mRecyclerView.reset();
     }
 
     /**

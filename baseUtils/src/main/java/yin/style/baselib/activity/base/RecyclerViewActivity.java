@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 import yin.style.baselib.R;
 
 import yin.style.recyclerlib.decoration.BaseDividerItem;
@@ -35,8 +36,6 @@ public abstract class RecyclerViewActivity extends TitleActivity {
 
         setLayoutManager();
         setItemDecoration();
-        setCanRefresh(false);
-        setCanLoading(false);
 
         if (null == setAdapter())
             throw new NullPointerException("RecyclerView adapter is not null");
@@ -72,6 +71,7 @@ public abstract class RecyclerViewActivity extends TitleActivity {
     protected int setGridNumb() {
         return 0;
     }
+
     /**
      * 重写这个 设置间隔线
      */
@@ -119,15 +119,8 @@ public abstract class RecyclerViewActivity extends TitleActivity {
     /**
      * 刷新完成
      */
-    public void setRefreshComplete() {
-        mRecyclerView.refreshComplete();
-    }
-
-    /**
-     * 加载完成
-     */
-    public void setLoadMoreComplete() {
-        mRecyclerView.loadMoreComplete();
+    public void setReset() {
+        mRecyclerView.reset();
     }
 
     /**

@@ -7,7 +7,7 @@
     android:padding="3dp">
 
     <com.jcodecraeer.xrecyclerview.SimpleViewSwitcher
-        android:id="@+id/listview_foot_more_progress"
+        android:id="@+id/listview_foot_progress"
         android:layout_width="30dip"
         android:layout_height="30dip" />
 
@@ -15,10 +15,9 @@
         android:id="@+id/listview_foot_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:padding="5dp"
         android:text="加载中..."
-        android:textColor="#333333" />
+        android:textColor="@color/listview_foot_text" />
 
 </LinearLayout>

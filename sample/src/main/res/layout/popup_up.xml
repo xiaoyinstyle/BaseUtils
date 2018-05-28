@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/white"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <Button
@@ -29,7 +29,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_grey" />
+            android:background="@color/grey_light" />
 
         <Button
             android:id="@+id/btn_select_photo"
@@ -45,7 +45,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/line_grey" />
+            android:background="@color/grey_light" />
 
         <Button
             android:id="@+id/btn_cancel"

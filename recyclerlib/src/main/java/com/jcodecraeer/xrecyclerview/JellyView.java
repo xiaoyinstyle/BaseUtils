@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 
-public class JellyView extends View  implements BaseRefreshHeader{
+public class JellyView extends View implements BaseRefreshHeader {
     Path path;
 
     Paint paint;

@@ -158,8 +158,9 @@ public class mDialog2Activity extends TitleActivity implements OnClickListener {
                 break;
         }
     }
+
     @Override
     protected void setTitle(TitleLayout titleLayout) {
-        title.setText("仿IOS Dialog");
+
     }
 }
