@@ -29,10 +29,10 @@ public abstract class TitleFragment extends NormalFragment {
             }
         });
 
-        setTitle();
+        setTitle(title);
     }
 
-    protected abstract void setTitle();
+    protected abstract void setTitle(TitleLayout titleLayout);
 
     protected void hiddenBackButton() {
 
