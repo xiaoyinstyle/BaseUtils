@@ -5,7 +5,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
@@ -60,11 +63,21 @@ public class GlideCircleTransform extends BitmapTransformation {
         paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
         float r = size / 2f;
-        canvas.drawCircle(r, r, r - mBorderWidth, paint);
+        canvas.drawCircle(r, r, r, paint);
+
         if (mBorderPaint != null) {
+            // 保存画布状态
+            canvas.save();
+            float scale = 1 - mBorderWidth / r;
+            canvas.scale(scale, scale, r, r);
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            canvas.drawCircle(r, r, r, paint);
+            canvas.restore();
+
             float borderRadius = r - mBorderWidth / 2;
             canvas.drawCircle(r, r, borderRadius, mBorderPaint);
         }
+
         return result;
     }
 

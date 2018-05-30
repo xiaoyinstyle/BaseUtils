@@ -351,6 +351,21 @@ public class GlideUtil {
     }
 
     /**
+     * 设置图片 + 周边
+     *
+     * @param imageView
+     * @param res       网络图片的url或者资源地址
+     * @param error     错误图片
+     */
+    public void setView2(ImageView imageView, Object res, int mborderWidth, @ColorInt int mborderColor, int error) {
+        setRoundView2(imageView, res, 0, mborderWidth, mborderColor, error);
+    }
+
+    public void setView2(ImageView imageView, Object res, int mborderWidth, @ColorInt int mborderColor) {
+        setRoundView2(imageView, res, 0, mborderWidth, mborderColor, error);
+    }
+
+    /**
      * .显示gif动画,asGif()判断是否是gif动画
      */
     public void setGif(ImageView imageView, Object res) {
@@ -424,11 +439,12 @@ public class GlideUtil {
      * @param angle     圆角角度
      * @param error     错误图片
      */
+
     public void setRoundView(ImageView imageView, Object res, int angle, int error) {
         Glide.with(context).load(res)
                 .apply(setGlide()
                         .error(error)
-                        .transform(new GlideRoundTransform(context))
+                        .transform(new GlideRoundTransform(context, angle))
                 )
                 .into(imageView);
     }
@@ -439,6 +455,28 @@ public class GlideUtil {
 
     public void setRoundView(ImageView imageView, Object url, int angle) {
         setRoundView(imageView, url, angle, error);
+    }
+
+    /**
+     * 设置圆角图片 + 周边
+     *
+     * @param imageView
+     * @param res       网络图片的url或者资源地址
+     * @param angle     圆角角度
+     * @param error     错误图片
+     */
+    public void setRoundView2(ImageView imageView, Object res, int angle, int mborderWidth, @ColorInt int mborderColor, int error) {
+        Glide.with(context).load(res)
+                .apply(setGlide()
+                        .error(error)
+                        .transform(new GlideRoundTransform(context, angle, mborderWidth, mborderColor))
+                )
+                .into(imageView);
+
+    }
+
+    public void setRoundView2(ImageView imageView, Object res, int angle, int mborderWidth, @ColorInt int mborderColor) {
+        setRoundView2(imageView, res, angle, mborderWidth, mborderColor, error);
     }
 
 

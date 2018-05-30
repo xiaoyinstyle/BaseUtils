@@ -134,4 +134,13 @@ public abstract class RecyclerViewActivity extends TitleActivity {
             }
         }, 100);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mRecyclerView != null) {
+            mRecyclerView.destroy();
+            mRecyclerView = null;
+        }
+    }
 }

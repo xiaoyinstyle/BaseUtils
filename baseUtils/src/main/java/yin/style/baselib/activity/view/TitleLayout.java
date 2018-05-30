@@ -98,8 +98,9 @@ public class TitleLayout extends FrameLayout {
      *
      * @param titleText
      */
-    public void setText(CharSequence titleText) {
+    public TextView setText(CharSequence titleText) {
         title.setText(titleText);
+        return title;
     }
 
     /**
@@ -108,7 +109,7 @@ public class TitleLayout extends FrameLayout {
      * @param textRight
      * @param listener
      */
-    public TextView setTextLeft(String textRight, OnClickListener listener) {
+    public TextView setTextLeft(CharSequence textRight, OnClickListener listener) {
         tv_left.setVisibility(View.VISIBLE);
         tv_left.setText(textRight);
         tv_left.setOnClickListener(listener);
@@ -184,7 +185,7 @@ public class TitleLayout extends FrameLayout {
      * @param textRight
      * @param listener
      */
-    public TextView setTextRight(String textRight, OnClickListener listener) {
+    public TextView setTextRight(CharSequence textRight, OnClickListener listener) {
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText(textRight);
         tv_right.setOnClickListener(listener);
@@ -210,7 +211,7 @@ public class TitleLayout extends FrameLayout {
      * @param colorHint
      */
     public EditText setInputView(@DrawableRes int background, @DrawableRes int iconLeftRes,
-                                 String text, @ColorInt int colorText, String hintText, @ColorInt int colorHint) {
+                                 CharSequence text, @ColorInt int colorText, String hintText, @ColorInt int colorHint) {
         title.setVisibility(GONE);
         et_input.setVisibility(VISIBLE);
         //  left,  top,  right,  bottom
