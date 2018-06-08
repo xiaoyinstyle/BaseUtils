@@ -104,4 +104,5 @@ public class TabFragment extends NormalFragment {
             transaction.hide(fragment2);
         }
     }
+
 }

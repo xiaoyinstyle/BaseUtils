@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
 import yin.style.baselib.BaseHelp;
-import yin.style.baselib.net.HttpHelper;
-import yin.style.baselib.net.processor.OkHttpUtilsProcessor;
 
 import com.squareup.leakcanary.LeakCanary;
 
@@ -92,7 +90,7 @@ public class App extends MultiDexApplication {
     }
 
     protected void init() {
-        HttpHelper.init(new OkHttpUtilsProcessor());
+//        HttpHelper.init(new OkHttpUtilsProcessor());
 
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);

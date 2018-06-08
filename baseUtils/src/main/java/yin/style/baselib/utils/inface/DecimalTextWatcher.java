@@ -13,6 +13,8 @@ public abstract class DecimalTextWatcher implements TextWatcher {
     private int digits = 2;//默认两位小数
     private EditText editText;
 
+    private boolean addNumber = false;
+
     public DecimalTextWatcher(EditText editText) {
         this.editText = editText;
     }
@@ -20,6 +22,11 @@ public abstract class DecimalTextWatcher implements TextWatcher {
     public DecimalTextWatcher(EditText editText, int decimalNum) {
         this.digits = decimalNum;
         this.editText = editText;
+    }
+
+    public DecimalTextWatcher setAddNumber(boolean addNumber) {
+        this.addNumber = addNumber;
+        return this;
     }
 
     @Override
@@ -54,9 +61,11 @@ public abstract class DecimalTextWatcher implements TextWatcher {
         }
 
         //没有内容是则为0
-        if (s == null || s.length() == 0) {
-            editText.setText("0");
-            editText.setSelection(1);
+        if (addNumber) {
+            if (s == null || s.length() == 0) {
+                editText.setText("0");
+                editText.setSelection(1);
+            }
         }
     }
 

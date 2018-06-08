@@ -8,8 +8,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 封装的GSON解析工具类，提供泛型参数
@@ -100,7 +103,27 @@ public class GsonUtils {
         JsonObject jsonObject = parser.parse(jsonString).getAsJsonObject();
         //将data节点下的内容转为JsonArray
         JsonElement jsonElement = jsonObject.get(keyWord);
-        return jsonElement.toString();
+        if (jsonElement != null)
+            return jsonElement.toString();
+        else
+            return null;
+    }
+
+    /**
+     * 获取HashMap
+     *
+     * @author chenyin
+     * @date 2018/6/8
+     */
+    public static HashMap getMap(String jsonString) {
+        //将data节点下的内容转为JsonArray
+        try {
+            return gson.fromJson(jsonString, new TypeToken<HashMap<String, String>>() {
+            }.getType());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

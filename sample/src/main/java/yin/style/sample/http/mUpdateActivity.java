@@ -7,8 +7,6 @@ import android.widget.CheckBox;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
-import yin.style.baselib.net.HttpHelper;
-import yin.style.baselib.net.callback.HttpProcessor;
 import yin.style.baselib.update.UpdateApkUtils;
 import yin.style.baselib.update.dailog.NumberProgressDialog;
 import yin.style.baselib.update.inter.DialogListener;
@@ -108,31 +106,31 @@ public class mUpdateActivity extends TitleActivity {
                 public void onclick(int flag) {
                     Log.e("AAA", "onclick:" + flag);
                     //取消按钮
-                    HttpHelper.getInstance().cancel(downloadUrl);
+//                    HttpHelper.getInstance().cancel(downloadUrl);
                 }
             });
         }
         dialog.show();
-        HttpHelper.getInstance().downloadFile(downloadUrl, null, apkPath, new HttpProcessor() {
-            @Override
-            public void onProgress(float per, long fileSizeDownloaded, long fileSize) {
-                Log.e("AAA", "per:" + per);
-                dialog.setNumberProgress((int) (per * 100));
-            }
-
-            @Override
-            public void onFinish(boolean success) {
-                dialog.dismiss();
-                if (success) {
-                    ToastUtils.show("x");
-                    UpdateApkUtils.installApk(mContext, apkPath);
-                }
-            }
-
-            @Override
-            public void onError(String result) {
-
-            }
-        });
+//        HttpHelper.getInstance().downloadFile(downloadUrl, null, apkPath, new HttpProcessor() {
+//            @Override
+//            public void onProgress(float per, long fileSizeDownloaded, long fileSize) {
+//                Log.e("AAA", "per:" + per);
+//                dialog.setNumberProgress((int) (per * 100));
+//            }
+//
+//            @Override
+//            public void onFinish(boolean success) {
+//                dialog.dismiss();
+//                if (success) {
+//                    ToastUtils.show("x");
+//                    UpdateApkUtils.installApk(mContext, apkPath);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(String result) {
+//
+//            }
+//        });
     }
 }

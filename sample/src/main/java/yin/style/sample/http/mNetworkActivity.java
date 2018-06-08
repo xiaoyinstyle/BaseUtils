@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
-import yin.style.baselib.net.HttpHelper;
-import yin.style.baselib.net.callback.OnHttpCallBack;
-import yin.style.baselib.net.exception.NetException;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
 
@@ -108,19 +105,19 @@ public class mNetworkActivity extends TitleActivity {
         maps.put("fname", "admin");
         maps.put("age", "18");
 
-        HttpHelper.getInstance().post("http://976370887.kinqin.com/php/api/post.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
-            @Override
-            public void onSuccess(String userHttpResult) {
-                ToastUtils.show("网络请求成功");
-//                Map map = (Map) userHttpResult.getData();
-                text.setText(userHttpResult.toString());
-            }
-
-            @Override
-            public void onError(NetException exception) {
-                ToastUtils.show("网络请求失败:" + exception.getMessage());
-            }
-        });
+//        HttpHelper.getInstance().post("http://976370887.kinqin.com/php/api/post.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
+//            @Override
+//            public void onSuccess(String userHttpResult) {
+//                ToastUtils.show("网络请求成功");
+////                Map map = (Map) userHttpResult.getData();
+//                text.setText(userHttpResult.toString());
+//            }
+//
+//            @Override
+//            public void onError(NetException exception) {
+//                ToastUtils.show("网络请求失败:" + exception.getMessage());
+//            }
+//        });
     }
 
     private void http2_get() {
@@ -129,19 +126,19 @@ public class mNetworkActivity extends TitleActivity {
         maps.put("fname", "admin");
         maps.put("age", "18");
 
-        HttpHelper.getInstance().get("http://976370887.kinqin.com/php/api/get.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
-            @Override
-            public void onSuccess(String userHttpResult) {
-                ToastUtils.show("网络请求成功");
-//                Map map = (Map) userHttpResult.getData();
-                text.setText(userHttpResult.toString());
-            }
-
-            @Override
-            public void onError(NetException exception) {
-                ToastUtils.show("网络请求失败-->" + exception.getMessage());
-            }
-        });
+//        HttpHelper.getInstance().get("http://976370887.kinqin.com/php/api/get.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
+//            @Override
+//            public void onSuccess(String userHttpResult) {
+//                ToastUtils.show("网络请求成功");
+////                Map map = (Map) userHttpResult.getData();
+//                text.setText(userHttpResult.toString());
+//            }
+//
+//            @Override
+//            public void onError(NetException exception) {
+//                ToastUtils.show("网络请求失败-->" + exception.getMessage());
+//            }
+//        });
     }
 
     private void http2_upload() {
@@ -156,18 +153,18 @@ public class mNetworkActivity extends TitleActivity {
         else
             ToastUtils.show("文件不存在");
 
-        HttpHelper.getInstance().upload("http://976370887.kinqin.com/php/api/mult.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
-            @Override
-            public void onSuccess(String userHttpResult) {
-                ToastUtils.show("网络请求成功");
-                text.setText(userHttpResult.toString());
-            }
-
-            @Override
-            public void onError(NetException exception) {
-                ToastUtils.show("网络请求失败-->" + exception.getMessage());
-            }
-
-        });
+//        HttpHelper.getInstance().upload("http://976370887.kinqin.com/php/api/mult.php", maps, new OnHttpCallBack<String>(checkbox.isChecked()) {
+//            @Override
+//            public void onSuccess(String userHttpResult) {
+//                ToastUtils.show("网络请求成功");
+//                text.setText(userHttpResult.toString());
+//            }
+//
+//            @Override
+//            public void onError(NetException exception) {
+//                ToastUtils.show("网络请求失败-->" + exception.getMessage());
+//            }
+//
+//        });
     }
 }

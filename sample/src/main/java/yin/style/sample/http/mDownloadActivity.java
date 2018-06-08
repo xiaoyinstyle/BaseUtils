@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
-import yin.style.baselib.net.HttpHelper;
-import yin.style.baselib.net.callback.HttpProcessor;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.App;
 import yin.style.sample.R;
@@ -65,8 +63,7 @@ public class mDownloadActivity extends TitleActivity {
                 upload2();
                 break;
             case R.id.bt2_cancel:
-                HttpHelper.getInstance().cancel(App.downloadUrl);
-                HttpHelper.getInstance().cancel(url);
+
                 break;
             default:
                 break;
@@ -77,29 +74,6 @@ public class mDownloadActivity extends TitleActivity {
     private void download2() {
         String file = new File(Environment.getExternalStorageDirectory().getPath(), "demo/" + UUID.randomUUID().toString() + ".apk").getAbsolutePath();
 
-        HttpHelper.getInstance().downloadFile(App.downloadUrl, new HashMap<String, String>(), file, new HttpProcessor(checkbox.isChecked()) {
-
-            @Override
-            public void onProgress(float per, long current, long total) {
-                Log.e("AAA", "per------>" + per);
-                text.setText(per + "");
-            }
-
-            @Override
-            public void onFinish(boolean success) {
-                text.setText(success + "");
-                Log.e("AAA", "onFinish------>" + success);
-            }
-
-
-            @Override
-            public void onError(String e) {
-                text.setText("onError------>" + e);
-                Log.e("AAA", "onError------>" + e);
-            }
-
-
-        });
     }
     String url = "http://976370887.kinqin.com/php/api/mult.php";
 
@@ -116,30 +90,30 @@ public class mDownloadActivity extends TitleActivity {
         }
         maps.put("file", file);
 
-        HttpHelper.getInstance().uploadFile(url, maps, new HttpProcessor() {
-            @Override
-            public void onSuccess(String result) {
-                Log.e("AAA", "result------>" + result);
-
-            }
-
-            @Override
-            public void onProgress(float per, long current, long total) {
-                Log.e("AAA", "per------>" + per);
-                text.setText(per + "");
-            }
-
-            @Override
-            public void onFinish(boolean success) {
-                Log.e("AAA", "onFinish------>" + success);
-            }
-
-            @Override
-            public void onError(String e) {
-                Log.e("AAA", "onError------>" + e);
-                text.setText("onError------>" + e);
-            }
-        });
+//        HttpHelper.getInstance().uploadFile(url, maps, new HttpProcessor() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.e("AAA", "result------>" + result);
+//
+//            }
+//
+//            @Override
+//            public void onProgress(float per, long current, long total) {
+//                Log.e("AAA", "per------>" + per);
+//                text.setText(per + "");
+//            }
+//
+//            @Override
+//            public void onFinish(boolean success) {
+//                Log.e("AAA", "onFinish------>" + success);
+//            }
+//
+//            @Override
+//            public void onError(String e) {
+//                Log.e("AAA", "onError------>" + e);
+//                text.setText("onError------>" + e);
+//            }
+//        });
     }
 
 
