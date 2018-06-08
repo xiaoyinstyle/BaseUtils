@@ -157,7 +157,7 @@ public abstract class TabActivity extends NormalActivity implements ViewPager.On
      * @param pos
      * @param isVisible
      */
-    protected void showPoint(int pos, boolean isVisible) {
+    protected final void showPoint(int pos, boolean isVisible) {
         if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return;
         }
@@ -173,7 +173,7 @@ public abstract class TabActivity extends NormalActivity implements ViewPager.On
      * @param number
      * @param isVisible
      */
-    protected void showPoint(int pos, int number, boolean isVisible) {
+    protected final void showPoint(int pos, int number, boolean isVisible) {
         if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return;
         }
@@ -186,7 +186,7 @@ public abstract class TabActivity extends NormalActivity implements ViewPager.On
      * @param pos
      * @return 带文字的 小红点
      */
-    protected TextView getPointTextView(int pos) {
+    protected final TextView getPointTextView(int pos) {
         if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return null;
         }
@@ -197,7 +197,7 @@ public abstract class TabActivity extends NormalActivity implements ViewPager.On
      * @param pos
      * @return小红点
      */
-    protected View getPointView(int pos) {
+    protected final View getPointView(int pos) {
         if (null == mTabLayout || pos >= mTabLayout.getTabCount()) {
             return null;
         }
@@ -205,18 +205,6 @@ public abstract class TabActivity extends NormalActivity implements ViewPager.On
     }
 
     protected abstract void addFragment(List<TabEntity> tabEntities);
-
-//    protected abstract String[] getTitles();
-//
-//    protected abstract int[] getIconUnselectIds();
-//
-//    protected abstract int[] getIconSelectIds();
-//
-//    @ColorInt
-//    protected abstract int getTabTextColorSelect();
-//
-//    @ColorInt
-//    protected abstract int getTabTextColorUnSelect();
 
     /**
      *

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import org.greenrobot.eventbus.EventBus;
+
 import yin.style.baselib.R;
 import yin.style.baselib.activity.view.StatusBarView;
 import yin.style.baselib.activity.view.TitleLayout;
@@ -34,8 +36,8 @@ public abstract class NormalFragment extends Fragment {
     protected LinearLayout rootView;
     protected StatusBarView statusBarView;
 
-    private boolean hasLoad;
-    private boolean hasInit;
+    protected boolean hasLoad;
+    protected boolean hasInit;
 
     @Nullable
     @Override
@@ -65,6 +67,10 @@ public abstract class NormalFragment extends Fragment {
 
     //懒加载
     private void init(Bundle savedInstanceState) {
+        //默认不加载EventBus
+        if (setEventBus())
+            EventBus.getDefault().register(this);
+
         hasLoad = true;
         initView(savedInstanceState);   //初始化布局
         initData(); //设置数据
@@ -82,7 +88,7 @@ public abstract class NormalFragment extends Fragment {
 
     @SuppressLint("ResourceType")
     @Nullable
-    public View findViewById(@IdRes int id) {
+    public final View findViewById(@IdRes int id) {
         if (id <= 0) {
             return null;
         }
@@ -93,8 +99,14 @@ public abstract class NormalFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        //默认不加载EventBus
+        if (setEventBus())
+            EventBus.getDefault().unregister(this);
     }
 
+    private boolean setEventBus() {
+        return false;
+    }
 
     /**
      * 在这里实现Fragment数据的缓加载.
@@ -121,7 +133,7 @@ public abstract class NormalFragment extends Fragment {
     }
 
     //关闭键盘
-    protected void closeKeyboard() {
+    protected final void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mContext.getWindow().getDecorView().getWindowToken(), 0);
     }

@@ -15,7 +15,7 @@ import yin.style.sample.baseActivity.fragment.TabFragment;
 
 public class mViewPagerActivity extends ViewPagerActivity {
 
-    private List<Fragment> list = new ArrayList<>();
+    private List<TabFragment> list = new ArrayList<>();
 
     @Override
     protected int getViewByXml() {
@@ -38,7 +38,7 @@ public class mViewPagerActivity extends ViewPagerActivity {
     }
 
     @Override
-    protected List<Fragment> setFragments() {
+    protected List<? extends Fragment> setFragments() {
         list = new ArrayList<>();
 
         list.add(new TabFragment().newInstance(0));
@@ -46,6 +46,7 @@ public class mViewPagerActivity extends ViewPagerActivity {
 
         return list;
     }
+
 
     @Override
     protected void initData() {

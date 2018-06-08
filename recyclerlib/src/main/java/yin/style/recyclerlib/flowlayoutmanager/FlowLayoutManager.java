@@ -38,6 +38,11 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         newFlowLayoutOptions = FlowLayoutOptions.clone(flowLayoutOptions);
     }
 
+    public FlowLayoutManager(boolean enabled) {
+        this();
+        setAutoMeasureEnabled(enabled);
+    }
+
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT);

@@ -50,9 +50,7 @@ public class FlowLayoutFragment extends NormalFragment {
         manager.setAutoMeasureEnabled(true);
         rvbase.setLayoutManager(manager);
 
-        FlowLayoutManager manager2 = new FlowLayoutManager();
-        manager2.setAutoMeasureEnabled(true);
-        rvcontent.setLayoutManager(manager2);
+        rvcontent.setLayoutManager(new FlowLayoutManager());
         baseQuickAdapter = new BaseQuickAdapter<String>(getContext(), bastStr) {
             @Override
             protected int getLayoutResId() {
@@ -137,7 +135,8 @@ public class FlowLayoutFragment extends NormalFragment {
 
             if (position == mData.size() - 1) {
                 baseViewHolder.getView(R.id.iv_item_arror).setVisibility(View.INVISIBLE);
-            }
+            } else
+                baseViewHolder.getView(R.id.iv_item_arror).setVisibility(View.VISIBLE);
 
         }
     }

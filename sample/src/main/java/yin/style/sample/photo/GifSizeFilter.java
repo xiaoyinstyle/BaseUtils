@@ -18,8 +18,6 @@ package yin.style.sample.photo;
 import android.content.Context;
 import android.graphics.Point;
 
-import yin.style.sample.R;
-
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
@@ -28,6 +26,8 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import yin.style.sample.R;
 
 public class GifSizeFilter extends Filter {
 

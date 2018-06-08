@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import yin.style.baselib.R;
+import yin.style.baselib.utils.ScreenUtil;
 
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/4/13.
@@ -223,5 +224,17 @@ public class TitleLayout extends FrameLayout {
 
         et_input.setBackgroundResource(background);
         return et_input;
+    }
+
+    /**
+     * 沉浸式
+     */
+    public void setStatusTop(boolean b) {
+        if (b) {
+            int top = ScreenUtil.getStatusHeight(getContext());
+            setPadding(0, top, 0, 0);
+        } else {
+            setPadding(0, 0, 0, 0);
+        }
     }
 }

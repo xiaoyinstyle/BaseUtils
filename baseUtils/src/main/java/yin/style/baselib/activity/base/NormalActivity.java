@@ -16,6 +16,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
+import org.greenrobot.eventbus.EventBus;
+
 import yin.style.baselib.R;
 import yin.style.baselib.activity.view.StatusBarView;
 import yin.style.baselib.utils.AppManager;
@@ -67,6 +69,10 @@ public abstract class NormalActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView(savedInstanceState);   //初始化布局
         initData(); //设置数据
+
+        //默认不加载EventBus
+        if (setEventBus())
+            EventBus.getDefault().register(this);
     }
 
     /**
@@ -106,7 +112,7 @@ public abstract class NormalActivity extends AppCompatActivity {
 
     @SuppressLint("ResourceType")
     @Nullable
-    public <T extends View> T findViewById(@IdRes int id) {
+    public final  <T extends View> T findViewById(@IdRes int id) {
         if (id <= 0) {
             return null;
         }
@@ -118,10 +124,18 @@ public abstract class NormalActivity extends AppCompatActivity {
         super.onDestroy();
         if (!removeAppManager())
             AppManager.getInstance().finishActivity(this);//Activity 管理器
+
+        //默认不加载EventBus
+        if (setEventBus())
+            EventBus.getDefault().unregister(this);
+    }
+
+    private boolean setEventBus() {
+        return false;
     }
 
     //关闭键盘
-    protected void closeKeyboard() {
+    protected final void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }

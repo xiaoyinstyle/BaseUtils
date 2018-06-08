@@ -7,6 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -38,7 +40,7 @@ dependencies {
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.0.2'
+//    upload_version = '0.0.3'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
 //    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'

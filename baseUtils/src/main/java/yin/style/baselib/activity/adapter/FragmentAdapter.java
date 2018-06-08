@@ -14,9 +14,9 @@ import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> mFragments;
+    private List<? extends Fragment> mFragments;
 
-    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public FragmentAdapter(FragmentManager fm, List<? extends Fragment> fragments) {
         super(fm);
         // TODO Auto-generated constructor stub
         mFragments = fragments;

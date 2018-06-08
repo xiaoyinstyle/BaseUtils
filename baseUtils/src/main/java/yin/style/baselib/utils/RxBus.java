@@ -16,7 +16,12 @@ import rx.subscriptions.CompositeSubscription;
  * Created by chenY on 2016/10/10
  * <p>
  * RxJava and RxAndroid 结合的RxBus
+ * <p>
+ * 直接用EventBus 更方便 与Activity 绑定
+ * 使用过度会对代码解读造成压力，建议少量使用，
+ * EventBus 可与AS插件配合解读 ，而RxBus无法操作，所以抛弃
  */
+@Deprecated
 public class RxBus {
 
     private static volatile RxBus mInstance;

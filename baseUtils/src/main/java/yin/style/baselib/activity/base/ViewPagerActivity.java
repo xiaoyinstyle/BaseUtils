@@ -53,6 +53,6 @@ public abstract class ViewPagerActivity extends TitleActivity {
 
     protected abstract CharSequence[] setTitles();
 
-    protected abstract List<Fragment> setFragments();
+    protected abstract List<? extends Fragment> setFragments();
 
 }

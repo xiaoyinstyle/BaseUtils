@@ -19,13 +19,13 @@ package com.zhihu.matisse;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.support.v4.util.ArraySet;
 import android.webkit.MimeTypeMap;
 
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -115,7 +115,7 @@ public enum MimeType {
     }
 
     private static Set<String> arraySetOf(String... suffixes) {
-        return new HashSet<>(Arrays.asList(suffixes));
+        return new ArraySet<>(Arrays.asList(suffixes));
     }
 
     @Override

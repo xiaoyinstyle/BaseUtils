@@ -2,7 +2,6 @@ package yin.style.sample.http;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -16,14 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class mNetworkActivity extends TitleActivity {
 
@@ -84,16 +78,16 @@ public class mNetworkActivity extends TitleActivity {
             @Override
             public void run() {
 
-                OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
-                Request request = new Request.Builder().url("http://www.baidu.com")
-                        .get().build();
-                Call call = client.newCall(request);
-                try {
-                    Response response = call.execute();
-                    Log.e("AAA", "" + response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+//                Request request = new Request.Builder().url("http://www.baidu.com")
+//                        .get().build();
+//                Call call = client.newCall(request);
+//                try {
+//                    Response response = call.execute();
+//                    Log.e("AAA", "" + response.body().string());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         }).start();
 

@@ -2,7 +2,10 @@ package yin.style.sample.baseActivity;
 
 
 import android.graphics.Color;
+import android.support.design.widget.TabLayout;
+import android.view.View;
 
+import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.baseActivity.fragment.HeadViewFragment;
 import yin.style.baselib.activity.base.TabActivity;
 import yin.style.baselib.activity.model.TabEntity;
@@ -24,7 +27,7 @@ public class mTabActivity extends TabActivity {
 
     @Override
     protected void addFragment(List<TabEntity> tabEntities) {
-        setStatusBarView(mContext, false, 0,true);
+        setStatusBarView(mContext, false, 0, true);
 
         TabEntity tabEntity0 = new TabEntity();
         tabEntity0.setFragment(new HeadViewFragment());
@@ -50,6 +53,23 @@ public class mTabActivity extends TabActivity {
 
     @Override
     protected void initData() {
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ToastUtils.show("onTabSelected:" + tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                ToastUtils.show("onTabUnselected:" + tab.getPosition());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                ToastUtils.show("onTabReselected:" + tab.getPosition());
+            }
+        });
+
         setCurrentItem(1);
 
         setCanScroll(false);

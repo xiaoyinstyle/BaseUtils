@@ -64,7 +64,7 @@ public class HeadViewFragment extends NormalFragment {
         titleLayout.setBackgroundColor(Color.BLUE);
 
         boolean isHas = setStatusBarView(mContext, false);
-        titleLayout.setPadding(0, isHas ? ScreenUtil.getStatusHeight(mContext) : 0, 0, 0);
+        titleLayout.setStatusTop(isHas);
 
         titleLayout.setText("标题");
 
