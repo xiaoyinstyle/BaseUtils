@@ -26,11 +26,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
     implementation "com.android.support:support-annotations:${supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
-    implementation 'it.sephiroth.android.library.imagezoom:library:1.0.4'
+    compile 'it.sephiroth.android.library.imagezoom:library:1.0.4'
 
 //    compileOnly 'com.github.bumptech.glide:glide:3.7.0'
-    compileOnly 'com.squareup.picasso:picasso:2.5.2'
-    compileOnly ('com.github.bumptech.glide:glide:4.6.1'){
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation ('com.github.bumptech.glide:glide:4.6.1'){
         exclude module: 'support-fragment'
         exclude module: 'support-annotations'
     }
@@ -40,7 +40,7 @@ dependencies {
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.0.3'
+//    upload_version = '0.0.2'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
 //    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
@@ -48,7 +48,7 @@ dependencies {
 //
 //    bintray_pkg_repo = 'maven'
 //    bintray_pkg_name = 'matisse'
-//    bintray_pkg_desc = '知乎开源图片选择框架，修改版'
+//    bintray_pkg_desc = 'matisse 5.0-beta'
 //
 //    developer_id = 'xiaoyinstyle'
 //    developer_name = 'chneyin'

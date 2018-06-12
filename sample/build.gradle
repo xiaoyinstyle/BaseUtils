@@ -69,8 +69,9 @@ dependencies {
     implementation "com.android.support:design:${rootProject.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
 
-    compile project(':baseUtils')
+//    compile project(':baseUtils')
     implementation project(':recyclerlib')
+    compile 'yin.style.utils:baseUtils:0.0.9'
 //    compile 'yin.style.utils:baseUtils:0.0.4'
 //    compile 'yin.style.utils:recyclerlib:0.1.1_without'
 

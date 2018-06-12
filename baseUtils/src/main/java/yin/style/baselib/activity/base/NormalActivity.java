@@ -112,7 +112,7 @@ public abstract class NormalActivity extends AppCompatActivity {
 
     @SuppressLint("ResourceType")
     @Nullable
-    public final  <T extends View> T findViewById(@IdRes int id) {
+    public final <T extends View> T findViewById(@IdRes int id) {
         if (id <= 0) {
             return null;
         }
@@ -130,7 +130,8 @@ public abstract class NormalActivity extends AppCompatActivity {
             EventBus.getDefault().unregister(this);
     }
 
-    private boolean setEventBus() {
+
+    protected boolean setEventBus( ) {
         return false;
     }
 

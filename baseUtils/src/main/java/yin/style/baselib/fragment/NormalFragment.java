@@ -104,7 +104,7 @@ public abstract class NormalFragment extends Fragment {
             EventBus.getDefault().unregister(this);
     }
 
-    private boolean setEventBus() {
+    protected boolean setEventBus() {
         return false;
     }
 
