@@ -3,8 +3,6 @@ package yin.style.baselib.fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -15,16 +13,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
-import org.greenrobot.eventbus.EventBus;
-
 import yin.style.baselib.R;
 import yin.style.baselib.activity.view.StatusBarView;
-import yin.style.baselib.activity.view.TitleLayout;
-import yin.style.baselib.utils.ScreenUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import yin.style.baselib.utils.StatusBarUtils;
 
 /**
  * Created by ChneY on 2017/5/6.
@@ -68,8 +61,8 @@ public abstract class NormalFragment extends Fragment {
     //懒加载
     private void init(Bundle savedInstanceState) {
         //默认不加载EventBus
-        if (setEventBus())
-            EventBus.getDefault().register(this);
+//        if (setEventBus())
+//            EventBus.getDefault().register(this);
 
         hasLoad = true;
         initView(savedInstanceState);   //初始化布局
@@ -100,8 +93,8 @@ public abstract class NormalFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
         //默认不加载EventBus
-        if (setEventBus())
-            EventBus.getDefault().unregister(this);
+//        if (setEventBus())
+//            EventBus.getDefault().unregister(this);
     }
 
     protected boolean setEventBus() {

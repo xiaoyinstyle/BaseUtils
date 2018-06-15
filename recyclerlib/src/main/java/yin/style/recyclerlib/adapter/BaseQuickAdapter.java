@@ -289,7 +289,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<BaseViewH
     @LayoutRes
     protected abstract int getLayoutResId();
 
-    protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T t, int position);
+    protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T bean, int position);
 
     /**
      *

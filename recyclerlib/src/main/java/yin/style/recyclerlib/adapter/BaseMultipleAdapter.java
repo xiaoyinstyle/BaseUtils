@@ -261,7 +261,7 @@ public abstract class BaseMultipleAdapter<T> extends RecyclerView.Adapter<BaseVi
         return footerViewCount;
     }
 
-    protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T t, int position);
+    protected abstract void setViewHolder(BaseViewHolder baseViewHolder, T bean, int position);
 
 
 }
