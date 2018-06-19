@@ -1,7 +1,7 @@
 package yin.style.baselib.net;
 
-
-import yin.style.baselib.net.inter.BInterceptor;
+import yin.style.baselib.net.adapter.IObserver;
+import yin.style.baselib.net.inter.ICallBack;
 import yin.style.baselib.net.inter.IHttpProcessor;
 import yin.style.baselib.net.processor.OkgoProcessor;
 
@@ -77,18 +77,12 @@ public class HttpHelper implements IHttpProcessor {
     }
 
     @Override
-    public IHttpProcessor downloadFile(String filePath) {
-        mIHttpProcessor.downloadFile(filePath);
-        return this;
+    public void callBack(ICallBack iCallBack) {
+        mIHttpProcessor.callBack(iCallBack);
     }
 
     @Override
-    public IHttpProcessor addInterceptor(BInterceptor interceptor) {
-        return this;
-    }
-
-    @Override
-    public void callBack() {
-        mIHttpProcessor.callBack();
+    public <T> void subscribe(IObserver<T> observer) {
+         mIHttpProcessor.subscribe(observer);
     }
 }

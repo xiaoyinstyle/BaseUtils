@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jskingen.baseutils.yin.jskingen.baseutils.http.mNetworkActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,21 +26,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="网络请求2-get" />
+
         <Button
             android:id="@+id/bt2_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="网络请求2-post" />
+
         <Button
             android:id="@+id/bt2_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="网络请求2 +图片" />
+            android:text="网络请求2 上传文件" />
+
         <Button
-            android:id="@+id/bt2_test"
+            android:id="@+id/bt2_bitmap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试" />
+            android:text="下载bitmap" />
+
+        <Button
+            android:id="@+id/bt2_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下载文件" />
+
+    <Button
+            android:id="@+id/bt2_rx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rxjava" />
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"

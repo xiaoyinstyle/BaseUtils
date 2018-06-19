@@ -22,57 +22,63 @@ android {
         }
     }
 //        resourcePrefix "dj_"
-}
+    dependencies {
+        compile fileTree(include: ['*.jar'], dir: 'libs')
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+        implementation "com.android.support:support-v4:${rootProject.supportLibVersion}"
+        implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+        implementation "com.android.support:design:${rootProject.supportLibVersion}"
+        compile "com.android.support:cardview-v7:${rootProject.supportLibVersion}"
 
-    implementation "com.android.support:support-v4:${rootProject.supportLibVersion}"
-    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
-    implementation "com.android.support:design:${rootProject.supportLibVersion}"
-    compile "com.android.support:cardview-v7:${rootProject.supportLibVersion}"
+        compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    compile "io.reactivex:rxjava:1.2.2"
-    compile "io.reactivex:rxandroid:1.2.1"
-    //图片加载glide
+//    compile "io.reactivex:rxjava:1.2.2"
+//    compile "io.reactivex:rxandroid:1.2.1"
+        compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+        compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+        //图片加载glide
 //    compile "com.github.bumptech.glide:glide:3.7.0"
-    compile ('com.github.bumptech.glide:glide:4.6.1'){
-        exclude module: 'support-fragment'
-        exclude module: 'support-annotations'
-    }
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-    compile "com.google.code.gson:gson:2.8.0"
-    //注解
-    compile "com.jakewharton:butterknife:8.8.1"
+        compile ('com.github.bumptech.glide:glide:4.6.1'){
+            exclude module: 'support-fragment'
+            exclude module: 'support-annotations'
+        }
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+        compile "com.google.code.gson:gson:2.8.0"
+        //注解
+        compile "com.jakewharton:butterknife:8.8.1"
 //
 //    compile "com.squareup.okhttp3:okhttp:3.4.1"
 //    compile 'com.zhy:okhttputils:2.6.2'
 
-    implementation project(':recyclerlib')
+        implementation project(':recyclerlib')
 //    compile 'yin.style.utils:recyclerlib:0.1.0'
 
-    compile 'org.greenrobot:eventbus:3.1.1'
+        compile 'org.greenrobot:eventbus:3.1.1'
+
+        //必须使用
+        compile 'com.lzy.net:okgo:3.0.4'
+        compile 'com.lzy.net:okrx2:2.0.2'
+    }
 }
 
-//gradlew install
-//gradlew bintrayUpload
-ext {
-    upload_group_id = 'yin.style.utils'
-    upload_version = '0.0.9'
 
-    site_url = 'https://github.com/xiaoyinstyle/BaseUtils'
-    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
-    git_issue_url = ''
-
-    bintray_pkg_repo = 'maven'
-    bintray_pkg_name = 'baseUtils'
-    bintray_pkg_desc = 'A base util.'
-
-    developer_id = 'xiaoyinstyle'
-    developer_name = 'chneyin'
-    developer_email = 'xiaoyinstyle@gmail.com'
-}
-
-apply from: 'publish.gradle'
+////gradlew install
+////gradlew bintrayUpload
+//ext {
+//    upload_group_id = 'yin.style.utils'
+//    upload_version = '0.0.9'
+//
+//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils'
+//    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
+//    git_issue_url = ''
+//
+//    bintray_pkg_repo = 'maven'
+//    bintray_pkg_name = 'baseUtils'
+//    bintray_pkg_desc = 'A base util.'
+//
+//    developer_id = 'xiaoyinstyle'
+//    developer_name = 'chneyin'
+//    developer_email = 'xiaoyinstyle@gmail.com'
+//}
+//
+//apply from: 'publish.gradle'

@@ -2,6 +2,8 @@ package yin.style.baselib.net.inter;
 
 import java.util.Map;
 
+import yin.style.baselib.net.adapter.IObserver;
+
 /**
  * Created by ChneY on 2017/6/22.
  * <p>
@@ -35,10 +37,7 @@ public interface IHttpProcessor {
     //取消 请求
     void cancel(Object tag);
 
-    //下载 大文件（带进度条）
-    IHttpProcessor downloadFile(String filePath);
+    void callBack(ICallBack iCallBack);
 
-    IHttpProcessor addInterceptor(BInterceptor interceptor);
-
-    void callBack();
+    <T>void  subscribe(IObserver<T> observer);
 }

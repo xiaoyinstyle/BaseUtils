@@ -1,13 +1,26 @@
-package yin.style.baselib.net.inter;
+package yin.style.baselib.net.adapter;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import okhttp3.Call;
 
-/**
- * Created by ChneY on 2017/6/22.
- * 普通的 Post / Get 请求的接口
- */
+public abstract class IObserver<T> implements Observer<T> {
+    @Override
+    public void onSubscribe(Disposable d) {
 
-public abstract class ICallBack<T> {
+    }
+
+    @Override
+    public void onNext(T t) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
+
     public Object setTag() {
         return null;
     }
