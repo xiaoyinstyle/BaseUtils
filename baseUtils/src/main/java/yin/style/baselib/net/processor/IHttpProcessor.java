@@ -1,8 +1,9 @@
-package yin.style.baselib.net.inter;
+package yin.style.baselib.net.processor;
 
 import java.util.Map;
 
 import yin.style.baselib.net.adapter.IObserver;
+import yin.style.baselib.net.inter.ICallBack;
 
 /**
  * Created by ChneY on 2017/6/22.
@@ -37,7 +38,7 @@ public interface IHttpProcessor {
     //取消 请求
     void cancel(Object tag);
 
-    void callBack(ICallBack iCallBack);
+    <T>void callBack(ICallBack<T> iCallBack);
 
     <T>void  subscribe(IObserver<T> observer);
 }

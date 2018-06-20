@@ -251,3 +251,6 @@
 
 #-keep public class com.** {*;}
 
+#Gradle Retrolambda混淆规则
+ -dontwarn java.lang.invoke.*
+ -dontwarn **$$Lambda$*

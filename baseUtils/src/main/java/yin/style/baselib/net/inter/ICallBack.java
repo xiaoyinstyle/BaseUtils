@@ -22,13 +22,17 @@ public abstract class ICallBack<T> {
     /**
      * 对返回数据进行操作的回调， UI线程
      */
-    public abstract void onSuccess(T response);
+    public void onResponse(T response) {
+        onSuccess(response, null);
+    }
+
+    public abstract void onSuccess(T response, String p);
 
 
     /**
      * 请求失败，响应错误，数据解析错误等，都会回调该方法， UI线程
      */
-    public void onError(Throwable throwable) {
+    public void onError(int code, Throwable throwable) {
     }
 
     /**
@@ -46,6 +50,6 @@ public abstract class ICallBack<T> {
     /**
      * 下载过程中的进度回调，UI线程
      */
-    public void downloadProgress(float progress) {
+    public void downloadProgress(float progress, long currentSize, long allSize) {
     }
 }

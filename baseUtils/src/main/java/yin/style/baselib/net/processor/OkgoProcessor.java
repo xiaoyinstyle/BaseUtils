@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.adapter.AdapterParam;
+import com.lzy.okgo.adapter.Call;
 import com.lzy.okgo.adapter.CallAdapter;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.BitmapConvert;
@@ -15,10 +17,12 @@ import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.BodyRequest;
 import com.lzy.okgo.request.base.Request;
-import com.lzy.okrx2.adapter.ObservableBody;
 import com.lzy.okrx2.adapter.ObservableResponse;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,12 +38,12 @@ import okhttp3.ResponseBody;
 import yin.style.baselib.BuildConfig;
 import yin.style.baselib.log.Logger;
 import yin.style.baselib.net.adapter.IObserver;
-import yin.style.baselib.net.inter.BInterceptor;
+import yin.style.baselib.net.adapter.MyCallObservable;
 import yin.style.baselib.net.inter.ICallBack;
-import yin.style.baselib.net.inter.IHttpProcessor;
 import yin.style.baselib.net.inter.OnBitmapResult;
 import yin.style.baselib.net.inter.OnFileResult;
 import yin.style.baselib.net.utils.BHUtils;
+import yin.style.baselib.utils.ToastUtils;
 
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/6/15.
@@ -124,7 +128,7 @@ public class OkgoProcessor implements IHttpProcessor {
     }
 
     @Override
-    public void callBack(final ICallBack iCallBack) {
+    public <T> void callBack(final ICallBack<T> iCallBack) {
         BInterceptor bInterceptor = null;
         if (iCallBack != null && iCallBack instanceof BInterceptor) {
             bInterceptor = (BInterceptor) iCallBack;
@@ -141,7 +145,6 @@ public class OkgoProcessor implements IHttpProcessor {
                 if (iCallBack != null)
                     iCallBack.onStart(request.getRawCall());
             }
-
 
             @Override
             public Object convertResponse(okhttp3.Response response) throws Throwable {
@@ -178,8 +181,12 @@ public class OkgoProcessor implements IHttpProcessor {
                     Log.d(TAG, "maps: " + request.getParams().toString());
                     Log.d(TAG, "result: " + response.body().toString());
                 }
-                if (iCallBack != null)
-                    iCallBack.onSuccess(response.body());
+                try {
+                    if (iCallBack != null)
+                        iCallBack.onResponse((T) response.body());
+                } catch (Exception e) {
+                    iCallBack.onError(0, e);
+                }
             }
 
             @Override
@@ -187,7 +194,7 @@ public class OkgoProcessor implements IHttpProcessor {
                 super.downloadProgress(progress);
 
                 if (iCallBack != null)
-                    iCallBack.downloadProgress(progress.fraction);
+                    iCallBack.downloadProgress(progress.fraction, progress.currentSize, progress.totalSize);
             }
 
             @Override
@@ -201,8 +208,15 @@ public class OkgoProcessor implements IHttpProcessor {
             @Override
             public void onError(Response response) {
                 super.onError(response);
+                if (response.getException() instanceof FileNotFoundException) {
+                    ToastUtils.show("文件操作权限未获取");
+                } else if (response.getException() instanceof ConnectException) {
+                    ToastUtils.show("网络未连接");
+                } else if (response.getException() instanceof SocketTimeoutException) {
+                    ToastUtils.show("连接超时");
+                }
                 if (iCallBack != null)
-                    iCallBack.onError(response.getException());
+                    iCallBack.onError(0, response.getException());
             }
 
             @Override
@@ -226,7 +240,7 @@ public class OkgoProcessor implements IHttpProcessor {
         if (iObserver != null && iObserver.setTag() != null)
             request.tag(iObserver.setTag());
 
-        CallAdapter<T, Observable<T>> callAdapter = new ObservableResponse();
+        CallAdapter<T, Observable<Response<T>>> callAdapter = new ObservableResponse();
 
         request.converter(new Converter<T>() {
             @Override
@@ -252,8 +266,9 @@ public class OkgoProcessor implements IHttpProcessor {
 
     /**
      * 获取
+     * <p>
+     * * @param BInterceptor
      *
-     * @param BInterceptor
      * @return
      */
     public Request getRequest(BInterceptor bInterceptor) {
@@ -262,7 +277,6 @@ public class OkgoProcessor implements IHttpProcessor {
         Map<String, String> tempHeaderMaps = headerMaps;
         Map tempGetMaps = getMaps;
 
-//        if (bInterceptor != null && iCallBack instanceof BInterceptor) {
         if (bInterceptor != null) {
             //拦截
             tempUploadMaps = bInterceptor.upload(uploadMaps);

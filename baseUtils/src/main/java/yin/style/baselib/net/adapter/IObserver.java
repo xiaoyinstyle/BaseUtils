@@ -1,25 +1,26 @@
 package yin.style.baselib.net.adapter;
 
+import com.lzy.okgo.model.Response;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.Call;
 
-public abstract class IObserver<T> implements Observer<T> {
+public abstract class IObserver<T> implements Observer<Response<T>> {
     @Override
     public void onSubscribe(Disposable d) {
 
     }
 
     @Override
-    public void onNext(T t) {
-
+    public void onNext(Response<T> t) {
+        onSuccess(t.body());
     }
 
     @Override
     public void onComplete() {
-
+        onFinish();
     }
-
 
     public Object setTag() {
         return null;
@@ -50,15 +51,15 @@ public abstract class IObserver<T> implements Observer<T> {
     public void onFinish() {
     }
 
-    /**
-     * 上传过程中的进度回调，get请求不回调，UI线程
-     */
-    public void uploadProgress(float progress, long currentSize, long allSize) {
-    }
-
-    /**
-     * 下载过程中的进度回调，UI线程
-     */
-    public void downloadProgress(float progress) {
-    }
+//    /**
+//     * 上传过程中的进度回调，get请求不回调，UI线程
+//     */
+//    public void uploadProgress(float progress, long currentSize, long allSize) {
+//    }
+//
+//    /**
+//     * 下载过程中的进度回调，UI线程
+//     */
+//    public void downloadProgress(float progress) {
+//    }
 }

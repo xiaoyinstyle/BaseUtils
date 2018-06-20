@@ -16,14 +16,19 @@ import com.lzy.okgo.model.Response;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.lzy.okrx2.adapter.ObservableResponse;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -39,6 +44,7 @@ import yin.style.baselib.net.inter.OnBitmapResult;
 import yin.style.baselib.net.inter.OnFileResult;
 import yin.style.baselib.net.utils.BHUtils;
 import yin.style.baselib.utils.FileUtils;
+import yin.style.baselib.utils.RxBus;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
 
@@ -71,11 +77,35 @@ public class mNetworkActivity extends TitleActivity {
     @Override
     protected void initData() {
 
+        RxBus.getInstance().toFlowable(String.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        RxBus.getInstance().
     }
 
     @OnClick({R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload, R.id.bt2_bitmap, R.id.bt2_download, R.id.bt2_rx})
@@ -118,9 +148,15 @@ public class mNetworkActivity extends TitleActivity {
 
                     @Override
                     public void onSuccess(String response) {
-
+                        Log.e(TAG, "onSuccess: " + response);
                     }
 
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        Log.e(TAG, "onComplete: 111111111111");
+                        RxBus.getInstance().post("111");
+                    }
                 });
 
     }
@@ -134,7 +170,7 @@ public class mNetworkActivity extends TitleActivity {
                 .callBack(new ICallBack<String>() {
 
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(String response, String p) {
                         ToastUtils.show("网络请求成功");
                         text.setText(BHUtils.unicodeStringDecode(response));
                     }
@@ -150,7 +186,7 @@ public class mNetworkActivity extends TitleActivity {
                 .callBack(new ICallBack<String>() {
 
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(String response, String p) {
                         ToastUtils.show("网络请求成功");
                         text.setText(response);
                     }
@@ -169,7 +205,7 @@ public class mNetworkActivity extends TitleActivity {
                 .upload(maps)
                 .callBack(new OnBaseResult<String>() {
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(String response, String p) {
                         ToastUtils.show("网络请求成功");
                         text.setText(BHUtils.unicodeStringDecode(response));
                     }
@@ -184,11 +220,11 @@ public class mNetworkActivity extends TitleActivity {
     }
 
     private void http2_download() {
-//        HttpHelper.init("https://codeload.github.com/AndroidKnife/RxBus/zip/master")
-        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
-                .callBack(new OnFileResult(temp) {
+        HttpHelper.init("https://codeload.github.com/AndroidKnife/RxBus/zip/master")
+//        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
+                .callBack(new OnFileResult(temp, true) {
                     @Override
-                    public void onSuccess(File response) {
+                    public void onSuccess(File response, String p) {
                         ToastUtils.show("网络请求成功");
 //                        GlideUtil.getInstance().setView(ivPic, response);
                     }
@@ -200,10 +236,10 @@ public class mNetworkActivity extends TitleActivity {
                     }
 
                     @Override
-                    public void downloadProgress(float progress) {
-                        super.downloadProgress(progress);
+                    public void downloadProgress(float progress, long currentSize, long allSize) {
                         text.setText(progress + "");
                         Log.e(TAG, "downloadProgress: " + progress);
+                        setLoadText(progress + "");
                     }
                 });
     }
@@ -213,7 +249,7 @@ public class mNetworkActivity extends TitleActivity {
         HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
                 .callBack(new OnBitmapResult() {
                     @Override
-                    public void onSuccess(Bitmap response) {
+                    public void onSuccess(Bitmap response, String p) {
                         ToastUtils.show("网络请求成功");
                         ivPic.setImageBitmap(response);
                     }

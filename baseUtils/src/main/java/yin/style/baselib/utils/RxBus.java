@@ -1,20 +1,14 @@
 package yin.style.baselib.utils;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
-
-
 import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.SerializedSubscriber;
 
 /**
  * Created by chenY on 2016/10/10
  * <p>
- * RxJava and RxAndroid 结合的RxBus
+ * RxJava2 and RxAndroid2 结合的RxBus
  * <p>
  * 直接用EventBus 更方便 与Activity 绑定
  * 使用过度会对代码解读造成压力，建议少量使用，
@@ -22,72 +16,64 @@ import io.reactivex.schedulers.Schedulers;
  */
 @Deprecated
 public class RxBus {
-
+    //相当于Rxjava1.x中的Subject
     private final FlowableProcessor<Object> mBus;
+    private static volatile RxBus sRxBus = null;
 
     private RxBus() {
-        // toSerialized method made bus thread safe
+        //调用toSerialized()方法，保证线程安全
         mBus = PublishProcessor.create().toSerialized();
     }
 
-    public static RxBus get() {
-        return Holder.BUS;
-    }
-
-    public void post(Object obj) {
-        mBus.onNext(obj);
-    }
-
-    public <T> Flowable<T> toFlowable(Class<T> tClass) {
-        return mBus.ofType(tClass);
-    }
-
-    public Flowable<Object> toFlowable() {
-        return mBus;
-    }
-
-    public boolean hasSubscribers() {
-        return mBus.hasSubscribers();
-    }
-
-    private static class Holder {
-        private static final RxBus BUS = new RxBus();
+    public static synchronized RxBus getInstance() {
+        if (sRxBus == null) {
+            synchronized (RxBus.class) {
+                if (sRxBus == null) {
+                    sRxBus = new RxBus();
+                }
+            }
+        }
+        return sRxBus;
     }
 
 
     /**
-     * RxBus
+     * 发送消息
+     *
+     * @param o
      */
-    private void operateBus() {
-        RxBus.get().toFlowable(String.class)
-                .subscribeOn(Schedulers.io())//
-                .doOnSubscribe(new Consumer<Subscription>() {
-                    @Override
-                    public void accept(Subscription subscription) throws Exception {
-
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onSubscribe(Subscription s) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+    public void post(Object o) {
+        new SerializedSubscriber<>(mBus).onNext(o);
     }
+
+    /**
+     * 确定接收消息的类型
+     *
+     * @param aClass
+     * @param <T>
+     * @return
+     */
+    public <T> Flowable<T> toFlowable(Class<T> aClass) {
+        return mBus.ofType(aClass);
+    }
+
+    /**
+     * 判断是否有订阅者
+     *
+     * @return
+     */
+    public boolean hasSubscribers() {
+        return mBus.hasSubscribers();
+    }
+
+    /**
+     * 简单用法1
+     */
+//    public static class RxBusHelper {
+//          RxBus.getDefault().toFlowable(String.class)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<String>() {
+//                    }
+//                });
+//    }
 }
