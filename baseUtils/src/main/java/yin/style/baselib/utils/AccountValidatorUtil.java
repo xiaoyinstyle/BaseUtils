@@ -11,7 +11,8 @@ public class AccountValidatorUtil {
     /**
      * 正则表达式：验证用户名
      */
-    public static final String REGEX_USERNAME = "^[a-zA-Z]\\w{5,20}$";
+//    public static final String REGEX_USERNAME = "^[a-zA-Z]\\w{5,20}$";
+    public static final String REGEX_USERNAME = "^[a-zA-Z]\\w{%i,%i}$";
 
     /**
      * 正则表达式：验证密码
@@ -57,7 +58,11 @@ public class AccountValidatorUtil {
      * @return 校验通过返回true，否则返回false
      */
     public static boolean isUsername(String username) {
-        return Pattern.matches(REGEX_USERNAME, username);
+        return isUsername(username, 5, 20);
+    }
+
+    public static boolean isUsername(String username, int minLength, int maxLength) {
+        return Pattern.matches(String.format(REGEX_USERNAME, minLength, maxLength), username);
     }
 
     /**
@@ -66,6 +71,10 @@ public class AccountValidatorUtil {
      * @param password
      * @return 校验通过返回true，否则返回false
      */
+    public static boolean isPassword(String password) {
+        return isPassword(password, 6, 18);
+    }
+
     public static boolean isPassword(String password, int minLength, int maxLength) {
         return Pattern.matches(String.format(REGEX_PASSWORD, minLength, maxLength), password);
     }

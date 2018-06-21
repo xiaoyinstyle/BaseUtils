@@ -5,14 +5,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
+import java.util.UUID;
+
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.update.UpdateApkUtils;
-import yin.style.baselib.update.dailog.NumberProgressDialog;
 import yin.style.baselib.update.inter.DialogListener;
 import yin.style.baselib.update.inter.OnUpdateListener;
+import yin.style.baselib.update2.UpdateApkUtils2;
+import yin.style.baselib.update2.dailog.NumberProgressDialog;
 import yin.style.baselib.utils.FileUtils;
-import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
 
 import butterknife.BindView;
@@ -39,7 +41,7 @@ public class mUpdateActivity extends TitleActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        updateApkUtils2 = new UpdateApkUtils2(this);
     }
 
     @Override
@@ -48,19 +50,37 @@ public class mUpdateActivity extends TitleActivity {
         apkPath = FileUtils.getDownloadFile(this) + "/demo.apk";
     }
 
+    UpdateApkUtils2 updateApkUtils2;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        updateApkUtils2.destroy();
+
+    }
+
     @OnClick({R.id.bt1, R.id.bt2, R.id.bt3, R.id.bt4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt1:
-                UpdateApkUtils.from(this)
-                        .serverVersionName("2.0")
+                new UpdateApkUtils2(this).checkVersionName(true)
                         .serverVersionCode(2)
-                        .update(new OnUpdateListener() {
-                            @Override
-                            public void result(boolean mustUpdate) {
-                                ToastUtils.show(mustUpdate + "");
-                            }
-                        });
+                        .serverVersionName("2.0")
+                        .setCanIgnore(true)
+                        .setDownloadUrl("http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk")
+                        .setApkFilePath(FileUtils.getDownloadFile(mContext, UUID.randomUUID() + "_655.apk"))
+                        .setDialogHint("版本提示", "点击下载")
+                        .check();
+
+//                UpdateApkUtils.from(this)
+//                        .serverVersionName("2.0")
+//                        .serverVersionCode(2)
+//                        .update(new OnUpdateListener() {
+//                            @Override
+//                            public void result(boolean mustUpdate) {
+//                                ToastUtils.show(mustUpdate + "");
+//                            }
+//                        });
                 break;
             case R.id.bt2:
                 UpdateApkUtils.from(this)

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="match_parent">
+    <!-- style=修改成自定义的样式 -->
+    <ProgressBar android:id="@+id/progress"
+        style="@style/my_progress_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginStart="10dip"
+        android:layout_marginEnd="10dip"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/progress_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dip"
+        android:layout_marginStart="10dip"
+        android:layout_marginEnd="10dip"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/progress"
+        android:textColor="#fff"
+        />
+    <TextView
+        android:id="@+id/progress_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dip"
+        android:layout_marginStart="10dip"
+        android:layout_marginEnd="10dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/progress"
+        android:textColor="#fff"
+        />
+</RelativeLayout>

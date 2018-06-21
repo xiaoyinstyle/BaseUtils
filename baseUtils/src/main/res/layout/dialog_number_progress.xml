@@ -10,7 +10,6 @@
         android:background="@drawable/bg_dialog_confirm"
         android:orientation="vertical">
 
-
         <TextView
             android:id="@+id/dialog_title"
             android:layout_width="match_parent"

@@ -190,6 +190,10 @@ public class FileUtils {
 //    }
 //
     //下载保存路径
+    public static File getDownloadFile(Context context, String fileName) {
+        return new File(getDownloadFile(context), fileName);
+    }
+    //下载保存路径
     public static File getDownloadFile(Context context) {
         File file = new File(getRootPath(context), "download");
         if (!file.exists())

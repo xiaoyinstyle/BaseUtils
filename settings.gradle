@@ -2,6 +2,7 @@ include  ':baseUtils', ':recyclerlib'//,'lib-ios-dialog'
 //include ':lib-ios-dialog'
 include ':sample'
 include ':matisse'
+include ':updatelibrary'
 include ':camera'
 include ':autolayout'//https://github.com/hongyangAndroid/AndroidAutoLayout
 

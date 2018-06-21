@@ -26,7 +26,7 @@
             android:name="yin.style.baselib.photo.PicturePreviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
+        <service android:name=".update2.service.DownloadService"/>
         <!--下载-->
         <receiver
             android:name="yin.style.baselib.update.DownloadApkReceiver"

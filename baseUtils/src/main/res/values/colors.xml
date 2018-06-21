@@ -14,4 +14,5 @@
     <color name="text_blue">#0076FF</color>
     <color name="text_black">#333333</color>
     <color name="text_grey">#999999</color>
+    <color name="base_text_dialog">#16b2f5</color>
 </resources>
