@@ -5,20 +5,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 
-import java.util.UUID;
+import com.cretin.www.cretinautoupdatelibrary.AutoUpdateUtils;
+import com.cretin.www.cretinautoupdatelibrary.interfaces.ForceExitCallBack;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.update.UpdateApkUtils;
 import yin.style.baselib.update.inter.DialogListener;
 import yin.style.baselib.update.inter.OnUpdateListener;
-import yin.style.baselib.update2.UpdateApkUtils2;
-import yin.style.baselib.update2.dailog.NumberProgressDialog;
+import yin.style.baselib.update.dailog.NumberProgressDialog;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.sample.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import yin.style.sample.http.model.VersionBean;
 
 public class mUpdateActivity extends TitleActivity {
     @BindView(R.id.checkbox)
@@ -41,7 +42,6 @@ public class mUpdateActivity extends TitleActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        updateApkUtils2 = new UpdateApkUtils2(this);
     }
 
     @Override
@@ -50,37 +50,35 @@ public class mUpdateActivity extends TitleActivity {
         apkPath = FileUtils.getDownloadFile(this) + "/demo.apk";
     }
 
-    UpdateApkUtils2 updateApkUtils2;
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        updateApkUtils2.destroy();
-
+        AutoUpdateUtils.destroy(this);
     }
 
     @OnClick({R.id.bt1, R.id.bt2, R.id.bt3, R.id.bt4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt1:
-                new UpdateApkUtils2(this).checkVersionName(true)
-                        .serverVersionCode(2)
-                        .serverVersionName("2.0")
-                        .setCanIgnore(true)
-                        .setDownloadUrl("http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk")
-                        .setApkFilePath(FileUtils.getDownloadFile(mContext, UUID.randomUUID() + "_655.apk"))
-                        .setDialogHint("版本提示", "点击下载")
-                        .check();
+                VersionBean bean = new VersionBean();
+                bean.setCode(2);
+                bean.setIs_update(1);
+                bean.setUrl("http://appcdn.fanyi.baidu.com/app/v7.2.0/app-webbutton-release.apk");
+                bean.setVersion("2.1");
+                bean.setVersion_desc("测试更新");
 
-//                UpdateApkUtils.from(this)
-//                        .serverVersionName("2.0")
-//                        .serverVersionCode(2)
-//                        .update(new OnUpdateListener() {
-//                            @Override
-//                            public void result(boolean mustUpdate) {
-//                                ToastUtils.show(mustUpdate + "");
-//                            }
-//                        });
+                AutoUpdateUtils.getInstance(new AutoUpdateUtils.Builder(this)
+                        .setIgnoreThisVersion(true)
+                        .setShowType(AutoUpdateUtils.Builder.TYPE_DIALOG_WITH_BACK_DOWN)
+                        .setIconRes(R.mipmap.ic_launcher)
+                        .showLog(true)
+                        .build()).check(bean, new ForceExitCallBack() {
+                    @Override
+                    public void exit() {
+
+                    }
+                });
                 break;
             case R.id.bt2:
                 UpdateApkUtils.from(this)
@@ -115,7 +113,6 @@ public class mUpdateActivity extends TitleActivity {
                 break;
         }
     }
-
 
     NumberProgressDialog dialog;
 

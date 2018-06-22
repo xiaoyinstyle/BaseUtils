@@ -1,4 +1,4 @@
-package yin.style.baselib.update2.dailog;
+package yin.style.baselib.update.dailog;
 
 import android.app.Dialog;
 import android.content.Context;

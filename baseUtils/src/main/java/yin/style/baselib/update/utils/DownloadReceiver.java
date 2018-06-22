@@ -1,4 +1,4 @@
-package yin.style.baselib.update2.service;
+package yin.style.baselib.update.utils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

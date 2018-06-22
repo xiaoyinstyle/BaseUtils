@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cretin.www.cretinautoupdatelibrary.interfaces.ForceExitCallBack;
-import com.cretin.www.cretinautoupdatelibrary.model.UpdateEntity;
+import com.cretin.www.cretinautoupdatelibrary.model.UpdateInterface;
 import com.cretin.www.cretinautoupdatelibrary.utils.DownloadReceiver;
 import com.cretin.www.cretinautoupdatelibrary.utils.DownloadService;
 import com.cretin.www.cretinautoupdatelibrary.utils.NetWorkUtils;
@@ -32,9 +32,7 @@ import com.cretin.www.cretinautoupdatelibrary.view.ProgressView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 
 /**
  * Created by cretin on 2017/3/13.
@@ -46,85 +44,66 @@ public class AutoUpdateUtils {
     private static AutoUpdateUtils cretinAutoUpdateUtils;
 
     //定义一个展示下载进度的进度条
-    private static ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-    private static Context mContext;
+    private Context mContext;
 
-    private static ForceExitCallBack forceCallBack;
+    private ForceExitCallBack forceCallBack;
 
     //展示下载进度的方式 对话框模式 通知栏进度条模式
-    private static int showType = Builder.TYPE_DIALOG;
+    private int showType = Builder.TYPE_DIALOG;
     //是否展示忽略此版本的选项 默认开启
-    private static boolean canIgnoreThisVersion = true;
+    private boolean canIgnoreThisVersion = true;
     //app图标
-    private static int iconRes;
+    private int iconRes;
     //appName
-    private static String appName;
-    //是否开启日志输出
-    private static boolean showLog = true;
+    private String appName;
 
     //自定义对话框的所有控件的引用
-    private static AlertDialog showAndDownDialog;
-    private static AlertDialog showAndBackDownDialog;
+    private AlertDialog showAndDownDialog;
+    private AlertDialog showAndBackDownDialog;
 
     //绿色可爱型
-    private static TextView showAndDownTvMsg;
-    private static TextView showAndDownTvBtn1;
-    private static TextView showAndDownTvBtn2;
-    private static TextView showAndDownTvTitle;
-    private static LinearLayout showAndDownLlProgress;
-    private static ImageView showAndDownIvClose;
-    private static ProgressView showAndDownUpdateProView;
+    private TextView showAndDownTvMsg;
+    private TextView showAndDownTvBtn1;
+    private TextView showAndDownTvBtn2;
+    private TextView showAndDownTvTitle;
+    private LinearLayout showAndDownLlProgress;
+    private ImageView showAndDownIvClose;
+    private ProgressView showAndDownUpdateProView;
 
     //前台展示后台下载
-    private static TextView showAndBackDownMsg;
-    private static ImageView showAndBackDownClose;
-    private static TextView showAndBackDownUpdate;
+    private TextView showAndBackDownMsg;
+    private ImageView showAndBackDownClose;
+    private TextView showAndBackDownUpdate;
 
     //私有化构造方法
-    private AutoUpdateUtils() {
-
+    private AutoUpdateUtils(Context context) {
+        mContext = context;
+        receiver = new MyReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.intent.action.MY_RECEIVER");
+        //注册
+        mContext.registerReceiver(receiver, filter);
     }
 
     /**
      * 检查更新
      */
-    public void check(UpdateEntity data) {
+    public void check(UpdateInterface data) {
         check(data, null);
     }
 
-    /**
-     * 检查更新
-     */
-    public void check(UpdateEntity data, ForceExitCallBack forceCallBack) {
-        AutoUpdateUtils.forceCallBack = forceCallBack;
+    public void check(UpdateInterface data, ForceExitCallBack forceCallBack) {
+        cretinAutoUpdateUtils.forceCallBack = forceCallBack;
         if (data == null) {
             throw new RuntimeException("checkUrl is null. You must call init before using the cretin checking library.");
         } else {
-            if (data.isForceUpdate == 2) {
-                //所有旧版本强制更新
-                showUpdateDialog(data, true, false);
-            } else if (data.isForceUpdate == 1) {
-                //hasAffectCodes提及的版本强制更新
-                if (data.versionCode > getVersionCode(mContext)) {
-                    //有更新
-                    String[] hasAffectCodes = data.hasAffectCodes.split("\\|");
-                    if (Arrays.asList(hasAffectCodes).contains(getVersionCode(mContext) + "")) {
-                        //被列入强制更新 不可忽略此版本
-                        showUpdateDialog(data, true, false);
-                    } else {
-                        String dataVersion = data.versionName;
-                        if (!TextUtils.isEmpty(dataVersion)) {
-                            List listCodes = loadArray();
-                            if (!listCodes.contains(dataVersion)) {
-                                //没有设置为已忽略
-                                showUpdateDialog(data, false, true);
-                            }
-                        }
-                    }
-                }
-            } else if (data.isForceUpdate == 0) {
-                if (data.versionCode > getVersionCode(mContext)) {
+            if (checkVersion(data)) {
+                if (data.getIsForceUpdates()) {
+                    //所有旧版本强制更新
+                    showUpdateDialog(data, true, false);
+                } else {
                     showUpdateDialog(data, false, true);
                 }
             }
@@ -132,39 +111,33 @@ public class AutoUpdateUtils {
     }
 
     /**
-     * 初始化url
-     */
-    public static void init() {
-    }
-
-    /**
-     * 初始化url
+     * 进行版本比较
      *
-     * @param builder
+     * @param data
      */
-    public static void init(Builder builder) {
-        showType = builder.showType;
-        canIgnoreThisVersion = builder.canIgnoreThisVersion;
-        iconRes = builder.iconRes;
-        showLog = builder.showLog;
+    private boolean checkVersion(UpdateInterface data) {
+//        if (checkVersionName) {
+//            //通过版本Name来判断 ，不相同 则进行更新
+//            if (!serverVersionName.equals(localVersionName))
+//                return true;
+//        } else {
+        //通过版本Code来判断 ，大于Code的 则进行更新
+        if (data.getVersionCodes() > getVersionCode(cretinAutoUpdateUtils.mContext))
+            return true;
+//        }
+        return false;
     }
 
     /**
      * getInstance()
      *
-     * @param context
+     * @param builder
      * @return
      */
-    public static AutoUpdateUtils getInstance(Context context) {
-        mContext = context;
-        receiver = new MyReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.intent.action.MY_RECEIVER");
-        //注册
-        context.registerReceiver(receiver, filter);
 
+    public static AutoUpdateUtils getInstance(Builder builder) {
         if (cretinAutoUpdateUtils == null) {
-            cretinAutoUpdateUtils = new AutoUpdateUtils();
+            cretinAutoUpdateUtils = new AutoUpdateUtils(builder.context);
         }
         return cretinAutoUpdateUtils;
     }
@@ -173,12 +146,19 @@ public class AutoUpdateUtils {
     /**
      * 取消广播的注册
      */
-    public void destroy() {
+    public static void destroy(Context mContext) {
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //不要忘了这一步
-        if (mContext != null && intent != null)
-            mContext.stopService(intent);
-        if (mContext != null && receiver != null)
-            mContext.unregisterReceiver(receiver);
+        if (cretinAutoUpdateUtils != null) {
+            if (mContext != null && intent != null)
+                mContext.stopService(intent);
+            if (mContext != null && receiver != null)
+                mContext.unregisterReceiver(receiver);
+        }
     }
 
     /**
@@ -186,15 +166,15 @@ public class AutoUpdateUtils {
      *
      * @param data
      */
-    private void showUpdateDialog(final UpdateEntity data, final boolean isForceUpdate, boolean showIgnore) {
+    private void showUpdateDialog(final UpdateInterface data, final boolean isForceUpdate, boolean showIgnore) {
         if (showType == Builder.TYPE_DIALOG || showType == Builder.TYPE_NOTIFICATION) {
             //简约式对话框展示对话信息的方式
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             AlertDialog alertDialog = builder.create();
-            String updateLog = data.updateLog;
+            String updateLog = data.getUpdateLogs();
             if (TextUtils.isEmpty(updateLog))
                 updateLog = "新版本，欢迎更新";
-            String versionName = data.versionName;
+            String versionName = data.getVersionNames();
             if (TextUtils.isEmpty(versionName)) {
                 versionName = "1.1";
             }
@@ -261,7 +241,7 @@ public class AutoUpdateUtils {
             showAndDownIvClose = (ImageView) view.findViewById(R.id.iv_close);
             showAndDownLlProgress = (LinearLayout) view.findViewById(R.id.ll_progress);
             showAndDownUpdateProView = (ProgressView) showAndDownLlProgress.findViewById(R.id.progressView);
-            String updateLog = data.updateLog;
+            String updateLog = data.getUpdateLogs();
             if (TextUtils.isEmpty(updateLog))
                 updateLog = "新版本，欢迎更新";
             showAndDownTvMsg.setText(updateLog);
@@ -284,7 +264,7 @@ public class AutoUpdateUtils {
                         //点取消更新
                         showAndDownDialog.dismiss();
                         //取消更新 ？
-                        destroy();
+                        destroy(mContext);
                     }
                 }
             });
@@ -332,7 +312,7 @@ public class AutoUpdateUtils {
             showAndBackDownMsg = (TextView) view.findViewById(R.id.tv_content);
             showAndBackDownClose = (ImageView) view.findViewById(R.id.iv_close);
             showAndBackDownUpdate = (TextView) view.findViewById(R.id.tv_update);
-            String updateLog = data.updateLog;
+            String updateLog = data.getUpdateLogs();
             if (TextUtils.isEmpty(updateLog))
                 updateLog = "新版本，欢迎更新";
             showAndBackDownMsg.setText(updateLog);
@@ -360,61 +340,11 @@ public class AutoUpdateUtils {
         }
     }
 
-    private static void requestPermission(final UpdateEntity data) {
-        if (data != null) {
-            if (!TextUtils.isEmpty(data.downurl)) {
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    try {
-                        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        final String fileName = filePath + "/" + getPackgeName(mContext) + "-v" + getVersionName(mContext) + ".apk";
-                        final File file = new File(fileName);
-                        //如果不存在
-                        if (file.exists() && file.length() == data.size) {
-                            installApkFile(mContext, file);
-                            showAndDownDialog.dismiss();
-                            return;
-                        } else {
-                            if (!NetWorkUtils.getCurrentNetType(mContext).equals("wifi")) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                                builder.setTitle("提示");
-                                builder.setMessage("当前处于非WIFI连接，是否继续？");
-                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        file.delete();
-                                        createFileAndDownload(file, data.downurl);
-                                    }
-                                });
-                                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        showAndDownLlProgress.setVisibility(View.GONE);
-                                        showAndDownTvMsg.setVisibility(View.VISIBLE);
-                                        showAndDownTvBtn2.setText("立即更新");
-                                        showAndDownTvBtn1.setText("下次再说");
-                                        showAndDownTvTitle.setText("发现新版本...");
-                                        showAndDownIvClose.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                                builder.show();
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(mContext, "没有挂载的SD卡", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(mContext, "下载路径为空", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private static Intent intent;
 
     //创建文件并下载文件
-    private static void createFileAndDownload(File file, String downurl) {
+    private void createFileAndDownload(File file, String downurl) {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
@@ -455,8 +385,58 @@ public class AutoUpdateUtils {
     /**
      * 开始更新操作
      */
-    public void startUpdate(UpdateEntity data) {
-        requestPermission(data);
+    public void startUpdate(final UpdateInterface data) {
+        if (data != null) {
+            if (!TextUtils.isEmpty(data.getDownUrls())) {
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    try {
+                        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                        final String fileName = filePath + "/" + getPackgeName(mContext) + "-v" + getVersionName(mContext) + ".apk";
+                        final File file = new File(fileName);
+                        //如果不存在
+                        if (data.getApkSizes() > 0 && file.exists() && file.length() == data.getApkSizes()) {
+                            installApkFile(mContext, file);
+                            showAndDownDialog.dismiss();
+                            return;
+                        } else {
+                            if (!NetWorkUtils.getCurrentNetType(mContext).equals("wifi")) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                                builder.setTitle("提示");
+                                builder.setMessage("当前处于非WIFI连接，是否继续？");
+                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        file.delete();
+                                        createFileAndDownload(file, data.getDownUrls());
+                                    }
+                                });
+                                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        showAndDownLlProgress.setVisibility(View.GONE);
+                                        showAndDownTvMsg.setVisibility(View.VISIBLE);
+                                        showAndDownTvBtn2.setText("立即更新");
+                                        showAndDownTvBtn1.setText("下次再说");
+                                        showAndDownTvTitle.setText("发现新版本...");
+                                        showAndDownIvClose.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                                builder.show();
+                            } else {
+                                file.delete();
+                                createFileAndDownload(file, data.getDownUrls());
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(mContext, "没有挂载的SD卡", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(mContext, "下载路径为空", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**
@@ -467,35 +447,41 @@ public class AutoUpdateUtils {
     private static class MyReceiver extends DownloadReceiver {
         @Override
         protected void downloadComplete() {
-            if (progressDialog != null)
-                progressDialog.dismiss();
-            if (showAndDownDialog != null)
-                showAndDownDialog.dismiss();
-            try {
-                if (mContext != null && intent != null)
-                    mContext.stopService(intent);
-                if (mContext != null && receiver != null)
-                    mContext.unregisterReceiver(receiver);
-            } catch (Exception e) {
+            if (cretinAutoUpdateUtils != null) {
+                if (cretinAutoUpdateUtils.progressDialog != null)
+                    cretinAutoUpdateUtils.progressDialog.dismiss();
+                if (cretinAutoUpdateUtils.showAndDownDialog != null)
+                    cretinAutoUpdateUtils.showAndDownDialog.dismiss();
+                try {
+                    if (cretinAutoUpdateUtils.mContext != null && intent != null)
+                        cretinAutoUpdateUtils.mContext.stopService(intent);
+                    if (cretinAutoUpdateUtils.mContext != null && cretinAutoUpdateUtils.receiver != null)
+                        cretinAutoUpdateUtils.mContext.unregisterReceiver(cretinAutoUpdateUtils.receiver);
+                } catch (Exception e) {
+                }
             }
         }
 
         @Override
         protected void downloading(int progress) {
-            if (showType == Builder.TYPE_DIALOG) {
-                if (progressDialog != null)
-                    progressDialog.setProgress(progress);
-            } else if (showType == Builder.TYPE_DIALOG_WITH_PROGRESS) {
-                if (showAndDownUpdateProView != null)
-                    showAndDownUpdateProView.setProgress(progress);
+            if (cretinAutoUpdateUtils != null) {
+                if (cretinAutoUpdateUtils.showType == Builder.TYPE_DIALOG) {
+                    if (cretinAutoUpdateUtils.progressDialog != null)
+                        cretinAutoUpdateUtils.progressDialog.setProgress(progress);
+                } else if (cretinAutoUpdateUtils.showType == Builder.TYPE_DIALOG_WITH_PROGRESS) {
+                    if (cretinAutoUpdateUtils.showAndDownUpdateProView != null)
+                        cretinAutoUpdateUtils.showAndDownUpdateProView.setProgress(progress);
+                }
             }
         }
 
         @Override
         protected void downloadFail(String e) {
-            if (progressDialog != null)
-                progressDialog.dismiss();
-            Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
+            if (cretinAutoUpdateUtils != null) {
+                if (cretinAutoUpdateUtils.progressDialog != null)
+                    cretinAutoUpdateUtils.progressDialog.dismiss();
+                Toast.makeText(cretinAutoUpdateUtils.mContext, "下载失败", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -526,7 +512,7 @@ public class AutoUpdateUtils {
      * @param context
      * @return
      */
-    public static String getPackgeName(Context context) {
+    public String getPackgeName(Context context) {
         String packName = "";
         PackageInfo packInfo = getPackInfo(context);
         if (packInfo != null) {
@@ -535,7 +521,7 @@ public class AutoUpdateUtils {
         return packName;
     }
 
-    private static String getVersionName(Context context) {
+    private String getVersionName(Context context) {
         String versionName = "";
         PackageInfo packInfo = getPackInfo(context);
         if (packInfo != null) {
@@ -550,7 +536,7 @@ public class AutoUpdateUtils {
      * @param context
      * @return
      */
-    public static int getVersionCode(Context context) {
+    public int getVersionCode(Context context) {
         int versionCode = 0;
         PackageInfo packInfo = getPackInfo(context);
         if (packInfo != null) {
@@ -566,7 +552,7 @@ public class AutoUpdateUtils {
      * @param context
      * @return
      */
-    public static PackageInfo getPackInfo(Context context) {
+    public PackageInfo getPackInfo(Context context) {
         // 获取packagemanager的实例
         PackageManager packageManager = context.getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
@@ -599,6 +585,11 @@ public class AutoUpdateUtils {
         private String appName;
         //显示log日志
         private boolean showLog;
+        private Context context;
+
+        public Builder(Context context) {
+            this.context = context;
+        }
 
         public final AutoUpdateUtils.Builder showLog(boolean showLog) {
             this.showLog = showLog;

@@ -1,6 +1,5 @@
-package yin.style.baselib.update2.service;
+package yin.style.baselib.update.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -26,8 +25,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import yin.style.baselib.R;
-import yin.style.baselib.utils.FileUtils;
-
 
 public class DownloadService extends Service {
     private static final int NOTIFY_ID = 0;
@@ -37,10 +34,9 @@ public class DownloadService extends Service {
     private Notification mNotification;
     private Notification.Builder builder;
     private DownFileAsyncTask downFileAsyncTask;
-    private String downUrl;//下载地址
-    private String fileName;//文件路径 包括地址（全）
-    private String appName;//文件名
-    private boolean showType = false;//是否显示 Notification
+    private String downUrl;
+    private String appName;
+    private boolean showNotify;
 
     @Override
     public void onCreate() {
@@ -48,18 +44,16 @@ public class DownloadService extends Service {
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
         downUrl = intent.getStringExtra("downUrl");
-        fileName = intent.getStringExtra("fileName");
         appName = intent.getStringExtra("appName");
-        showType = intent.getBooleanExtra("type", showType);
+        showNotify = intent.getBooleanExtra("type", false);
         if (!TextUtils.isEmpty(downUrl)) {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 //后台下载或者前台展示后台下载都是调用这个
-                if (showType) {
+                if (showNotify) {
                     builder = new Notification.Builder(mContext);
                     if (intent.getIntExtra("icRes", 0) != 0) {
                         builder.setSmallIcon(intent.getIntExtra("icRes", 0));
@@ -72,12 +66,17 @@ public class DownloadService extends Service {
                     else
                         contentView.setTextViewText(R.id.fileName, appName + "正在下载...");
                     builder.setContent(contentView);
-                    mNotification = builder.build();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        mNotification = builder.build();
+                    } else {
+                        mNotification = builder.getNotification();
+                    }
                     mNotificationManager.notify(NOTIFY_ID, mNotification);
                 } else {
                     mNotificationManager = null;
                 }
-
+                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                final String fileName = filePath + "/" + getPackgeName(this) + "-v" + getVersionName(this) + ".apk";
                 downFileAsyncTask = new DownFileAsyncTask();
                 downFileAsyncTask.execute(fileName);
             } else {
@@ -165,7 +164,7 @@ public class DownloadService extends Service {
             if (file != null) {
                 installApkFile(mContext, file);
             } else {
-                if (!showType) {
+                if (showNotify) {
                     mNotificationManager.cancel(NOTIFY_ID);
                     mNotification.contentView = null;
                 }
@@ -179,7 +178,7 @@ public class DownloadService extends Service {
             int rate = values[0];
             if ((rate % 1 == 0 || rate == 100) && rate != lastPosition) {
                 lastPosition = rate;
-                if (showType) {
+                if (showNotify) {
                     if (rate < 100) {
                         //更新进度
                         RemoteViews contentView = mNotification.contentView;
@@ -267,8 +266,7 @@ public class DownloadService extends Service {
         //兼容7.0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(context, FileUtils.getAuthority(context), file);
-//            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+            Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
