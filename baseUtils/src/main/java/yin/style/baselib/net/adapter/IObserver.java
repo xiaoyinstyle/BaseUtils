@@ -6,15 +6,15 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.Call;
 
-public abstract class IObserver<T> implements Observer<Response<T>> {
+public abstract class IObserver<T> implements Observer<T> {
     @Override
     public void onSubscribe(Disposable d) {
 
     }
 
     @Override
-    public void onNext(Response<T> t) {
-        onSuccess(t.body());
+    public void onNext(T t) {
+        onSuccess(t);
     }
 
     @Override

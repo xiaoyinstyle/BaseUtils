@@ -3,7 +3,7 @@ package yin.style.baselib.net;
 import yin.style.baselib.net.adapter.IObserver;
 import yin.style.baselib.net.inter.ICallBack;
 import yin.style.baselib.net.processor.IHttpProcessor;
-import yin.style.baselib.net.processor.OkgoProcessor;
+import yin.style.baselib.net.processor.okgo.OkgoProcessor;
 
 import java.util.Map;
 
@@ -24,7 +24,8 @@ public class HttpHelper implements IHttpProcessor {
 //    }
 
     public static IHttpProcessor init(String url) {
-        mIHttpProcessor = new OkgoProcessor(url);
+        if (mIHttpProcessor == null)
+            mIHttpProcessor = new OkgoProcessor(url);
         return mIHttpProcessor;
     }
 

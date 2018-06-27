@@ -1,10 +1,11 @@
-package yin.style.baselib.net.adapter;
+package yin.style.baselib.net.processor.okgo;
 
 import com.lzy.okgo.adapter.Call;
 import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.lzy.okrx2.observable.CallEnqueueObservable;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -13,28 +14,28 @@ import io.reactivex.exceptions.CompositeException;
 import io.reactivex.exceptions.Exceptions;
 import io.reactivex.plugins.RxJavaPlugins;
 
-public class MyCallObservable<T>  extends Observable<Response<T>> {
+public class MyCallEnqueueObservable<T> extends Observable<T> {
     private final Call<T> originalCall;
 
-    public MyCallObservable(Call<T> originalCall) {
+    public MyCallEnqueueObservable(Call<T> originalCall) {
         this.originalCall = originalCall;
     }
 
     @Override
-    protected void subscribeActual(Observer<? super Response<T>> observer) {
+    protected void subscribeActual(Observer<? super T> observer) {
         // Since Call is a one-shot type, clone it for each new observer.
         Call<T> call = originalCall.clone();
-        CallCallback<T> callback = new CallCallback<>(call, observer);
+        MyCallEnqueueObservable.CallCallback<T> callback = new MyCallEnqueueObservable.CallCallback<>(call, observer);
         observer.onSubscribe(callback);
         call.execute(callback);
     }
 
     private static final class CallCallback<T> implements Disposable, Callback<T> {
         private final Call<T> call;
-        private final Observer<? super Response<T>> observer;
+        private final Observer<? super T> observer;
         boolean terminated = false;
 
-        CallCallback(Call<T> call, Observer<? super Response<T>> observer) {
+        CallCallback(Call<T> call, Observer<? super T> observer) {
             this.call = call;
             this.observer = observer;
         }
@@ -64,7 +65,7 @@ public class MyCallObservable<T>  extends Observable<Response<T>> {
             if (call.isCanceled()) return;
 
             try {
-                observer.onNext(response);
+                observer.onNext(response.body());
             } catch (Exception e) {
                 if (terminated) {
                     RxJavaPlugins.onError(e);

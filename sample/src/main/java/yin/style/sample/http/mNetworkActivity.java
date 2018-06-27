@@ -8,13 +8,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lzy.okgo.adapter.AdapterParam;
-import com.lzy.okgo.adapter.Call;
-import com.lzy.okgo.adapter.CallAdapter;
-import com.lzy.okgo.convert.StringConvert;
-import com.lzy.okgo.model.Response;
-import com.lzy.okrx2.adapter.ObservableBody;
-import com.lzy.okrx2.adapter.ObservableResponse;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -25,15 +18,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.FlowableSubscriber;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.net.HttpHelper;
@@ -44,7 +29,7 @@ import yin.style.baselib.net.inter.OnBitmapResult;
 import yin.style.baselib.net.inter.OnFileResult;
 import yin.style.baselib.net.utils.BHUtils;
 import yin.style.baselib.utils.FileUtils;
-import yin.style.baselib.utils.RxBus;
+import yin.style.baselib.rxbus.RxBus;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
 
@@ -77,17 +62,17 @@ public class mNetworkActivity extends TitleActivity {
     @Override
     protected void initData() {
 
-        RxBus.getInstance().toFlowable(String.class)
+        RxBus.getInstance()
+                .toFlowable(String.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onSubscribe(Subscription s) {
-
+                        s.request(Long.MAX_VALUE);
                     }
 
                     @Override
                     public void onNext(String s) {
-
                     }
 
                     @Override
@@ -100,12 +85,6 @@ public class mNetworkActivity extends TitleActivity {
 
                     }
                 });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        RxBus.getInstance().
     }
 
     @OnClick({R.id.bt2_get, R.id.bt2_post, R.id.bt2_upload, R.id.bt2_bitmap, R.id.bt2_download, R.id.bt2_rx})

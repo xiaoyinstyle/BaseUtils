@@ -1,4 +1,4 @@
-package yin.style.baselib.net.processor;
+package yin.style.baselib.net.processor.okgo;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -17,7 +17,6 @@ import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.BodyRequest;
 import com.lzy.okgo.request.base.Request;
-import com.lzy.okrx2.adapter.ObservableResponse;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +27,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -38,10 +36,13 @@ import okhttp3.ResponseBody;
 import yin.style.baselib.BuildConfig;
 import yin.style.baselib.log.Logger;
 import yin.style.baselib.net.adapter.IObserver;
-import yin.style.baselib.net.adapter.MyCallObservable;
 import yin.style.baselib.net.inter.ICallBack;
 import yin.style.baselib.net.inter.OnBitmapResult;
 import yin.style.baselib.net.inter.OnFileResult;
+import yin.style.baselib.net.processor.BInterceptor;
+import yin.style.baselib.net.processor.IHttpProcessor;
+import yin.style.baselib.net.processor.okgo.MyCallEnqueueObservable;
+import yin.style.baselib.net.processor.okgo.MyCallExecuteObservable;
 import yin.style.baselib.net.utils.BHUtils;
 import yin.style.baselib.utils.ToastUtils;
 
@@ -240,7 +241,20 @@ public class OkgoProcessor implements IHttpProcessor {
         if (iObserver != null && iObserver.setTag() != null)
             request.tag(iObserver.setTag());
 
-        CallAdapter<T, Observable<Response<T>>> callAdapter = new ObservableResponse();
+        CallAdapter<T, Observable<T>> callAdapter = new CallAdapter(){
+
+            @Override
+            public Object adapt(Call call, AdapterParam param) {
+                Observable<T> observable;
+                if (param == null) param = new AdapterParam();
+                if (param.isAsync) {
+                    observable = new MyCallEnqueueObservable<>(call);
+                } else {
+                    observable = new MyCallExecuteObservable<>(call);
+                }
+                return observable;
+            }
+        };
 
         request.converter(new Converter<T>() {
             @Override

@@ -14,6 +14,11 @@
     <uses-permission android:name="android.permission.ADD_VOICEMAIL" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- 亮屏的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -31,7 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".baseActivity.mTabActivity" />
         <activity android:name=".baseActivity.mRecyclerActivity" />
         <activity android:name=".utils.mPermissionsActivity" />
@@ -57,7 +62,9 @@
         <activity android:name=".Main4Activity" />
         <activity android:name=".other.AutoTextViewActivity" />
         <activity android:name=".other.PasswordInputActivity" />
-        <activity android:name=".baseActivity.mViewPagerActivity"></activity>
+        <activity android:name=".baseActivity.mViewPagerActivity" />
+        <activity android:name=".WakeScreenActivity"
+            android:excludeFromRecents="true" ></activity>
     </application>
 
 </manifest>
