@@ -43,7 +43,7 @@
         <activity android:name=".baseActivity.mExpandViewActivity" />
         <activity android:name=".image.mImageActivity" />
         <activity android:name=".http.mNetworkActivity" />
-        <activity android:name=".http.mDownloadActivity" />
+        <activity android:name=".http.mOkgoActivity" />
         <activity android:name=".photo.TakePhotoActivity" />
         <activity android:name=".baseActivity.mWebviewActivity" />
         <activity android:name=".http.mUpdateActivity" />

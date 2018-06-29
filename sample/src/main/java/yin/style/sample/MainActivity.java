@@ -1,5 +1,6 @@
 package yin.style.sample;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,7 +19,6 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.AppManager;
-import yin.style.baselib.rxbus.RxBus;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
@@ -30,12 +30,13 @@ import yin.style.sample.baseActivity.mWebviewActivity;
 import yin.style.sample.common.PhoneInfo;
 import yin.style.sample.demo.DemoActivity;
 import yin.style.sample.flowLayout.FlowLayoutActivity;
-import yin.style.sample.http.mDownloadActivity;
+import yin.style.sample.http.mOkgoActivity;
 import yin.style.sample.http.mNetworkActivity;
 import yin.style.sample.http.mUpdateActivity;
 import yin.style.sample.image.mImageActivity;
 import yin.style.sample.other.AutoTextViewActivity;
 import yin.style.sample.photo.TakePhotoActivity;
+import yin.style.sample.utils.PasswordManagerUtils;
 import yin.style.sample.utils.mButtonActivity;
 import yin.style.sample.utils.mDialog2Activity;
 import yin.style.sample.utils.mDialogActivity;
@@ -53,7 +54,7 @@ public class MainActivity extends TitleActivity {
     private List<String> list = Arrays.asList(new String[]{"TabActivity", "RecyclerActivity", "ExpandView"
             , "mViewPagerActivity"
             , "WebviewActivity", "6.0权限管理", "图片加载"
-            , "网络请求", "下载与上传", "软件更新"
+            , "网络请求", "okgo", "软件更新"
             , "Dialog", "仿IOS Dialog", "获取图片"
             , "流式布局", "通用PopWindow", "refreshView"
             , "RadioButton", "自定义样式Button", "点击放大特效"
@@ -154,8 +155,8 @@ public class MainActivity extends TitleActivity {
             case "网络请求":
                 startActivity(new Intent(this, mNetworkActivity.class));
                 break;
-            case "下载与上传":
-                startActivity(new Intent(this, mDownloadActivity.class));
+            case "okgo":
+                startActivity(new Intent(this, mOkgoActivity.class));
                 break;
             case "软件更新":
                 XPermission.init(mContext)
@@ -213,13 +214,14 @@ public class MainActivity extends TitleActivity {
                 break;
             case "支付宝输入框":
 //                startActivity(new Intent(this, PasswordInputActivity.class));
-                WakeScreenActivity.openWakeScreen(mContext);
-                recycleView.postDelayed(new Runnable() {
+                PasswordManagerUtils.showInputDialog(mContext, new PasswordManagerUtils.DialogInputListener() {
                     @Override
-                    public void run() {
-                        RxBus.getInstance().post("123");
+                    public void submit(Dialog dialog, String input) {
+                        if (PasswordManagerUtils.checkPassword(input)) {
+                            dialog.dismiss();
+                        }
                     }
-                }, 3000);
+                });
                 break;
 
         }

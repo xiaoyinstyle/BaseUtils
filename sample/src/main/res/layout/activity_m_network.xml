@@ -22,6 +22,12 @@
             android:text="显示Dialog" />
 
         <Button
+            android:id="@+id/bt2_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+
+        <Button
             android:id="@+id/bt2_get"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="下载文件" />
 
-    <Button
+        <Button
             android:id="@+id/bt2_rx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

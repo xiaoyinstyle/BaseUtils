@@ -13,21 +13,34 @@ import java.util.Map;
 
 public class HttpHelper implements IHttpProcessor {
     private static IHttpProcessor mIHttpProcessor = null;
+    private static HttpHelper _instance;
+
+    public static void _init(IHttpProcessor httpProcessor) {
+        mIHttpProcessor = httpProcessor;
+    }
 
     private HttpHelper() {
 
     }
-
+    public static HttpHelper init(String url) {
+        if (_instance == null) {
+            _instance = new HttpHelper();
+        }
+        if (mIHttpProcessor == null) {
+            _init(new OkgoProcessor(url));
+        }
+        return _instance;
+    }
 //    public static IHttpProcessor init() {
 //        mIHttpProcessor = new OkgoProcessor(null);
 //        return mIHttpProcessor;
 //    }
 
-    public static IHttpProcessor init(String url) {
-        if (mIHttpProcessor == null)
-            mIHttpProcessor = new OkgoProcessor(url);
-        return mIHttpProcessor;
-    }
+//    public static IHttpProcessor init(String url) {
+//        if (mIHttpProcessor == null)
+//            mIHttpProcessor = new OkgoProcessor(url);
+//        return mIHttpProcessor;
+//    }
 
     @Override
     public IHttpProcessor header(Map<String, String> params) {

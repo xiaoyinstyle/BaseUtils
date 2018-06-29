@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,6 +37,13 @@ public class GsonUtils {
             e.printStackTrace();
         }
         return null;
+    }  public static <T> T fromJson(JsonReader jsonReader, Type type) {
+        try {
+            return gson.fromJson(jsonReader, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -47,6 +55,15 @@ public class GsonUtils {
     public static <T> T fromJson(String json, Class<T> c) {
         try {
             return gson.fromJson(json, c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> T fromJson(JsonReader jsonReader, Class<T> type) {
+        try {
+            return gson.fromJson(jsonReader, type);
         } catch (Exception e) {
             e.printStackTrace();
         }

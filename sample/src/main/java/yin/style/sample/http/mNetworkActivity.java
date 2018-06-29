@@ -32,6 +32,7 @@ import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.rxbus.RxBus;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
+import yin.style.sample.http.model.TempBean2;
 
 public class mNetworkActivity extends TitleActivity {
 
@@ -123,18 +124,19 @@ public class mNetworkActivity extends TitleActivity {
         maps.put("password", "123456");
         HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
                 .post(maps)
-                .subscribe(new IObserver<String>() {
+                .subscribe(new IObserver<TempBean2>() {
 
                     @Override
-                    public void onSuccess(String response) {
+                    public void onSuccess(TempBean2 response) {
                         Log.e(TAG, "onSuccess: " + response);
+                        ToastUtils.show( response.getMessage());
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
                         Log.e(TAG, "onComplete: 111111111111");
-                        RxBus.getInstance().post("111");
+//                        RxBus.getInstance().post("111");
                     }
                 });
 
@@ -162,12 +164,12 @@ public class mNetworkActivity extends TitleActivity {
         maps.put("password", "123456");
         HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
                 .get(maps)
-                .callBack(new ICallBack<String>() {
+                .callBack(new ICallBack<TempBean2>() {
 
                     @Override
-                    public void onSuccess(String response, String p) {
+                    public void onSuccess(TempBean2 response, String p) {
                         ToastUtils.show("网络请求成功");
-                        text.setText(response);
+//                        text.setText(response.getMessage());
                     }
                 });
     }
