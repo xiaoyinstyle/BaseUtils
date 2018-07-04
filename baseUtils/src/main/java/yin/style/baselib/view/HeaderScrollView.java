@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import yin.style.baselib.utils.LogUtils;
 
 /**
  * Created by 陈银 on 2017/10/12 11:24
@@ -56,7 +55,7 @@ public class HeaderScrollView extends NestedScrollView {
 
                     mBannerView = childGroup.getChildAt(0);
                     bannerHeight = mBannerView.getHeight();
-                    LogUtils.e("HeaderScrollView_BannerView_h:" + mBannerView.getHeight());
+//                    LogUtils.e("HeaderScrollView_BannerView_h:" + mBannerView.getHeight());
                 }
             });
         }
@@ -151,7 +150,6 @@ public class HeaderScrollView extends NestedScrollView {
                         return;
                     titleHeight = mTitleView.getHeight();
                     getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    LogUtils.e("HeaderScrollView_TitleView_h:" + titleHeight);
                 }
             });
         }

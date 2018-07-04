@@ -2,6 +2,7 @@ package yin.style.sample.baseActivity.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -74,7 +75,16 @@ public class HeadViewFragment extends NormalFragment {
 
     @Override
     protected void initData() {
-
+        Log.e(TAG, getUserVisibleHint() + "_initData: ");
     }
 
+    @Override
+    protected boolean setLazy() {
+        return true;
+    }
+
+    @Override
+    protected boolean setDiligent() {
+        return true;
+    }
 }

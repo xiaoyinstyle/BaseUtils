@@ -1,6 +1,7 @@
 package yin.style.sample.photo.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +26,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.OnClick;
 import yin.style.baselib.fragment.NormalFragment;
+import yin.style.baselib.photo.PictureUtils;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.utils.LogUtils;
 import yin.style.baselib.view.popupWindow.CommonPopupWindow;
@@ -62,6 +67,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
 
     private final int RESULT_TAKE_PHOTE = 100;
     private final int RESULT_OPEN_ALBUM = 101;
+    private final int RESULT_CUT = 102;
     private CommonPopupWindow popupWindow;
     private File imageFile;
 
@@ -73,18 +79,38 @@ public class ChooseTypeFragment2 extends NormalFragment {
             if (requestCode == RESULT_TAKE_PHOTE) {
                 LogUtils.e("文件：" + imageFile.exists());
                 LogUtils.e("文件：" + imageFile.getPath());
-
-                list.clear();
-                list.add(imageFile);
-                photoAdapter.notifyDataSetChanged();
+                if (checkbox.isChecked()) {
+                    PictureUtils.cutAvatar(mContext, imageFile, RESULT_CUT);
+                } else {
+                    list.clear();
+                    list.add(imageFile);
+                    photoAdapter.notifyDataSetChanged();
+                }
             } else if (requestCode == RESULT_OPEN_ALBUM) {
                 imageFile = FileUtils.getFile2Uri(mContext, data.getData());
                 LogUtils.e("文件：" + imageFile.exists());
                 LogUtils.e("文件：" + imageFile.getPath());
+                if (checkbox.isChecked()) {
+                    PictureUtils.cutAvatar(mContext, imageFile, RESULT_CUT);
+                } else {
+                    list.clear();
+                    list.add(imageFile);
+                    photoAdapter.notifyDataSetChanged();
+                }
+            } else if (requestCode == RESULT_CUT) {
+                //裁剪
+                Bundle bundle = data.getExtras();
+                File file;
+                if (bundle != null) {
+                    file =  saveBitmap((Bitmap) bundle.getParcelable("data"));
+                    if (file != null && file.exists()){
+                        list.clear();
+                        list.add(file);
+                        photoAdapter.notifyDataSetChanged();
+                    }
+                }
 
-                list.clear();
-                list.add(imageFile);
-                photoAdapter.notifyDataSetChanged();
+
             }
         }
     }
@@ -120,7 +146,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
                                 if (imageFile != null && imageFile.exists())
                                     imageFile.delete();
                                 imageFile = FileUtils.getImageFile(mContext, UUID.randomUUID() + ".jpg");
-                                takeCamera(imageFile);
+                                PictureUtils.takeCamera(mContext, imageFile, RESULT_TAKE_PHOTE);
 
                                 if (popupWindow != null) {
                                     popupWindow.dismiss();
@@ -130,7 +156,7 @@ public class ChooseTypeFragment2 extends NormalFragment {
                         view.findViewById(R.id.btn_select_photo).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                openAlbum();
+                                PictureUtils.openAlbum(mContext, RESULT_OPEN_ALBUM);
                                 if (popupWindow != null) {
                                     popupWindow.dismiss();
                                 }
@@ -160,20 +186,20 @@ public class ChooseTypeFragment2 extends NormalFragment {
 
     }
 
-    private void openAlbum() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        mContext.startActivityForResult(intent, RESULT_OPEN_ALBUM);
-    }
 
-    private void takeCamera(File file) {
-        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Uri tempUri = FileUtils.getUri2File(mContext, file);
+    private File saveBitmap(Bitmap data) {
+        File file = FileUtils.getImageFile(mContext, System.currentTimeMillis() + ".jpg");
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            data.compress(Bitmap.CompressFormat.JPEG, 90, out);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            openCameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-        startActivityForResult(openCameraIntent, RESULT_TAKE_PHOTE);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }

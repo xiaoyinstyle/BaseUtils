@@ -74,6 +74,6 @@ public class mTabActivity extends TabActivity {
 
         setCanScroll(false);
         showPoint(1, true);//显示小红点
-        showPoint(2, 3, true);//显示带数字的小红点
+        showPoint(2, 333, true);//显示带数字的小红点
     }
 }

@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="裁剪（功能未添加）" />
+            android:text="裁剪" />
 
         <Button
             android:id="@+id/bt_takephoto"

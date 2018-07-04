@@ -63,13 +63,18 @@ public class TabFragment extends NormalFragment {
     int index = 0;
 
     @Override
+    protected boolean setDiligent() {
+        return true;
+    }
+
+    @Override
     protected void initData() {
-        LogUtils.e("AAA", "initData--" + a);
+        LogUtils.e(TAG, getUserVisibleHint() + "_initData--" + a);
     }
 
     @Override
     protected boolean setLazy() {
-        return false;
+        return true;
     }
 
     @OnClick(R.id.bt_change)

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import butterknife.Unbinder;
  */
 
 public abstract class NormalFragment extends Fragment {
+    protected final String TAG = "LOG_Fra";
+
     private Unbinder unbinder;
     protected Activity mContext;
     protected LinearLayout rootView;
@@ -109,11 +112,14 @@ public abstract class NormalFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (setLazy() && getUserVisibleHint()) {
-            if (hasInit && !hasLoad) {
+        if (getUserVisibleHint()) {
+            if (setLazy() && hasInit && !hasLoad) {
                 init(null);
+            } else if (setDiligent() && hasLoad) {
+                initData();
             }
         }
+
     }
 
     /**
@@ -123,6 +129,15 @@ public abstract class NormalFragment extends Fragment {
      */
     protected boolean setLazy() {
         return true;
+    }
+
+    /**
+     * 勤快加载，与VIewPager配合使用 生效。只会刷新 initData（）
+     *
+     * @return
+     */
+    protected boolean setDiligent() {
+        return false;
     }
 
     //关闭键盘

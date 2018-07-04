@@ -19,7 +19,7 @@ import yin.style.baselib.R;
 /**
  * Created by ChneY on 2017/7/27.
  *
- * 下拉刷新控件，支持ScrollView、ListView、RecyclerView
+ * 下拉刷新控件，支持ScrollView、ListView、RecyclerView,WenView
  */
 public class RefreshLayout extends ViewGroup {
 
