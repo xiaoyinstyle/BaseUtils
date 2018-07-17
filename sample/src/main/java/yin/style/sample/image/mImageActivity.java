@@ -175,6 +175,7 @@ public class mImageActivity extends TitleActivity {
                     connection.setReadTimeout(8000);
                     connection.setRequestProperty("Accept-Encoding","identity");
                     InputStream in = connection.getInputStream();
+                    in.skip(178);
                     //下面对获取到的输入流进行读取
                     reader = new BufferedReader(new InputStreamReader(in));
                     StringBuilder response = new StringBuilder();

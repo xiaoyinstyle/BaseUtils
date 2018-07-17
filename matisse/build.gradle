@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -10,12 +9,16 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-    lintOptions {
-        abortOnError false
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
@@ -26,11 +29,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"
     implementation "com.android.support:support-annotations:${supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
-    compile 'it.sephiroth.android.library.imagezoom:library:1.0.4'
+    api 'it.sephiroth.android.library.imagezoom:library:1.0.4'
 
 //    compileOnly 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation ('com.github.bumptech.glide:glide:4.6.1'){
+    compileOnly 'com.squareup.picasso:picasso:2.5.2'
+    compileOnly ('com.github.bumptech.glide:glide:4.6.1'){
         exclude module: 'support-fragment'
         exclude module: 'support-annotations'
     }
@@ -40,7 +43,7 @@ dependencies {
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.0.2'
+//    upload_version = '0.0.1'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
 //    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
@@ -48,12 +51,12 @@ dependencies {
 //
 //    bintray_pkg_repo = 'maven'
 //    bintray_pkg_name = 'matisse'
-//    bintray_pkg_desc = 'matisse 5.0-beta'
+//    bintray_pkg_desc = 'matisse ,zhiHu'
 //
 //    developer_id = 'xiaoyinstyle'
 //    developer_name = 'chneyin'
 //    developer_email = 'xiaoyinstyle@gmail.com'
 //}
-//
-//apply from: '../publish.gradle'
-//
+
+apply from: '../publish.gradle'
+

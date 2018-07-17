@@ -21,13 +21,13 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
-import yin.style.baselib.net.HttpHelper;
-import yin.style.baselib.net.adapter.IObserver;
-import yin.style.baselib.net.inter.ICallBack;
-import yin.style.baselib.net.inter.OnBaseResult;
-import yin.style.baselib.net.inter.OnBitmapResult;
-import yin.style.baselib.net.inter.OnFileResult;
-import yin.style.baselib.net.utils.BHUtils;
+//import yin.style.baselib.net.HttpHelper;
+//import yin.style.baselib.net.adapter.IObserver;
+//import yin.style.baselib.net.inter.ICallBack;
+//import yin.style.baselib.net.inter.OnBaseResult;
+//import yin.style.baselib.net.inter.OnBitmapResult;
+//import yin.style.baselib.net.inter.OnFileResult;
+//import yin.style.baselib.net.utils.BHUtils;
 import yin.style.baselib.utils.FileUtils;
 import yin.style.baselib.rxbus.RxBus;
 import yin.style.baselib.utils.ToastUtils;
@@ -119,122 +119,122 @@ public class mNetworkActivity extends TitleActivity {
     }
 
     private void http2_rx() {
-        Map<String, String> maps = new HashMap();
-        maps.put("mobile", "17625064050");
-        maps.put("password", "123456");
-        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
-                .post(maps)
-                .subscribe(new IObserver<TempBean2>() {
-
-                    @Override
-                    public void onSuccess(TempBean2 response) {
-                        Log.e(TAG, "onSuccess: " + response);
-                        ToastUtils.show( response.getMessage());
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        Log.e(TAG, "onComplete: 111111111111");
-//                        RxBus.getInstance().post("111");
-                    }
-                });
+//        Map<String, String> maps = new HashMap();
+//        maps.put("mobile", "17625064050");
+//        maps.put("password", "123456");
+//        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
+//                .post(maps)
+//                .subscribe(new IObserver<TempBean2>() {
+//
+//                    @Override
+//                    public void onSuccess(TempBean2 response) {
+//                        Log.e(TAG, "onSuccess: " + response);
+//                        ToastUtils.show( response.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        super.onFinish();
+//                        Log.e(TAG, "onComplete: 111111111111");
+////                        RxBus.getInstance().post("111");
+//                    }
+//                });
 
     }
 
     private void http2_post() {
-        Map<String, String> maps = new HashMap();
-        maps.put("mobile", "17625064050");
-        maps.put("password", "123456");
-        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
-                .post(maps)
-                .callBack(new ICallBack<String>() {
-
-                    @Override
-                    public void onSuccess(String response, String p) {
-                        ToastUtils.show("网络请求成功");
-                        text.setText(BHUtils.unicodeStringDecode(response));
-                    }
-                });
+//        Map<String, String> maps = new HashMap();
+//        maps.put("mobile", "17625064050");
+//        maps.put("password", "123456");
+//        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
+//                .post(maps)
+//                .callBack(new ICallBack<String>() {
+//
+//                    @Override
+//                    public void onSuccess(String response, String p) {
+//                        ToastUtils.show("网络请求成功");
+//                        text.setText(BHUtils.unicodeStringDecode(response));
+//                    }
+//                });
     }
 
     private void http2_get() {
-        Map<String, String> maps = new HashMap();
-        maps.put("mobile", "17625064050");
-        maps.put("password", "123456");
-        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
-                .get(maps)
-                .callBack(new ICallBack<TempBean2>() {
-
-                    @Override
-                    public void onSuccess(TempBean2 response, String p) {
-                        ToastUtils.show("网络请求成功");
-//                        text.setText(response.getMessage());
-                    }
-                });
+//        Map<String, String> maps = new HashMap();
+//        maps.put("mobile", "17625064050");
+//        maps.put("password", "123456");
+//        HttpHelper.init("http://stage.chengpai.net.cn/doctor/login/login")
+//                .get(maps)
+//                .callBack(new ICallBack<TempBean2>() {
+//
+//                    @Override
+//                    public void onSuccess(TempBean2 response, String p) {
+//                        ToastUtils.show("网络请求成功");
+////                        text.setText(response.getMessage());
+//                    }
+//                });
     }
 
     private void http2_upload() {
-        if (temp == null || !temp.exists()) {
-            ToastUtils.show("请先点击下载按钮");
-            return;
-        }
-
-        Map<String, Object> maps = new HashMap();
-        maps.put("files[0]", temp);
-        HttpHelper.init("http://stage.chengpai.net.cn/rest/upload/uploadAll")
-                .upload(maps)
-                .callBack(new OnBaseResult<String>() {
-                    @Override
-                    public void onSuccess(String response, String p) {
-                        ToastUtils.show("网络请求成功");
-                        text.setText(BHUtils.unicodeStringDecode(response));
-                    }
-
-                    @Override
-                    public void uploadProgress(float progress, long currentSize, long allSize) {
-                        super.uploadProgress(progress, currentSize, allSize);
-                        Log.e(TAG, "uploadProgress: " + progress);
-                    }
-
-                });
+//        if (temp == null || !temp.exists()) {
+//            ToastUtils.show("请先点击下载按钮");
+//            return;
+//        }
+//
+//        Map<String, Object> maps = new HashMap();
+//        maps.put("files[0]", temp);
+//        HttpHelper.init("http://stage.chengpai.net.cn/rest/upload/uploadAll")
+//                .upload(maps)
+//                .callBack(new OnBaseResult<String>() {
+//                    @Override
+//                    public void onSuccess(String response, String p) {
+//                        ToastUtils.show("网络请求成功");
+//                        text.setText(BHUtils.unicodeStringDecode(response));
+//                    }
+//
+//                    @Override
+//                    public void uploadProgress(float progress, long currentSize, long allSize) {
+//                        super.uploadProgress(progress, currentSize, allSize);
+//                        Log.e(TAG, "uploadProgress: " + progress);
+//                    }
+//
+//                });
     }
 
     private void http2_download() {
-        HttpHelper.init("https://codeload.github.com/AndroidKnife/RxBus/zip/master")
-//        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
-                .callBack(new OnFileResult(temp, true) {
-                    @Override
-                    public void onSuccess(File response, String p) {
-                        ToastUtils.show("网络请求成功");
-//                        GlideUtil.getInstance().setView(ivPic, response);
-                    }
-
-                    @Override
-                    public void uploadProgress(float progress, long currentSize, long allSize) {
-                        super.uploadProgress(progress, currentSize, allSize);
-                        Log.e(TAG, "uploadProgress: " + progress);
-                    }
-
-                    @Override
-                    public void downloadProgress(float progress, long currentSize, long allSize) {
-                        text.setText(progress + "");
-                        Log.e(TAG, "downloadProgress: " + progress);
-                        setLoadText(progress + "");
-                    }
-                });
+//        HttpHelper.init("https://codeload.github.com/AndroidKnife/RxBus/zip/master")
+////        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
+//                .callBack(new OnFileResult(temp, true) {
+//                    @Override
+//                    public void onSuccess(File response, String p) {
+//                        ToastUtils.show("网络请求成功");
+////                        GlideUtil.getInstance().setView(ivPic, response);
+//                    }
+//
+//                    @Override
+//                    public void uploadProgress(float progress, long currentSize, long allSize) {
+//                        super.uploadProgress(progress, currentSize, allSize);
+//                        Log.e(TAG, "uploadProgress: " + progress);
+//                    }
+//
+//                    @Override
+//                    public void downloadProgress(float progress, long currentSize, long allSize) {
+//                        text.setText(progress + "");
+//                        Log.e(TAG, "downloadProgress: " + progress);
+//                        setLoadText(progress + "");
+//                    }
+//                });
     }
 
     private void http2_bitmap() {
 
-        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
-                .callBack(new OnBitmapResult() {
-                    @Override
-                    public void onSuccess(Bitmap response, String p) {
-                        ToastUtils.show("网络请求成功");
-                        ivPic.setImageBitmap(response);
-                    }
-                });
+//        HttpHelper.init("https://img-blog.csdn.net/20170625011730956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeGluXzM2MjEwNjk4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast")
+//                .callBack(new OnBitmapResult() {
+//                    @Override
+//                    public void onSuccess(Bitmap response, String p) {
+//                        ToastUtils.show("网络请求成功");
+//                        ivPic.setImageBitmap(response);
+//                    }
+//                });
     }
 
 

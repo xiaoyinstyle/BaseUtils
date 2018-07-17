@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
-import okhttp3.OkHttpClient;
+//import okhttp3.OkHttpClient;
 import yin.style.baselib.BaseHelp;
 
-import com.lzy.okgo.OkGo;
+//import com.lzy.okgo.OkGo;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -46,10 +46,10 @@ public class App extends MultiDexApplication {
         });
         init();
 
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        OkGo.getInstance().init(this)
-                .setOkHttpClient(builder.build())
-        ;
+//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+//        OkGo.getInstance().init(this)
+//                .setOkHttpClient(builder.build())
+//        ;
 
 
 //        CrashHandler.getInstance().init(getApplicationContext());
@@ -100,9 +100,13 @@ public class App extends MultiDexApplication {
     protected void init() {
 //        HttpHelper.init(new OkHttpUtilsProcessor());
 
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
         }
+        LeakCanary.install(this);
+        // Normal app init code...
 
     }
 

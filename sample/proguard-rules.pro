@@ -197,6 +197,24 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+#EventBus 3.0
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+
+#EventBus
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+-keepclassmembers class ** {
+public void xxxxxx(**);
+}
 
 # 高德地图
 -keep class com.amap.api.** { *;}

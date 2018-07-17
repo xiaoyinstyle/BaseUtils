@@ -16,4 +16,3 @@
 #   public *;
 #}
 
--dontwarn com.squareup.okhttp.**
