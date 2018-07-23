@@ -1,4 +1,4 @@
-package yin.style.baselib.activity.base;
+package yin.style.baselib.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +9,14 @@ import android.support.v4.view.ViewPager;
 import java.util.List;
 
 import yin.style.baselib.activity.adapter.FragmentAdapter;
+import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.utils.ToastUtils;
 
 /**
  * Created by User on 2018/5/21.
  */
 
-public abstract class ViewPagerActivity extends TitleActivity {
+public abstract class ViewPagerFragment extends TitleFragment {
     protected TabLayout mTabLayout;
     protected ViewPager mViewPager;
 
@@ -24,7 +25,7 @@ public abstract class ViewPagerActivity extends TitleActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //ViewPager的适配器
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), setFragments()) {
+        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), setFragments()) {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {

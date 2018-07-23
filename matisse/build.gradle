@@ -57,6 +57,6 @@ dependencies {
 //    developer_name = 'chneyin'
 //    developer_email = 'xiaoyinstyle@gmail.com'
 //}
-
-apply from: '../publish.gradle'
+//
+//apply from: '../publish.gradle'
 
