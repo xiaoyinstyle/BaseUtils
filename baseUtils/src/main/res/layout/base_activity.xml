@@ -4,6 +4,7 @@
     android:id="@+id/base_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/base_layout_background"
     android:orientation="vertical">
 
     <yin.style.baselib.activity.view.StatusBarView

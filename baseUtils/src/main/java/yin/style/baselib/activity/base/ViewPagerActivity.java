@@ -34,19 +34,20 @@ public abstract class ViewPagerActivity extends TitleActivity {
 
         findView();
 
-        if (mViewPager == null || mTabLayout == null) {
+        if (mViewPager == null) {
             ToastUtils.show("请先设置mViewPager与mTabLayout的findViewById()，进行初始化");
             return;
         }
 
         mViewPager.setAdapter(fragmentAdapter);
+        mViewPager.setOffscreenPageLimit(setFragments().size());
 
-        mTabLayout.setupWithViewPager(mViewPager);
+        if (mTabLayout != null) {
+            mTabLayout.setupWithViewPager(mViewPager);
 //        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 //        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
 //        tabLayout.setTabTextColors(getResources().getColor(R.color.text_grey), getResources().getColor(R.color.text_black));
-
-        mViewPager.setOffscreenPageLimit(setTitles().length);
+        }
     }
 
     protected abstract void findView();
