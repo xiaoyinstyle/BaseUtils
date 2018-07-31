@@ -34,7 +34,7 @@ public class AccountValidatorUtil {
     /**
      * 正则表达式：验证汉字
      */
-    public static final String REGEX_CHINESE = "^[\u4e00-\u9fa5],{0,}$";
+    public static final String REGEX_CHINESE = "^[\u4e00-\u9fa5]{0,}$";
 
     /**
      * 正则表达式：验证身份证
