@@ -94,7 +94,6 @@ public class MainActivity extends TitleActivity {
                 });
             }
         });
-
     }
 
     @Override
@@ -214,20 +213,19 @@ public class MainActivity extends TitleActivity {
                 break;
             case "支付宝输入框":
 //                startActivity(new Intent(this, PasswordInputActivity.class));
-                PasswordManagerUtils.showInputDialog(mContext, new PasswordManagerUtils.DialogInputListener() {
-                    @Override
-                    public void submit(Dialog dialog, String input) {
-                        if (PasswordManagerUtils.checkPassword(input)) {
-                            dialog.dismiss();
-                        }
-                    }
-                });
+//                PasswordManagerUtils.showInputDialog(mContext, new PasswordManagerUtils.DialogInputListener() {
+//                    @Override
+//                    public void submit(Dialog dialog, String input) {
+//                        if (PasswordManagerUtils.checkPassword(input)) {
+//                            dialog.dismiss();
+//                        }
+//                    }
+//                });
+
                 break;
 
         }
     }
 
     boolean b;
-
-
 }

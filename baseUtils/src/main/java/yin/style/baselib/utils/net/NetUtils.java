@@ -1,4 +1,4 @@
-package yin.style.baselib.utils;
+package yin.style.baselib.utils.net;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +31,16 @@ public class NetUtils {
                 }
             }
         }
+
+//        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (null != connectivity) {
+//            NetworkInfo info = connectivity.getActiveNetworkInfo();
+//            if (null != info && info.isConnected()) {
+//                if (info.getState() == NetworkInfo.State.CONNECTED) {
+//                    return true;
+//                }
+//            }
+//        }
         return false;
     }
 
@@ -90,13 +100,13 @@ public class NetUtils {
     public static void openSetting(Context context) {
         /*
          * Intent intent = new Intent("/"); ComponentName cm = new
-		 * ComponentName("com.android.settings",
-		 * "com.android.settings.WirelessSettings"); intent.setComponent(cm);
-		 * intent.setAction("android.intent.action.VIEW");
-		 * activity.startActivityForResult(intent, 0); Intent intent=new
-		 * Intent(); intent.setClassName("com.android.settings",
-		 * "com.android.settings.Settings"); activity.startActivity(intent);
-		 */
+         * ComponentName("com.android.settings",
+         * "com.android.settings.WirelessSettings"); intent.setComponent(cm);
+         * intent.setAction("android.intent.action.VIEW");
+         * activity.startActivityForResult(intent, 0); Intent intent=new
+         * Intent(); intent.setClassName("com.android.settings",
+         * "com.android.settings.Settings"); activity.startActivity(intent);
+         */
         context.startActivity(new Intent(
                 android.provider.Settings.ACTION_WIRELESS_SETTINGS));
 

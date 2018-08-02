@@ -1,5 +1,6 @@
 package yin.style.sample.http;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +8,11 @@ import android.widget.CheckBox;
 
 import com.cretin.www.cretinautoupdatelibrary.AutoUpdateUtils;
 import com.cretin.www.cretinautoupdatelibrary.interfaces.ForceExitCallBack;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Progress;
+import com.lzy.okgo.model.Response;
+
+import java.io.File;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
@@ -15,11 +21,13 @@ import yin.style.baselib.update.inter.DialogListener;
 import yin.style.baselib.update.inter.OnUpdateListener;
 import yin.style.baselib.update.dailog.NumberProgressDialog;
 import yin.style.baselib.utils.FileUtils;
+import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import yin.style.sample.http.model.VersionBean;
+import yin.style.sample.http.okgo.BaseResult;
 
 public class mUpdateActivity extends TitleActivity {
     @BindView(R.id.checkbox)
@@ -105,7 +113,7 @@ public class mUpdateActivity extends TitleActivity {
                         .update(new OnUpdateListener() {
                             @Override
                             public void result(boolean mustUpdate) {
-                                downloadFile();
+                                downloadFile(checkbox.isChecked());
                             }
                         });
                 break;
@@ -116,7 +124,7 @@ public class mUpdateActivity extends TitleActivity {
 
     NumberProgressDialog dialog;
 
-    private void downloadFile() {
+    private void downloadFile(final boolean isForce) {
         if (dialog == null) {
             dialog = new NumberProgressDialog(this, new DialogListener() {
                 @Override
@@ -126,28 +134,52 @@ public class mUpdateActivity extends TitleActivity {
 //                    HttpHelper.getInstance().cancel(downloadUrl);
                 }
             });
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    Log.e(TAG, "onDismiss: ");
+                    OkGo.getInstance().cancelTag(mContext);
+                }
+            });
         }
         dialog.show();
-//        HttpHelper.getInstance().downloadFile(downloadUrl, null, apkPath, new HttpProcessor() {
-//            @Override
-//            public void onProgress(float per, long fileSizeDownloaded, long fileSize) {
-//                Log.e("AAA", "per:" + per);
-//                dialog.setNumberProgress((int) (per * 100));
-//            }
-//
-//            @Override
-//            public void onFinish(boolean success) {
-//                dialog.dismiss();
-//                if (success) {
-//                    ToastUtils.show("x");
-//                    UpdateApkUtils.installApk(mContext, apkPath);
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String result) {
-//
-//            }
-//        });
+
+        OkGo.<File>get(downloadUrl)
+                .tag(mContext)
+                .execute(new BaseResult<File>() {
+                    @Override
+                    protected void FileCallback(String destFileDir, String destFileName) {
+                        super.FileCallback(FileUtils.getDownloadFile(mContext).getPath(), "abc.apk");
+                    }
+
+                    @Override
+                    public void onSuccess(Response<File> response) {
+                        ToastUtils.show("下载请求成功");
+                        Log.e(TAG, "onSuccess: ");
+                        UpdateApkUtils.installApk(mContext, apkPath);
+                    }
+
+                    @Override
+                    public void onError(Response<File> response) {
+                        super.onError(response);
+                        ToastUtils.show("网络请求失败");
+                        Log.e(TAG, "onError: " + response.getException().getMessage());
+                        if (isForce)
+                            finish();
+                    }
+
+                    @Override
+                    public void downloadProgress(Progress progress) {
+                        super.downloadProgress(progress);
+                        dialog.setNumberProgress((int) (progress.fraction * 100));
+                        Log.e(TAG, "downloadProgress: " + progress.fraction);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        dialog.dismiss();
+                    }
+                });
     }
 }

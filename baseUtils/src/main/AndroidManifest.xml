@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 
     <application
@@ -26,7 +27,7 @@
             android:name="yin.style.baselib.photo.PicturePreviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <service android:name=".update2.service.DownloadService"/>
+
         <!--下载-->
         <receiver
             android:name="yin.style.baselib.update.DownloadApkReceiver"
@@ -37,6 +38,15 @@
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".utils.net.NetworkConnectChangedReceiver">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

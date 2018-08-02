@@ -43,6 +43,16 @@ public class App extends MultiDexApplication {
             public String getLogTag() {
                 return "Log_Tag";
             }
+
+            @Override
+            public boolean isCheckNetWork() {
+                return true;
+            }
+
+            @Override
+            public boolean setEventBus() {
+                return true;
+            }
         });
         init();
 

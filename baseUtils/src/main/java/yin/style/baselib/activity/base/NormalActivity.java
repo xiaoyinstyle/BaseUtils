@@ -17,12 +17,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import yin.style.baselib.BaseHelp;
 import yin.style.baselib.R;
+import yin.style.baselib.activity.utils.NetViewUtils;
 import yin.style.baselib.activity.view.StatusBarView;
 import yin.style.baselib.utils.AppManager;
 
 import butterknife.ButterKnife;
+import yin.style.baselib.utils.net.NetUtils;
+import yin.style.baselib.utils.net.NetworkChangeEvent;
 
 /**
  * Created by ChneY on 2017/4/22.
@@ -36,6 +42,8 @@ public abstract class NormalActivity extends AppCompatActivity {
     protected StatusBarView statusBarView;
 
     protected Activity mContext;
+
+    protected NetViewUtils netViewUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,13 @@ public abstract class NormalActivity extends AppCompatActivity {
         //动态加载content
         rootView = (LinearLayout) super.findViewById(R.id.base_root);
         statusBarView = super.findViewById(R.id.base_status_bar);
+        rootView.setBackgroundResource(R.color.base_layout_background);
+
+        //初始化 网络状态显示View
+        netViewUtils = new NetViewUtils();
+        if (setCheckNetWork())
+            netViewUtils.initTipView(this);//初始化提示View
+
 
         addTitleLayout(rootView);//加载Title布局
         setStatusView();  //设置沉浸式
@@ -69,6 +84,7 @@ public abstract class NormalActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initView(savedInstanceState);   //初始化布局
         initData(); //设置数据
+
 
         //默认不加载EventBus
         if (setEventBus())
@@ -128,11 +144,14 @@ public abstract class NormalActivity extends AppCompatActivity {
         //默认不加载EventBus
         if (setEventBus())
             EventBus.getDefault().unregister(this);
+
+        //当提示View被动态添加后直接关闭页面会导致该View内存溢出，所以需要在finish时移除
+        if (netViewUtils != null)
+            netViewUtils.finish();
     }
 
-
-    protected boolean setEventBus( ) {
-        return false;
+    protected boolean setEventBus() {
+        return BaseHelp.getInstance().setEventBus();
     }
 
     //关闭键盘
@@ -146,5 +165,36 @@ public abstract class NormalActivity extends AppCompatActivity {
      */
     public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
         return statusBarView.setStatusBarView(activity, isShowStatus, statusBarColor, barTextDark);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在无网络情况下打开APP时，系统不会发送网络状况变更的Intent，需要自己手动检查
+        netViewUtils.hasNetWork(NetUtils.isConnected(mContext), setCheckNetWork());
+    }
+
+    /**
+     * 网络状态View
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNetworkChangeEvent(NetworkChangeEvent event) {
+        netViewUtils.hasNetWork(event.isConnected, setCheckNetWork());
+        if (event.isConnected)
+            initData();
+    }
+
+    protected boolean setCheckNetWork() {
+        return BaseHelp.getInstance().isCheckNetWork();
+    }
+
+    protected void setNetViewTop(int top) {
+        netViewUtils.setNetViewTop(top);
+    }
+
+    protected View getNetView() {
+        return netViewUtils.getNetView();
     }
 }

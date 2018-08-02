@@ -47,13 +47,35 @@ public class BaseHelp {
         return baseListener == null ? LOG_TAG : baseListener.getLogTag();
     }
 
-
-    public interface BaseListener {
-        boolean isDebug();
-
-        String getFileName();
-
-        String getLogTag();
+    /**
+     * 网络状态View
+     */
+    public boolean isCheckNetWork() {
+        return baseListener == null ? false : baseListener.isCheckNetWork();
     }
+
+    /**
+     * setEventBus
+     */
+    public boolean setEventBus() {
+        return baseListener == null ? false : baseListener.setEventBus();
+    }
+
+    public abstract static class BaseListener {
+        public abstract boolean isDebug();
+
+        public abstract String getFileName();
+
+        public abstract String getLogTag();
+
+        public boolean isCheckNetWork() {
+            return false;
+        }
+
+        public boolean setEventBus() {
+            return false;
+        }
+    }
+
 
 }

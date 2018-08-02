@@ -110,4 +110,13 @@ public class TabFragment extends NormalFragment {
         }
     }
 
+    @Override
+    protected boolean setEventBus() {
+        return true;
+    }
+
+    @Override
+    protected boolean setCheckNetWork() {
+        return true;
+    }
 }

@@ -85,30 +85,31 @@ public class mImageActivity extends TitleActivity {
         GlideUtil.getInstance().setGif(imageGif, "http://img1.imgtn.bdimg.com/it/u=3789472357,190916494&fm=214&gp=0.jpg");
     }
 
-    ExecutorService fixedThreadPool;
-    List<String> listUrl = Arrays.asList("https://up.enterdesk.com/edpic_source/5d/de/10/5dde105efcc0ab75fb6e5b634f166ce3.jpg",
-            "http://up.enterdesk.com/edpic_source/3a/12/32/3a1232e2965f596f1523acb2ea042405.jpg",
-            "http://up.enterdesk.com/edpic_source/2c/02/0e/2c020e7c31cf3f1a13787fc515f17e7d.jpg",
-            "https://up.enterdesk.com/edpic_source/56/ce/b5/56ceb531d46e4e5fb972e2dc8b352fda.jpg",
-            "http://up.enterdesk.com/edpic_source/42/a1/a6/42a1a667a872542cbc5e93987e2d18c8.jpg",
-            "https://up.enterdesk.com/edpic_source/76/1a/b9/761ab9cb7eef867eff72c3350cbacdd4.jpg",
-            "https://up.enterdesk.com/edpic_source/44/db/56/44db567910d83845c1d4110129f5cc74.jpg"
-    );
+//    ExecutorService fixedThreadPool;
+//    List<String> listUrl = Arrays.asList("https://up.enterdesk.com/edpic_source/5d/de/10/5dde105efcc0ab75fb6e5b634f166ce3.jpg",
+//            "http://up.enterdesk.com/edpic_source/3a/12/32/3a1232e2965f596f1523acb2ea042405.jpg",
+//            "http://up.enterdesk.com/edpic_source/2c/02/0e/2c020e7c31cf3f1a13787fc515f17e7d.jpg",
+//            "https://up.enterdesk.com/edpic_source/56/ce/b5/56ceb531d46e4e5fb972e2dc8b352fda.jpg",
+//            "http://up.enterdesk.com/edpic_source/42/a1/a6/42a1a667a872542cbc5e93987e2d18c8.jpg",
+//            "https://up.enterdesk.com/edpic_source/76/1a/b9/761ab9cb7eef867eff72c3350cbacdd4.jpg",
+//            "https://up.enterdesk.com/edpic_source/44/db/56/44db567910d83845c1d4110129f5cc74.jpg"
+//    );
 
     @Override
     protected void initData() {
-        fixedThreadPool = Executors.newSingleThreadExecutor();
-        for (int i = 0; i < listUrl.size(); i++) {
-            fixedThreadPool.execute(new TempRunnable(i + "", listUrl.get(i)));
-        }
+//        fixedThreadPool = Executors.newSingleThreadExecutor();
+//        for (int i = 0; i < listUrl.size(); i++) {
+//            fixedThreadPool.execute(new TempRunnable(i + "", listUrl.get(i)));
+//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (fixedThreadPool != null) {
-            fixedThreadPool.shutdownNow();
-        }
+//        if (fixedThreadPool != null) {
+//            fixedThreadPool.shutdownNow();
+//            fixedThreadPool == null;
+//        }
     }
 
     @OnClick({R.id.bt_clear, R.id.bt_read})
@@ -173,7 +174,7 @@ public class mImageActivity extends TitleActivity {
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(8000);
                     connection.setReadTimeout(8000);
-                    connection.setRequestProperty("Accept-Encoding","identity");
+                    connection.setRequestProperty("Accept-Encoding", "identity");
                     InputStream in = connection.getInputStream();
                     in.skip(178);
                     //下面对获取到的输入流进行读取
