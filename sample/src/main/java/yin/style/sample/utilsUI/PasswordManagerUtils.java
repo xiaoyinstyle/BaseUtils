@@ -1,11 +1,10 @@
-package yin.style.sample.utils;
+package yin.style.sample.utilsUI;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.DigitsKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

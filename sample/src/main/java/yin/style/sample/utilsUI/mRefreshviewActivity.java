@@ -1,4 +1,4 @@
-package yin.style.sample.utils;
+package yin.style.sample.utilsUI;
 
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import yin.style.sample.utils.view.HeaderView;
+import yin.style.sample.utilsUI.view.HeaderView;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.refreshView.RefreshLayout;
 import yin.style.sample.R;

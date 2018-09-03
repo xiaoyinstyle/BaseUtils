@@ -1,4 +1,4 @@
-package yin.style.sample.utils;
+package yin.style.sample.utilsUI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

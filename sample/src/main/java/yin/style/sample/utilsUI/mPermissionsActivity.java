@@ -1,4 +1,4 @@
-package yin.style.sample.utils;
+package yin.style.sample.utilsUI;
 
 import android.os.Bundle;
 import android.text.TextUtils;

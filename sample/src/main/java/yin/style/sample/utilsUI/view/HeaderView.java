@@ -1,4 +1,4 @@
-package yin.style.sample.utils.view;
+package yin.style.sample.utilsUI.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

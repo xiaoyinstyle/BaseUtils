@@ -1,6 +1,5 @@
 package yin.style.sample;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,15 +35,14 @@ import yin.style.sample.http.mUpdateActivity;
 import yin.style.sample.image.mImageActivity;
 import yin.style.sample.other.AutoTextViewActivity;
 import yin.style.sample.photo.TakePhotoActivity;
-import yin.style.sample.utils.PasswordManagerUtils;
-import yin.style.sample.utils.mButtonActivity;
-import yin.style.sample.utils.mDialog2Activity;
-import yin.style.sample.utils.mDialogActivity;
-import yin.style.sample.utils.mPermissionsActivity;
-import yin.style.sample.utils.mPopWindowActivity;
-import yin.style.sample.utils.mRadioButtonActivity;
-import yin.style.sample.utils.mRecyclerVActivity;
-import yin.style.sample.utils.mRefreshviewActivity;
+import yin.style.sample.utilsUI.mButtonActivity;
+import yin.style.sample.utilsUI.mDialog2Activity;
+import yin.style.sample.utilsUI.mDialogActivity;
+import yin.style.sample.utilsUI.mPermissionsActivity;
+import yin.style.sample.utilsUI.mPopWindowActivity;
+import yin.style.sample.utilsUI.mRadioButtonActivity;
+import yin.style.sample.utilsUI.mRecyclerVActivity;
+import yin.style.sample.utilsUI.mRefreshviewActivity;
 
 public class MainActivity extends TitleActivity {
 

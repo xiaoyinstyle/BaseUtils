@@ -1,4 +1,4 @@
-package yin.style.sample.utils;
+package yin.style.sample.utilsUI;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,6 @@ import yin.style.baselib.activity.view.TitleLayout;
 import yin.style.baselib.utils.DialogUtils;
 import yin.style.sample.R;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class mDialogActivity extends TitleActivity {
