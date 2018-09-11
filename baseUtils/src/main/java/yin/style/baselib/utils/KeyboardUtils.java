@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
  */
 public class KeyboardUtils {
 
+    private static boolean hasOpen = false;
+
     /**
      * 打开键盘
      *
@@ -61,10 +63,13 @@ public class KeyboardUtils {
     }
 
     /**
+     * 原理是 在布局上添加padding 来控制
+     *
      * @param root         最外层布局，需要调整的布局
      * @param scrollToView 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部
      */
     public static void controlyout(final View root, final View scrollToView) {
+        hasOpen = false;
         root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -75,6 +80,9 @@ public class KeyboardUtils {
                 int rootInvisibleHeight = root.getRootView().getHeight() - rect.bottom;
                 //若不可视区域高度大于100，则键盘显示
                 if (rootInvisibleHeight > 100) {
+                    if (hasOpen)
+                        return;
+                    hasOpen = true;
                     int[] location = new int[2];
                     //获取scrollToView在窗体的坐标
                     scrollToView.getLocationInWindow(location);
@@ -82,6 +90,9 @@ public class KeyboardUtils {
                     int srollHeight = (location[1] + scrollToView.getHeight()) - rect.bottom;
                     root.setPadding(0, 0, 0, srollHeight);
                 } else {
+                    if (!hasOpen)
+                        return;
+                    hasOpen = false;
                     //键盘隐藏
                     root.setPadding(0, 0, 0, 0);
                 }
