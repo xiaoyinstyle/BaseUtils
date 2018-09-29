@@ -13,6 +13,9 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import yin.style.baselib.R;
 
 /**
@@ -21,9 +24,11 @@ import yin.style.baselib.R;
 public class CleanableEditText extends EditText {
     private Drawable mRightDrawable;
     private boolean isHasFocus;
-    private final int DEFALUT_SIZE = 25;
-    // 叉图片的大小 25dp
+    private final int DEFALUT_SIZE = -1;
+    //默认 图片的大小 字体大小的 0.8
     private int clearimage_size;
+
+    List<OnFocusChangeListener> listeners = new ArrayList<>();
 
     public CleanableEditText(Context context) {
         super(context);
@@ -45,17 +50,10 @@ public class CleanableEditText extends EditText {
         clearimage_size = array.getDimensionPixelSize(R.styleable.CleanableEditText_clear_size, dip2px(context, DEFALUT_SIZE));
         array.recycle();
 
-        //getCompoundDrawables:
-        //Returns drawables for the left, top, right, and bottom borders.
-        Drawable[] drawables = this.getCompoundDrawables();
 
         //取得right位置的Drawable
-        //即我们在布局文件中设置的android:drawableRight
-        mRightDrawable = drawables[2];
-        if (mRightDrawable == null) {
-            mRightDrawable = context.getResources().getDrawable(R.mipmap.base_delete);
-        }
-        mRightDrawable.setBounds(0, 0, clearimage_size, clearimage_size);
+        setRightDrawable();
+
         //设置焦点变化的监听
         this.setOnFocusChangeListener(new FocusChangeListenerImpl());
         //设置EditText文字变化的监听
@@ -69,6 +67,32 @@ public class CleanableEditText extends EditText {
         return (int) (dpValue * scale + 0.5f);
     }
 
+    private void setRightDrawable() {
+        if (clearimage_size <= 0)
+            clearimage_size = (int) (getTextSize() * 0.8f);
+
+        //getCompoundDrawables:
+        //Returns drawables for the left, top, right, and bottom borders.
+        Drawable[] drawables = this.getCompoundDrawables();
+        //即我们在布局文件中设置的android:drawableRight
+        mRightDrawable = drawables[2];
+        if (mRightDrawable == null) {
+            mRightDrawable = getContext().getResources().getDrawable(R.mipmap.base_delete);
+        }
+        mRightDrawable.setBounds(0, 0, clearimage_size, clearimage_size);
+    }
+
+    @Override
+    public void setTextSize(float size) {
+        super.setTextSize(size);
+        setRightDrawable();
+    }
+
+    @Override
+    public void setTextSize(int unit, float size) {
+        super.setTextSize(unit, size);
+        setRightDrawable();
+    }
 
     /**
      * 当手指抬起的位置在clean的图标的区域
@@ -111,8 +135,24 @@ public class CleanableEditText extends EditText {
             } else {
                 setClearDrawableVisible(false);
             }
+            for (OnFocusChangeListener listener : listeners)
+                if (listener != null)
+                    listener.onFocusChange(v, hasFocus);
         }
 
+    }
+
+    @Override
+    @Deprecated
+    public void setOnFocusChangeListener(OnFocusChangeListener l) {
+        super.setOnFocusChangeListener(l);
+    }
+
+    /**
+     * 焦点监听
+     */
+    public void addOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
+        listeners.add(onFocusChangeListener);
     }
 
     //当输入结束后判断是否显示右边clean的图标
