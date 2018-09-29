@@ -19,16 +19,16 @@ import java.util.List;
 import yin.style.baselib.R;
 
 /**
- * 带清除的输入框
+ * 带清除的 EditText
  */
 public class CleanableEditText extends EditText {
     private Drawable mRightDrawable;
     private boolean isHasFocus;
-    private final int DEFALUT_SIZE = -1;
+    private final int DEFAULT_SIZE = -1;
     //默认 图片的大小 字体大小的 0.8
-    private int clearimage_size;
+    private int clearImage_size;
 
-    List<OnFocusChangeListener> listeners = new ArrayList<>();
+    private List<OnFocusChangeListener> listeners = new ArrayList<>();
 
     public CleanableEditText(Context context) {
         super(context);
@@ -47,12 +47,19 @@ public class CleanableEditText extends EditText {
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CleanableEditText);
-        clearimage_size = array.getDimensionPixelSize(R.styleable.CleanableEditText_clear_size, dip2px(context, DEFALUT_SIZE));
+        clearImage_size = array.getDimensionPixelSize(R.styleable.CleanableEditText_clear_size, dip2px(context, DEFAULT_SIZE));
         array.recycle();
 
-
+        //getCompoundDrawables:
+        //Returns drawables for the left, top, right, and bottom borders.
+        Drawable[] drawables = this.getCompoundDrawables();
+        //即我们在布局文件中设置的android:drawableRight
+        mRightDrawable = drawables[2];
+        if (mRightDrawable == null) {
+            mRightDrawable = getContext().getResources().getDrawable(R.mipmap.base_delete);
+        }
         //取得right位置的Drawable
-        setRightDrawable();
+        setRightDrawableSize();
 
         //设置焦点变化的监听
         this.setOnFocusChangeListener(new FocusChangeListenerImpl());
@@ -67,31 +74,23 @@ public class CleanableEditText extends EditText {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    private void setRightDrawable() {
-        if (clearimage_size <= 0)
-            clearimage_size = (int) (getTextSize() * 0.8f);
+    private void setRightDrawableSize() {
+        if (clearImage_size <= 0)
+            clearImage_size = (int) (getTextSize() * 0.8f);
 
-        //getCompoundDrawables:
-        //Returns drawables for the left, top, right, and bottom borders.
-        Drawable[] drawables = this.getCompoundDrawables();
-        //即我们在布局文件中设置的android:drawableRight
-        mRightDrawable = drawables[2];
-        if (mRightDrawable == null) {
-            mRightDrawable = getContext().getResources().getDrawable(R.mipmap.base_delete);
-        }
-        mRightDrawable.setBounds(0, 0, clearimage_size, clearimage_size);
+        mRightDrawable.setBounds(0, 0, clearImage_size, clearImage_size);
     }
 
     @Override
     public void setTextSize(float size) {
         super.setTextSize(size);
-        setRightDrawable();
+        setRightDrawableSize();
     }
 
     @Override
     public void setTextSize(int unit, float size) {
         super.setTextSize(unit, size);
-        setRightDrawable();
+        setRightDrawableSize();
     }
 
     /**
@@ -153,6 +152,14 @@ public class CleanableEditText extends EditText {
      */
     public void addOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
         listeners.add(onFocusChangeListener);
+    }
+
+    /**
+     * 设置 删除图标大小
+     */
+    public void setClearImageSize(int clearImage_size) {
+        this.clearImage_size = clearImage_size;
+        setRightDrawableSize();
     }
 
     //当输入结束后判断是否显示右边clean的图标
