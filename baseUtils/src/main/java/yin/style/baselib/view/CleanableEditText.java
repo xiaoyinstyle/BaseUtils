@@ -19,6 +19,7 @@ import java.util.List;
 import yin.style.baselib.R;
 
 /**
+ * Author by ChneYin, Email 976370887@qq.com, Date on  2017/9/29.
  * 带清除的 EditText
  */
 public class CleanableEditText extends EditText {
@@ -138,7 +139,6 @@ public class CleanableEditText extends EditText {
                 if (listener != null)
                     listener.onFocusChange(v, hasFocus);
         }
-
     }
 
     @Override
@@ -179,20 +179,13 @@ public class CleanableEditText extends EditText {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         }
-
     }
 
     //隐藏或者显示右边clean的图标
     protected void setClearDrawableVisible(boolean isVisible) {
-        Drawable rightDrawable;
-        if (isVisible) {
-            rightDrawable = mRightDrawable;
-        } else {
-            rightDrawable = null;
-        }
         //使用代码设置该控件left, top, right, and bottom处的图标
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1],
-                rightDrawable, getCompoundDrawables()[3]);
+                isVisible && hasFocus() ? mRightDrawable : null, getCompoundDrawables()[3]);
     }
 
     // 显示一个动画,以提示用户输入
