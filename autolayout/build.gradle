@@ -21,20 +21,20 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
 }
-
+//
 ////gradlew install
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
 //    upload_version = '0.0.2'
 //
-//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/recyclerlib'
+//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/autolayout'
 //    git_url = 'https://github.com/hongyangAndroid/AndroidAutoLayout.git'
 //    git_issue_url = ''
 //
 //    bintray_pkg_repo = 'maven'
 //    bintray_pkg_name = 'autolayout'
-//    bintray_pkg_desc = 'https://github.com/hongyangAndroid/AndroidAutoLayout'
+//    bintray_pkg_desc = 'Android AutoLayout 修改版'
 //
 //    developer_id = 'xiaoyinstyle'
 //    developer_name = 'chneyin'

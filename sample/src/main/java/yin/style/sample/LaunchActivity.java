@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.utils.SignCheck;
+import yin.style.sample.utilsUI.AutoSizeActivity;
 
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/5/17.
@@ -24,7 +25,8 @@ public class LaunchActivity extends AppCompatActivity {
             ToastUtils.show("验证签名错误");
         }
 
-        startActivity(new Intent(this,MainActivity.class));
+//        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,AutoSizeActivity.class));
         finish();
     }
 }

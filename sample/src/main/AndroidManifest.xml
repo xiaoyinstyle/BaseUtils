@@ -27,6 +27,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="design_width"
+            android:value="750" />
+        <meta-data
+            android:name="design_height"
+            android:value="2280" />
+
         <activity
             android:name=".LaunchActivity"
             android:theme="@style/LaunchTheme">
@@ -63,8 +70,10 @@
         <activity android:name=".other.AutoTextViewActivity" />
         <activity android:name=".other.PasswordInputActivity" />
         <activity android:name=".baseActivity.mViewPagerActivity" />
-        <activity android:name=".WakeScreenActivity"
-            android:excludeFromRecents="true" ></activity>
+        <activity
+            android:name=".WakeScreenActivity"
+            android:excludeFromRecents="true" />
+        <activity android:name=".utilsUI.AutoSizeActivity"></activity>
     </application>
 
 </manifest>

@@ -131,7 +131,7 @@ public class AutoLayoutHelper {
         AutoLayoutInfo info = new AutoLayoutInfo();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AutoLayout_Layout);
-        int baseWidth = a.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 0);//app:layout_auto_basewidth="height"，代表height上编写的像素值参考宽度。
+        int baseWidth = a.getInt(R.styleable.AutoLayout_Layout_layout_auto_basewidth, 8191);//app:layout_auto_basewidth="height"，代表height上编写的像素值参考宽度。
         int baseHeight = a.getInt(R.styleable.AutoLayout_Layout_layout_auto_baseheight, 0);//app:layout_auto_baseheight="width"，代表width上编写的像素值参考高度。
         a.recycle();
 

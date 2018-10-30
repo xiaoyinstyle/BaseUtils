@@ -63,25 +63,20 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
     implementation "com.android.support:design:${rootProject.supportLibVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
     implementation project(':baseUtils')
     implementation project(':recyclerlib')
-//    compile 'yin.style.utils:baseUtils:0.0.9'
-
+    //    compile 'yin.style.utils:baseUtils:0.0.9'
     //注解
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
-
     api project(':matisse')
-//    implementation 'yin.style.utils:matisse:0.0.1'
+    //    implementation 'yin.style.utils:matisse:0.0.1'
     implementation project(':camera')
     implementation project(':updatelibrary')
 
-
+    implementation project(':autolayout')
 }
 
 //这里为Groovy的语法，大意就是将所有com.andriod.support的支持库版本强制为所制定的版本。所以依赖冲突问题解决。

@@ -6,9 +6,11 @@ import android.support.multidex.MultiDexApplication;
 
 //import okhttp3.OkHttpClient;
 import yin.style.baselib.BaseHelp;
+import yin.style.sample.utils.DensityUtils;
 
 //import com.lzy.okgo.OkGo;
 import com.squareup.leakcanary.LeakCanary;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 /**
  * Created by ChneY on 2017/5/2.
@@ -28,6 +30,9 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        DensityUtils.setDensity(this);
+        AutoLayoutConifg.getInstance().useDeviceSize();
+
         BaseHelp.getInstance().init(new BaseHelp.BaseListener() {
             @Override
             public boolean isDebug() {
