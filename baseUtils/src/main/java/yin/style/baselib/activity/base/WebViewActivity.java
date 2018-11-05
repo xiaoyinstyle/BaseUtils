@@ -3,6 +3,7 @@ package yin.style.baselib.activity.base;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -78,6 +79,21 @@ public abstract class WebViewActivity extends TitleActivity {
                 super.onProgressChanged(view, newProgress);
             }
 
+            // For Android < 3.0
+            public void openFileChooser(ValueCallback<Uri> valueCallback) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
+            // For Android  >= 3.0
+            public void openFileChooser(ValueCallback valueCallback, String acceptType) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
+            //For Android  >= 4.1
+            public void openFileChooser(ValueCallback<Uri> valueCallback, String acceptType, String capture) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
             //文件选择
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
@@ -98,11 +114,10 @@ public abstract class WebViewActivity extends TitleActivity {
 
     protected abstract void setWebView(WebView webView);
 
-
     /**
      * 加载完成
      */
-    private void setWebViewComplete() {
+    protected void setWebViewComplete() {
     }
 
     //改写物理按键——返回的逻辑
@@ -134,9 +149,24 @@ public abstract class WebViewActivity extends TitleActivity {
     }
 
     public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_5 = 2;
-    public ValueCallback<Uri[]> mUploadMessageForAndroid5;
+    public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_4 = 3;
+    protected ValueCallback<Uri[]> mUploadMessageForAndroid5;
+    protected ValueCallback<Uri> mUploadMessageForAndroid4;
 
-    private void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
+    protected void openFileChooserImplForAndroid4(ValueCallback<Uri> uploadMsg) {
+        mUploadMessageForAndroid4 = uploadMsg;
+        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        contentSelectionIntent.setType("image/*");
+
+        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
+
+        startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE_FOR_ANDROID_4);
+    }
+
+    protected void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
         mUploadMessageForAndroid5 = uploadMsg;
         Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
         contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -158,9 +188,19 @@ public abstract class WebViewActivity extends TitleActivity {
             if (result != null) {
                 mUploadMessageForAndroid5.onReceiveValue(new Uri[]{result});
             } else {
-                mUploadMessageForAndroid5.onReceiveValue(new Uri[]{});
+                mUploadMessageForAndroid5.onReceiveValue(null);
             }
             mUploadMessageForAndroid5 = null;
+        } else if (requestCode == FILECHOOSER_RESULTCODE_FOR_ANDROID_4) {
+            if (null == mUploadMessageForAndroid4)
+                return;
+            Uri result = (intent == null || resultCode != RESULT_OK) ? null : intent.getData();
+            if (result != null) {
+                mUploadMessageForAndroid4.onReceiveValue(result);
+            } else {
+                mUploadMessageForAndroid4.onReceiveValue(null);
+            }
+            mUploadMessageForAndroid4 = null;
         }
     }
 }

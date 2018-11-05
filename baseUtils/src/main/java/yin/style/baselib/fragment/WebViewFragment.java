@@ -75,6 +75,21 @@ public abstract class WebViewFragment extends NormalFragment {
             }
 
 
+            // For Android < 3.0
+            public void openFileChooser(ValueCallback<Uri> valueCallback) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
+            // For Android  >= 3.0
+            public void openFileChooser(ValueCallback valueCallback, String acceptType) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
+            //For Android  >= 4.1
+            public void openFileChooser(ValueCallback<Uri> valueCallback, String acceptType, String capture) {
+                openFileChooserImplForAndroid4(valueCallback);
+            }
+
             //文件选择
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
@@ -90,7 +105,7 @@ public abstract class WebViewFragment extends NormalFragment {
     /**
      * 加载完成
      */
-    private void setWebViewComplete() {
+    protected void setWebViewComplete() {
     }
 
     protected void initData() {
@@ -129,9 +144,24 @@ public abstract class WebViewFragment extends NormalFragment {
     }
 
     public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_5 = 2;
-    public ValueCallback<Uri[]> mUploadMessageForAndroid5;
+    public final static int FILECHOOSER_RESULTCODE_FOR_ANDROID_4 = 3;
+    protected ValueCallback<Uri[]> mUploadMessageForAndroid5;
+    protected ValueCallback<Uri> mUploadMessageForAndroid4;
 
-    private void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
+    protected void openFileChooserImplForAndroid4(ValueCallback<Uri> uploadMsg) {
+        mUploadMessageForAndroid4 = uploadMsg;
+        Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        contentSelectionIntent.setType("image/*");
+
+        Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
+        chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
+        chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
+
+        startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE_FOR_ANDROID_4);
+    }
+
+    protected void openFileChooserImplForAndroid5(ValueCallback<Uri[]> uploadMsg) {
         mUploadMessageForAndroid5 = uploadMsg;
         Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
         contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -153,16 +183,20 @@ public abstract class WebViewFragment extends NormalFragment {
             if (result != null) {
                 mUploadMessageForAndroid5.onReceiveValue(new Uri[]{result});
             } else {
-                mUploadMessageForAndroid5.onReceiveValue(new Uri[]{});
+                mUploadMessageForAndroid5.onReceiveValue(null);
             }
             mUploadMessageForAndroid5 = null;
+        } else if (requestCode == FILECHOOSER_RESULTCODE_FOR_ANDROID_4) {
+            if (null == mUploadMessageForAndroid4)
+                return;
+            Uri result = (intent == null || resultCode != mContext.RESULT_OK) ? null : intent.getData();
+            if (result != null) {
+                mUploadMessageForAndroid4.onReceiveValue(result);
+            } else {
+                mUploadMessageForAndroid4.onReceiveValue(null);
+            }
+            mUploadMessageForAndroid4 = null;
         }
     }
 
-    /**
-     * 缓存
-     */
-    protected void setCache(boolean cache) {
-
-    }
 }

@@ -79,10 +79,11 @@ public class mImageActivity extends TitleActivity {
     protected void initView(Bundle savedInstanceState) {
         GlideUtil.getInstance().setView(imageView, "http://attach.bbs.miui.com/forum/201209/11/222515j3sgvvjv36gg5n29.jpg");
         GlideUtil.getInstance().setRoundView(imageRound, "http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg", 10);
-        GlideUtil.getInstance().setRoundView2(imageRound2, "http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg", 30, 10, Color.BLUE);
+        GlideUtil.getInstance().setRoundView2(imageRound2, "http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg",
+                15, 7, Color.BLUE);
         GlideUtil.getInstance().setCircleView(imageCircle, "http://img5.imgtn.bdimg.com/it/u=1858405955,2052924480&fm=23&gp=0.jpg");
         GlideUtil.getInstance().setCircleView2(imageCircle2, "http://img5.imgtn.bdimg.com/it/u=1858405955,2052924480&fm=23&gp=0.jpg", 3, Color.BLUE);
-        GlideUtil.getInstance().setGif(imageGif, "http://img1.imgtn.bdimg.com/it/u=3789472357,190916494&fm=214&gp=0.jpg");
+        GlideUtil.getInstance().setGif(imageGif, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541407798732&di=5db071cf946cb4259abd8ab2ce52debb&imgtype=0&src=http%3A%2F%2Fimg.mp.itc.cn%2Fupload%2F20160907%2Ff6c9fe61b3b34b17b21a4c92ae8f39ce_th.jpg");
     }
 
 //    ExecutorService fixedThreadPool;

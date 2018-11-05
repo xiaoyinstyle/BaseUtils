@@ -294,6 +294,14 @@ public class UpdateApkUtils {
      * 安装
      */
     public static void installApk(Context context, String apkPath) {
+        try {
+            String[] args2 = {"chmod", "777", apkPath};
+            Runtime.getRuntime().exec(args2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         Intent in = new Intent(Intent.ACTION_VIEW);
         File apkFile = new File(apkPath);
         if (Build.VERSION.SDK_INT >= 24) {

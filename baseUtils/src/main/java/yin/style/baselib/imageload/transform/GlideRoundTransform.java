@@ -29,6 +29,7 @@ public class GlideRoundTransform extends BitmapTransformation {
     private float mBorderWidth = 0f;
 
     private float radius = 0f;
+    float errorRange = 1f;
 
     public GlideRoundTransform(Context context) {
         this(context, 4);
@@ -50,7 +51,6 @@ public class GlideRoundTransform extends BitmapTransformation {
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setColor(borderColor);
         mBorderPaint.setStyle(Paint.Style.STROKE);
-        mBorderPaint.setStrokeWidth(this.mBorderWidth);
     }
 
     @Override
@@ -115,11 +115,15 @@ public class GlideRoundTransform extends BitmapTransformation {
             canvas.drawRoundRect(rectF, radius, radius, paint);
             canvas.restore();
 
-            RectF rectF2 = new RectF(mBorderWidth / 2, mBorderWidth / 2, width - mBorderWidth / 2, height - mBorderWidth / 2);
+            RectF rectF2 = new RectF(mBorderWidth / 2 + errorRange, mBorderWidth / 2 + errorRange,
+                    width - mBorderWidth / 2 - errorRange, height - mBorderWidth / 2 - errorRange);
+            mBorderPaint.setStrokeWidth(this.mBorderWidth + errorRange * 2);
+
             canvas.drawRoundRect(rectF2, radius, radius, mBorderPaint);
         }
         return result;
     }
+
 
     @Override
     public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {

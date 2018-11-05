@@ -25,8 +25,8 @@ public class LaunchActivity extends AppCompatActivity {
             ToastUtils.show("验证签名错误");
         }
 
-//        startActivity(new Intent(this,MainActivity.class));
-        startActivity(new Intent(this,AutoSizeActivity.class));
+        startActivity(new Intent(this,MainActivity.class));
+//        startActivity(new Intent(this,AutoSizeActivity.class));
         finish();
     }
 }

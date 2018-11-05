@@ -50,10 +50,10 @@ public class GlideCircleTransform extends BitmapTransformation {
         if (source == null) return null;
 
         int size = Math.min(source.getWidth(), source.getHeight());
-        int x = (source.getWidth() - size) / 2;
-        int y = (source.getHeight() - size) / 2;
+        float x = (source.getWidth() - size) / 2;
+        float y = (source.getHeight() - size) / 2;
         // TODO this could be acquired from the pool too
-        Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
+        Bitmap squared = Bitmap.createBitmap(source, (int) x, (int) y, size, size);
         Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
         if (result == null) {
             result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
@@ -75,7 +75,7 @@ public class GlideCircleTransform extends BitmapTransformation {
             canvas.restore();
 
             float borderRadius = r - mBorderWidth / 2;
-            canvas.drawCircle(r, r, borderRadius, mBorderPaint);
+            canvas.drawCircle(r, r, borderRadius - 0.5f, mBorderPaint);
         }
 
         return result;
