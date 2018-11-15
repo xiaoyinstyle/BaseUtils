@@ -3,6 +3,8 @@ package yin.style.baselib.utils.inface;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 /**
@@ -15,13 +17,34 @@ public abstract class DecimalTextWatcher implements TextWatcher {
 
     private boolean addNumber = false;
 
-    public DecimalTextWatcher(EditText editText) {
-        this.editText = editText;
+    public DecimalTextWatcher(EditText editTex) {
+        this.editText = editTex;
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    editText.setSelection(editText.getText().toString().length()); //光标移到最后
+                }catch (Exception e){
+
+                }
+            }
+        });
     }
 
-    public DecimalTextWatcher(EditText editText, int decimalNum) {
+    public DecimalTextWatcher(EditText editTex, int decimalNum) {
         this.digits = decimalNum;
-        this.editText = editText;
+        this.editText = editTex;
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    editText.setSelection(editText.getText().toString().length()); //光标移到最后
+                }catch (Exception e){
+
+                }
+            }
+        });
     }
 
     public DecimalTextWatcher setAddNumber(boolean addNumber) {
@@ -36,43 +59,62 @@ public abstract class DecimalTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        //删除“.”后面超过2位后的数据
-        if (s.toString().contains(".")) {
-            if (s.length() - 1 - s.toString().indexOf(".") > digits) {
-                s = s.toString().subSequence(0, s.toString().indexOf(".") + digits + 1);
+        try {
+            //如果"."在起始位置,则起始位置自动补0
+            if (s.toString().startsWith(".")) {
+                s = "0" + s;
                 editText.setText(s);
-                editText.setSelection(s.length()); //光标移到最后
-            }
-        }
-        //如果"."在起始位置,则起始位置自动补0
-        if (s.toString().trim().substring(0).equals(".")) {
-            s = "0" + s;
-            editText.setText(s);
-            editText.setSelection(2);
-        }
-
-        //如果起始位置为0,且第二位跟的不是".",则删除前面的 0
-        if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
-            if (!s.toString().substring(1, 2).equals(".")) {
-                editText.setText(s.subSequence(1, s.length()));
-                editText.setSelection(s.length() - 1);
+                editText.setSelection(2);
                 return;
             }
-        }
 
-        //没有内容是则为0
-        if (addNumber) {
-            if (s == null || s.length() == 0) {
-                editText.setText("0");
-                editText.setSelection(1);
+            //删除“.”后面超过2位后的数据
+            if (s.toString().contains(".")) {
+                if (s.length() - 1 - s.toString().indexOf(".") > digits) {
+                    s = s.toString().subSequence(0, s.toString().indexOf(".") + digits + 1);
+                    editText.setText(s);
+                    editText.setSelection(s.length()); //光标移到最后
+                    return;
+                }
+                if (s.toString().indexOf(".") != -1 && s.toString().lastIndexOf(".") != s.toString().indexOf(".")) {
+                    s = s.toString().subSequence(0, s.toString().lastIndexOf("."));
+                    editText.setText(s);
+                    editText.setSelection(s.length()); //光标移到最后
+                    return;
+                }
             }
+
+            //如果起始位置为0,且第二位跟的不是".",则删除前面的 0
+            if (s.toString().startsWith("0") && s.toString().trim().length() > 1) {
+                if (!s.toString().substring(1, 2).equals(".")) {
+                    editText.setText(s.subSequence(1, s.length()));
+                    editText.setSelection(s.length() - 1);
+
+                    return;
+                }
+            }
+
+            //没有内容是则为0
+            if (addNumber) {
+                if (s == null || s.length() == 0) {
+                    editText.setText("0");
+                    editText.setSelection(1);
+                }
+            }
+            Log.i("DecimalTextWatcher", "onTextChanged: " + editText.getText().toString());
+            inputText(TextUtils.isEmpty(editText.getText().toString()) ? "0" : editText.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+
+//            editText.setText("0");
+//            editText.setSelection(1);
         }
     }
 
     @Override
     public void afterTextChanged(Editable editable) {
-
-        inputText(TextUtils.isEmpty(editable.toString()) ? "0" : editable.toString());
+//        Log.e("inputText", "afterTextChanged: "+editable.toString() );
+//        inputText(TextUtils.isEmpty(editable.toString()) ? "0" : editable.toString());
     }
 
     public abstract void inputText(String number);
