@@ -40,6 +40,7 @@ public class StatusBarView extends LinearLayout {
             if (isShowStatus) {
                 StatusBarUtils.compat(activity, statusBarColor);
                 setPadding(0, ScreenUtil.getStatusHeight(activity), 0, 0);
+                setBackgroundColor(statusBarColor);
             } else {
                 setPadding(0, 0, 0, 0);
                 StatusBarUtils.compat(activity, Color.TRANSPARENT);

@@ -125,7 +125,7 @@ public class XRecyclerView extends RecyclerView {
         return mFootView;
     }
 
-    public void setFootViewText(String loading, String noMore) {
+      public void setFootViewText(String loading, String noMore) {
         if (mFootView instanceof LoadingMoreFooter) {
             ((LoadingMoreFooter) mFootView).setLoadingHint(loading);
             ((LoadingMoreFooter) mFootView).setNoMoreHint(noMore);

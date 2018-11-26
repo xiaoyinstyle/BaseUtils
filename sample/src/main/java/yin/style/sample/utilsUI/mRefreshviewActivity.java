@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
+
 import yin.style.sample.utilsUI.view.HeaderView;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.refreshView.RefreshLayout;
@@ -45,7 +47,8 @@ public class mRefreshviewActivity extends AppCompatActivity {
                 }, 3000);
             }
         });
-        HeaderView headerView = new HeaderView(this);
+//        HeaderView headerView = new HeaderView(this);
+        ArrowRefreshHeader headerView = new ArrowRefreshHeader(this);
         refreshLayout.setRefreshHeader(headerView);
 
 //        addListView();
