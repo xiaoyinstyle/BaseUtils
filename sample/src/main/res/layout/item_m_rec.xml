@@ -10,7 +10,7 @@
         android:id="@+id/tv_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey"
+        android:background="@color/text_grey"
         android:padding="5dp"
         android:text="111"
         android:textColor="@android:color/holo_red_light"

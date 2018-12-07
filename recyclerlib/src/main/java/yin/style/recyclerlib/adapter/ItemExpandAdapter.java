@@ -49,8 +49,7 @@ abstract class ItemExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    onItemClickLongListener.onItemLongClick(holder.itemView, groupPosition, position);
-                    return true;
+                    return onItemClickLongListener.onItemLongClick(holder.itemView, groupPosition, position);
                 }
             });
     }

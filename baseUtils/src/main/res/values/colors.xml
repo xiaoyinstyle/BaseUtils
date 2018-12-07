@@ -8,12 +8,19 @@
     <color name="base_line">#bebebe</color>
     <color name="base_layout_background">#F4F4F4</color>
 
-    <color name="color_white">#F3F3F3</color>
+    <color name="color_white">#FFFFFF</color>
     <color name="grey_light">#DDDDDD</color>
-    <color name="grey">#8C8C8C</color>
 
     <color name="text_blue">#0076FF</color>
-    <color name="text_black">#333333</color>
-    <color name="text_grey">#999999</color>
     <color name="base_text_dialog">#16b2f5</color>
+
+    <color name="text_black_dark">#1A1A1A</color>
+    <color name="text_black">#333333</color>
+    <color name="text_black_light">#666666</color>
+    <color name="text_grey_dark">#999999</color>
+    <color name="text_grey">#AAAAAA</color>
+    <color name="text_grey_light">#BCBCBC</color>
+
+    <color name="activity_bg">#EAEAEA</color>
+    <color name="line_grey">#DADADA</color>
 </resources>

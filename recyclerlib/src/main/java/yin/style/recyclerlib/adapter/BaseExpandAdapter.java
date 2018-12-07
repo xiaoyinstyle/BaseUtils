@@ -1,154 +1,271 @@
 package yin.style.recyclerlib.adapter;
 
+
 import android.content.Context;
-import android.support.annotation.IntDef;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import yin.style.recyclerlib.flowlayoutmanager.FlowLayoutManager;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.recyclerlib.inter.OnExpandItemClickListener;
 import yin.style.recyclerlib.inter.OnExpandItemClickLongListener;
 
-
 /**
  * 可以展开的 Expland adapter
- * 内部 RecyclerView  可以是网格、流式布局、线性、瀑布流 (VERTICAL/HORIZONTAL)
  *
  * @author chenyin
- * @date 2017/3/28
+ * @date 2018/12/07
  */
-public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
-    public static final int LAYOUT_GRID = 1;//网格
-    public static final int LAYOUT_FLOW = 2;//流式
-    public static final int LAYOUT_LINER = 3;//线性
-    public static final int LAYOUT_STAGGER_VERTICAL = 4;//瀑布流 VERTICAL
-    public static final int LAYOUT_STAGGER_HORIZONTAL = 5;//瀑布流 HORIZONTAL
-
-    @IntDef({LAYOUT_GRID, LAYOUT_FLOW, LAYOUT_LINER, LAYOUT_STAGGER_VERTICAL, LAYOUT_STAGGER_HORIZONTAL})
-    public @interface LAYOUT_TYPE {
-    }
-
-    protected List<T> list;
+public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter {
     private Context mContext;
-    private boolean groupCanClick = false;//group是否有点击监听
-    private RecyclerView.ItemDecoration itemDecoration;//间隔线
-    private boolean isShowGroupItem[] = new boolean[0];
+    public List<T> list = new ArrayList<>();
+    private List<Boolean> mGroupItemStatus = new ArrayList<>(); // 保存一级标题的开关状态
 
     private boolean isDefaultExpand = false;//初始化 是否展开 默认：false
     private boolean isNotClose = false;//初始化 不可关闭
 
+    private boolean groupCanClick = true;//group是否有点击监听
+    private boolean onlyOpenOne = false;//group是否有点击监听
 
-    public BaseExpandAdapter(Context context, List list) {
-        this.list = list;
+//    public ExpandableRecyclerViewAdapter(Context context, List<T> list) {
+//        mContext = context;
+//        this.list = list;
+//        initGroupItemStatus();
+//        notifyDataSetChanged();
+//    }
+
+    public BaseExpandAdapter(Context context) {
         mContext = context;
     }
 
-    @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LinearLayout linearLayout = new LinearLayout(parent.getContext());
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        linearLayout.addView(LayoutInflater.from(parent.getContext()).inflate(getGroupLayout(), parent, false));
-        return new ItemViewHolder(linearLayout);
+    /**
+     * 这是关键
+     *
+     * @param list
+     * @param isAdd
+     */
+    public void setData(List list, boolean isAdd) {
+        if (!isAdd)
+            this.list.clear();
+
+        this.list.addAll(list);
+
+        initGroupItemStatus(isAdd);
+        notifyDataSetChanged();
     }
 
+    /**
+     * 初始化一级列表开关状态
+     */
+    private void initGroupItemStatus(boolean isAdd) {
+        if (!isAdd) {
+            mGroupItemStatus.clear();
+            for (int i = 0; i < list.size(); i++) {
+                mGroupItemStatus.add(isDefaultExpand);
+            }
+        } else {
+            for (int i = mGroupItemStatus.size() - 1; i < list.size(); i++) {
+                mGroupItemStatus.add(isDefaultExpand);
+            }
+        }
+    }
+
+    /**
+     * 根据item的位置，获取当前Item的状态
+     *
+     * @param position 当前item的位置（此position的计数包含groupItem和subItem合计）
+     * @return 当前Item的状态（此Item可能是groupItem，也可能是SubItem）
+     */
+    private ItemStatus getItemStatusByPosition(int position) {
+        ItemStatus itemStatus = new ItemStatus();
+        int itemCount = 0;
+        int i;
+        //轮询 groupItem 的开关状态
+        for (i = 0; i < mGroupItemStatus.size(); i++) {
+            if (itemCount == position) { //position刚好等于计数时，item为groupItem
+                itemStatus.setViewType(ItemStatus.VIEW_TYPE_GROUP_ITEM);
+                itemStatus.setGroupItemIndex(i);
+                break;
+            } else if (itemCount > position) { //position大于计数时，item为groupItem(i - 1)中的某个subItem
+                itemStatus.setViewType(ItemStatus.VIEW_TYPE_SUB_ITEM);
+                itemStatus.setGroupItemIndex(i - 1); // 指定的position组索引
+                // 计算指定的position前，统计的列表项和
+                int temp = (itemCount - getChild(i - 1).size());
+                // 指定的position的子项索引：即为position-之前统计的列表项和
+                itemStatus.setSubItemIndex(position - temp);
+                break;
+            }
+
+            itemCount++;
+            if (mGroupItemStatus.get(i)) {
+                itemCount += getChild(i).size();
+            }
+        }
+        // 轮询到最后一组时，未找到对应位置
+        if (i >= mGroupItemStatus.size()) {
+            itemStatus.setViewType(ItemStatus.VIEW_TYPE_SUB_ITEM); // 设置为二级标签类型
+            itemStatus.setGroupItemIndex(i - 1); // 设置一级标签为最后一组
+            itemStatus.setSubItemIndex(position - (itemCount - getChild(i - 1).size()));
+        }
+        return itemStatus;
+    }
+
+
     @Override
-    public void onBindViewHolder(final BaseViewHolder holder, final int position) {
-        if (holder instanceof ItemViewHolder) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        RecyclerView.ViewHolder viewHolder = null;
+        if (viewType == ItemStatus.VIEW_TYPE_GROUP_ITEM) {
+            // parent需要传入对应的位置，否则列表项触发不了点击事件
+            view = LayoutInflater.from(mContext).inflate(getGroupLayout(), parent, false);
+            viewHolder = new BaseViewHolder(view);
+        } else if (viewType == ItemStatus.VIEW_TYPE_SUB_ITEM) {
+            view = LayoutInflater.from(mContext).inflate(getChildLayout(-1), parent, false);
+            viewHolder = new BaseViewHolder(view);
+        }
+        return viewHolder;
+    }
 
-            setGroupViewHolder(holder, isShowGroupItem[position], position);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null && groupCanClick)
-                        onItemClickListener.onItemClick(holder.itemView, position, -1);
 
-                    if (!isNotClose) {
-                        if (!isShowGroupItem[position]) {
-                            ((ItemViewHolder) holder).mGroup.setVisibility(View.VISIBLE);
-                            isShowGroupItem[position] = true;
-                        } else {
-                            ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
-                            isShowGroupItem[position] = false;
-                        }
-                        setGroupViewHolder(holder, isShowGroupItem[position], position);
-                    }
-                }
-            });
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final ItemStatus itemStatus = getItemStatusByPosition(position); // 获取列表项状态
 
-            if (onItemClickLongListener != null && groupCanClick)
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        if (itemStatus.getViewType() == ItemStatus.VIEW_TYPE_GROUP_ITEM) { // 组类型
+            final int groupIndex = itemStatus.getGroupItemIndex(); // 组索引
+
+            if (!isNotClose || (groupCanClick && onItemClickListener != null))
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public boolean onLongClick(View v) {
-                        onItemClickLongListener.onItemLongClick(holder.itemView, position, -1);
-                        return true;
+                    public void onClick(View view) {
+                        if (!isNotClose) {
+                            if (mGroupItemStatus.get(groupIndex)) { // 一级标题打开状态
+                                mGroupItemStatus.set(groupIndex, false);
+                                notifyItemRangeRemoved(holder.getAdapterPosition() + 1, getChild(groupIndex).size());
+                            } else { // 一级标题关闭状态
+                                if (onlyOpenOne) {
+                                    initGroupItemStatus(false); // 1. 实现只展开一个组的功能，缺点是没有动画效果
+                                    mGroupItemStatus.set(groupIndex, true);
+                                    notifyDataSetChanged(); // 1. 实现只展开一个组的功能，缺点是没有动画效果
+                                } else {
+                                    mGroupItemStatus.set(groupIndex, true);
+                                    notifyItemRangeInserted(holder.getAdapterPosition() + 1, getChild(groupIndex).size()); // 2. 实现展开可多个组的功能，带动画效果
+                                }
+                            }
+                        }
+                        if (groupCanClick && onItemClickListener != null)
+                            onItemClickListener.onItemClick(holder.itemView, itemStatus.getGroupItemIndex(), -1);
                     }
                 });
 
-            if (((ViewGroup) holder.itemView).getChildCount() == 1)
-                ((ViewGroup) holder.itemView).addView(((ItemViewHolder) holder).mGroup);
+            if (onItemClickLongListener != null)
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        return onItemClickLongListener.onItemLongClick(holder.itemView, itemStatus.getGroupItemIndex(), -1);
+                    }
+                });
 
-            if (isShowGroupItem[position])
-                ((ItemViewHolder) holder).mGroup.setVisibility(View.VISIBLE);
-            else
-                ((ItemViewHolder) holder).mGroup.setVisibility(View.GONE);
+            setGroupViewHolder((BaseViewHolder) holder, mGroupItemStatus.get(groupIndex), groupIndex);
+        } else if (itemStatus.getViewType() == ItemStatus.VIEW_TYPE_SUB_ITEM) { // 子项类型
 
-            //添加内部布局
-            ((ItemViewHolder) holder).mGroup.setLayoutManager(getLayoutManager(position));
+            if (onItemClickListener != null)
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onItemClickListener.onItemClick(holder.itemView, itemStatus.getGroupItemIndex(), itemStatus.getSubItemIndex());
+                    }
+                });
 
-            if (itemDecoration != null)
-                ((ItemViewHolder) holder).mGroup.addItemDecoration(itemDecoration);
+            if (onItemClickLongListener != null)
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        return onItemClickLongListener.onItemLongClick(holder.itemView, itemStatus.getGroupItemIndex(), itemStatus.getSubItemIndex());
+                    }
+                });
 
-            ((ItemViewHolder) holder).mGroup.setAdapter(new ItemExpandAdapter(getChild(position), position) {
-                @Override
-                protected int getChildLayout() {
-                    return BaseExpandAdapter.this.getChildLayout(position);
-                }
-
-                @Override
-                protected void setViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
-                    BaseExpandAdapter.this.setChildViewHolder(holder, groupPosition, childPosition);
-                }
-            }.setOnItemClickListener(new OnExpandItemClickListener() {
-                @Override
-                public void onItemClick(View view, int groupPosition, int childPosition) {
-                    if (onItemClickListener != null)
-                        onItemClickListener.onItemClick(holder.itemView, groupPosition, childPosition);
-                }
-            }).setOnItemClickLongListener(new OnExpandItemClickLongListener() {
-                @Override
-                public void onItemLongClick(View view, int groupPosition, int childPosition) {
-                    if (onItemClickLongListener != null)
-                        onItemClickLongListener.onItemLongClick(holder.itemView, groupPosition, childPosition);
-                }
-            }));
+            setChildViewHolder((BaseViewHolder) holder, itemStatus.getGroupItemIndex(), itemStatus.getSubItemIndex());
         }
     }
 
+
     @Override
     public int getItemCount() {
-        int i = list.isEmpty() ? 0 : list.size();
-        //初始化 Expand 默认是否 展开状态
-        if (isShowGroupItem == null || isShowGroupItem.length != i) {
-            isShowGroupItem = new boolean[i];
-            for (int j = 0; j < isShowGroupItem.length; j++) {
-                if (isNotClose)
-                    isShowGroupItem[j] = true;
-                else
-                    isShowGroupItem[j] = isDefaultExpand(i);
-            }
+        int itemCount = 0;
+
+        if (0 == mGroupItemStatus.size()) {
+            return itemCount;
         }
 
-        return i;
+        for (int i = 0; i < list.size(); i++) {
+            itemCount++; // 每个一级标题项+1
+            if (mGroupItemStatus.get(i)) { // 二级标题展开时，再加上二级标题的数量
+                itemCount += getChild(i).size();
+            }
+        }
+        return itemCount;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return getItemStatusByPosition(position).getViewType();
+    }
+
+    /*----------------------*/
+    public void setOnlyOpenOne(boolean onlyOpenOne) {
+        this.onlyOpenOne = onlyOpenOne;
+    }
+
+    public void setDefaultExpand(boolean defaultExpand) {
+        isDefaultExpand = defaultExpand;
+    }
+
+    protected boolean isDefaultExpand(int position) {
+        return isDefaultExpand;
+    }
+
+    //设置默认是否可以关闭
+    public void setNotClose() {
+        isNotClose = true;
+    }
+
+    //设置默认是否可以关闭
+    public void setCanClose() {
+        isNotClose = false;
+    }
+
+    //某个Group是否展开
+    public boolean hasGroupExpand(int groupPosition) {
+        if (mGroupItemStatus == null || mGroupItemStatus.size() == 0)
+            return false;
+        return mGroupItemStatus.get(groupPosition);
+    }
+
+    //关闭某个Group
+    public void closeGroupItem(int groupPosition, boolean animation) {
+        if (mGroupItemStatus == null || mGroupItemStatus.size() == 0)
+            return;
+        mGroupItemStatus.set(groupPosition, false);
+        if (animation) {
+            notifyItemRangeInserted(groupPosition + 1, getChild(groupPosition).size()); // 2. 实现展开可多个组的功能，带动画效果
+        } else
+            notifyDataSetChanged();
+    }
+
+    //展开某个Group
+    public void openGroupItem(int groupPosition, boolean animation) {
+        if (mGroupItemStatus == null || mGroupItemStatus.size() == 0)
+            return;
+        mGroupItemStatus.set(groupPosition, true);
+        if (animation) {
+            notifyItemRangeRemoved(groupPosition + 1, getChild(groupPosition).size());
+        } else
+            notifyDataSetChanged();
     }
 
     //----------------------*******------------------------
@@ -172,111 +289,15 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter<BaseView
         this.onItemClickLongListener = onItemClickLongListener;
     }
 
-    public void addItemDecoration(RecyclerView.ItemDecoration itemDecoration) {
-        this.itemDecoration = itemDecoration;
-    }
-
-    protected class ItemViewHolder<T> extends BaseViewHolder {
-        public RecyclerView mGroup;
-
-        public ItemViewHolder(View view) {
-            super(view);
-            mGroup = new RecyclerView(mContext);
-            mGroup.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);//beforeDescendants
-        }
-    }
-
-    //---------************************************************---------------
-    protected abstract List getChild(int position);
+    /*------------------------------*/
 
     protected abstract int getGroupLayout();
 
-    protected abstract int getChildLayout(int position);
+    protected abstract int getChildLayout(int pos);
 
-    protected abstract void setGroupViewHolder(BaseViewHolder baseViewHolder, boolean isOpenGroup, int groupPosition);
+    protected abstract void setGroupViewHolder(BaseViewHolder holder, boolean aBoolean, int position);
 
     protected abstract void setChildViewHolder(BaseViewHolder baseViewHolder, int groupPosition, int childPosition);
 
-    /**
-     * 自定义   RecyclerView.LayoutManager
-     *
-     * @param position
-     * @return
-     */
-    protected RecyclerView.LayoutManager getLayoutManager(int position) {
-        if (getLayoutType(position) == LAYOUT_GRID)
-            return new GridLayoutManager(mContext, getGridCount(position));
-        else if (getLayoutType(position) == LAYOUT_FLOW) {
-            FlowLayoutManager flowLayoutManager = new FlowLayoutManager();
-            flowLayoutManager.setAutoMeasureEnabled(true);
-            return flowLayoutManager;
-        } else if (getLayoutType(position) == LAYOUT_STAGGER_VERTICAL)
-            return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.VERTICAL);
-        else if (getLayoutType(position) == LAYOUT_STAGGER_HORIZONTAL)
-            return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.HORIZONTAL);
-        else // (getLayoutType(position) == LAYOUT_LINER)
-            return new LinearLayoutManager(mContext);
-    }
-
-    /**
-     * 自定义   RecyclerView.LayoutManager 类型
-     *
-     * @param position
-     * @return
-     */
-    @LAYOUT_TYPE
-    protected int getLayoutType(int position) {
-        return LAYOUT_GRID;
-    }
-
-    /**
-     * 设置展开的 RecyclerView 的Grid的列数
-     */
-    protected int getGridCount(int position) {
-        return 1;
-    }
-
-    /*-------------------------------------*/
-    /*-------------------------------------*/
-    //设置默认 是否展开、或者关闭
-    public void setDefaultExpand(boolean defaultExpand) {
-        isDefaultExpand = defaultExpand;
-    }
-
-    //设置默认是否可以关闭
-    public void setNotClose() {
-        isNotClose = true;
-    }
-
-    //设置默认是否可以关闭
-    public void setCanClose() {
-        isNotClose = false;
-    }
-
-    protected boolean isDefaultExpand(int position) {
-        return isDefaultExpand;
-    }
-
-    //某个Group是否展开
-    public boolean hasGroupExpand(int groupPosition) {
-        if (isShowGroupItem == null || isShowGroupItem.length == 0)
-            return false;
-        return isShowGroupItem[groupPosition];
-    }
-
-    //关闭某个Group
-    public void closeGroupItem(int groupPosition) {
-        if (isShowGroupItem == null || isShowGroupItem.length == 0)
-            return;
-        isShowGroupItem[groupPosition] = false;
-        notifyDataSetChanged();
-    }
-
-    //展开某个Group
-    public void openGroupItem(int groupPosition) {
-        if (isShowGroupItem == null || isShowGroupItem.length == 0)
-            return;
-        isShowGroupItem[groupPosition] = true;
-        notifyDataSetChanged();
-    }
+    protected abstract List getChild(int position);
 }

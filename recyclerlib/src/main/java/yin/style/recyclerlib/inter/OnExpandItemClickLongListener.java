@@ -9,6 +9,6 @@ import android.view.View;
  */
 
 public interface OnExpandItemClickLongListener {
-    void onItemLongClick(View view, int groupPosition, int childPosition);
+    boolean onItemLongClick(View view, int groupPosition, int childPosition);
 }
 

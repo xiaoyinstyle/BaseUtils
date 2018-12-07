@@ -51,11 +51,14 @@ public class TitleLayout extends FrameLayout {
         }
 
         iv_left = (ImageView) findViewById(R.id.base_iv_left);
+        iv_left2 = (ImageView) findViewById(R.id.base_iv_left2);
         tv_left = (TextView) findViewById(R.id.base_tv_left);
         iv_right = (ImageView) findViewById(R.id.base_iv_right);
+        iv_right2 = (ImageView) findViewById(R.id.base_iv_right2);
         tv_right = (TextView) findViewById(R.id.base_tv_right);
         title = (TextView) findViewById(R.id.base_tv_title);
         et_input = (EditText) findViewById(R.id.base_et_input);
+        v_line = findViewById(R.id.base_v_line);
     }
 
     public ImageView getIconLeft() {

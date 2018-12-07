@@ -19,14 +19,16 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    implementation "com.android.support:design:${rootProject.supportLibVersion}"
+    implementation "com.android.support:cardview-v7:${rootProject.supportLibVersion}"
 }
-//
+
 ////gradlew install
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.0.2'
+//    upload_version = '0.0.3'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils/tree/master/autolayout'
 //    git_url = 'https://github.com/hongyangAndroid/AndroidAutoLayout.git'

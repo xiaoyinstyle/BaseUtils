@@ -65,12 +65,12 @@ dependencies {
     debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }
-
+//
 ////gradlew install
 ////gradlew bintrayUpload
 //ext {
 //    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.1.1-bate'
+//    upload_version = '0.1.1-bate2'
 //
 //    site_url = 'https://github.com/xiaoyinstyle/BaseUtils'
 //    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'

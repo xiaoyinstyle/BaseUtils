@@ -1,11 +1,13 @@
 package yin.style.sample.baseActivity.adapter;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import java.util.List;
 
 import yin.style.recyclerlib.adapter.BaseExpandAdapter;
+import yin.style.recyclerlib.adapter.BaseExpandProAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.sample.R;
 
@@ -15,14 +17,15 @@ import yin.style.sample.R;
 
 public class mExpandAdapter extends BaseExpandAdapter<Group> {
 
-    public mExpandAdapter(Context context, List list) {
-        super(context, list);
+    public mExpandAdapter(Context context) {
+        super(context);
+//        setData(list, true);
     }
 
-    @Override
-    protected int getLayoutType(int position) {
-        return LAYOUT_FLOW;
-    }
+//    @Override
+//    protected int getLayoutType(int position) {
+//        return LAYOUT_FLOW;
+//    }
 
     @Override
     protected List getChild(int position) {
@@ -40,13 +43,18 @@ public class mExpandAdapter extends BaseExpandAdapter<Group> {
     }
 
     @Override
+    protected void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition) {
+        holder.setText(R.id.text, "这是GroupView_" + groupPosition);
+        holder.setBackgroundRes(R.id.text, R.color.text_grey);
+    }
+
+    @Override
     protected void setChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
         holder.setText(R.id.text, "这是ChildView_" + groupPosition + "_" + childPosition);
     }
 
-    @Override
-    protected void setGroupViewHolder(BaseViewHolder holder, boolean isOpenGroup, int groupPosition) {
-        holder.setText(R.id.text, "这是GroupView_" + groupPosition);
-        holder.setBackgroundRes(R.id.text, R.color.grey);
+    public void notifyDataSetChanged2() {
+        notifyDataSetChanged();
+        Log.e("AAA", "notifyDataSetChanged2: ");
     }
 }
