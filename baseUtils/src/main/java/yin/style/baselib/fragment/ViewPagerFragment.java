@@ -21,11 +21,18 @@ public abstract class ViewPagerFragment extends TitleFragment {
     protected ViewPager mViewPager;
 
     protected FragmentAdapter fragmentAdapter;
+    protected List fragments;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-//ViewPager的适配器
-        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), setFragments()) {
+        fragments = setFragments();
+        if (fragments == null || fragments.size() == 0) {
+            ToastUtils.show("请先调用setFragments（）方法，进行初始化");
+            return;
+        }
+
+        //ViewPager的适配器
+        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), fragments) {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
@@ -41,7 +48,7 @@ public abstract class ViewPagerFragment extends TitleFragment {
         }
 
         mViewPager.setAdapter(fragmentAdapter);
-        mViewPager.setOffscreenPageLimit(setFragments().size());
+        mViewPager.setOffscreenPageLimit(fragments.size());
 
         if (mTabLayout != null) {
             mTabLayout.setupWithViewPager(mViewPager);

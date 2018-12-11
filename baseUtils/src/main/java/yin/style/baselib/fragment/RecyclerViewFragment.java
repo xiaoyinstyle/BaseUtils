@@ -125,4 +125,13 @@ public abstract class RecyclerViewFragment extends TitleFragment {
     public void refresh() {
         mRecyclerView.refresh();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mRecyclerView != null) {
+            mRecyclerView.destroy();
+            mRecyclerView = null;
+        }
+    }
 }

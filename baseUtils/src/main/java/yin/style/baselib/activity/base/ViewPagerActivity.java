@@ -20,11 +20,18 @@ public abstract class ViewPagerActivity extends TitleActivity {
     protected ViewPager mViewPager;
 
     protected FragmentAdapter fragmentAdapter;
+    protected List fragments;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        fragments = setFragments();
+        if (fragments == null || fragments.size() == 0) {
+            ToastUtils.show("请先调用setFragments（）方法，进行初始化");
+            return;
+        }
+
 //ViewPager的适配器
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), setFragments()) {
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragments) {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
@@ -34,13 +41,13 @@ public abstract class ViewPagerActivity extends TitleActivity {
 
         findView();
 
-        if (mViewPager == null) {
+        if (mViewPager == null || fragments == null || fragments.size() == 0) {
             ToastUtils.show("请先设置mViewPager与mTabLayout的findViewById()，进行初始化");
             return;
         }
 
         mViewPager.setAdapter(fragmentAdapter);
-        mViewPager.setOffscreenPageLimit(setFragments().size());
+        mViewPager.setOffscreenPageLimit(fragments.size());
 
         if (mTabLayout != null) {
             mTabLayout.setupWithViewPager(mViewPager);
