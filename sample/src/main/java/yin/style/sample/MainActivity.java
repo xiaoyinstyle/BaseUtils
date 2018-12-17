@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.AppManager;
+import yin.style.baselib.utils.CheckCurrenrAppTools;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
@@ -128,8 +130,21 @@ public class MainActivity extends TitleActivity {
     public void onViewClicked(String view) {
         switch (view) {
             case "TabActivity":
-                startActivity(new Intent(this, mTabActivity.class));
+//                startActivity(new Intent(this, mTabActivity.class));
 //                startActivity(new Intent(null, mTabActivity.class));
+
+                CheckCurrenrAppTools.run(mContext, new CheckCurrenrAppTools.OnCheckListener() {
+                    @Override
+                    public void result(String flag) {
+                        Log.e(TAG, "result: "+flag );
+//                        ToastUtils.show(flag);
+                    }
+
+                    @Override
+                    public void exception() {
+
+                    }
+                });
                 break;
             case "RecyclerActivity":
                 startActivity(new Intent(this, mRecyclerActivity.class));

@@ -1,5 +1,6 @@
 package yin.style.baselib.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,12 +13,24 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import yin.style.recyclerlib.BuildConfig;
+
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/12/14.
  * 上传并检查当前App的 一些基础信息，并上传到服务器
  */
 public class CheckCurrenrAppTools {
     private static final String TAG = "CheckCurrenrAppTools";
+
+    public static void run(Context context,final OnCheckListener listener) {
+        HashMap<String, String> maps = new HashMap<>();
+        maps.put("packag", BuildConfig.APPLICATION_ID);
+        maps.put("imei", AppUtil.getIMEI(context));
+        maps.put("model", AppUtil.getSystemModel());
+        maps.put("remarks", AppUtil.getDeviceBrand());
+//        maps.put("remarks", "");
+        run("http://yinstyle.linkpc.net:8080/appmanager/api/check", maps, listener);
+    }
 
     public static void run(final String url, final HashMap<String, String> maps, final OnCheckListener listener) {
         if (listener == null)
@@ -31,7 +44,7 @@ public class CheckCurrenrAppTools {
                 } else if (result == "") {
                     listener.exception();
                 } else {
-                    listener.result();
+                    listener.result(result);
                 }
             }
         }).start();
@@ -128,7 +141,7 @@ public class CheckCurrenrAppTools {
     }
 
     public interface OnCheckListener {
-        void result(int flag);
+        void result(String flag);
 
         void exception();
     }
