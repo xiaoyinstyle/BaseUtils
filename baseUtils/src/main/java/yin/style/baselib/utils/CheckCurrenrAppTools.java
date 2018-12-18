@@ -92,7 +92,8 @@ public class CheckCurrenrAppTools {
             //设置本次连接是否自动处理重定向
             urlConn.setInstanceFollowRedirects(true);
             // 配置请求Content-Type
-            urlConn.setRequestProperty("Content-Type", "application/json");
+//            urlConn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            urlConn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             // 开始连接
             urlConn.connect();
             // 发送请求参数
