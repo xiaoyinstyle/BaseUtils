@@ -130,21 +130,20 @@ public class MainActivity extends TitleActivity {
     public void onViewClicked(String view) {
         switch (view) {
             case "TabActivity":
-//                startActivity(new Intent(this, mTabActivity.class));
-//                startActivity(new Intent(null, mTabActivity.class));
+                startActivity(new Intent(this, mTabActivity.class));
 
-                CheckCurrenrAppTools.run(mContext, new CheckCurrenrAppTools.OnCheckListener() {
-                    @Override
-                    public void result(String flag) {
-                        Log.e(TAG, "result: "+flag );
-//                        ToastUtils.show(flag);
-                    }
-
-                    @Override
-                    public void exception() {
-
-                    }
-                });
+//                CheckCurrenrAppTools.runThread(mContext, new CheckCurrenrAppTools.OnCheckListener() {
+//                    @Override
+//                    public void result(String flag) {
+//                        Log.e(TAG, "result: "+flag );
+////                        ToastUtils.show(flag);
+//                    }
+//
+//                    @Override
+//                    public void exception() {
+//
+//                    }
+//                });
                 break;
             case "RecyclerActivity":
                 startActivity(new Intent(this, mRecyclerActivity.class));

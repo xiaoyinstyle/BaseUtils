@@ -11,9 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 
-import yin.style.recyclerlib.BuildConfig;
+import yin.style.baselib.BaseHelp;
 
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/12/14.
@@ -22,26 +21,25 @@ import yin.style.recyclerlib.BuildConfig;
 public class CheckCurrenrAppTools {
     private static final String TAG = "CheckCurrenrAppTools";
 
-    public static void run(Context context,final OnCheckListener listener) {
+    public static void runThread(Context context, final OnCheckListener listener) {
         HashMap<String, String> maps = new HashMap<>();
-        maps.put("packag", BuildConfig.APPLICATION_ID);
+        maps.put("packag", context.getPackageName());
         maps.put("imei", AppUtil.getIMEI(context));
         maps.put("model", AppUtil.getSystemModel());
         maps.put("remarks", AppUtil.getDeviceBrand());
+        maps.put("name", AppUtil.getAppName(context));
 //        maps.put("remarks", "");
-        run("http://yinstyle.linkpc.net:8080/appmanager/api/check", maps, listener);
+        runThread("http://yinstyle.linkpc.net:8080/appmanager/api/check", maps, listener);
     }
 
-    public static void run(final String url, final HashMap<String, String> maps, final OnCheckListener listener) {
+    public static void runThread(final String url, final HashMap<String, String> maps, final OnCheckListener listener) {
         if (listener == null)
             return;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String result = requestPost(url, maps);
-                if (result == null) {
-                    listener.exception();
-                } else if (result == "") {
+                if (result == null || result == "") {
                     listener.exception();
                 } else {
                     listener.result(result);
@@ -64,7 +62,7 @@ public class CheckCurrenrAppTools {
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
             for (String key : paramsMap.keySet()) {
-                if (pos > 0 || urlStr.contains("?")) {
+                if (pos > 0) {
                     tempParams.append("&");
                 }
                 tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
@@ -93,7 +91,7 @@ public class CheckCurrenrAppTools {
             urlConn.setInstanceFollowRedirects(true);
             // 配置请求Content-Type
 //            urlConn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            urlConn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             // 开始连接
             urlConn.connect();
             // 发送请求参数
@@ -105,9 +103,11 @@ public class CheckCurrenrAppTools {
             if (urlConn.getResponseCode() == 200) {
                 // 获取返回的数据
                 result = streamToString(urlConn.getInputStream());
-                Log.e(TAG, "Post方式请求成功，result--->" + result);
+                if (BaseHelp.getInstance().isDebug())
+                    Log.e(TAG, "Post方式请求成功，result--->" + result);
             } else {
-                Log.e(TAG, "Post方式请求失败");
+                if (BaseHelp.getInstance().isDebug())
+                    Log.e(TAG, "Post方式请求失败");
             }
             // 关闭连接
             urlConn.disconnect();
