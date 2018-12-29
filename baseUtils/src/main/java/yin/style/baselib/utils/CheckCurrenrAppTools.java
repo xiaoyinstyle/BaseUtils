@@ -21,31 +21,46 @@ import yin.style.baselib.BaseHelp;
 public class CheckCurrenrAppTools {
     private static final String TAG = "CheckCurrenrAppTools";
 
-    public static void runThread(Context context, final OnCheckListener listener) {
+    private static long lastUploadTime = 0;
+
+    public static void runThread(Context context, String remarks, final OnCheckListener listener) {
+        runThread(context, "http://yinstyle.linkpc.net:8080/appmanager/api/check", remarks, listener);
+    }
+
+    public static void runThread(Context context, String url, String remarks, final OnCheckListener listener) {
+        if (System.currentTimeMillis() - lastUploadTime < 2 * 60 * 60 * 1000)
+            return;
+
         HashMap<String, String> maps = new HashMap<>();
         maps.put("packag", context.getPackageName());
         maps.put("imei", AppUtil.getIMEI(context));
         maps.put("model", AppUtil.getSystemModel());
-        maps.put("remarks", AppUtil.getDeviceBrand());
+        maps.put("remarks", TextUtils.isEmpty(remarks) ? AppUtil.getDeviceBrand() : remarks);
         maps.put("name", AppUtil.getAppName(context));
 //        maps.put("remarks", "");
-        runThread("http://yinstyle.linkpc.net:8080/appmanager/api/check", maps, listener);
+        runThread(url, maps, listener);
     }
 
     public static void runThread(final String url, final HashMap<String, String> maps, final OnCheckListener listener) {
-        if (listener == null)
-            return;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String result = requestPost(url, maps);
-                if (result == null || result == "") {
-                    listener.exception();
-                } else {
-                    listener.result(result);
+        try {
+            if (listener == null)
+                return;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String result = requestPost(url, maps);
+                    if (result == null || result == "") {
+                        listener.exception();
+                    } else {
+                        lastUploadTime = System.currentTimeMillis();
+                        listener.result(result);
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
     }
 
     /**

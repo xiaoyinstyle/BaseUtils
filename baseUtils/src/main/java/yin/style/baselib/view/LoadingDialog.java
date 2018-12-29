@@ -31,12 +31,16 @@ public class LoadingDialog extends Dialog {
     }
 
     public LoadingDialog(Context context, int theme) {
-        super(context, theme);
-        this.mContext = context;
-        initDialog();
+        this(context, theme, 0.3f);
     }
 
-    private void initDialog() {
+    public LoadingDialog(Context context, int theme, float dimAmount) {
+        super(context, theme);
+        this.mContext = context;
+        initDialog(dimAmount);
+    }
+
+    private void initDialog(float dimAmount) {
         setContentView(getDialogContentView());
         // 按返回键是否取消
         setCancelable(true);
@@ -45,7 +49,7 @@ public class LoadingDialog extends Dialog {
         getWindow().getAttributes().gravity = Gravity.CENTER;
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         // 设置背景层透明度
-        lp.dimAmount = 0.3f;
+        lp.dimAmount = dimAmount;
         getWindow().setAttributes(lp);
         // dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
     }
@@ -65,7 +69,7 @@ public class LoadingDialog extends Dialog {
         AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
         progressView.setIndicatorId(indicatorId);
 
-        if (indicatorColor > 0) {
+        if (indicatorColor != 0) {
             progressView.setIndicatorColor(indicatorColor);
         }
     }
@@ -77,18 +81,22 @@ public class LoadingDialog extends Dialog {
         }
     }
 
-
     public void setMessage(CharSequence message) {
-        if (!TextUtils.isEmpty(message)) {
-            TextView txt = (TextView) findViewById(R.id.message);
-            txt.setText(message);
+        if (tvMsg == null) return;
+
+        if (TextUtils.isEmpty(message)) {
+            tvMsg.setVisibility(View.GONE);
+        } else {
+            tvMsg.setVisibility(View.VISIBLE);
+            tvMsg.setText(message);
         }
     }
 
     public void setTextColor(int textColor) {
+        if (tvMsg == null) return;
+
         if (textColor != 0) {
-            TextView txt = (TextView) findViewById(R.id.message);
-            txt.setTextColor(textColor);
+            tvMsg.setTextColor(textColor);
         }
     }
 

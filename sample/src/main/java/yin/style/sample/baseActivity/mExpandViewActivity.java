@@ -25,28 +25,44 @@ public class mExpandViewActivity extends RecyclerViewActivity {
         titleLayout.setTextRight("添加", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Group> list = new ArrayList<>();
-                for (int i = 0; i < 5; i++) {
-                    List<Group.GroupItem> l = new ArrayList<>();
-                    for (int j = 0; j < 5; j++) {
-                        Group.GroupItem item = new Group.GroupItem("测试" + j);
-                        l.add(item);
+//                List<Group> list = new ArrayList<>();
+//                for (int i = 0; i < 5; i++) {
+//                    List<Group.GroupItem> l = new ArrayList<>();
+//                    for (int j = 0; j < 5; j++) {
+//                        Group.GroupItem item = new Group.GroupItem("测试" + j);
+//                        l.add(item);
+//                    }
+//                    Group g = new Group("抬头", l);
+//                    list.add(g);
+//                }
+//
+//                adapter.setData(list, true);
+                ToastUtils.show("刷新");
+                index++;
+                for (int i = 0; i < list.size(); i++) {
+                    for (int j = 0; j < list.get(i).getGroupItems().size(); j++) {
+                        list.get(i).getGroupItems().get(j).setTitle("测试_" + i + "_" + j + "_" + index);
+                        list.get(i).getGroupItems().get(j).setTitle("测试_" + i + "_" + j + "_" + index);
+                        if (index    % 2 == 0)
+                            list.get(i).getGroupItems().get(j).setImage("http://e.hiphotos.baidu.com/zhidao/pic/item/3812b31bb051f81962b410e8dbb44aed2f73e7fb.jpg");
+                        else
+                            list.get(i).getGroupItems().get(j).setImage("http://attach.bbs.miui.com/forum/201209/11/222515j3sgvvjv36gg5n29.jpg");
                     }
-                    Group g = new Group("抬头", l);
-                    list.add(g);
                 }
-
-                adapter.setData(list, true);
+                adapter.notifyDataSetChanged2();
             }
         });
     }
 
+    int index = 0;
+    List<Group> list = new ArrayList<>();
+
     @Override
     protected void initData() {
-        List<Group> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+
+        for (int i = 0; i < 50; i++) {
             List<Group.GroupItem> l = new ArrayList<>();
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 50; j++) {
                 Group.GroupItem item = new Group.GroupItem("测试" + j);
                 l.add(item);
             }
@@ -54,13 +70,13 @@ public class mExpandViewActivity extends RecyclerViewActivity {
             list.add(g);
         }
 
-        adapter.setData(list, false);
+//        adapter.setData(list, false);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     protected RecyclerView.Adapter setAdapter() {
-        adapter = new mExpandAdapter(this);
+        adapter = new mExpandAdapter(this, list);
 //        adapter.setOnItemClickListener(false, new OnExpandItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int groupPosition, int childPosition) {
@@ -69,7 +85,7 @@ public class mExpandViewActivity extends RecyclerViewActivity {
 //        });
         adapter.setDefaultExpand(true);
         adapter.setNotClose();
-        adapter.setOnlyOpenOne(true);
+//        adapter.setOnlyOpenOne(true);
         adapter.setOnItemClickLongListener(new OnExpandItemClickLongListener() {
             @Override
             public boolean onItemLongClick(View view, int groupPosition, int childPosition) {
