@@ -2,6 +2,7 @@ package yin.style.baselib.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -9,6 +10,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by chenY on 2017/1/11.
@@ -18,10 +21,10 @@ import android.view.WindowManager;
 
 public class ScreenUtil {
 
-    private ScreenUtil() {
-        /* cannot be instantiated */
-        throw new UnsupportedOperationException("cannot be instantiated");
-    }
+//    private ScreenUtil() {
+//        /* cannot be instantiated */
+//        throw new UnsupportedOperationException("cannot be instantiated");
+//    }
 
     /**
      * dp转换成px
@@ -159,7 +162,7 @@ public class ScreenUtil {
     }
 
     /**
-     * 状态高度的测量
+     * 顶部状态高度的测量 statusBar
      */
     public static int getStatusHeight(Context context) {
         //方法1: 通过系统尺寸资源获取
@@ -187,7 +190,44 @@ public class ScreenUtil {
     }
 
     /**
-     * 状态高度的测量
+     * 底部导航栏的高度  navigationBar
+     */
+    public static int getNavigationBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+//        Log.v("dbw", "Navi height:" + height);
+        return height;
+    }
+
+    /**
+     * 获取是否存在NavigationBar
+     */
+    public static boolean checkDeviceHasNavigationBar(Context context) {
+        boolean hasNavigationBar = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+
+        }
+        return hasNavigationBar;
+
+    }
+
+    /**
+     * 状态标题栏的高度
      */
     public static int getTitleHeight(Activity context) {
         try {

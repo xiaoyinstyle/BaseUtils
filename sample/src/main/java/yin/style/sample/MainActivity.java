@@ -20,6 +20,7 @@ import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.AppManager;
 import yin.style.baselib.utils.CheckCurrenrAppTools;
+import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
@@ -98,6 +99,10 @@ public class MainActivity extends TitleActivity {
 
     @Override
     protected void initData() {
+
+        Log.e(TAG, "initData:checkDeviceHasNavigationBar: " + ScreenUtil.checkDeviceHasNavigationBar(mContext));
+        Log.e(TAG, "initData:getNavigationBarHeight: " + ScreenUtil.getNavigationBarHeight(mContext));
+
         try {
             PhoneInfo info = new PhoneInfo(this);
             Logger.e(info.getProvidersName());
