@@ -30,12 +30,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import yin.style.baselib.activity.base.TitleActivity;
 import yin.style.baselib.activity.view.TitleLayout;
@@ -44,7 +40,6 @@ import yin.style.baselib.utils.FileUtils;
 import yin.style.sample.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class mImageActivity extends TitleActivity {

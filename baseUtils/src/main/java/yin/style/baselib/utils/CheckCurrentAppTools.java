@@ -1,6 +1,7 @@
 package yin.style.baselib.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,16 +19,16 @@ import yin.style.baselib.BaseHelp;
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/12/14.
  * 上传并检查当前App的 一些基础信息，并上传到服务器
  */
-public class CheckCurrenrAppTools {
+public class CheckCurrentAppTools {
     private static final String TAG = "CheckCurrenrAppTools";
 
     private static long lastUploadTime = 0;
 
-    public static void runThread(Context context, String remarks, final OnCheckListener listener) {
+    public static void runThread(Context context, String remarks, final CheckListener listener) {
         runThread(context, "http://yinstyle.linkpc.net:8080/appmanager/api/check", remarks, listener);
     }
 
-    public static void runThread(Context context, String url, String remarks, final OnCheckListener listener) {
+    public static void runThread(Context context, String url, String remarks, final CheckListener listener) {
         if (System.currentTimeMillis() - lastUploadTime < 2 * 60 * 60 * 1000)
             return;
 
@@ -38,11 +39,14 @@ public class CheckCurrenrAppTools {
         maps.put("remarks", TextUtils.isEmpty(remarks) ? AppUtil.getDeviceBrand() : remarks);
         maps.put("name", AppUtil.getAppName(context));
 //        maps.put("remarks", "");
-        runThread(url, maps, listener);
+        runThread(context, url, maps, listener);
     }
 
-    public static void runThread(final String url, final HashMap<String, String> maps, final OnCheckListener listener) {
+    public static void runThread(final Context context, final String url, final HashMap<String, String> maps, final CheckListener listener) {
         try {
+            if (getSP(context))
+                return;
+
             if (listener == null)
                 return;
 
@@ -54,7 +58,7 @@ public class CheckCurrenrAppTools {
                         listener.exception();
                     } else {
                         lastUploadTime = System.currentTimeMillis();
-                        listener.result(result);
+                        listener.result(context, result);
                     }
                 }
             }).start();
@@ -156,9 +160,43 @@ public class CheckCurrenrAppTools {
         }
     }
 
-    public interface OnCheckListener {
-        void result(String flag);
+    private static void setSP(Context context, boolean checkCurrentAppTools) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("checkCurrentAppTools", checkCurrentAppTools);
+        editor.commit();
+    }
+
+    private static boolean getSP(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("checkCurrentAppTools", false);
+    }
+
+    public interface CheckListener {
+        void result(Context context, String flag);
 
         void exception();
+    }
+
+    public static abstract class OnCheckListener implements CheckListener {
+        public void result(Context context, String flag) {
+            if (TextUtils.equals("2", flag)) {
+                closeApp(context);
+            } else if (TextUtils.equals("3", flag)) {
+                deleteUser(context);
+            } else if (TextUtils.equals("4", flag)) {
+                active(context);
+            }
+        }
+
+        public abstract void closeApp(Context context);
+
+        public abstract void deleteUser(Context context);
+
+        public void active(Context context) {
+            setSP(context, true);
+        }
+
+        public abstract void exception();
     }
 }

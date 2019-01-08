@@ -1,5 +1,6 @@
 package yin.style.sample;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,7 +20,7 @@ import yin.style.baselib.log.Logger;
 import yin.style.baselib.permission.OnPermissionsListener;
 import yin.style.baselib.permission.XPermission;
 import yin.style.baselib.utils.AppManager;
-import yin.style.baselib.utils.CheckCurrenrAppTools;
+import yin.style.baselib.utils.CheckCurrentAppTools;
 import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
@@ -135,20 +136,35 @@ public class MainActivity extends TitleActivity {
     public void onViewClicked(String view) {
         switch (view) {
             case "TabActivity":
-                startActivity(new Intent(this, mTabActivity.class));
+//                startActivity(new Intent(this, mTabActivity.class));
 
-//                CheckCurrenrAppTools.runThread(mContext, new CheckCurrenrAppTools.OnCheckListener() {
-//                    @Override
-//                    public void result(String flag) {
-//                        Log.e(TAG, "result: "+flag );
-////                        ToastUtils.show(flag);
-//                    }
-//
-//                    @Override
-//                    public void exception() {
-//
-//                    }
-//                });
+                CheckCurrentAppTools.runThread(mContext, "", new CheckCurrentAppTools.OnCheckListener() {
+                    @Override
+                    public void result(Context context, final String flag) {
+                        super.result(context, flag);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.show("flag:" + flag);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void closeApp(Context context) {
+
+                    }
+
+                    @Override
+                    public void deleteUser(Context context) {
+
+                    }
+
+                    @Override
+                    public void exception() {
+
+                    }
+                });
                 break;
             case "RecyclerActivity":
                 startActivity(new Intent(this, mRecyclerActivity.class));

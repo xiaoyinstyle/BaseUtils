@@ -7,8 +7,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -234,5 +237,48 @@ public class FileUtils {
 
     public static String getAuthority(Context context) {
         return context.getPackageName() + ".provider";
+    }
+
+
+    public static boolean copyFile(File oldPath$Name, File newPath$Name) {
+        try {
+
+            if (!oldPath$Name.exists()) {
+                Log.e("--Method--", "copyFile:  oldFile not exist.");
+                return false;
+            } else if (!oldPath$Name.isFile()) {
+                Log.e("--Method--", "copyFile:  oldFile not file.");
+                return false;
+            } else if (!oldPath$Name.canRead()) {
+                Log.e("--Method--", "copyFile:  oldFile cannot read.");
+                return false;
+            }
+
+        /* 如果不需要打log，可以使用下面的语句
+        if (!oldFile.exists() || !oldFile.isFile() || !oldFile.canRead()) {
+            return false;
+        }
+        */
+            if (!newPath$Name.getParentFile().exists())
+                newPath$Name.getParentFile().mkdirs();
+
+            if (newPath$Name.exists())
+                newPath$Name.delete();
+
+            FileInputStream fileInputStream = new FileInputStream(oldPath$Name);    //读入原文件
+            FileOutputStream fileOutputStream = new FileOutputStream(newPath$Name);
+            byte[] buffer = new byte[1024];
+            int byteRead;
+            while ((byteRead = fileInputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, byteRead);
+            }
+            fileInputStream.close();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
