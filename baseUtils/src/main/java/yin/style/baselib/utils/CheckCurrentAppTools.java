@@ -20,7 +20,7 @@ import yin.style.baselib.BaseHelp;
  * 上传并检查当前App的 一些基础信息，并上传到服务器
  */
 public class CheckCurrentAppTools {
-    private static final String TAG = "CheckCurrenrAppTools";
+    private static final String TAG = "CheckCurrentAppTools";
 
     private static long lastUploadTime = 0;
 
@@ -29,7 +29,7 @@ public class CheckCurrentAppTools {
     }
 
     public static void runThread(Context context, String url, String remarks, final CheckListener listener) {
-        if (System.currentTimeMillis() - lastUploadTime < 2 * 60 * 60 * 1000)
+        if (System.currentTimeMillis() - lastUploadTime > 0)
             return;
 
         HashMap<String, String> maps = new HashMap<>();
@@ -56,9 +56,13 @@ public class CheckCurrentAppTools {
                     String result = requestPost(url, maps);
                     if (result == null || result == "") {
                         listener.exception();
+                        lastUploadTime = System.currentTimeMillis() + 10 * 60 * 100;
                     } else {
-                        lastUploadTime = System.currentTimeMillis();
-                        listener.result(context, result);
+                        if (listener.result(context, result))
+                            lastUploadTime = System.currentTimeMillis() + 2 * 60 * 60 * 100;
+                        else {
+                            lastUploadTime = System.currentTimeMillis() + 10 * 60 * 100;
+                        }
                     }
                 }
             }).start();
@@ -173,28 +177,34 @@ public class CheckCurrentAppTools {
     }
 
     public interface CheckListener {
-        void result(Context context, String flag);
+        boolean result(Context context, String flag);
 
         void exception();
     }
 
+    /**
+     * 返回true  间隔两小时重新请求，返回false 间隔十分钟 重新请求
+     */
     public static abstract class OnCheckListener implements CheckListener {
-        public void result(Context context, String flag) {
+        public boolean result(Context context, String flag) {
             if (TextUtils.equals("2", flag)) {
-                closeApp(context);
+                return closeApp(context);
             } else if (TextUtils.equals("3", flag)) {
-                deleteUser(context);
+                return deleteUser(context);
             } else if (TextUtils.equals("4", flag)) {
-                active(context);
+                return active(context);
+            } else {
+                return true;
             }
         }
 
-        public abstract void closeApp(Context context);
+        public abstract boolean closeApp(Context context);
 
-        public abstract void deleteUser(Context context);
+        public abstract boolean deleteUser(Context context);
 
-        public void active(Context context) {
+        public boolean active(Context context) {
             setSP(context, true);
+            return true;
         }
 
         public abstract void exception();

@@ -140,24 +140,25 @@ public class MainActivity extends TitleActivity {
 
                 CheckCurrentAppTools.runThread(mContext, "", new CheckCurrentAppTools.OnCheckListener() {
                     @Override
-                    public void result(Context context, final String flag) {
-                        super.result(context, flag);
+                    public boolean result(Context context, final String flag) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 ToastUtils.show("flag:" + flag);
                             }
                         });
-                    }
-
-                    @Override
-                    public void closeApp(Context context) {
+                        return super.result(context, flag);
 
                     }
 
                     @Override
-                    public void deleteUser(Context context) {
+                    public boolean closeApp(Context context) {
+                        return false;
+                    }
 
+                    @Override
+                    public boolean deleteUser(Context context) {
+                        return false;
                     }
 
                     @Override
