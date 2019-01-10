@@ -74,6 +74,7 @@
             android:name=".WakeScreenActivity"
             android:excludeFromRecents="true" />
         <activity android:name=".utilsUI.AutoSizeActivity"></activity>
+        <activity android:name=".chronometer.ChrActivity"></activity>
     </application>
 
 </manifest>

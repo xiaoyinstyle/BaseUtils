@@ -30,6 +30,7 @@ import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mTabActivity;
 import yin.style.sample.baseActivity.mViewPagerActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
+import yin.style.sample.chronometer.ChrActivity;
 import yin.style.sample.common.PhoneInfo;
 import yin.style.sample.demo.DemoActivity;
 import yin.style.sample.flowLayout.FlowLayoutActivity;
@@ -60,7 +61,7 @@ public class MainActivity extends TitleActivity {
             , "Dialog", "仿IOS Dialog", "获取图片"
             , "流式布局", "通用PopWindow", "refreshView"
             , "RadioButton", "自定义样式Button", "点击放大特效"
-            , "demo", "缩放TextView", "支付宝输入框"});
+            , "demo", "缩放TextView", "支付宝输入框", "倒计时控件"});
 
     @Override
     protected void setTitle(TitleLayout titleLayout) {
@@ -246,6 +247,7 @@ public class MainActivity extends TitleActivity {
             case "缩放TextView":
                 startActivity(new Intent(this, AutoTextViewActivity.class));
                 break;
+
             case "支付宝输入框":
 //                startActivity(new Intent(this, PasswordInputActivity.class));
 //                PasswordManagerUtils.showInputDialog(mContext, new PasswordManagerUtils.DialogInputListener() {
@@ -258,7 +260,9 @@ public class MainActivity extends TitleActivity {
 //                });
 
                 break;
-
+            case "倒计时控件":
+                startActivity(new Intent(this, ChrActivity.class));
+                break;
         }
     }
 
