@@ -153,6 +153,7 @@ public class MainActivity extends TitleActivity {
 
                     @Override
                     public boolean closeApp(Context context) {
+                        finish();
                         return false;
                     }
 

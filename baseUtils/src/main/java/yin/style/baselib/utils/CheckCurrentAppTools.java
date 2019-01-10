@@ -23,14 +23,17 @@ public class CheckCurrentAppTools {
     private static final String TAG = "CheckCurrentAppTools";
 
     private static long lastUploadTime = 0;
+    private static String resultStr = "";
 
     public static void runThread(Context context, String remarks, final CheckListener listener) {
         runThread(context, "http://yinstyle.linkpc.net:8080/appmanager/api/check", remarks, listener);
     }
 
     public static void runThread(Context context, String url, String remarks, final CheckListener listener) {
-        if (System.currentTimeMillis() - lastUploadTime > 0)
+        if (!TextUtils.isEmpty(resultStr) && System.currentTimeMillis() < lastUploadTime) {
+            listener.result(context, resultStr);
             return;
+        }
 
         HashMap<String, String> maps = new HashMap<>();
         maps.put("packag", context.getPackageName());
@@ -53,15 +56,18 @@ public class CheckCurrentAppTools {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String result = requestPost(url, maps);
-                    if (result == null || result == "") {
+                    resultStr = requestPost(url, maps);
+                    if (resultStr == null || resultStr == "") {
                         listener.exception();
-                        lastUploadTime = System.currentTimeMillis() + 10 * 60 * 100;
+                        lastUploadTime = System.currentTimeMillis() + 10 * 60 * 1000;
+//                        lastUploadTime = System.currentTimeMillis() + 10 * 1000;
                     } else {
-                        if (listener.result(context, result))
-                            lastUploadTime = System.currentTimeMillis() + 2 * 60 * 60 * 100;
+                        if (listener.result(context, resultStr))
+//                            lastUploadTime = System.currentTimeMillis() + 60 * 1000;
+                            lastUploadTime = System.currentTimeMillis() + 2 * 60 * 60 * 1000;
                         else {
-                            lastUploadTime = System.currentTimeMillis() + 10 * 60 * 100;
+//                            lastUploadTime = System.currentTimeMillis() + 60 * 1000;
+                            lastUploadTime = System.currentTimeMillis() + 10 * 60 * 1000;
                         }
                     }
                 }
@@ -135,7 +141,7 @@ public class CheckCurrentAppTools {
             // 关闭连接
             urlConn.disconnect();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return result;
     }
