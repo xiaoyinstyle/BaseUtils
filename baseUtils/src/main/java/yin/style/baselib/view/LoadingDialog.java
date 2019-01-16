@@ -2,6 +2,7 @@ package yin.style.baselib.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import yin.style.baselib.R;
 public class LoadingDialog extends Dialog {
     private Context mContext;
     private TextView tvMsg;
+    private AVLoadingIndicatorView progressView;
 
     public LoadingDialog(Context context) {
         this(context, R.style.Loading_Progress);
@@ -59,14 +61,14 @@ public class LoadingDialog extends Dialog {
 
         tvMsg = (TextView) view.findViewById(R.id.message);
         tvMsg.setText("加载中...");
-        AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) view.findViewById(R.id.spinnerImageView);
+        progressView = (AVLoadingIndicatorView) view.findViewById(R.id.spinnerImageView);
         progressView.setIndicatorColor(Color.parseColor("#aa00b369"));
         progressView.setIndicatorId(AVLoadingIndicatorView.CubeTransition);
         return view;
     }
 
     public void setIndicator(@AVLoadingIndicatorView.Indicator int indicatorId, int indicatorColor) {
-        AVLoadingIndicatorView progressView = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
+        progressView = (AVLoadingIndicatorView) findViewById(R.id.spinnerImageView);
         progressView.setIndicatorId(indicatorId);
 
         if (indicatorColor != 0) {
@@ -108,6 +110,14 @@ public class LoadingDialog extends Dialog {
             imageView.setVisibility(View.VISIBLE);
             imageView.setImageResource(icon);
         }
+    }
+
+    /**
+     * 内存泄漏
+     */
+    public void destroy() {
+        if (progressView != null)
+            progressView.destroy();
     }
 
     // 监听返回键处理
@@ -184,6 +194,17 @@ public class LoadingDialog extends Dialog {
 
         public void show() {
             loadingDialog.show();
+        }
+
+        public void show(boolean autoDestroy) {
+            loadingDialog.show();
+            if (autoDestroy)
+                loadingDialog.setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        loadingDialog.destroy();
+                    }
+                });
         }
     }
 }
