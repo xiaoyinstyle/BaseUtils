@@ -39,6 +39,11 @@
         <item name="android:windowEnterAnimation">@anim/push_scale_right_in</item>
         <item name="android:windowExitAnimation">@anim/push_scale_right_out</item>
     </style>
+    <!--淡入淡出动画-->
+    <style name="AnimFade" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/push_fade_out</item>
+    </style>
 
 
     <style name="my_progress_style" parent="android:Widget.ProgressBar.Horizontal">
