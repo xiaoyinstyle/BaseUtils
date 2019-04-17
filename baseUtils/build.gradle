@@ -39,8 +39,8 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //图片加载glide
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-    api ('com.github.bumptech.glide:glide:4.6.1'){
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    api ('com.github.bumptech.glide:glide:4.8.0'){
         exclude module: 'support-fragment'
         exclude module: 'support-annotations'
     }

@@ -31,17 +31,17 @@ public class GlideRoundTransform extends BitmapTransformation {
     private float radius = 0f;
     float errorRange = 1f;
 
-    public GlideRoundTransform(Context context) {
-        this(context, 4);
+    public GlideRoundTransform() {
+        this(4);
     }
 
-    public GlideRoundTransform(Context context, int angle) {
-        super(context);
+    public GlideRoundTransform(int angle) {
+        super();
         this.radius = Resources.getSystem().getDisplayMetrics().density * angle;
     }
 
-    public GlideRoundTransform(Context context, int angle, float mBorderWidth, @ColorInt int borderColor) {
-        super(context);
+    public GlideRoundTransform(int angle, float mBorderWidth, @ColorInt int borderColor) {
+        super();
         this.radius = Resources.getSystem().getDisplayMetrics().density * angle;
 
         this.mBorderWidth = Resources.getSystem().getDisplayMetrics().density * mBorderWidth;

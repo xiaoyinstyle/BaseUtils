@@ -125,7 +125,7 @@ public class GlideUtil {
                 .apply(setGlide()
                         .error(error)
                         .placeholder(defaultCircleImage)
-                        .transform(new GlideCircleTransform(context))
+                        .transform(new GlideCircleTransform())
                 )
                 .into(imageView);
 
@@ -154,7 +154,7 @@ public class GlideUtil {
                 .apply(setGlide()
                         .error(error)
                         .placeholder(defaultCircleImage)
-                        .transform(new GlideCircleTransform(context, mborderWidth, mborderColor)))
+                        .transform(new GlideCircleTransform(mborderWidth, mborderColor)))
                 .into(imageView);
     }
 
@@ -184,7 +184,7 @@ public class GlideUtil {
         Glide.with(context).load(res)
                 .apply(setGlide()
                         .error(error)
-                        .transform(new GlideRoundTransform(context, angle))
+                        .transform(new GlideRoundTransform(angle))
                 )
                 .into(imageView);
     }
@@ -209,7 +209,7 @@ public class GlideUtil {
         Glide.with(context).load(res)
                 .apply(setGlide()
                         .error(error)
-                        .transform(new GlideRoundTransform(context, angle, mborderWidth, mborderColor))
+                        .transform(new GlideRoundTransform(angle, mborderWidth, mborderColor))
                 )
                 .into(imageView);
 
