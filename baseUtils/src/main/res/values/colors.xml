@@ -4,9 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="red_point">#FF3030</color>
-    <color name="base_line">#bebebe</color>
+    <color name="base_tab_line">#bebebe</color>
+    <color name="base_title_line">#bebebe</color>
     <color name="base_layout_background">#F4F4F4</color>
+    <color name="base_title_text">#FFFFFF</color>
+
+    <color name="red_point">#FF3030</color>
 
     <color name="color_white">#FFFFFF</color>
     <color name="grey_light">#DDDDDD</color>

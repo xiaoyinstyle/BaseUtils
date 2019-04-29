@@ -8,13 +8,13 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.BaseRefreshHeader;
+import com.jcodecraeer.xrecyclerview.LoadingMoreFooter;
 
 import yin.style.recyclerlib.view.EmptyView;
+import yin.style.recyclerlib.view.FooterView;
 import yin.style.recyclerlib.view.HeaderView;
 
 /**
@@ -24,12 +24,22 @@ import yin.style.recyclerlib.view.HeaderView;
  */
 
 public class BaseDividerItem extends RecyclerView.ItemDecoration {
-    private int space;
+    private int space = 1;
     private int color = Color.parseColor("#DCDCDC");
     private Drawable mDivider;
     private Paint mPaint;
+    private boolean showLast;//是否显示最后一行
 
     private boolean linerAround = false;//是否显示边框线
+
+    public BaseDividerItem() {
+        init(space, color, linerAround);
+    }
+
+    public BaseDividerItem(boolean showLast) {
+        this.showLast = showLast;
+        init(space, color, linerAround);
+    }
 
     public BaseDividerItem(int space) {
         init(space, color, linerAround);
@@ -46,6 +56,11 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     public BaseDividerItem(int space, Drawable mDivider) {
         this.space = space;
         this.mDivider = mDivider;
+    }
+
+
+    public void setShowLast(boolean showLast) {
+        this.showLast = showLast;
     }
 
     private void init(int space, int color, boolean linerAround) {
@@ -141,11 +156,17 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
         final int childSize = parent.getChildCount();
 
+        int other = 0;
         for (int i = 0; i < childSize; i++) {
             View child = parent.getChildAt(i);
-            if (child instanceof BaseRefreshHeader || child instanceof HeaderView)
+            if (child instanceof BaseRefreshHeader || child instanceof HeaderView
+                    || child instanceof FooterView || child instanceof LoadingMoreFooter) {
+                other++;
                 continue;
-
+            }
+            //不显示最后一行的间隔线
+            if (!showLast && i == childSize - 1 - other)
+                continue;
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             int left = child.getRight() + layoutParams.rightMargin;
             int right = left + space;
@@ -165,9 +186,16 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
         int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
 
+        int other = 0;
         for (int i = 0; i < childSize; i++) {
             View child = parent.getChildAt(i);
-            if (child instanceof BaseRefreshHeader || child instanceof HeaderView)
+            if (child instanceof BaseRefreshHeader || child instanceof HeaderView
+                    || child instanceof FooterView || child instanceof LoadingMoreFooter) {
+                other++;
+                continue;
+            }
+            //不显示最后一行的间隔线
+            if (!showLast && i == childSize - 1 - other)
                 continue;
 
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();

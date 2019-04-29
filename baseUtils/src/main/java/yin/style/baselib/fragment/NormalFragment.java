@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import yin.style.baselib.BaseHelp;
 import yin.style.baselib.R;
+import yin.style.baselib.activity.dialog.IDialog;
 import yin.style.baselib.activity.utils.NetViewUtils;
 import yin.style.baselib.activity.view.StatusBarView;
 
@@ -45,10 +45,15 @@ public abstract class NormalFragment extends Fragment {
 
     protected NetViewUtils netViewUtils;
 
+    private IDialog iDialog;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
+
+        iDialog = BaseHelp.getInstance().getIDialog(mContext);
+
         //动态加载content
         ViewGroup decorView = (ViewGroup) inflater.inflate(R.layout.base_activity, container, false);
         rootView = (LinearLayout) decorView.findViewById(R.id.base_root);
@@ -117,6 +122,10 @@ public abstract class NormalFragment extends Fragment {
         //当提示View被动态添加后直接关闭页面会导致该View内存溢出，所以需要在finish时移除
         if (netViewUtils != null)
             netViewUtils.finish();
+
+        //dialog
+        if (iDialog != null)
+            iDialog.destroy();
     }
 
     protected boolean setEventBus() {
@@ -207,5 +216,26 @@ public abstract class NormalFragment extends Fragment {
 
     protected View getNetView() {
         return netViewUtils.getNetView();
+    }
+
+
+
+    //代理模式下的 Dialog
+    public IDialog getDialog() {
+        return iDialog;
+    }
+
+    public void setIDialog(IDialog iNormalDialog) {
+        this.iDialog = iNormalDialog;
+    }
+
+    public void showDialog() {
+        if (iDialog != null)
+            iDialog.showDialog();
+    }
+
+    public void dismissDialog() {
+        if (iDialog != null)
+            iDialog.dismissDialog();
     }
 }

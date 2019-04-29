@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import yin.style.baselib.BaseHelp;
 import yin.style.baselib.R;
+import yin.style.baselib.activity.dialog.IDialog;
 import yin.style.baselib.activity.utils.NetViewUtils;
 import yin.style.baselib.activity.view.StatusBarView;
 import yin.style.baselib.utils.AppManager;
@@ -45,6 +46,10 @@ public abstract class NormalActivity extends AppCompatActivity {
 
     protected NetViewUtils netViewUtils;
 
+    private IDialog iDialog;
+
+    protected boolean barTextDark = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,9 @@ public abstract class NormalActivity extends AppCompatActivity {
         if (!removeAppManager())
             AppManager.getInstance().addActivity(this);//Activity 管理器
         mContext = this;
+
+        iDialog = BaseHelp.getInstance().getIDialog(mContext);//代理模式状态栏
+        barTextDark = BaseHelp.getInstance().getBarTextDark();//状态栏是否是黑色
 
         //动态加载content
         rootView = (LinearLayout) super.findViewById(R.id.base_root);
@@ -117,7 +125,8 @@ public abstract class NormalActivity extends AppCompatActivity {
             return;
         }
 
-        statusBarView.setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), false);
+//        statusBarView.setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), barTextDark);
+        setStatusBarView(mContext, true, getResources().getColor(R.color.colorPrimaryDark), barTextDark);
     }
 
     protected abstract int getViewByXml();
@@ -148,6 +157,10 @@ public abstract class NormalActivity extends AppCompatActivity {
         //当提示View被动态添加后直接关闭页面会导致该View内存溢出，所以需要在finish时移除
         if (netViewUtils != null)
             netViewUtils.finish();
+
+        //dialog
+        if (iDialog != null)
+            iDialog.destroy();
     }
 
     protected boolean setEventBus() {
@@ -196,5 +209,25 @@ public abstract class NormalActivity extends AppCompatActivity {
 
     protected View getNetView() {
         return netViewUtils.getNetView();
+    }
+
+
+    //代理模式下的 Dialog
+    public IDialog getDialog() {
+        return iDialog;
+    }
+
+    public void setIDialog(IDialog iNormalDialog) {
+        this.iDialog = iNormalDialog;
+    }
+
+    public void showDialog() {
+        if (iDialog != null)
+            iDialog.showDialog();
+    }
+
+    public void dismissDialog() {
+        if (iDialog != null)
+            iDialog.dismissDialog();
     }
 }

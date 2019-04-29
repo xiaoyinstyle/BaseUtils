@@ -1,7 +1,9 @@
 package yin.style.baselib;
 
+import android.app.Activity;
 import android.content.Context;
 
+import yin.style.baselib.activity.dialog.IDialog;
 import yin.style.baselib.utils.AppManager;
 
 /**
@@ -13,6 +15,7 @@ public class BaseHelp {
     private final String LOG_TAG = "LOG_TAG";
     private BaseListener baseListener;
     private static BaseHelp instance;
+    private IDialog normalDialog;
 
     public static BaseHelp getInstance() {
         if (instance == null)
@@ -61,6 +64,14 @@ public class BaseHelp {
         return baseListener == null ? false : baseListener.setEventBus();
     }
 
+    public IDialog getIDialog(Activity mActivity) {
+        return baseListener == null ? null : baseListener.getIDialog(mActivity);
+    }
+
+    public boolean getBarTextDark() {
+        return baseListener == null ? false : baseListener.getBarTextDark();
+    }
+
     public abstract static class BaseListener {
         public abstract boolean isDebug();
 
@@ -75,7 +86,11 @@ public class BaseHelp {
         public boolean setEventBus() {
             return false;
         }
+
+        public abstract IDialog getIDialog(Activity mActivity);
+
+        public boolean getBarTextDark() {
+            return false;
+        }
     }
-
-
 }

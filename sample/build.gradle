@@ -77,6 +77,10 @@ dependencies {
     implementation project(':updatelibrary')
 
     implementation project(':autolayout')
+
+
+    implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.lzy.net:okrx2:2.0.2'
 }
 
 //这里为Groovy的语法，大意就是将所有com.andriod.support的支持库版本强制为所制定的版本。所以依赖冲突问题解决。

@@ -77,7 +77,7 @@ public class CleanableEditText extends EditText {
 
     private void setRightDrawableSize() {
         if (clearImage_size <= 0)
-            clearImage_size = (int) (getTextSize() * 0.8f);
+            clearImage_size = (int) (getTextSize() * 0.95f);
 
         mRightDrawable.setBounds(0, 0, clearImage_size, clearImage_size);
     }

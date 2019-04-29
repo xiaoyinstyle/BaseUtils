@@ -5,7 +5,7 @@ package yin.style.baselib.log;
  */
 public final class Settings {
 
-    private int methodCount = 2;
+    private int methodCount = 0;
     private boolean showThreadInfo = true;
     private int methodOffset = 0;
 

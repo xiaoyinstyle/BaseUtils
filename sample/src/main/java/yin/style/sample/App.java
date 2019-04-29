@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
-//import okhttp3.OkHttpClient;
 import yin.style.baselib.BaseHelp;
+import yin.style.baselib.activity.dialog.IDialog;
+import yin.style.baselib.activity.dialog.NormalDialogProxy;
 import yin.style.sample.utils.DensityUtils;
 
-//import com.lzy.okgo.OkGo;
 import com.squareup.leakcanary.LeakCanary;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
@@ -57,6 +57,11 @@ public class App extends MultiDexApplication {
             @Override
             public boolean setEventBus() {
                 return true;
+            }
+
+            @Override
+            public IDialog getIDialog(Activity mActivity) {
+                return new NormalDialogProxy(mActivity);
             }
         });
         init();

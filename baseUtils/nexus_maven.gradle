@@ -1,0 +1,53 @@
+apply plugin: 'maven'
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
+javadoc {
+    options {
+        //如果你的项目里面有中文注释的话，必须将格式设置为UTF-8，不然会出现乱码
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        failOnError false
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://localhost:8081/repository/maven-releases/") {
+                authentication(userName: "admin", password: "admin123")
+            }
+            pom.project {
+                name 'baseUtils'
+                version '0.1.2-bate6'
+                artifactId 'baseUtils'
+                groupId 'yin.style.utils'
+                packaging 'aar'
+                description 'baseUtils for Android'
+            }
+        }
+    }
+}

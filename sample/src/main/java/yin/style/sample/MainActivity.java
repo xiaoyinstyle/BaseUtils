@@ -27,7 +27,6 @@ import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.sample.baseActivity.mExpandViewActivity;
 import yin.style.sample.baseActivity.mRecyclerActivity;
-import yin.style.sample.baseActivity.mTabActivity;
 import yin.style.sample.baseActivity.mViewPagerActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
 import yin.style.sample.chronometer.ChrActivity;
@@ -170,6 +169,29 @@ public class MainActivity extends TitleActivity {
                 });
                 break;
             case "RecyclerActivity":
+//                showDialog();
+//                showDialog();
+//                recycleView.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        showDialog();
+//
+//                        recycleView.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                dismissDialog();
+//
+//                                recycleView.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        dismissDialog();
+//                                        dismissDialog();
+//                                    }
+//                                }, 3000);
+//                            }
+//                        }, 3000);
+//                    }
+//                }, 3000);
                 startActivity(new Intent(this, mRecyclerActivity.class));
                 break;
             case "ExpandView":

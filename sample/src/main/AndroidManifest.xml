@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ADD_VOICEMAIL" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 亮屏的权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
