@@ -348,7 +348,7 @@ public class NiceImageView extends AppCompatImageView {
 
     public void setCornerTopRightRadius(int cornerTopRightRadius, boolean unitIsPx) {
         if (unitIsPx)
-            this.borderWidth = cornerTopRightRadius;
+            this.cornerTopRightRadius = cornerTopRightRadius;
         else
             this.cornerTopRightRadius = dp2px(context, cornerTopRightRadius);
         calculateRadiiAndRectF(true);
