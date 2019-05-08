@@ -46,12 +46,12 @@ uploadArchives {
                         password:  properties.getProperty("nexus.password"))
             }
             pom.project {
-                name 'baseUtils'
-                version '0.1.2-bate8'
-                artifactId 'baseUtils'
+                name 'RecyclerViewLib'
+                version '0.1.5'
+                artifactId 'recyclerlib'
                 groupId 'yin.style.utils'
                 packaging 'aar'
-                description 'baseUtils for Android'
+                description 'A recyclerView util.'
             }
         }
     }

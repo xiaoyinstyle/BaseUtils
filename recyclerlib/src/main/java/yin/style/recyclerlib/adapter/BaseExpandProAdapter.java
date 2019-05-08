@@ -32,10 +32,11 @@ public abstract class BaseExpandProAdapter<T> extends RecyclerView.Adapter<BaseV
     public static final int LAYOUT_GRID = 1;//网格
     public static final int LAYOUT_FLOW = 2;//流式
     public static final int LAYOUT_LINER = 3;//线性
+    public static final int LAYOUT_LINER_HORIZONTAL = 6;//线性
     public static final int LAYOUT_STAGGER_VERTICAL = 4;//瀑布流 VERTICAL
     public static final int LAYOUT_STAGGER_HORIZONTAL = 5;//瀑布流 HORIZONTAL
 
-    @IntDef({LAYOUT_GRID, LAYOUT_FLOW, LAYOUT_LINER, LAYOUT_STAGGER_VERTICAL, LAYOUT_STAGGER_HORIZONTAL})
+    @IntDef({LAYOUT_GRID, LAYOUT_FLOW, LAYOUT_LINER, LAYOUT_STAGGER_VERTICAL, LAYOUT_STAGGER_HORIZONTAL, LAYOUT_LINER_HORIZONTAL})
     public @interface LAYOUT_TYPE {
     }
 
@@ -216,7 +217,9 @@ public abstract class BaseExpandProAdapter<T> extends RecyclerView.Adapter<BaseV
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.VERTICAL);
         else if (getLayoutType(position) == LAYOUT_STAGGER_HORIZONTAL)
             return new StaggeredGridLayoutManager(getGridCount(position), StaggeredGridLayoutManager.HORIZONTAL);
-        else // (getLayoutType(position) == LAYOUT_LINER)
+        else if (getLayoutType(position) == LAYOUT_LINER_HORIZONTAL) {
+            return new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        } else // (getLayoutType(position) == LAYOUT_LINER)
             return new LinearLayoutManager(mContext);
     }
 

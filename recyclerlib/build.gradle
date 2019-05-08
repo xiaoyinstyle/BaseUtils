@@ -29,6 +29,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
 }
+
+apply from: './nexus_maven.gradle'
 //
 ////gradlew install
 ////gradlew bintrayUpload

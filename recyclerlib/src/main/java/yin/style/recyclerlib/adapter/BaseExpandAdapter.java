@@ -46,23 +46,23 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter {
      * 这是关键
      *
      * @param list
-     * @param isAdd
+     * @param isInit
      */
-    public void setData(List list, boolean isAdd) {
-        if (!isAdd)
+    public void setData(List list, boolean isInit) {
+        if (isInit)
             this.list.clear();
 
         this.list.addAll(list);
 
-        initGroupItemStatus(isAdd);
+        initGroupItemStatus(isInit);
         notifyDataSetChanged();
     }
 
     /**
      * 初始化一级列表开关状态
      */
-    private void initGroupItemStatus(boolean isAdd) {
-        if (!isAdd) {
+    private void initGroupItemStatus(boolean isInit) {
+        if (isInit) {
             mGroupItemStatus.clear();
             for (int i = 0; i < list.size(); i++) {
                 mGroupItemStatus.add(isDefaultExpand);
@@ -148,7 +148,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter {
                                 notifyItemRangeRemoved(holder.getAdapterPosition() + 1, getChild(groupIndex).size());
                             } else { // 一级标题关闭状态
                                 if (onlyOpenOne) {
-                                    initGroupItemStatus(false); // 1. 实现只展开一个组的功能，缺点是没有动画效果
+                                    initGroupItemStatus(true); // 1. 实现只展开一个组的功能，缺点是没有动画效果
                                     mGroupItemStatus.set(groupIndex, true);
                                     notifyDataSetChanged(); // 1. 实现只展开一个组的功能，缺点是没有动画效果
                                 } else {
@@ -295,7 +295,7 @@ public abstract class BaseExpandAdapter<T> extends RecyclerView.Adapter {
 
     protected abstract int getChildLayout(int pos);
 
-    protected abstract void setGroupViewHolder(BaseViewHolder holder, boolean aBoolean, int position);
+    protected abstract void setGroupViewHolder(BaseViewHolder baseViewHolder, boolean isOpen, int position);
 
     protected abstract void setChildViewHolder(BaseViewHolder baseViewHolder, int groupPosition, int childPosition);
 
