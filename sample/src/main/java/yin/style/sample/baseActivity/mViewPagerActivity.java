@@ -7,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-import yin.style.baselib.activity.adapter.FragmentAdapter;
 import yin.style.baselib.activity.base.ViewPagerActivity;
 import yin.style.baselib.activity.view.TitleLayout;
+import yin.style.baselib.view.design.XTabLayout;
 import yin.style.sample.R;
 import yin.style.sample.baseActivity.fragment.TabFragment;
 
@@ -25,9 +25,9 @@ public class mViewPagerActivity extends ViewPagerActivity {
     //    @Override
     protected void findView() {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mTabLayout = (XTabLayout) findViewById(R.id.tablayout);
 
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setTabMode(XTabLayout.MODE_FIXED);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
         mTabLayout.setTabTextColors(getResources().getColor(R.color.text_grey), getResources().getColor(R.color.text_black));
     }

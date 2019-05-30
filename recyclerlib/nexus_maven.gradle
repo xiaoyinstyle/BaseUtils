@@ -47,7 +47,7 @@ uploadArchives {
             }
             pom.project {
                 name 'RecyclerViewLib'
-                version '0.1.5'
+                version '0.1.5-bate2'
                 artifactId 'recyclerlib'
                 groupId 'yin.style.utils'
                 packaging 'aar'

@@ -54,7 +54,22 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         this.itemChildLongClickViewIds = new LinkedHashSet<>();
         convertView = view;
 
+        try {
+            com.zhy.autolayout.utils.AutoUtils.autoSize(itemView);
+        } catch (Exception e) {
+//        } catch (ClassNotFoundException e) {
+//          e.printStackTrace();
+        }
     }
+
+//    public static boolean isPresent(String name) {
+//        try {
+//            Thread.currentThread().getContextClassLoader().loadClass(name);
+//            return true;
+//        } catch (ClassNotFoundException e) {
+//            return false;
+//        }
+//    }
 
     public HashSet<Integer> getItemChildLongClickViewIds() {
         return itemChildLongClickViewIds;

@@ -1,10 +1,15 @@
 package yin.style.baselib.utils;
 
 import android.content.Context;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.widget.Toast;
 
 import yin.style.baselib.BaseHelp;
+import yin.style.baselib.BuildConfig;
 
 /**
  * Created by chenY on 2017/1/18.
@@ -15,9 +20,11 @@ import yin.style.baselib.BaseHelp;
 public class ToastUtils {
     private static Toast toast = null;
     public static boolean isShow = true;
+    // 主线程的Handler对象
+    private static Handler mHandler = new Handler(Looper.getMainLooper());
 
     private ToastUtils() {
-            /* cannot be instantiated */
+        /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
@@ -71,12 +78,20 @@ public class ToastUtils {
     }
 
     private static void showMessage(final Context context, final CharSequence message, final int time) {
-        if (toast == null) {
+//        Log.e("AAAAA", (toast == null) + "__" + message + "___show: " + System.currentTimeMillis());
+        if (Build.VERSION.SDK_INT >= 28) {
+            Toast.makeText(context.getApplicationContext(), message, time).show();
+        } else if (toast == null) {
             toast = Toast.makeText(context.getApplicationContext(), message, time);
+            toast.show();   // 会发现延迟之后就显示出来了
         } else {
+//            toast.cancel();
+//            toast = null;
+//            toast = Toast.makeText(context.getApplicationContext(), message, time);
             toast.setText(message);
+            toast.show();   // 会发现延迟之后就显示出来了
         }
-        toast.show();
+
 
     }
 

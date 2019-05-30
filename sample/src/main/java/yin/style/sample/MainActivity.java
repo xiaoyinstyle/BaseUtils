@@ -3,6 +3,7 @@ package yin.style.sample;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,8 +26,6 @@ import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
-import yin.style.sample.baseActivity.mExpandViewActivity;
-import yin.style.sample.baseActivity.mRecyclerActivity;
 import yin.style.sample.baseActivity.mViewPagerActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
 import yin.style.sample.chronometer.ChrActivity;
@@ -137,65 +136,26 @@ public class MainActivity extends TitleActivity {
         switch (view) {
             case "TabActivity":
 //                startActivity(new Intent(this, mTabActivity.class));
-
-                CheckCurrentAppTools.runThread(mContext, "", new CheckCurrentAppTools.OnCheckListener() {
-                    @Override
-                    public boolean result(Context context, final String flag) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ToastUtils.show("flag:" + flag);
-                            }
-                        });
-                        return super.result(context, flag);
-
-                    }
-
-                    @Override
-                    public boolean closeApp(Context context) {
-                        finish();
-                        return false;
-                    }
-
-                    @Override
-                    public boolean deleteUser(Context context) {
-                        return false;
-                    }
-
-                    @Override
-                    public void exception() {
-
-                    }
-                });
-                break;
-            case "RecyclerActivity":
-//                showDialog();
-//                showDialog();
-//                recycleView.postDelayed(new Runnable() {
+                ToastUtils.show("aaa");
+                ToastUtils.show("bbbb");
+//                new Handler().postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
-//                        showDialog();
-//
-//                        recycleView.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                dismissDialog();
-//
-//                                recycleView.postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        dismissDialog();
-//                                        dismissDialog();
-//                                    }
-//                                }, 3000);
-//                            }
-//                        }, 3000);
+//                        ToastUtils.show("bbb");
 //                    }
-//                }, 3000);
-                startActivity(new Intent(this, mRecyclerActivity.class));
+//                }, 200);
+//           checkService();
+                break;
+            case "RecyclerActivity":
+                ToastUtils.show("aaa");
+//                ToastUtils.show("bbb");
+//                startActivity(new Intent(this, mRecyclerActivity.class));
                 break;
             case "ExpandView":
-                startActivity(new Intent(this, mExpandViewActivity.class));
+                Toast.makeText(mContext, "ccc", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "aaa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "ddd", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(this, mExpandViewActivity.class));
                 break;
             case "mViewPagerActivity":
                 startActivity(new Intent(this, mViewPagerActivity.class));
@@ -289,4 +249,36 @@ public class MainActivity extends TitleActivity {
     }
 
     boolean b;
+
+    private void checkService() {
+        CheckCurrentAppTools.runThread(mContext, "", new CheckCurrentAppTools.OnCheckListener() {
+            @Override
+            public boolean result(Context context, final String flag) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtils.show("flag:" + flag);
+                    }
+                });
+                return super.result(context, flag);
+
+            }
+
+            @Override
+            public boolean closeApp(Context context) {
+                finish();
+                return false;
+            }
+
+            @Override
+            public boolean deleteUser(Context context) {
+                return false;
+            }
+
+            @Override
+            public void exception() {
+
+            }
+        });
+    }
 }

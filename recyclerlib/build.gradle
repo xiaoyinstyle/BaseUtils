@@ -23,11 +23,11 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:design:${rootProject.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    implementation project(':autolayout')
 }
 
 apply from: './nexus_maven.gradle'

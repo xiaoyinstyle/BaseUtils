@@ -240,4 +240,13 @@ public class TitleLayout extends FrameLayout {
             setPadding(0, 0, 0, 0);
         }
     }
+
+    /**
+     * 显示 间隔线
+     *
+     * @param show
+     */
+    public void showLine(boolean show) {
+        v_line.setVisibility(show ? VISIBLE : GONE);
+    }
 }

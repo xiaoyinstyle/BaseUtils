@@ -59,8 +59,9 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
     }
 
 
-    public void setShowLast(boolean showLast) {
+    public BaseDividerItem setShowLast(boolean showLast) {
         this.showLast = showLast;
+        return this;
     }
 
     private void init(int space, int color, boolean linerAround) {
@@ -165,7 +166,7 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
                 continue;
             }
             //不显示最后一行的间隔线
-            if (!showLast && i == childSize - 1 - other)
+            if (i > childSize - other - (showLast ? 0 : 1))
                 continue;
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             int left = child.getRight() + layoutParams.rightMargin;
@@ -195,7 +196,7 @@ public class BaseDividerItem extends RecyclerView.ItemDecoration {
                 continue;
             }
             //不显示最后一行的间隔线
-            if (!showLast && i == childSize - 1 - other)
+            if (i > childSize - other - (showLast ? 0 : 1))
                 continue;
 
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
