@@ -27,7 +27,7 @@ dependencies {
     implementation "com.android.support:design:${rootProject.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
     implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
-    implementation project(':autolayout')
+    compileOnly project(':autolayout')
 }
 
 apply from: './nexus_maven.gradle'

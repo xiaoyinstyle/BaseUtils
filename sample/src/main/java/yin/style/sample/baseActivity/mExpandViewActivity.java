@@ -83,8 +83,8 @@ public class mExpandViewActivity extends RecyclerViewActivity {
 //                ToastUtils.show(groupPosition + "__" + childPosition);
 //            }
 //        });
-        adapter.setDefaultExpand(true);
-        adapter.setNotClose();
+//        adapter.setDefaultExpand(true);
+//        adapter.setNotClose();
 //        adapter.setOnlyOpenOne(true);
         adapter.setOnItemClickLongListener(new OnExpandItemClickLongListener() {
             @Override

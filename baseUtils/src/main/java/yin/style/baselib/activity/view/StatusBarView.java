@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -35,7 +36,7 @@ public class StatusBarView extends LinearLayout {
     /**
      * 设置沉浸式
      */
-    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, @ColorInt int statusBarColor, boolean barTextDark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isShowStatus) {
                 StatusBarUtils.compat(activity, statusBarColor);

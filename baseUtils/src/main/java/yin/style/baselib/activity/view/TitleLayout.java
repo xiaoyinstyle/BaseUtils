@@ -107,6 +107,12 @@ public class TitleLayout extends FrameLayout {
         return title;
     }
 
+    public TextView setText(CharSequence titleText, @ColorInt int color) {
+        title.setText(titleText);
+        title.setTextColor(color);
+        return title;
+    }
+
     /**
      * 左边文字按钮
      *

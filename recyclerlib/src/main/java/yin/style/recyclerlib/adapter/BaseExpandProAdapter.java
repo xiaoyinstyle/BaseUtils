@@ -138,7 +138,7 @@ public abstract class BaseExpandProAdapter<T> extends RecyclerView.Adapter<BaseV
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         int i = list.isEmpty() ? 0 : list.size();
         //初始化 Expand 默认是否 展开状态
         if (isShowGroupItem == null || isShowGroupItem.length != i) {

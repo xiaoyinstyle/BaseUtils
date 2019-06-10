@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -176,7 +177,7 @@ public abstract class NormalActivity extends AppCompatActivity {
     /**
      * 设置沉浸式
      */
-    public boolean setStatusBarView(Activity activity, boolean isShowStatus, int statusBarColor, boolean barTextDark) {
+    public boolean setStatusBarView(Activity activity, boolean isShowStatus, @ColorInt int statusBarColor, boolean barTextDark) {
         return statusBarView.setStatusBarView(activity, isShowStatus, statusBarColor, barTextDark);
     }
 

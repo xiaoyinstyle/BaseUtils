@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import java.util.List;
 
 import yin.style.baselib.imageload.GlideUtil;
-import yin.style.recyclerlib.adapter.BaseExpandAdapter;
 import yin.style.recyclerlib.adapter.BaseExpandProAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
 import yin.style.sample.R;
@@ -22,15 +21,15 @@ public class mExpandAdapter extends BaseExpandProAdapter<Group> {
         super(context, list);
     }
 
-//    public mExpandAdapter(Context context) {
-//        super(context);
-////        setData(list, true);
-//    }
+    @Override
+    protected int getLayoutType(int position) {
+        return LAYOUT_GRID;
+    }
 
-//    @Override
-//    protected int getLayoutType(int position) {
-//        return LAYOUT_FLOW;
-//    }
+    @Override
+    protected int getGridCount(int position) {
+        return 2;
+    }
 
     @Override
     protected List getChild(int position) {

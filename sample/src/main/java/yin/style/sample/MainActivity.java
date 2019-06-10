@@ -26,6 +26,9 @@ import yin.style.baselib.utils.ScreenUtil;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.recyclerlib.adapter.BaseQuickAdapter;
 import yin.style.recyclerlib.holder.BaseViewHolder;
+import yin.style.sample.baseActivity.mExpandViewActivity;
+import yin.style.sample.baseActivity.mRecyclerActivity;
+import yin.style.sample.baseActivity.mTabActivity;
 import yin.style.sample.baseActivity.mViewPagerActivity;
 import yin.style.sample.baseActivity.mWebviewActivity;
 import yin.style.sample.chronometer.ChrActivity;
@@ -135,27 +138,14 @@ public class MainActivity extends TitleActivity {
     public void onViewClicked(String view) {
         switch (view) {
             case "TabActivity":
-//                startActivity(new Intent(this, mTabActivity.class));
-                ToastUtils.show("aaa");
-                ToastUtils.show("bbbb");
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ToastUtils.show("bbb");
-//                    }
-//                }, 200);
+                startActivity(new Intent(this, mTabActivity.class));
 //           checkService();
                 break;
             case "RecyclerActivity":
-                ToastUtils.show("aaa");
-//                ToastUtils.show("bbb");
-//                startActivity(new Intent(this, mRecyclerActivity.class));
+                startActivity(new Intent(this, mRecyclerActivity.class));
                 break;
             case "ExpandView":
-                Toast.makeText(mContext, "ccc", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "aaa", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "ddd", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(this, mExpandViewActivity.class));
+                startActivity(new Intent(this, mExpandViewActivity.class));
                 break;
             case "mViewPagerActivity":
                 startActivity(new Intent(this, mViewPagerActivity.class));
