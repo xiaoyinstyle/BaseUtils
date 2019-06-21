@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import yin.style.baselib.activity.dialog.IDialog;
+import yin.style.baselib.activity.dialog.NormalDialogProxy;
 import yin.style.baselib.utils.AppManager;
 
 /**
@@ -65,7 +66,8 @@ public class BaseHelp {
     }
 
     public IDialog getIDialog(Activity mActivity) {
-        return baseListener == null ? null : baseListener.getIDialog(mActivity);
+        IDialog iDialog = baseListener == null ? null : baseListener.getIDialog(mActivity);
+        return iDialog == null ? new NormalDialogProxy(mActivity) : iDialog;
     }
 
     public boolean getBarTextDark() {

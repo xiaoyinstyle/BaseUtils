@@ -70,7 +70,7 @@ public abstract class NormalActivity extends AppCompatActivity {
             AppManager.getInstance().addActivity(this);//Activity 管理器
         mContext = this;
 
-        iDialog = BaseHelp.getInstance().getIDialog(mContext);//代理模式状态栏
+        iDialog = BaseHelp.getInstance().getIDialog(mContext);//代理Dialog
         barTextDark = BaseHelp.getInstance().getBarTextDark();//状态栏是否是黑色
 
         //动态加载content

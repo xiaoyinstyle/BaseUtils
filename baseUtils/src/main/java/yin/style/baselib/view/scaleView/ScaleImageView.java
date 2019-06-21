@@ -11,13 +11,13 @@ import android.widget.TextView;
  * <p>
  * A {@link ImageView} that re-sizes
  *
- * @attr ref R.styleable.ScaleView_scale_weight_width
- * @attr ref R.styleable.ScaleView_scale_weight_height
- * @attr ref R.styleable.ScaleView_scale_references
- * @attr ref R.styleable.ScaleView_scale_max_width
- * @attr ref R.styleable.ScaleView_scale_max_height
- * @attr ref R.styleable.ScaleView_scale_min_width
- * @attr ref R.styleable.ScaleView_scale_min_height
+ *  ref R.styleable.ScaleView_scale_weight_width
+ *  ref R.styleable.ScaleView_scale_weight_height
+ *  ref R.styleable.ScaleView_scale_references
+ *  ref R.styleable.ScaleView_scale_max_width
+ *  ref R.styleable.ScaleView_scale_max_height
+ *  ref R.styleable.ScaleView_scale_min_width
+ *  ref R.styleable.ScaleView_scale_min_height
  */
 public class ScaleImageView extends ImageView {
 

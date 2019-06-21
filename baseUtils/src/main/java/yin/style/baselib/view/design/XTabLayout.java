@@ -290,6 +290,7 @@ public class XTabLayout extends HorizontalScrollView {
     private boolean mSetupViewPagerImplicitly;
 
     private int mTabLineOffset;//指示器的长度
+    boolean showMinWidth = true;
 
     public void setTabLineOffset(int mTabLineOffset) {
         this.mTabLineOffset = mTabLineOffset;
@@ -2100,7 +2101,7 @@ public class XTabLayout extends HorizontalScrollView {
             return mRequestedTabMinWidth;
         }
         // Else, we'll use the default value
-        return mMode == MODE_SCROLLABLE ? mScrollableTabMinWidth : 0;
+        return mMode == MODE_SCROLLABLE ? (showMinWidth ? mScrollableTabMinWidth : 0) : 0;
     }
 
     @Override
@@ -2237,5 +2238,22 @@ public class XTabLayout extends HorizontalScrollView {
         void setAutoRefresh(boolean autoRefresh) {
             mAutoRefresh = autoRefresh;
         }
+    }
+
+    public void setTabTextSize(float mTabTextSize, float mTabTextMultiLineSize) {
+        this.mTabTextSize = mTabTextSize;
+        this.mTabTextMultiLineSize = mTabTextMultiLineSize;
+    }
+
+    public void setTabPadding(int mTabPaddingStart, int mTabPaddingTop, int mTabPaddingEnd, int mTabPaddingBottom) {
+        this.mTabPaddingStart = mTabPaddingStart;
+        this.mTabPaddingTop = mTabPaddingTop;
+        this.mTabPaddingEnd = mTabPaddingEnd;
+        this.mTabPaddingBottom = mTabPaddingBottom;
+    }
+
+
+    public void setMinWidth(boolean showMinWidth) {
+        this.showMinWidth = showMinWidth;
     }
 }

@@ -47,7 +47,7 @@ uploadArchives {
             }
             pom.project {
                 name 'baseUtils'
-                version '0.1.2-bate8'
+                version '0.1.2-bate10'
                 artifactId 'baseUtils'
                 groupId 'yin.style.utils'
                 packaging 'aar'
