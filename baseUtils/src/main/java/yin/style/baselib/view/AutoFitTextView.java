@@ -2,7 +2,6 @@ package yin.style.baselib.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ import yin.style.baselib.view.autoTextView.AutoFitHelper;
  */
 
 /**
- * {@link android.support.v7.widget.AppCompatTextView} support-26 autoSize
+ * {@link androidx.appcompat.widget.AppCompatTextView} support-26 autoSize
  */
 @Deprecated
 public class AutoFitTextView extends TextView implements AutoFitHelper.OnTextSizeChangeListener {

@@ -1,7 +1,7 @@
 package yin.style.baselib.view.scaleView;
 
 import android.content.res.TypedArray;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,6 +1,6 @@
 package yin.style.baselib.utils;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;

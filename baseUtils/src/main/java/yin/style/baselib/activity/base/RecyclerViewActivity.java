@@ -3,16 +3,14 @@ package yin.style.baselib.activity.base;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import yin.style.baselib.R;
-
-import yin.style.recyclerlib.decoration.BaseDividerItem;
 
 /**
  * Created by ChneY on 2017/4/22.

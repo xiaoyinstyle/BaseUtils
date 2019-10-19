@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import yin.style.baselib.activity.view.StatusBarView;
-import yin.style.baselib.fragment.NormalFragment;
 
 /**
  * Created by 陈银 on 2017/12/15 10:15

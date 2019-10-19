@@ -1,0 +1,33 @@
+//gradlew clean build bintrayUpload
+// 快速发布插件
+apply plugin: "guru.stefma.bintrayrelease"
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// lib version
+version = "0.2.1"
+// 组名，一般同包名
+group = "yin.style.utils"
+// 组件信息配置
+androidArtifact {
+    // lib 组件 id
+    artifactId = "matisse"
+}
+// 即 'yin.style.utils:matisse:0.2.1'
+
+// 发布参数配置
+publish {
+    // bintray 用户名
+    userOrg = 'xiaoyinstyle'
+    // bintray repository 名称，填入在 bintray 创建的仓库名
+    repoName = 'maven'
+    // 不执行 --dry-run
+    dryRun = false
+    // lib 描述
+    desc = 'A recyclerlib util(androidx)'
+    // lib 开源地址，不重要
+    website = 'https://github.com/xiaoyinstyle/BaseUtils'
+
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+}

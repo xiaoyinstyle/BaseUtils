@@ -1,6 +1,6 @@
 package yin.style.sample.baseActivity;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import yin.style.baselib.activity.base.RecyclerViewActivity;
@@ -12,8 +12,6 @@ import yin.style.sample.baseActivity.adapter.mExpandAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import yin.style.recyclerlib.inter.OnExpandItemClickListener;
 
 public class mExpandViewActivity extends RecyclerViewActivity {
     private mExpandAdapter adapter;

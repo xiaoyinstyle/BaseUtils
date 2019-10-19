@@ -2,7 +2,7 @@ package yin.style.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDexApplication;
 
 import yin.style.baselib.BaseHelp;
 import yin.style.baselib.activity.dialog.IDialog;

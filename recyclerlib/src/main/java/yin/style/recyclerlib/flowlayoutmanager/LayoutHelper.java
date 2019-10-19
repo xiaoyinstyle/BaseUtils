@@ -1,7 +1,7 @@
 package yin.style.recyclerlib.flowlayoutmanager;
 
 import android.graphics.Point;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by 陈银 on 2016/4/11 12:25

@@ -1,10 +1,10 @@
 package yin.style.sample.utilsUI;
 
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -15,7 +15,6 @@ import android.widget.ListView;
 
 import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
 
-import yin.style.sample.utilsUI.view.HeaderView;
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.baselib.view.refreshView.RefreshLayout;
 import yin.style.sample.R;

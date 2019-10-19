@@ -3,7 +3,7 @@ package yin.style.baselib.imageload;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Looper;
-import android.support.annotation.ColorInt;
+import androidx.annotation.ColorInt;
 import android.text.TextUtils;
 import android.widget.ImageView;
 

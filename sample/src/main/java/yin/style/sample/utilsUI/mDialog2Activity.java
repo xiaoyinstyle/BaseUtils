@@ -12,7 +12,7 @@ import yin.style.baselib.view.IOSDialog;
 import yin.style.sample.R;
 
 
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

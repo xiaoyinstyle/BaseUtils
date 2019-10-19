@@ -3,7 +3,7 @@ package yin.style.baselib.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.text.TextUtils;
 
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;

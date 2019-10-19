@@ -7,14 +7,13 @@ buildscript {
 //        maven { url 'https://dl.bintray.com/xiaoyinstyle/maven/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.5.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'//注解
-        //jcenter  maven
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.0'//注解
+        //jcenter 插件  https://github.com/StefMa/bintray-release
+        classpath "guru.stefma.bintrayrelease:bintrayrelease:1.1.2"
 
 //        //gradle-retrolambda配置
 //        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
@@ -37,11 +36,11 @@ task clean(type: Delete) {
 
 
 ext {
-    supportLibVersion = '27.1.1'
+    supportLibVersion = '28.0.2'
 
-    compileSdkVersion = 27
-    minSdkVersion = 14
-    targetSdkVersion = 27
+    compileSdkVersion = 28
+    minSdkVersion = 19
+    targetSdkVersion = 28
     versionCode = 1
     versionName = 1.0
 }

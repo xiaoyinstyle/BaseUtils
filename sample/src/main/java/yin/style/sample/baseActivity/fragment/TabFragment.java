@@ -1,7 +1,7 @@
 package yin.style.sample.baseActivity.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 import android.widget.Button;
 import android.widget.TextView;
 

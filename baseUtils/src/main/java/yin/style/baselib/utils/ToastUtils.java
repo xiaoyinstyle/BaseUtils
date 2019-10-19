@@ -4,12 +4,11 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.StringRes;
-import android.util.Log;
+import androidx.annotation.StringRes;
+
 import android.widget.Toast;
 
 import yin.style.baselib.BaseHelp;
-import yin.style.baselib.BuildConfig;
 
 /**
  * Created by chenY on 2017/1/18.

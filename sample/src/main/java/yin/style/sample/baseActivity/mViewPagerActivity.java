@@ -1,10 +1,7 @@
 package yin.style.sample.baseActivity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-
-import com.zhy.autolayout.utils.AutoUtils;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

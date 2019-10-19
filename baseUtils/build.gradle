@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    lintOptions {
+//        abortOnError false
+//    }
+
 }
 
 //        resourcePrefix "base_"
@@ -27,64 +31,67 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
 //        implementation "com.android.support:support-v4:${rootProject.supportLibVersion}"
-    implementation "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
-    api "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
-    api "com.android.support:design:${rootProject.supportLibVersion}"
-    api "com.android.support:cardview-v7:${rootProject.supportLibVersion}"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.0.0'
+    api 'com.google.android.material:material:1.0.0'
+    api 'androidx.cardview:cardview:1.0.0'
 
 //        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    api 'com.android.support:multidex:1.0.2'
+    api 'androidx.multidex:multidex:2.0.0'
 
-    api 'io.reactivex.rxjava2:rxjava:2.1.1'
-    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.2.13'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     //图片加载glide
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    api ('com.github.bumptech.glide:glide:4.8.0'){
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    api('com.github.bumptech.glide:glide:4.9.0') {
         exclude module: 'support-fragment'
         exclude module: 'support-annotations'
     }
-    api "com.google.code.gson:gson:2.8.0"
+    api "com.google.code.gson:gson:2.8.6"
     //注解
-    api "com.jakewharton:butterknife:8.8.1"
-//        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-//
-//    compile "com.squareup.okhttp3:okhttp:3.4.1"
-//    compile 'com.zhy:okhttputils:2.6.2'
+    api "com.jakewharton:butterknife:10.2.0"
+    //annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
 
     compileOnly project(':recyclerlib')
 //    compile 'yin.style.utils:recyclerlib:0.1.3'
 
     api 'org.greenrobot:eventbus:3.1.1'
-
-//    //必须使用
-//    api 'com.lzy.net:okgo:3.0.4'
-//    api 'com.lzy.net:okrx2:2.0.2'
-
-    //内存泄漏管理
-    debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
 }
-apply from: './nexus_maven.gradle'
 
-//gradlew install
-//gradlew bintrayUpload
-//ext {
-//    upload_group_id = 'yin.style.utils'
-//    upload_version = '0.1.2-bate3'
-//
-//    site_url = 'https://github.com/xiaoyinstyle/BaseUtils'
-//    git_url = 'https://github.com/xiaoyinstyle/BaseUtils.git'
-//    git_issue_url = ''
-//
-//    bintray_pkg_repo = 'maven'
-//    bintray_pkg_name = 'baseUtils'
-//    bintray_pkg_desc = 'A base util.'
-//
-//    developer_id = 'xiaoyinstyle'
-//    developer_name = 'chneyin'
-//    developer_email = 'xiaoyinstyle@gmail.com'
-//}
-//
-//apply from: 'publish.gradle'
+//gradlew clean build bintrayUpload
+// 快速发布插件
+apply plugin: "guru.stefma.bintrayrelease"
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// lib version
+version = "0.2.1-bate1"
+// 组名，一般同包名
+group = "yin.style.utils"
+// 组件信息配置
+androidArtifact {
+    // lib 组件 id
+    artifactId = "baseUtils"
+}
+// 如上配置之后，将来引用的 path = group:artifactId:version
+// 即 'yin.style.utils:baseUtils:0.2.2-bate1'
+
+// 发布参数配置
+publish {
+    // bintray 用户名
+    userOrg = 'xiaoyinstyle'
+    // bintray repository 名称，填入在 bintray 创建的仓库名
+    repoName = 'maven'
+    // 不执行 --dry-run
+    dryRun = false
+    // lib 描述
+    desc = 'A base util(androidx)'
+    // lib 开源地址，不重要
+    website = 'https://github.com/xiaoyinstyle/BaseUtils'
+
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+}
+

@@ -1,13 +1,11 @@
 package yin.style.sample;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import yin.style.baselib.utils.ToastUtils;
 import yin.style.sample.utils.SignCheck;
-import yin.style.sample.utilsUI.AutoSizeActivity;
 
 /**
  * Author by ChneYin, Email 976370887@qq.com, Date on  2018/5/17.

@@ -2,7 +2,7 @@ package yin.style.sample.flowLayout;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import yin.style.baselib.fragment.NormalFragment;

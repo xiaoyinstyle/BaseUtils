@@ -1,14 +1,15 @@
 package yin.style.baselib.activity.base;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
 
 import yin.style.baselib.R;
 import yin.style.baselib.activity.adapter.TabAdapter;

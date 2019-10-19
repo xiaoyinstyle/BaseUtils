@@ -1,7 +1,7 @@
 package yin.style.baselib.activity.model;
 
-import android.support.annotation.ColorInt;
-import android.support.v4.app.Fragment;
+import androidx.annotation.ColorInt;
+import androidx.fragment.app.Fragment;
 
 /**
  * TabActivity 的导航条

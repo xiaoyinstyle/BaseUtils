@@ -1,11 +1,12 @@
 package com.zhy.autolayout;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 import com.zhy.autolayout.utils.AutoLayoutHelper;
+
+import androidx.gridlayout.widget.GridLayout;
 
 /**
  *

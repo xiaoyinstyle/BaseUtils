@@ -2,7 +2,7 @@ package yin.style.sample.baseActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;

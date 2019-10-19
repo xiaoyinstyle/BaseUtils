@@ -2,7 +2,7 @@ package yin.style.sample.baseActivity;
 
 
 import android.graphics.Color;
-import android.support.design.widget.TabLayout;
+import com.google.android.material.tabs.TabLayout;
 import android.view.View;
 
 import yin.style.baselib.utils.ToastUtils;

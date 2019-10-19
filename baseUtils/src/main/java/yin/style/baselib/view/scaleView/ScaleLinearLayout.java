@@ -1,15 +1,8 @@
 package yin.style.baselib.view.scaleView;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import yin.style.baselib.R;
 
 /**
  * Created by ChneY on 2017/5/7.
