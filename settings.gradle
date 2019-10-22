@@ -1,4 +1,4 @@
-include ':baseUtils', ':recyclerlib', ':swdemintools'//,'lib-ios-dialog'
+include ':baseUtils', ':recyclerlib'
 //include ':lib-ios-dialog'
 include ':sample'
 include ':matisse'
@@ -8,3 +8,6 @@ include ':autolayout'//https://github.com/hongyangAndroid/AndroidAutoLayout
 
 include ':myapplication'//,'lib-ios-dialog'
 include ':X5WebDemo'//,'lib-ios-dialog'
+
+include  ':swdemin-tools'
+include  ':swdemin-android'

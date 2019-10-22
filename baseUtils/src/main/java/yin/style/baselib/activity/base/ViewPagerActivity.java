@@ -52,6 +52,7 @@ public abstract class ViewPagerActivity extends TitleActivity {
             mTabLayout.setupWithViewPager(mViewPager);
 //        mTabLayout.setTabLineOffset(100);
 //        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        mTabLayout.setSelectedTabIndicatorHeight(8);
 //        mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
 //        mTabLayout.setTabTextColors(getResources().getColor(R.color.text_grey), getResources().getColor(R.color.text_black));
         }
