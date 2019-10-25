@@ -5,9 +5,11 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.View;
@@ -54,9 +56,10 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         convertView = view;
 
         try {
-            com.zhy.autolayout.utils.AutoUtils.autoSize(itemView);
+            Class<?> classBook = Class.forName("com.zhy.autolayout.utils.AutoUtils");
+            if (classBook != null)
+                com.zhy.autolayout.utils.AutoUtils.autoSize(itemView);
         } catch (Exception e) {
-//        } catch (ClassNotFoundException e) {
 //          e.printStackTrace();
         }
     }
