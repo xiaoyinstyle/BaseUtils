@@ -41,7 +41,7 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "http://yinstyle.linkpc.net:8081/repository/maven-releases/") {
+            repository(url: "http://localhost:8081/nexus/content/repositories/releases/") {
                 authentication(userName:  properties.getProperty("nexus.user"),
                         password:  properties.getProperty("nexus.password"))
             }
