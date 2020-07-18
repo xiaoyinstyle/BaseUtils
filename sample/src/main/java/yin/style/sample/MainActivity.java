@@ -39,6 +39,7 @@ import yin.style.sample.http.mOkgoActivity;
 import yin.style.sample.http.mNetworkActivity;
 import yin.style.sample.http.mUpdateActivity;
 import yin.style.sample.image.mImageActivity;
+import yin.style.sample.layoutManager.LayoutActivity;
 import yin.style.sample.other.AutoTextViewActivity;
 import yin.style.sample.photo.TakePhotoActivity;
 import yin.style.sample.utilsUI.mButtonActivity;
@@ -62,7 +63,9 @@ public class MainActivity extends TitleActivity {
             , "Dialog", "仿IOS Dialog", "获取图片"
             , "流式布局", "通用PopWindow", "refreshView"
             , "RadioButton", "自定义样式Button", "点击放大特效"
-            , "demo", "缩放TextView", "支付宝输入框", "倒计时控件"});
+            , "demo", "缩放TextView", "支付宝输入框", "倒计时控件"
+            , "自定义LayoutManager"
+    });
 
     @Override
     protected void setTitle(TitleLayout titleLayout) {
@@ -234,6 +237,9 @@ public class MainActivity extends TitleActivity {
                 break;
             case "倒计时控件":
                 startActivity(new Intent(this, ChrActivity.class));
+                break;
+            case "自定义LayoutManager":
+                startActivity(new Intent(this, LayoutActivity.class));
                 break;
         }
     }

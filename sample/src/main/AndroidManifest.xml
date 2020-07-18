@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ADD_VOICEMAIL" />
-
-    <!-- 亮屏的权限 -->
+    <uses-permission android:name="android.permission.ADD_VOICEMAIL" /> <!-- 亮屏的权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
@@ -26,6 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".layoutManager.LayoutActivity"></activity>
+
         <meta-data
             android:name="design_width"
             android:value="750" />
@@ -72,8 +72,8 @@
         <activity
             android:name=".WakeScreenActivity"
             android:excludeFromRecents="true" />
-        <activity android:name=".utilsUI.AutoSizeActivity"></activity>
-        <activity android:name=".chronometer.ChrActivity"></activity>
+        <activity android:name=".utilsUI.AutoSizeActivity" />
+        <activity android:name=".chronometer.ChrActivity" />
     </application>
 
 </manifest>
